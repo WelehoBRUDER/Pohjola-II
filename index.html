@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pohjola II - 0.1a</title>
+  <link rel="stylesheet" href="styles/background.css">
+  <link rel="stylesheet" href="styles/player.css">
+  <link rel="stylesheet" href="styles/combat.css">
+</head>
+<body>
+  <div id="gameWindow">
+    <div id="gameInfoTextPopUp"></div>
+    <div id="combatScreen">
+      <div id="playerWindow">
+        <div id="playerActionbar">
+          <div id="playerActionbar-fill"></div>
+          <p id="playerActionbar-percentage"></p>
+        </div>
+        <div id="playerHealthbar">
+          <div id="playerHealthbar-fill"></div>
+          <p id="playerHealthbar-number"></p>
+        </div>
+        <div id="playerManabar">
+          <div id="playerManabar-fill"></div>
+          <p id="playerManabar-number"></p>
+        </div>
+      </div>
+      <div id="playerButtons-container">
+        <div id="playerButtons">
+          <div id="atk-button"><p>ATK</p></div>
+          <div id="ski-button"><p>SKI</p></div>
+          <div id="mag-button"><p>MAG</p></div>
+          <div id="itm-button"><p>ITM</p></div>
+        </div>
+        <div id="playerButtons-open" class="slider--closed"></div>
+      </div>
+      <div id="eventWindow"></div>
+    </div>
+  </div>
+</body>
+</html>
+
+<script src="scripts/main.js"></script>
+<script src="scripts/items.js"></script>
+<script src="scripts/characters.js"></script>

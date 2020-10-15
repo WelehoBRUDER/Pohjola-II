@@ -1,0 +1,10 @@
+#eventWindow {
+  position: relative;
+  left: -0.5vw;
+  top: -0.5vw;
+  width: 25vw;
+  height: 52%;
+  background: rgb(45,45,45);
+  box-shadow: inset 0px 0px 0.75vw 0.5vw rgb(30, 30, 30);
+  border: 0.5vw solid rgb(10, 10, 10);
+}
