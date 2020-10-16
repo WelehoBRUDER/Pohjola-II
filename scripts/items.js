@@ -1,6 +1,7 @@
+const copy = (e) => {return JSON.parse(JSON.stringify(e));}
 
 function addItems(itm, amnt) {
-  let item = itm;
+  let item = copy(itm);
   item.amount = amnt;
   return item;
 }
@@ -8,13 +9,13 @@ function addItems(itm, amnt) {
 const weapons = {
   fists: {
     name: "Fists",
-    damage: 3,
+    damage: 20,
     type: "physical",
     speed_bonus: 5
   },
   broken_sword: {
     name: "Broken Sword",
-    damage: 2,
+    damage: 4,
     type: "physical",
     speed_bonus: 0
   }
@@ -22,11 +23,13 @@ const weapons = {
 
 const consumables = {
   inferior_healing_potion: {
+    id: "inferior_healing_potion",
     name: "Inferior Healing Potion",
-    value: 5,
+    value: 10,
     recover: "hp"
   },
   inferior_mana_potion: {
+    id: "inferior_mana_potion",
     name: "Inferior Mana Potion",
     value: 5,
     recover: "mp"

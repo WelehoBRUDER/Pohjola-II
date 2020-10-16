@@ -18,6 +18,7 @@
           <p id="playerActionbar-percentage"></p>
         </div>
         <div id="playerHealthbar">
+          <div id="playerHealthbar-taken"></div>
           <div id="playerHealthbar-fill"></div>
           <p id="playerHealthbar-number"></p>
         </div>
@@ -25,6 +26,7 @@
           <div id="playerManabar-fill"></div>
           <p id="playerManabar-number"></p>
         </div>
+        <div id="playerStatusEffects"></div>
       </div>
       <div id="playerButtons-container">
         <div id="playerButtons">
@@ -36,11 +38,36 @@
         <div id="playerButtons-open" class="slider--closed"></div>
       </div>
       <div id="eventWindow"></div>
+      <div id="enemyWindow">
+        <div id="enemyActionbar">
+          <div id="enemyActionbar-fill"></div>
+          <p id="enemyActionbar-percentage"></p>
+        </div>
+        <div id="enemyHealthbar">
+          <div id="enemyHealthbar-taken"></div>
+          <div id="enemyHealthbar-fill"></div>
+          <p id="enemyHealthbar-number"></p>
+        </div>
+        <div id="enemyManabar">
+          <div id="enemyManabar-fill"></div>
+          <p id="enemyManabar-number"></p>
+        </div>
+        <div id="enemyStatusEffects"></div>
+      </div>
+      <div id="enemySpriteContainer">
+        <p id="enemyName"></p>
+        <img src="" alt="" id="enemySprite">
+      </div>
+      <div id="playerSpriteContainer">
+        <p id="playerName"></p>
+        <img src="" alt="" id="playerSprite">
+      </div>
     </div>
   </div>
 </body>
 </html>
 
-<script src="scripts/main.js"></script>
 <script src="scripts/items.js"></script>
+<script src="scripts/moves.js"></script>
 <script src="scripts/characters.js"></script>
+<script src="scripts/main.js"></script>

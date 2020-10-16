@@ -1,3 +1,14 @@
+@font-face {
+  font-family: Charmonman;
+  src: url(../styles/Charmonman-Bold.ttf);
+}
+
+body {
+  overflow: hidden;
+  background: rgb(45,45,45);
+  background: linear-gradient(180deg, rgba(45,45,45,1) 0%, rgba(10,10,10,1) 100%);
+}
+
 #gameWindow {
   width: 100vw;
   height: 100%;
@@ -8,6 +19,7 @@
   top: 0px;
   user-select: none;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
 }
 
 #combatScreen {
@@ -23,7 +35,7 @@
   text-align: left;
   margin: 0px;
   padding: 0.25vw;
-  z-index: 1;
+  z-index: 5;
   height: max-content;
   overflow: hidden;
   border-radius: 0.2vw;
@@ -35,6 +47,46 @@
   width: 100%;
   margin: 0px;
   padding: 0px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: black transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px !important; /* for vertical scrollbars */
+  height: 6px !important; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: black !important;
+  border-radius: 3px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #525252;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(34, 34, 34);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(20, 20, 20);
 }
 
 

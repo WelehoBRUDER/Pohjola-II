@@ -1,6 +1,6 @@
 var player = {
   name: "Hero",
-  hp: 7,
+  hp: 20,
   mp: 10,
   maxhp: 20,
   maxmp: 10,
@@ -14,6 +14,12 @@ var player = {
   items: [
     addItems(consumables.inferior_healing_potion, 3)
   ],
+  moves: [
+    copy(moves.attack),
+    copy(moves.fireball),
+    copy(moves.pierce_through),
+    copy(moves.sundering_slash)
+  ],
   weapon: weapons.fists,
   xp: 0,
   xpCap: 10,
@@ -24,7 +30,9 @@ var player = {
   physical_resistance: 0,
   magical_resistance: 0,
   speed: 0,
-  action_points: 0
+  action_points: 0,
+  color: "rgb(50, 120, 50)",
+  statuses: []
 }
 
 const enemies = {
@@ -44,11 +52,18 @@ const enemies = {
     items: [
       addItems(consumables.inferior_healing_potion, 1)
     ],
+    moves: [
+      copy(moves.slice),
+      copy(moves.thrust)
+    ],
     weapon: weapons.broken_sword,
     xp: 5,
     level: 1,
-    physical_resistance: 0,
-    magical_resistance: 0
+    physical_resistance: 25,
+    magical_resistance: 0,
+    speed: 0,
+    action_points: 0,
+    statuses: []
   },
   goblin: {
     name: "Goblin",
@@ -66,10 +81,18 @@ const enemies = {
     items: [
       addItems(consumables.inferior_healing_potion, 1)
     ],
+    moves: [
+      copy(moves.slice),
+      copy(moves.thrust),
+      copy(moves.bash)
+    ],
     weapon: weapons.broken_sword,
     xp: 15,
     level: 2,
-    physical_resistance: 2,
-    magical_resistance: 2
+    physical_resistance: 5,
+    magical_resistance: 5,
+    speed: 0,
+    action_points: 0,
+    statuses: []
   }
 }

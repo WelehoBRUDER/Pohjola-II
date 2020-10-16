@@ -7,4 +7,369 @@
   background: rgb(45,45,45);
   box-shadow: inset 0px 0px 0.75vw 0.5vw rgb(30, 30, 30);
   border: 0.5vw solid rgb(10, 10, 10);
+  overflow-y: scroll;
+}
+
+#eventWindow p {
+  display: flex;
+  margin: 0%;
+  margin-left: 2.5%;
+}
+
+#eventWindow span {
+  color: white;
+  margin: 0vw;
+  font-size: 1vw;
+  text-shadow: 0px 0px 0.3vw black;
+}
+
+#enemyWindow {
+  position: absolute;
+  right: -0.5vw;
+  top: -0.5vw;
+  background: rgb(45,45,45);
+  width: 25vw;
+  height: 40%;
+  box-shadow: inset 0px 0px 0.75vw 0.5vw rgb(30, 30, 30);
+  border: 0.5vw solid rgb(10, 10, 10);
+}
+
+#enemyActionbar {
+  width: 20vw;
+  height: 10%;
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+  top: 5%;
+  background: rgb(25, 25, 25);
+  box-shadow: inset 0px 0px 0.25vw 0.2vw rgb(10, 10, 10);
+  border-radius: 1.5vw;
+  text-align: center;
+}
+
+#enemyActionbar-fill {
+  width: 100%;
+  height: 100%;
+  background:rgb(85, 165, 20);
+  background: linear-gradient(90deg, rgba(85, 165, 20,1) 0%, rgb(142, 235, 66) 10%, rgb(110, 196, 40) 25%, rgba(85, 165, 20,1) 100%);
+  animation-name: BarShineReverse;
+  animation-duration: 1s;
+  background-size: 200% 200%;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  box-shadow: 0px 0px 0.25vw 0.2vw rgb(60, 115, 15);
+  border-radius: 1.5vw;
+  position: absolute;
+  right: 0px;
+}
+
+#enemyActionbar-percentage {
+  color: white;
+  font-size: 1.75vw;
+  position: absolute;
+  right: 50%;
+  top: -2vw;
+  height: 100%;
+  transform: translateX(50%);
+  text-shadow: 0px 0px 0.5vw rgb(10, 10, 10);
+}
+
+#enemyHealthbar, #enemyManabar {
+  width: 9.5vw;
+  height: 8%;
+  position: absolute;
+  top: 20%;
+  background: rgb(25, 25, 25);
+  box-shadow: inset 0px 0px 0.25vw 0.2vw rgb(10, 10, 10);
+  border-radius: 0.25vw;
+}
+
+#enemyHealthbar {
+  right: 2.5vw;
+}
+
+#enemyManabar {
+  left: 2.5vw;
+}
+
+#enemyHealthbar-fill, #enemyManabar-fill {
+  transition: 0.35s;
+  width: 100%;
+  height: 100%;
+  background:rgb(165, 30, 20);;
+  background: linear-gradient(90deg, rgba(165, 30, 20,1) 0%, rgb(233, 74, 63) 10%, rgb(202, 53, 42) 25%, rgba(165, 30, 20,1) 100%);
+  animation-name: BarShineReverse;
+  animation-duration: 1.5s;
+  background-size: 200% 200%;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  box-shadow: 0px 0px 0.25vw 0.2vw rgb(107, 18, 11);
+  border-radius: 0.25vw;
+  position: absolute;
+  right: 0px;
+}
+
+#enemyHealthbar-taken {
+  transition: 0.95s cubic-bezier(0, 0, 0.15, 1.02);
+  transition-delay: 0.2s;
+  width: 100%;
+  height: 100%;
+  background:rgb(218, 60, 49);
+  background: linear-gradient(90deg, rgb(218, 60, 49,1) 0%, rgb(255, 120, 110) 10%, rgb(231, 91, 80) 25%, rgba(218, 60, 49,1) 100%);
+  animation-name: BarShineReverse;
+  animation-duration: 1.25s;
+  background-size: 200% 200%;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  border-radius: 0.25vw;
+  position: absolute;
+  right: 0px;
+}
+
+#enemyManabar-fill {
+  background:rgb(20, 88, 165);
+  background: linear-gradient(90deg, rgba(20, 88, 165,1) 0%, rgb(101, 162, 231) 10%,rgb(69, 133, 207) 25%, rgba(20, 88, 165,1) 100%);
+  box-shadow: 0px 0px 0.25vw 0.2vw rgb(12, 58, 110); 
+  animation-name: BarShineReverse;
+  animation-duration: 1.5s;
+  background-size: 200% 200%;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  position: absolute;
+  right: 0px;
+}
+
+#enemyHealthbar-number, #enemyManabar-number {
+  color: white;
+  font-size: 0.75vw;
+  position: absolute;
+  right: 50%;
+  top: -0.5vw;
+  height: 100%;
+  transform: translateX(50%);
+  text-shadow: 0px 0px 0.5vw rgb(10, 10, 10);
+  white-space: nowrap;
+}
+
+#enemySpriteContainer {
+  position: absolute;
+  right: 26vw;
+  top: 5vw;
+  width: max-content;
+  height: max-content;
+  text-align: center;
+}
+
+#enemySprite {
+  width: 15vw;
+  height: 15vw;
+  transform: scaleX(-1);
+  filter: drop-shadow(0.125vw 0.12vw 0.4vw red);
+}
+
+#enemyName {
+  position: absolute;
+  font-size: 1.25vw;
+  top: -10%;
+  left: 10%;
+  font-family: Charmonman;
+}
+
+#enemyStatusEffects {
+  width: 20vw;
+  height: 30%;
+  background: rgb(25, 25 , 25);
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+  top: 32%;
+  border-radius: 0.3vw;
+  box-shadow: inset 0vw 0vw 0.4vw 0.4vw rgb(5, 5, 5);
+}
+
+#enemyStatusEffects div {
+  width: 4vw;
+  height: max-content;
+  position: relative;
+  left: 0px;
+  top: 0px;
+  margin: 0.1vw;
+}
+
+#enemyStatusEffects img {
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  width: 3vw;
+}
+
+#enemyStatusEffects p {
+  position: absolute;
+  color: white;
+  font-size: 1vw;
+  left: 50%;
+  top: 1vw;
+  z-index: 2;
+  text-shadow: 0vw 0vw 0.4vw black;
+}
+
+@keyframes BarShineReverse {
+	0% {
+    background-position: 0% 50%;
+    }
+	100% {
+		background-position: 200% 50%;
+	}
+}
+
+@keyframes shake1 {
+  0% {
+      margin-left: 10px;
+      margin-top: 5px;
+  }
+  25% {
+      margin-left: -5px;
+      margin-top: 0px;
+  }
+  50% {
+      margin-left: 8px;
+      margin-top: 12px;
+  }
+  75% {
+      margin-left: -3px;
+      margin-top: 4px;
+  }
+  100% {
+      margin-left: 9px;
+      margin-top: -6px;
+  }
+}
+
+.shake1 {
+  animation-name: shake1;
+  animation-duration: 0.25s;
+}
+
+.shake2 {
+  animation-name: shake2;
+  animation-duration: 0.35s;
+}
+
+.heal {
+  animation-name: heal;
+  animation-duration: 1s;
+}
+
+.fly {
+  animation-name: upAndDown;
+  animation-duration: 1.2s;
+  animation-fill-mode: forwards;
+}
+
+.shoot {
+  animation-name: shoot;
+  animation-duration: 0.6s;
+  animation-fill-mode: forwards;
+}
+
+.particle {
+  position: absolute;
+  text-shadow: 0vw 0vw 0.4vw black;
+  z-index: 10;
+}
+
+.projectile {
+  position: absolute;
+  z-index: 10;
+  transition: 0.6s;
+  width: 5vw;
+  height: 5vw;
+}
+
+.enemy-attack {
+  animation-name: enemyAttack;
+  animation-duration: 2s;
+}
+
+@keyframes enemyAttack {
+  0% {
+    right: 26vw;
+  }
+  40% {
+    right: 48vw;
+  }
+  45% {
+    right: 48vw;
+  }
+  50% {
+    right: 46vw;
+  }
+  55% {
+    right: 53vw;
+  }
+  60% {
+    right: 53vw;
+  }
+  100% {
+    right: 26vw;
+  }
+}
+
+@keyframes shake2 {
+  0% {
+      margin-left: 9px;
+      margin-top: -4px;
+  }
+  25% {
+      margin-left: -12px;
+      margin-top: 3px;
+  }
+  50% {
+      margin-left: 2px;
+      margin-top: -9px;
+  }
+  75% {
+      margin-left: -6px;
+      margin-top: 1px;
+  }
+  100% {
+      margin-left: 7px;
+      margin-top: -6px;
+  }
+}
+
+@keyframes heal {
+  0% {
+    filter: grayscale(0) sepia(0) hue-rotate(0);
+  }
+  80% {
+    filter: grayscale(1) sepia(1) hue-rotate(75deg) brightness(7);
+  }
+  100% {
+    filter: grayscale(0) sepia(0) hue-rotate(0) brightness(1);
+  }
+}
+
+@keyframes upAndDown {
+  0% {
+    margin-top: 0%;
+  }
+  20% {
+    margin-top: -5%;
+  }
+  100% {
+    margin-top: 60%;
+  }
+}
+
+@keyframes shoot {
+  0% {
+    margin-top: 5%;
+  }
+  20% {
+    margin-top: 0%;
+  }
+  100% {
+    margin-top: 10%;
+  }
 }
