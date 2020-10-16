@@ -5,7 +5,7 @@ const add = (e) => {return game.appendChild(e);}
 const selectAll = (e) => {return document.querySelectorAll(e);}
 
 function Random(max, min = 0) {
-  return Math.floor((Math.random() * max - min) + min);
+  return Math.floor((Math.random() * (max - min)) + min);
 }
 
 function PercentOf(value, max) {
@@ -36,7 +36,8 @@ let state = {
   paused: false,
   turn: "none",
   action: false,
-  open: "none"
+  open: "none",
+  end: false
 }
 
 const colorCodes = [
@@ -102,6 +103,11 @@ let gauntlet = [
   copy(enemies.skeleton),
 ]
 
+let gauntletLoot = {
+  xp: 0,
+  gold: 0
+}
+
 let enemy = gauntlet[0];
 $("enemyName").textContent = "Lv" + enemy.level + " " + enemy.name;
 $("enemySprite").src = "images/" + enemy.name + ".png";
@@ -143,6 +149,9 @@ function Update() {
   // This makes sure that everything scales accordingly if screen is resized.
   clientWidth = game.offsetWidth;
   clientHeight = game.offsetHeight;
+
+  // Cancel update if battle has ended
+  if(state.end) return;
 
   // Player action bar fill sequence
   player.speed = (player.weapon.speed_bonus / 100) + player.stats.agi / 100;
@@ -349,6 +358,7 @@ function generateMagicalMoves() {
 function updateMagicalMoves() {
   for(let move of player.moves) {
     if(move.physical) continue;
+    if(!$(move.id)) continue;
     if(move.onCooldown > 0) {
       if($(move.id).childNodes[1]) {
         $(move.id).childNodes[1].textContent = Math.ceil(move.onCooldown) + "s";
@@ -371,6 +381,7 @@ function updateMagicalMoves() {
 function updateSkillMoves() {
   for(let move of player.moves) {
     if(!move.physical) continue;
+    if(!$(move.id)) continue;
     if(move.onCooldown > 0) {
       if($(move.id).childNodes[1]) {
         $(move.id).childNodes[1].textContent = Math.ceil(move.onCooldown) + "s";
@@ -736,20 +747,52 @@ function resistance_modifiers(char, res) {
 function battleEnd(condition) {
   if(condition == "victory") {
     gauntlet.splice(gauntlet[enemy], 1);
-    console.log("YOU DEFEATED " + enemy.name);
-    player.xp += enemy.xp * (enemy.level / player.level);
-    console.log("YOU GAINED " + enemy.xp * (enemy.level / player.level) + " XP!");
-    if(gauntlet.length > 0) {
-      enemy = gauntlet[0];
-    }
-    else {
-      console.log("YOU BEAT THEM ALL!");
-      enemy.hp = 1;
-      state.paused = true;
+    let xp = 0;
+    let gold = 0;
+    if(player.level > enemy.level) xp = enemy.xp * ((player.level - enemy.level)/20);
+    else xp = enemy.xp;
+    gold = Random(enemy.gold.max, enemy.gold.min);
+    gauntletLoot.xp += xp
+    gauntletLoot.gold += gold
+    state.end = true;
+    $("battleEndScreen").style.transform = "translateX(-50%) translateY(-50%) scale(1)";
+    $("conclusion").textContent = "VICTORY";
+    $("battleEndText").textContent = `You have defeated the ${enemy.name}! It drops ${xp} XP and ${gold} Gold! `;
+    if(gauntlet.length > 0) { 
+      $("battleEndText").textContent += " However, more enemies still await you deeper in the dungeon. Brace yourself for battle!";
+      $("battleEndButton").onclick = ()=>NextInGauntlet();
+    } else {
+      $("battleEndText").textContent += ` You have wiped out all enemies in the dungeon! This is a great victory! You gain ${gauntletLoot.xp} XP and ${gauntletLoot.gold} Gold!`;
+      $("battleEndButton").onclick = ()=>EndGauntlet("Victory");
     }
   } else if(condition == "defeat") {
-    state.paused = true;
+    state.end = true;
     player.hp = 1;
-    console.log("YOU LOST!");
+    $("battleEndScreen").style.transform = "translateX(-50%) translateY(-50%) scale(1)";
+    $("conclusion").textContent = "DEFEAT";
+    $("battleEndText").textContent = `You have been defeated by the ${enemy.name}, and thus lose all experience and gold from this battle!`;
+    $("battleEndButton").onclick = ()=>EndGauntlet("Defeat");
   }
+}
+
+function EndGauntlet(condition) {
+  if(condition == "Victory") {
+    player.xp += gauntletLoot.xp;
+    player.gold += gauntletLoot.gold;
+    gauntletLoot.xp = 0;
+    gauntletLoot.gold = 0;
+    $("combatScreen").style.display = "none";
+  } else if(condition == "Defeat") {
+    gauntletLoot.xp = 0;
+    gauntletLoot.gold = 0;
+    $("combatScreen").style.display = "none";
+  }
+}
+
+function NextInGauntlet() {
+  $("battleEndScreen").style.transform = "translateX(-50%) translateY(-50%) scale(0)";
+  player.action_points = 0;
+  enemy.action_points = 0;
+  state.end = false;
+  enemy = gauntlet[0];
 }

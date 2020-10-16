@@ -9,13 +9,13 @@ function addItems(itm, amnt) {
 const weapons = {
   fists: {
     name: "Fists",
-    damage: 20,
+    damage: 3,
     type: "physical",
     speed_bonus: 5
   },
   broken_sword: {
     name: "Broken Sword",
-    damage: 4,
+    damage: 5,
     type: "physical",
     speed_bonus: 0
   }

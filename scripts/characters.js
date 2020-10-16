@@ -15,10 +15,6 @@ var player = {
     addItems(consumables.inferior_healing_potion, 3)
   ],
   moves: [
-    copy(moves.attack),
-    copy(moves.fireball),
-    copy(moves.pierce_through),
-    copy(moves.sundering_slash)
   ],
   weapon: weapons.fists,
   xp: 0,
@@ -58,8 +54,12 @@ const enemies = {
     ],
     weapon: weapons.broken_sword,
     xp: 5,
+    gold: {
+      min: 3,
+      max: 9
+    },
     level: 1,
-    physical_resistance: 25,
+    physical_resistance: 0,
     magical_resistance: 0,
     speed: 0,
     action_points: 0,
@@ -88,6 +88,10 @@ const enemies = {
     ],
     weapon: weapons.broken_sword,
     xp: 15,
+    gold: {
+      min: 8,
+      max: 21
+    },
     level: 2,
     physical_resistance: 5,
     magical_resistance: 5,
