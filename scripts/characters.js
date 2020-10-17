@@ -14,7 +14,11 @@ var player = {
   items: [
     addItems(consumables.inferior_healing_potion, 3)
   ],
-  moves: [],
+  moves: [
+    copy(moves.pierce_through),
+    copy(moves.sundering_slash),
+    copy(moves.shields_up),
+  ],
   weapon: weapons.fists,
   xp: 0,
   xpCap: 10,
