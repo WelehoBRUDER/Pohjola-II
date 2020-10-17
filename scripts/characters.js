@@ -18,6 +18,7 @@ var player = {
     copy(moves.pierce_through),
     copy(moves.sundering_slash),
     copy(moves.shields_up),
+    copy(moves.fireball),
   ],
   weapon: weapons.fists,
   xp: 0,
