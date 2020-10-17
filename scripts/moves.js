@@ -44,13 +44,24 @@ const moves = {
     power: 0.6,
     penetration: 0,
     mp_cost: 0,
-    cooldown: 5,
+    cooldown: 7,
     physical: true,
     name: "Sundering Slash",
     onCooldown: 0,
     base: 0,
     id: "sundering_slash",
     status: "sundered"
+  },
+  shields_up: {
+    power: 0,
+    mp_cost: 0, 
+    cooldown: 10,
+    name: "Shields Up",
+    physical: true,
+    onCooldown: 0,
+    base: 0,
+    id: "shields_up",
+    status: "resistance"
   },
   bash: {
     power: 0.9,
@@ -59,6 +70,16 @@ const moves = {
     cooldown: 0,
     physical: true,
     name: "Bash",
+    onCooldown: 0,
+    base: 0
+  },
+  crush: {
+    power: 1.0,
+    penetration: 0.1,
+    mp_cost: 0,
+    cooldown: 5,
+    physical: true,
+    name: "Crush",
     onCooldown: 0,
     base: 0
   },
@@ -82,5 +103,12 @@ const statuses = {
     lasts: 5,
     name: "Sundered",
     id: "sundered"
+  },
+  resistance: {
+    power: 0.6,
+    target: "physical_resistance",
+    lasts: 5,
+    name: "Resistance",
+    id: "resistance"
   }
 }

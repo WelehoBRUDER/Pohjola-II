@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pohjola II - 0.1a</title>
+  <title>Pohjola II - 0.2a</title>
   <link rel="stylesheet" href="styles/background.css">
   <link rel="stylesheet" href="styles/player.css">
   <link rel="stylesheet" href="styles/combat.css">
+  <link rel="stylesheet" href="styles/lobby.css">
 </head>
 <body>
   <div id="gameWindow">
@@ -68,11 +69,40 @@
         <div id="battleEndButton">Continue</div>
       </div>
     </div>
+    <div id="mainScreen" hidden>
+      <div id="mainWindow">
+        <div id="mainWindowTopBar"></div>
+        <div id="mainWindowContainer"></div>
+      </div>
+      <div id="goldAndXp">
+        <div id="goldContainer">
+          <img src="images/gold.png" alt="" id="goldIcon">
+          <p id="goldNumber"></p>
+        </div>
+        <div id="xpContainer">
+          <img src="images/xp.png" alt="" id="xpIcon">
+          <p id="xpNumber">7/10</p>
+        </div>
+      </div>
+      <div id="xpBar">
+        <div id="xpBarFill"></div>
+      </div>
+      <div id="defaultSpriteView">
+        <img src="" alt="" id="defaultSprite">
+      </div>
+      <div id="skillsAndPerks">
+        
+      </div>
+      <div id="combatStats"></div>
+    </div>
   </div>
 </body>
 </html>
 
+<script src="scripts/texts.js"></script>
 <script src="scripts/items.js"></script>
 <script src="scripts/moves.js"></script>
 <script src="scripts/characters.js"></script>
+<script src="scripts/dungeon.js"></script>
 <script src="scripts/main.js"></script>
+<script src="scripts/lobby.js"></script>

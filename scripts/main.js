@@ -37,7 +37,8 @@ let state = {
   turn: "none",
   action: false,
   open: "none",
-  end: false
+  end: false,
+  stage: dungeon.floor1.stages.stage0
 }
 
 const colorCodes = [
@@ -78,30 +79,7 @@ function getManacost(char, id) {
   }
 }
 
-const texts = {
-  atkbutton: "Attack your opponent with your weapon. Damage is based on your weapon, enemy resistances and your stats.",
-  skibutton: "Open container for all of your skills.",
-  magbutton: "Open container for all of your spells and other magical powers.",
-  itmbutton: "Use an item from your inventory.",
-  actionPoints: "Your §/$Y/action bar§. When it is filled, it is your turn to attack. §/$Y/Fillrate§ depends on modifiers, items and stats. Current §/$Y/fillrate§: §$playerActionrate§ per second.",
-  healthPoints: "Your hit points. §/$R/HP§ goes down when attacked. When §/$R/HP§ reaches 0, you are §/$Y/defeated§.",
-  manaPoints: "Your mana points. §/$B/MP§ is used for certain §/$Y/skills§ and most §/$Y/spells§. §/$B/MP§ can be recovered by drinking §/$Y/potions§.",
-  enemyActionPoints: "§$enemy.name§'s §/$Y/action bar§. When it is filled, it's the §$enemy.name§'s turn to attack. §/$Y/Fillrate§ varies by enemy. §$enemy.name§'s §/$Y/fillrate§: §$enemyActionrate§ per second.",
-  enemyHealthPoints: "§$enemy.name§'s health points. Enemy §/$R/HP§ goes down when you attack them. When the §$enemy.name§'s §/$R/HP§ reaches 0, you win the battle.",
-  enemyManaPoints: "§$enemy.name§'s mana points. §/$B/MP§ goes down whenever the §$enemy.name§ uses special §/$Y/skills§ or §/$Y/spells§. Enemy can only recover §/$B/MP§ with potions.",
-  player: "This is your sprite. Your sprite represents you in battle, and will attack, heal and be attacked in your place.",
-  enemy: "This is the §$enemy.name§'s sprite. It represents the §$enemy.name§ in battle, and will attack you.",
-  pierce_through: "Deals §$getPower(player, pierce_through) * 100§% damage and ignores §$getPenetration(player, pierce_through) * 100§% of armor. Cooldown: §$getCooldown(player, pierce_through)§s",
-  fireball: "Deals §$getPower(player, fireball) * 100§% damage. §/$B/MP§ cost: §$getManacost(player, fireball)§",
-  inferior_healing_potion: "Recover 10 §/$R/HP§. Consumes your turn.",
-  sundering_slash: "Deals §$getPower(player, sundering_slash) * 100§% damage and inflicts status 'Sundered', that halves enemy physical resistance for 5 seconds.",
-  sundered: "§FS0.75FS/white/This character is sundered, reducing their physical resistance by 50%.§"
-}
-
-let gauntlet = [
-  copy(enemies.skeleton),
-  copy(enemies.skeleton),
-]
+let gauntlet = state.stage.gauntlet;
 
 let gauntletLoot = {
   xp: 0,
@@ -113,7 +91,7 @@ $("enemyName").textContent = "Lv" + enemy.level + " " + enemy.name;
 $("enemySprite").src = "images/" + enemy.name + ".png";
 EnemyNameColor();
 $("playerName").textContent = "Lv" + player.level + " " + player.name;
-$("playerSprite").src = "images/" + enemy.name + ".png";
+$("playerSprite").src = "images/" + player.sprite + ".png";
 $("playerName").style.color = player.color;
 $("playerName").style.textShadow = `0.1vw 0.1vw 0.3vw ${player.color}`;
 $("playerSprite").style.filter = `drop-shadow(0.125vw 0.12vw 0.4vw ${player.color})`;
@@ -533,7 +511,14 @@ function Ability(move) {
   state.action = true;
   move.onCooldown = move.cooldown;
   smallUpdate();
-  if(move.physical) {
+  if(move.power <= 0) {
+    $("playerSprite").classList.add("heal");
+    player.statuses.push(copy(statuses[move.status]));
+    createParticle(move.name, B, $("playerSprite"));
+    createEventlog(player.name, move.name);
+    setTimeout(reset, 1000);
+  }
+  else if(move.physical) {
     $("playerSpriteContainer").classList.add("player-attack");
     setTimeout(()=>hurtEnemy(move), 1050);
     setTimeout(reset, 2000);
@@ -553,6 +538,11 @@ function resetProjectile() {
 }
 
 function attackEnemy() {
+  if(enemy.dodge >= Math.random()) {
+    createParticle("DODGE", Y, $("enemySprite"));
+    createEventlog(player.name, "attack");
+    return;
+  }
   game.classList.add("shake1");
   $("enemySpriteContainer").classList.add("shake2");
   let damage = 0;
@@ -567,6 +557,12 @@ function attackEnemy() {
 
 
 function enemyAttacks(attack) {
+  if(player.dodge >= Math.random()) {
+    createParticle("DODGE", Y, $("playerSprite"));
+    createEventlog(enemy.name, attack.name);
+    enemy.mp -= attack.mp_cost;
+    return;
+  }
   game.classList.add("shake1");
   $("playerSpriteContainer").classList.add("shake2");
   let damage = 0;
@@ -662,6 +658,12 @@ function createProjectile(id, start) {
 }
 
 function hurtEnemy(move) {
+  if(enemy.dodge >= Math.random()) {
+    createParticle("DODGE", Y, $("enemySprite"));
+    createEventlog(player.name, move.name);
+    player.mp -= move.mp_cost;
+    return;
+  }
   game.classList.add("shake1");
   $("enemySpriteContainer").classList.add("shake2");
   let damage = 0;
@@ -749,9 +751,10 @@ function battleEnd(condition) {
     gauntlet.splice(gauntlet[enemy], 1);
     let xp = 0;
     let gold = 0;
-    if(player.level > enemy.level) xp = enemy.xp * ((player.level - enemy.level)/20);
-    else xp = enemy.xp;
+    xp = enemy.xp;
+    xp = xp * (1 + player.stats.lck / 50);
     gold = Random(enemy.gold.max, enemy.gold.min);
+    gold = gold * (1 + player.stats.lck / 10);
     gauntletLoot.xp += xp
     gauntletLoot.gold += gold
     state.end = true;
@@ -770,22 +773,28 @@ function battleEnd(condition) {
     player.hp = 1;
     $("battleEndScreen").style.transform = "translateX(-50%) translateY(-50%) scale(1)";
     $("conclusion").textContent = "DEFEAT";
-    $("battleEndText").textContent = `You have been defeated by the ${enemy.name}, and thus lose all experience and gold from this battle!`;
+    $("battleEndText").textContent = `You have been defeated by the ${enemy.name}, and thus gain no gold and lose all of your experience!`;
     $("battleEndButton").onclick = ()=>EndGauntlet("Defeat");
   }
 }
 
 function EndGauntlet(condition) {
+  $("battleEndScreen").style.transform = "translate(-50%) translateY(-50%) scale(0)";
   if(condition == "Victory") {
     player.xp += gauntletLoot.xp;
     player.gold += gauntletLoot.gold;
     gauntletLoot.xp = 0;
     gauntletLoot.gold = 0;
     $("combatScreen").style.display = "none";
+    $("mainScreen").style.display = "block";
+    updateLeftValues();
   } else if(condition == "Defeat") {
     gauntletLoot.xp = 0;
     gauntletLoot.gold = 0;
+    player.xp = 0;
     $("combatScreen").style.display = "none";
+    $("mainScreen").style.display = "block";
+    updateLeftValues();
   }
 }
 
@@ -795,4 +804,7 @@ function NextInGauntlet() {
   enemy.action_points = 0;
   state.end = false;
   enemy = gauntlet[0];
+  $("enemyName").textContent = "Lv" + enemy.level + " " + enemy.name;
+  $("enemySprite").src = "images/" + enemy.name + ".png";
+  EnemyNameColor();
 }

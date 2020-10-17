@@ -228,6 +228,32 @@
   box-shadow: inset 0vw 0vw 0.4vw 0.4vw rgb(5, 5, 5);
 }
 
+#playerStatusEffects div {
+  width: 4vw;
+  height: max-content;
+  position: relative;
+  left: 0px;
+  top: 0px;
+  margin: 0.1vw;
+}
+
+#playerStatusEffects img {
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  width: 3vw;
+}
+
+#playerStatusEffects p {
+  position: absolute;
+  color: white;
+  font-size: 1vw;
+  left: 50%;
+  top: 1vw;
+  z-index: 2;
+  text-shadow: 0vw 0vw 0.4vw black;
+}
+
 .item {
   width: 7vw;
   height: 6vw;
