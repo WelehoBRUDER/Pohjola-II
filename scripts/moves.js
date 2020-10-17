@@ -40,6 +40,17 @@ const moves = {
     base: 0,
     id: "pierce_through"
   },
+  heavy_attack: {
+    power: 1.5,
+    penetration: 0,
+    mp_cost: 0,
+    cooldown: 4,
+    physical: true,
+    name: "Heavy Attack",
+    onCooldown: 0,
+    base: 0,
+    id: "heavy_attack"
+  },
   sundering_slash: {
     power: 0.6,
     penetration: 0,
@@ -92,7 +103,7 @@ const moves = {
     name: "Fireball",
     onCooldown: 0,
     id: "fireball",
-    base: 3
+    base: 2
   }
 }
 

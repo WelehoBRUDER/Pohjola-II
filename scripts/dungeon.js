@@ -72,6 +72,22 @@ let dungeon = {
         gauntlet: [
           copy(enemies.skeleton_knight),
         ]
+      },
+      stage9: {
+        name: "Stage 9",
+        beaten: false,
+        gauntlet: [
+          copy(enemies.orc),
+          copy(enemies.orc),
+          copy(enemies.skeleton_knight),
+        ]
+      },
+      stage10: {
+        name: "Stage 10",
+        beaten: false,
+        gauntlet: [
+          copy(enemies.orc_berserker),
+        ]
       }
     }
   }

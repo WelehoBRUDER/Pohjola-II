@@ -30,6 +30,12 @@ const weapons = {
     damage: 8,
     type: "physical",
     speed_bonus: 2
+  },
+  battle_axe: {
+    name: "Battle Axe",
+    damage: 15,
+    type: "physical",
+    speed_bonus: 0
   }
 }
 
@@ -38,6 +44,12 @@ const consumables = {
     id: "inferior_healing_potion",
     name: "Inferior Healing Potion",
     value: 10,
+    recover: "hp"
+  },
+  lesser_healing_potion: {
+    id: "lesser_healing_potion",
+    name: "Lesser Healing Potion",
+    value: 25,
     recover: "hp"
   },
   inferior_mana_potion: {

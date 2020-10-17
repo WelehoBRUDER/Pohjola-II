@@ -256,3 +256,48 @@
   left: 15vw;
   bottom: 11vw;
 }
+
+.StageButton {
+  transition: 0.1s;
+  width: 7.8vw;
+  height: 3vw;
+  font-size: 1.25vw;
+  border: none;
+  background: rgb(30, 30, 30);
+  color: white;
+  box-shadow: inset 0vw 0vw 0.4vw 0.4vw rgb(5, 5, 5), 0vw 0vw 0.3vw 0.3vw black;
+  border-radius: 0.8vw;
+  margin: 1vw;
+  text-align: center;
+}
+
+.StageButton:hover {
+  background: rgb(51, 51, 51);
+  box-shadow: inset 0vw 0vw 0.4vw 0.4vw rgb(20, 20, 20), 0vw 0vw 0.3vw 0.3vw rgb(10, 10, 10);
+}
+
+.perkTree--perk {
+  transition: 0.1s;
+  width: 4vw;
+  height: 4vw;
+  border-radius: 100%;
+  border: 0.25vw solid black;
+  position: absolute;
+}
+
+.perkTree--perk-first {
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0.5vw;
+}
+
+.perkTree--img {
+  width: 4vw;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 100%;
+}
+
+.perkTree--perk:hover {
+  filter: brightness(1.5);
+}

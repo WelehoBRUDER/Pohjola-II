@@ -479,7 +479,8 @@ function textSyntax (txt) {
       currentText = row.split("/")[2];
       if(currentText.startsWith("$")) currentText = eval(currentText.split("$")[1]);
     }
-    if(size == null) container.innerHTML += `<span style="color: ${currentColor}">${currentText}</span>`;
+    if(currentText == ":br") container.innerHTML += "<br>";
+    else if(size == null) container.innerHTML += `<span style="color: ${currentColor}">${currentText}</span>`;
     else container.innerHTML += `<span style="color: ${currentColor}; font-size: ${size}vw">${currentText}</span>`;
   }
   return container;
@@ -623,6 +624,7 @@ function createEventlog(name, object) {
   log.appendChild(clock);
   log.appendChild(text);
   $("eventWindow").appendChild(log);
+  $("eventWindow").scrollBy(0, 2000);
 }
 
 

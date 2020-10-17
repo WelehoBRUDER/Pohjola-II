@@ -27,12 +27,12 @@ select("Character");
 
 function createTopBar() {
   $("mainWindowTopBar").textContent = "";
-  for(let button of topBarButtons) {
+  for (let button of topBarButtons) {
     let but = create("div");
     but.classList.add("mainWindowTopBar--button");
-    if(button.selected) but.classList.add("mainWindowTopBar--button-selected");
+    if (button.selected) but.classList.add("mainWindowTopBar--button-selected");
     but.textContent = button.name;
-    but.addEventListener('click', ()=>select(button.name));
+    but.addEventListener('click', () => select(button.name));
     let hover = button.name.toLowerCase();
     hover = hover.replace(/( & )/g, '_');
     addHoverBox(but, texts[hover], 10);
@@ -44,7 +44,7 @@ function updateLeftValues() {
   $("goldNumber").textContent = player.gold;
   $("xpNumber").textContent = player.xp + "/" + player.xpCap;
   $("xpBarFill").style.width = (player.xp / player.xpCap) * 100 + '%';
-  if(player.xp > player.xpCap) $("xpBarFill").style.width = "100%";
+  if (player.xp > player.xpCap) $("xpBarFill").style.width = "100%";
   $("defaultSprite").src = "images/" + player.sprite + ".png";
   $("skillsAndPerks").textContent = "";
   $("skillsAndPerks").appendChild(textSyntax("§/$Y/Stat points§: §$player.skillpoints§"));
@@ -56,13 +56,14 @@ function updateLeftValues() {
 
 function select(target) {
   updateLeftValues();
-  for(let but of topBarButtons) {
-    if(target == but.name) but.selected = true;
+  for (let but of topBarButtons) {
+    if (target == but.name) but.selected = true;
     else but.selected = false;
   }
   $("mainWindowContainer").textContent = "";
-  if(target == "Character") createCharacterScreen();
-  if(target == "Floors & Stages") createStageSelection();
+  if (target == "Character") createCharacterScreen();
+  if (target == "Floors & Stages") createStageSelection();
+  if (target == "Perks") createPerkTree();
   createTopBar();
 }
 
@@ -88,11 +89,11 @@ function createCharacterScreen() {
     </div>
     <div id="levelUpButton">Level Up</div>
   `;
-  for(let child of $("characterStats").childNodes) {
+  for (let child of $("characterStats").childNodes) {
     addHoverBox(child, texts[child.id], 12);
-    child.addEventListener('click', (e)=>UpgradeStat(e, child.id));
+    child.addEventListener('click', (e) => UpgradeStat(e, child.id));
   }
-  $("levelUpButton").addEventListener('click', (e)=>levelUp(e));
+  $("levelUpButton").addEventListener('click', (e) => levelUp(e));
 }
 function combatStatsView() {
   $("combatStats").textContent = "";
@@ -103,11 +104,11 @@ function combatStatsView() {
     </p>
     <p id="damage">
     <img src="images/damage_icon.png">
-    ${Math.floor(player.weapon.damage * (1 + player.stats.str/20))}
+    ${Math.floor(player.weapon.damage * (1 + player.stats.str / 20))}
     </p>
     <p id="dodge">
     <img src="images/dodge_icon.png">
-    ${player.dodge*100}%
+    ${player.dodge * 100}%
     </p>
     <p id="speed">
     <img src="images/speed_icon.png">
@@ -122,26 +123,26 @@ function combatStatsView() {
     ${player.maxmp}
     </p>
   `;
-  for(let child of combatStats.childNodes) {
+  for (let child of combatStats.childNodes) {
     addHoverBox(child, texts[child.id + "_info"], 12);
   }
 }
 
 function UpgradeStat(act, stat) {
-  if(player.skillpoints > 0 && !act.shiftKey) {
+  if (player.skillpoints > 0 && !act.shiftKey) {
     player.skillpoints--;
     player.stats[stat]++;
-    if(stat == "vit") player.maxhp += 10;
-    else if(stat == "int") player.maxmp += 5;
-  } else if(player.skillpoints >= 5 && act.shiftKey) {
+    if (stat == "vit") player.maxhp += 10;
+    else if (stat == "int") player.maxmp += 5;
+  } else if (player.skillpoints >= 5 && act.shiftKey) {
     player.skillpoints -= 5;
     player.stats[stat] += 5;
-    if(stat == "vit") player.maxhp += 50;
-    else if(stat == "int") player.maxmp += 25;
-  } else if(player.skillpoints < 5 && act.shiftKey) {
+    if (stat == "vit") player.maxhp += 50;
+    else if (stat == "int") player.maxmp += 25;
+  } else if (player.skillpoints < 5 && act.shiftKey) {
     player.stats[stat] += player.skillpoints;
-    if(stat == "vit") player.maxhp += 10 * player.skillpoints;
-    else if(stat == "int") player.maxmp += 5 * player.skillpoints;
+    if (stat == "vit") player.maxhp += 10 * player.skillpoints;
+    else if (stat == "int") player.maxmp += 5 * player.skillpoints;
     player.skillpoints = 0;
   }
   createCharacterScreen();
@@ -149,18 +150,18 @@ function UpgradeStat(act, stat) {
 }
 
 function levelUp(e) {
-  if(player.xp >= player.xpCap && !e.shiftKey) {
+  if (player.xp >= player.xpCap && !e.shiftKey) {
     player.level++;
     player.skillpoints += 3,
-    player.perkpoints += 1,
-    player.xp -= player.xpCap;
-    player.xpCap *= 1.21;
-  } else if(player.xp >= player.xpCap && e.shiftKey) {
-    while(player.xp >= player.xpCap) {
-      player.level++;
-      player.skillpoints += 3,
       player.perkpoints += 1,
       player.xp -= player.xpCap;
+    player.xpCap *= 1.21;
+  } else if (player.xp >= player.xpCap && e.shiftKey) {
+    while (player.xp >= player.xpCap) {
+      player.level++;
+      player.skillpoints += 3,
+        player.perkpoints += 1,
+        player.xp -= player.xpCap;
       player.xpCap *= 1.21;
     }
   }
@@ -180,11 +181,34 @@ function createStageSelection() {
 
 function createStages(floor) {
   let div = create("div");
-  for(let stage in floor.stages) {
-    if(floor.stages[stage].name == "Stage 0") continue;
+  for (let stage in floor.stages) {
+    if (floor.stages[stage].name == "Stage 0") continue;
     let but = create("button");
     but.textContent = floor.stages[stage].name;
-    but.addEventListener("click", ()=>startFight(floor.stages[stage]));
+    but.addEventListener("click", () => startFight(floor.stages[stage]));
+    but.classList.add("StageButton");
+    let foes = floor.stages[stage].gauntlet;
+    let list = [];
+    for (let foe of foes) {
+      let inList = list.filter(e => e.name == foe.name);
+      if (inList.length > 0) {
+        inList[0].amount += +1;
+      } else {
+        list.push({ name: foe.name, amount: 1, lvl: foe.level });
+      }
+    }
+    list = list.sort((x1, x2) => x2.lvl - x1.lvl);
+    let text = "";
+    for (let lit of list) {
+      let difference = lit.lvl - player.level;
+      for (let code of colorCodes) {
+        if (code.max >= difference) {
+          text += `${lit.amount}x §/${code.color}/${lit.name}§ §:br§`;
+          break;
+        };
+      }
+    }
+    addHoverBox(but, text, 9);
     div.appendChild(but);
   }
   return div;
@@ -208,4 +232,32 @@ function startFight(stage) {
   EnemyNameColor();
   $("combatScreen").style.display = "block";
   $("mainScreen").style.display = "none";
+  $("eventWindow").textContent = "";
+}
+
+function createPerkTree() {
+  $("mainWindowContainer").textContent = "";
+  for(let perk in selected_tree) {
+    if(perk == "colors") continue; 
+    let div = create("div");
+    div.classList.add("perkTree--perk");
+    div.style.background = selected_tree.colors.reg;
+    div.style.boxShadow = `inset 0vw 0vw 0.2vw 0.2vw ${selected_tree.colors.box}`;
+    let ico = create("img");
+    ico.src = "images/" + selected_tree[perk].icon + ".png";
+    ico.classList.add("perkTree--img");
+    if(perk.left) {
+
+    }
+    if(perk.right) {
+
+    }
+    if(perk.down) {
+
+    }
+    else div.classList.add("perkTree--perk-first");
+    addHoverBox(div, selected_tree[perk].name + "§:br§" + "§FS0.55FS/$Y/Hold shift for details§", selected_tree[perk].name.length/1.9, selected_tree[perk].desc);
+    div.appendChild(ico);
+    $("mainWindowContainer").appendChild(div);
+  }
 }

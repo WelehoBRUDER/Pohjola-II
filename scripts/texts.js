@@ -1,3 +1,4 @@
+
 const texts = {
   gold: "Your current §/$Y/gold§, a currency valued highly by merchants and bankers alike. §/$Y/Gold§ can be gained by beating enemies and completing §/$Y/quests§.",
   xp: "Your current §/$Y/XP§, experience points. §/$Y/XP§ is gained by defeating enemies, and allows you to level up when reaching the required amount (§$player.xpCap§).",
@@ -34,7 +35,8 @@ const texts = {
   pierce_through: "Deals §$getPower(player, pierce_through) * 100§% damage and ignores §$getPenetration(player, pierce_through) * 100§% of armor. Cooldown: §$getCooldown(player, pierce_through)§s",
   fireball: "Deals §$getPower(player, fireball) * 100§% damage. §/$B/MP§ cost: §$getManacost(player, fireball)§",
   inferior_healing_potion: "Recover 10 §/$R/HP§. Consumes your turn.",
-  sundering_slash: "Deals §$getPower(player, sundering_slash) * 100§% damage and inflicts status 'Sundered', that halves enemy physical resistance for 5 seconds. Cooldown: §$getCooldown(player, sundering_slash)§s",
+  sundering_slash: "§Deals§ §$getPower(player, sundering_slash) * 100§% damage and inflicts status 'Sundered', that halves enemy physical resistance for 5 seconds. Cooldown: §$getCooldown(player, sundering_slash)§s",
+  heavy_attack: "Deals §$getPower(player, heavy_attack) * 100§% damage to enemy. Cooldown: §$getCooldown(player, heavy_attack)§s",
   sundered: "§FS0.75FS/white/This character is sundered, reducing their physical resistance by 50%.§",
   shields_up: "Gives you the status 'Resistance', that increases your current physical resistance by 60%. Cooldown: §$getCooldown(player, shields_up)§s",
   resistance: "§FS0.75FS/white/This character is on guard, and thus their physical resistance is increased by 60% of its original value.§"

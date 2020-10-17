@@ -5,6 +5,8 @@
 - Added main screen, with character view and stat upgrading.
 - Changed player sprite
 - Added new icons
-- Added stage selection with 8 different stages so far
+- Added stage selection with 10 different stages so far
+- Made event log scroll automatically and wipe after battles.
+- Added new enemies
 # 0.1a
 - Initial combat update

@@ -16,9 +16,9 @@ var player = {
   ],
   moves: [
     copy(moves.pierce_through),
-    copy(moves.sundering_slash),
     copy(moves.shields_up),
     copy(moves.fireball),
+    copy(moves.heavy_attack),
   ],
   weapon: weapons.fists,
   xp: 0,
@@ -128,8 +128,8 @@ const enemies = {
     weapon: weapons.broken_mace,
     xp: 50,
     gold: {
-      min: 8,
-      max: 21
+      min: 14,
+      max: 37
     },
     level: 5,
     physical_resistance: 5,
@@ -163,15 +163,51 @@ const enemies = {
     weapon: weapons.long_sword,
     xp: 200,
     gold: {
-      min: 8,
-      max: 21
+      min: 51,
+      max: 82
     },
     level: 10,
-    physical_resistance: 5,
-    magical_resistance: 5,
+    physical_resistance: 10,
+    magical_resistance: 10,
     speed: 0,
     action_points: 0,
     statuses: [],
     dodge: 0.05
+  },
+  orc_berserker: {
+    name: "Orc Berserker",
+    hp: 220,
+    mp: 20,
+    maxhp: 220,
+    maxmp: 20,
+    stats: {
+      str: 20,
+      vit: 5,
+      int: 2,
+      agi: 10,
+      lck: 1
+    },
+    items: [
+      addItems(consumables.lesser_healing_potion, 3)
+    ],
+    moves: [
+      copy(moves.crush),
+      copy(moves.thrust),
+      copy(moves.slice),
+      copy(moves.bash)
+    ],
+    weapon: weapons.battle_axe,
+    xp: 750,
+    gold: {
+      min: 197,
+      max: 284
+    },
+    level: 15,
+    physical_resistance: 18,
+    magical_resistance: 7,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.07
   }
 }
