@@ -290,7 +290,7 @@ function generateInventoryItems() {
   let buttons = $("playerButtons-open");
   buttons.textContent = "";
   for(let item of player.items) {
-    if(item.amount < 1 || item.name == "Fists" || item.name == "Nothing") continue;
+    if(item.amount < 1 || item.type != "consumable") continue;
     let Item = create("div");
     Item.id = item.id;
     Item.classList.add("item");
