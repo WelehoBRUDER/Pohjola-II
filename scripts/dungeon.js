@@ -88,7 +88,50 @@ let dungeon = {
         gauntlet: [
           copy(enemies.orc_berserker),
         ]
-      }
+      },
+      stage11: {
+        name: "Stage 11",
+        beaten: false,
+        gauntlet: [
+          copy(enemies.skeleton_knight),
+          copy(enemies.orc_berserker),
+        ]
+      },
+      stage12: {
+        name: "Stage 12",
+        beaten: false,
+        gauntlet: [
+          copy(enemies.skeleton_knight),
+          copy(enemies.orc_berserker),
+          copy(enemies.skeleton_knight),
+        ]
+      },
+      stage13: {
+        name: "Stage 13",
+        beaten: false,
+        gauntlet: [
+          copy(enemies.orc_berserker),
+          copy(enemies.orc_berserker),
+        ]
+      },
+      stage14: {
+        name: "Stage 14",
+        beaten: false,
+        gauntlet: [
+          copy(enemies.orc),
+          copy(enemies.orc),
+          copy(enemies.skeleton_knight),
+          copy(enemies.orc_berserker),
+          copy(enemies.orc_berserker),
+        ]
+      },
+      finalstage: {
+        name: "Final Stage",
+        beaten: false,
+        gauntlet: [
+          copy(enemies.death_knight),
+        ]
+      },
     }
   }
 }

@@ -12,7 +12,7 @@ const weapons = {
     damage: 4,
     type: "physical",
     speed_bonus: 1,
-    type: "weapon",
+    item_type: "weapon",
     tier: "G"
   },
   broken_sword: {
@@ -20,7 +20,7 @@ const weapons = {
     damage: 5,
     type: "physical",
     speed_bonus: 0,
-    type: "weapon",
+    item_type: "weapon",
     tier: "G"
   },
   broken_mace: {
@@ -28,7 +28,7 @@ const weapons = {
     damage: 6,
     type: "physical",
     speed_bonus: -10,
-    type: "weapon",
+    item_type: "weapon",
     tier: "G"
   },
   long_sword: {
@@ -36,7 +36,7 @@ const weapons = {
     damage: 8,
     type: "physical",
     speed_bonus: 2,
-    type: "weapon",
+    item_type: "weapon",
     tier: "F"
   },
   battle_axe: {
@@ -44,7 +44,23 @@ const weapons = {
     damage: 15,
     type: "physical",
     speed_bonus: 0,
-    type: "weapon",
+    item_type: "weapon",
+    tier: "E"
+  },
+  dual_daggers: {
+    name: "Twin Daggers",
+    damage: 10,
+    type: "physical",
+    speed_bonus: 5,
+    item_type: "weapon",
+    tier: "E"
+  },
+  greatsword: {
+    name: "Greatsword",
+    damage: 31,
+    type: "physical",
+    speed_bonus: 1,
+    item_type: "weapon",
     tier: "E"
   }
 }
@@ -56,7 +72,7 @@ const armors = {
     magical_resistance: 0,
     speed_bonus: 0,
     effects: [],
-    type: "armor",
+    item_type: "armor",
     tier: "G"
   },
   rags: {
@@ -65,7 +81,7 @@ const armors = {
     magical_resistance: 1,
     speed_bonus: 0,
     effects: [],
-    type: "armor",
+    item_type: "armor",
     tier: "G"
   },
   leather_armor: {
@@ -74,7 +90,7 @@ const armors = {
     magical_resistance: 3,
     speed_bonus: 1,
     effects: [],
-    type: "armor",
+    item_type: "armor",
     tier: "F"
   },
   chainmail: {
@@ -83,7 +99,7 @@ const armors = {
     magical_resistance: 2,
     speed_bonus: -4,
     effects: [],
-    type: "armor",
+    item_type: "armor",
     tier: "F"
   },
   enchanted_robes: {
@@ -94,7 +110,7 @@ const armors = {
     effects: [
       {increase_stat: "maxhp", by: 10}
     ],
-    type: "armor",
+    item_type: "armor",
     tier: "E"
   }
 }
@@ -105,7 +121,7 @@ const consumables = {
     name: "Inferior Healing Potion",
     value: 10,
     recover: "hp",
-    type: "consumable",
+    item_type: "consumable",
     tier: "G"
   },
   lesser_healing_potion: {
@@ -113,17 +129,33 @@ const consumables = {
     name: "Lesser Healing Potion",
     value: 25,
     recover: "hp",
-    type: "consumable",
+    item_type: "consumable",
     tier: "F"
+  },
+  healing_potion: {
+    id: "healing_potion",
+    name: "Healing Potion",
+    value: 100,
+    recover: "hp",
+    item_type: "consumable",
+    tier: "E"
   },
   inferior_mana_potion: {
     id: "inferior_mana_potion",
     name: "Inferior Mana Potion",
     value: 5,
     recover: "mp",
-    type: "consumable",
+    item_type: "consumable",
     tier: "G"
-  }
+  },
+  lesser_mana_potion: {
+    id: "lesser_mana_potion",
+    name: "Lesser Mana Potion",
+    value: 25,
+    recover: "mp",
+    item_type: "consumable",
+    tier: "F"
+  },
 }
 
 const tiers = {

@@ -17,6 +17,9 @@ const topBarButtons = [
   },
   {
     name: "Floors & Stages",
+  },
+  {
+    name: "Saves"
   }
 ];
 
@@ -59,6 +62,7 @@ function updateLeftValues() {
 
 function select(target) {
   updateLeftValues();
+  $("mainWindowContainer").removeEventListener("click", removeSelect);
   for (let but of topBarButtons) {
     if (target == but.name) but.selected = true;
     else but.selected = false;
@@ -69,6 +73,7 @@ function select(target) {
   if (target == "Perks") createPerkTree();
   if (target == "Inventory") createInventory();
   if (target == "Store") createStore();
+  if (target == "Saves") createSaving();
   createTopBar();
 }
 
@@ -371,7 +376,7 @@ function createInventory() {
   addHoverBox(weaponContainer, "Damage: §/$Y/$player.weapon.damage§ §:br§ Speed: §/$B/$player.weapon.speed_bonus§", 6);
   addHoverBox(armorContainer, "Physical Resistance: §/$Y/$player.armor.physical_resistance§§/$Y/%§ §:br§ Magical Resistance: §/$B/$player.armor.magical_resistance§§/$B/%§ §:br§ Speed: §$player.armor.speed_bonus§", 12);
   for(let wep of player.items) {
-    if(wep.type == "weapon" && wep.name != "Fists") {
+    if(wep.item_type == "weapon" && wep.name != "Fists") {
       let id = wep.name;
       let weapon;
       if(wep.amount <= 1) weapon = textSyntax(`§/${tiers[wep.tier]}/${wep.name}§`);
@@ -383,7 +388,7 @@ function createInventory() {
     }
   }
   for(let arm of player.items) {
-      if(arm.type == "armor" && arm.name != "Nothing") {
+      if(arm.item_type == "armor" && arm.name != "Nothing") {
         let armor;
         if(arm.amount <= 1) armor = textSyntax(`§/${tiers[arm.tier]}/${arm.name}§`);
         else armor = textSyntax(`§/${tiers[arm.tier]}/${arm.name} ${arm.amount}x§`);
@@ -520,4 +525,69 @@ function buyItem(e) {
     player.items.push(copy({...item.item, amount: 1}));
   }
   updateLeftValues();
+}
+
+var save_slots = [];
+var selected_slot = null;
+
+function createSaving() {
+  $("mainWindowContainer").textContent = "";
+  let save_container = create("div");
+  let save_topbar = create("div");
+  let save_bottom = create("div");
+  save_bottom.id = "saveBottom";
+  save_topbar.id = "saveTopbar";
+  save_container.id = "saveContainer";
+  $("mainWindowContainer").removeEventListener("click", removeSelect);
+  $("mainWindowContainer").addEventListener("click", removeSelect);
+  save_slots = JSON.parse(localStorage.getItem(`save_slots`)) || [];
+  for(let save of save_slots) {
+    let slot = create("p");
+    slot.textContent = save.text;
+    slot.id = "slot" + save.id;
+    if(selected_slot?.id == save?.id) slot.classList.add("saveSelected");
+    slot.addEventListener("click", selectSlot);
+    save_bottom.appendChild(slot);
+  }
+  save_topbar.innerHTML = `<input id="save_input"></input> <button id="saveBut" onclick="saveGame()">Create Save</button> <button id="loadBut" onclick="loadGame()">Load Save</button>`;
+  save_container.appendChild(save_topbar);
+  save_container.appendChild(save_bottom);
+  $("mainWindowContainer").appendChild(save_container);
+  addHoverBox($("saveBut"), texts.save_button, 8);
+  addHoverBox($("loadBut"), texts.load_button, 8);
+}
+
+function saveGame() {
+  let saveName = $("save_input").value || player.name;
+  let saveTime = new Date();
+  let gameSave = {};
+  gameSave.player = player;
+  gameSave.state = state;
+  saveTime = ("0" + saveTime.getHours()).slice(-2) + "." + ("0" + saveTime.getMinutes()).slice(-2);
+  let id = 0;
+  if(selected_slot == null) save_slots.push({text: `${saveName} || Last Saved: ${saveTime} || Character Level: ${player.level}`, save: gameSave, id: save_slots.length});
+  else save_slots[selected_slot.id] = {text: `${saveName} || Last Saved: ${saveTime} || Character Level: ${player.level}`, save: gameSave, id: selected_slot.id};
+  localStorage.setItem("save_slots", JSON.stringify(save_slots));
+  createSaving();
+}
+
+function loadGame() {
+  console.log(selected_slot);
+  if(selected_slot == null) return;
+  player = selected_slot.save.player;
+  state = selected_slot.save.state;
+  updateLeftValues();
+  createSaving();
+}
+
+function selectSlot(e) {
+  let id = e.target.id.substring(4);
+  selected_slot = save_slots[id];
+  createSaving();
+}
+
+function removeSelect(e) {
+  if(e.target.id.startsWith("slot") || e.target.id == "saveTopbar" || e.target.id == "save_input" || e.target.id == "saveBut" || e.target.id == "loadBut") return;
+  selected_slot = null;
+  createSaving();
 }

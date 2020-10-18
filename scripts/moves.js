@@ -84,6 +84,16 @@ const moves = {
     onCooldown: 0,
     base: 0
   },
+  shield_bash: {
+    power: 1.3,
+    penetration: 0.15,
+    mp_cost: 0,
+    cooldown: 5,
+    physical: true,
+    name: "Shield Bash",
+    onCooldown: 0,
+    base: 0
+  },
   crush: {
     power: 1.0,
     penetration: 0.1,

@@ -290,7 +290,7 @@ function generateInventoryItems() {
   let buttons = $("playerButtons-open");
   buttons.textContent = "";
   for(let item of player.items) {
-    if(item.amount < 1 || item.type != "consumable") continue;
+    if(item.amount < 1 || item.item_type != "consumable") continue;
     let Item = create("div");
     Item.id = item.id;
     Item.classList.add("item");
@@ -791,6 +791,10 @@ function EndGauntlet(condition) {
     player.gold += gauntletLoot.gold;
     gauntletLoot.xp = 0;
     gauntletLoot.gold = 0;
+    console.log(state.stage);
+    let curStage = state.stage.name.replace(/( )/g, '');
+    curStage = curStage.toLowerCase();
+    if(!player.stages_beaten[curStage]) player.stages_beaten[curStage] = true;
     $("combatScreen").style.display = "none";
     $("mainScreen").style.display = "block";
     updateLeftValues();

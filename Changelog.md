@@ -1,3 +1,7 @@
+# 0.3a
+- Floor 1 is now finished
+- Added new enemy "Death Knight" who serves as the final boss of Floor 1
+- Implemented saving
 # 0.2a
 - Will add bank that can store up to 2/3 of exp. All exp not in bank is lost when defeated.
 - Added dodging to combat. Base chance is 5%, can eventually be increased with perks. Dodge nullifies damage and prevents statuses.

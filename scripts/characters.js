@@ -33,7 +33,8 @@ var player = {
   statuses: [],
   dodge: 0.05,
   sprite: "Player",
-  bought_perks: {}
+  bought_perks: {},
+  stages_beaten: {}
 }
 
 const enemies = {
@@ -208,5 +209,41 @@ const enemies = {
     action_points: 0,
     statuses: [],
     dodge: 0.07
+  },
+  death_knight: {
+    name: "Death Knight",
+    hp: 550,
+    mp: 50,
+    maxhp: 550,
+    maxmp: 50,
+    stats: {
+      str: 28,
+      vit: 12,
+      int: 2,
+      agi: 17,
+      lck: 1
+    },
+    items: [
+      addItems(consumables.healing_potion, 2)
+    ],
+    moves: [
+      copy(moves.crush),
+      copy(moves.thrust),
+      copy(moves.slice),
+      copy(moves.shield_bash)
+    ],
+    weapon: weapons.greatsword,
+    xp: 2500,
+    gold: {
+      min: 577,
+      max: 1229
+    },
+    level: 25,
+    physical_resistance: 30,
+    magical_resistance: 14,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.06
   }
 }
