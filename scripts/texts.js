@@ -5,6 +5,7 @@ const texts = {
   you: "This is you, §/$player.color/$player.name§. You are currently level §$player.level§",
   character: "View your current stats and improve them by leveling up.",
   perks: "Advance your perk tree with perk points gained from leveling up.",
+  inventory: "Change your equipment and manage your consumables",
   store: "Buy gear, items and knowledge from the merchant of this floor.",
   bank: "Take a loan of gold or store your experience points.",
   floors_stages: "Fight enemies and complete quests by clearing stages and floors of the dungeon.",

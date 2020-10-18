@@ -1,8 +1,12 @@
 const $ = (e) => {return document.getElementById(e);}
 const game = $("gameWindow");
+let clientWidth = game.offsetWidth;
+let clientHeight = game.offsetHeight;
 const create = (e) => {return document.createElement(e);}
 const add = (e) => {return game.appendChild(e);}
 const selectAll = (e) => {return document.querySelectorAll(e);}
+const pxtovh = v => v / clientHeight * 100;
+const pxtovw = v => v / clientWidth * 100;
 
 function Random(max, min = 0) {
   return Math.floor((Math.random() * (max - min)) + min);
@@ -16,8 +20,7 @@ let smallUpdater = setInterval(smallUpdate, 500);
 
 
 // These values are used for determining the edges of the screen.
-let clientWidth = game.offsetWidth;
-let clientHeight = game.offsetHeight;
+
 
 let combatTimer = setInterval(Update, 1000/60);
 let textBox = $("gameInfoTextPopUp");
@@ -38,7 +41,8 @@ let state = {
   action: false,
   open: "none",
   end: false,
-  stage: dungeon.floor1.stages.stage0
+  stage: dungeon.floor1.stages.stage0,
+  floor: 1
 }
 
 const colorCodes = [
@@ -547,7 +551,7 @@ function attackEnemy() {
   game.classList.add("shake1");
   $("enemySpriteContainer").classList.add("shake2");
   let damage = 0;
-  damage = Math.floor((player.weapon.damage * (1 + player.stats.str/20))) * (1 - ((resistance_modifiers(enemy, "physical_resistance") + (enemy.physical_resistance)/100)));
+  damage = Math.floor((player.weapon.damage * (1 + player.stats.str/20)) * (1 + player.physical_multiplier)) * (1 - ((resistance_modifiers(enemy, "physical_resistance") + (enemy.physical_resistance)/100)));
   if(damage < 0) damage = 0;
   damage = Math.floor(damage);
   enemy.hp -= damage;
@@ -670,9 +674,9 @@ function hurtEnemy(move) {
   $("enemySpriteContainer").classList.add("shake2");
   let damage = 0;
   if(move.physical) {
-    damage = Math.floor(((player.weapon.damage + move.base) * (1 + player.stats.str/20)) * move.power) * (1 - (resistance_modifiers(enemy, "physical_resistance") + (enemy.physical_resistance)/100) * (1 - move.penetration));
+    damage = Math.floor((((player.weapon.damage + move.base) * (1 + player.stats.str/20)) * (1 + player.physical_multiplier)) * move.power) * (1 - (resistance_modifiers(enemy, "physical_resistance") + (enemy.physical_resistance)/100) * (1 - move.penetration));
   } else {
-    damage = Math.floor(((player.weapon.damage + move.base) * (1 + player.stats.int/20)) * move.power) * (1 - (resistance_modifiers(enemy, "magical_resistance") + (enemy.magical_resistance)/100) * (1 - move.penetration));
+    damage = Math.floor((((player.weapon.damage + move.base) * (1 + player.stats.int/20)) * (1 + player.magical_multiplier)) * move.power) * (1 - (resistance_modifiers(enemy, "magical_resistance") + (enemy.magical_resistance)/100) * (1 - move.penetration));
   }
   if(damage < 0) damage = 0;
   damage = Math.floor(damage);

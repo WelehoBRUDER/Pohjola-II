@@ -257,6 +257,56 @@
   bottom: 11vw;
 }
 
+#perkBG {
+  position: absolute;
+  top: 3vw;
+}
+
+#perkTree--title {
+  color: rgb(80, 80, 80);
+  font-size: 1.5vw;
+  position: absolute;
+  left: 0.5vw;
+  top: -1.5vw;
+}
+
+#perkTree--buttons {
+  height: 2.25vw;
+  width: fit-content;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0.25vw;
+  display: flex;
+  text-align: center;
+}
+
+#perkTree--buttons div {
+  transition: 0.1s;
+  height: 100%;
+  box-sizing: border-box;
+  border: 0.25vw solid black;
+  background: rgb(75, 75, 75);
+  color: white;
+  font-size: 1.25vw;
+  vertical-align: middle;
+  padding-bottom: 0.5vw;
+  padding-left: 0.25vw;
+  padding-right: 0.25vw;
+  text-shadow: 0vw 0vw 0.2vw black;
+  box-shadow: inset 0vw 0vw 0.3vw 0.3vw rgb(35, 35, 35);
+}
+
+#perkTree--buttons div:hover {
+  filter: brightness(1.5);
+}
+
+.perkTree--buttons-selected {
+  background: rgb(28, 80, 175) !important;
+  box-shadow: inset 0vw 0vw 0.3vw 0.3vw rgb(12, 41, 94) !important;
+  border: 0.2vw solid silver !important; 
+}
+
 .StageButton {
   transition: 0.1s;
   width: 7.8vw;
@@ -283,11 +333,11 @@
   border-radius: 100%;
   border: 0.25vw solid black;
   position: absolute;
+  z-index: 2;
 }
 
 .perkTree--perk-first {
-  left: 50%;
-  transform: translateX(-50%);
+  left: 29vw;
   top: 0.5vw;
 }
 
@@ -296,8 +346,97 @@
   text-align: center;
   vertical-align: middle;
   border-radius: 100%;
+  pointer-events: none;
 }
 
-.perkTree--perk:hover {
+.perkTree--perk:hover{
   filter: brightness(1.5);
+}
+
+.perkConnecterDown {
+  width: 0.5vw;
+  height: 8vw;
+  background: rgb(80, 80, 80);
+  position: absolute;
+}
+
+.perkConnecterSide {
+  width: 6vw;
+  height: 0.5vw;
+  background: rgb(80, 80, 80);
+  position: absolute;
+}
+
+.perkTree--perk-bought {
+  border: 0.25vw solid gold;
+  filter: brightness(1.25);
+}
+
+.perkTree--perk-unavailable {
+  filter: brightness(0.5);
+}
+
+.perkTree--perk-unavailable:hover {
+  filter: brightness(0.75) !important;
+}
+
+#weaponsContainer {
+  width: 16vw;
+  height: 20vw;
+  position: absolute;
+  left: 2vw;
+  bottom: 2vw;
+  background: rgb(30, 30, 30);
+}
+
+#armorsContainer {
+  width: 16vw;
+  height: 20vw;
+  position: absolute;
+  left: 20vw;
+  bottom: 2vw;
+  background: rgb(30, 30, 30);
+}
+
+#weaponsContainer div, #armorsContainer div  {
+  transition: 0.05s;
+  width: 100%;
+  margin: 0vw;
+  background: rgba(104, 104, 104, 0.0);
+  text-shadow: -0.1vw 0.1vw 0.2vw black;
+}
+
+#weaponsContainer span, #armorsContainer span {
+  pointer-events: none;
+}
+
+#weaponsContainer div:hover, #armorsContainer div:hover {
+  background: rgba(104, 104, 104, 0.5);
+  filter: brightness(1.25);
+}
+
+#storeContainer {
+  width: 24vw;
+  height: 28vw;
+  position: absolute;
+  left: 5vw;
+  bottom: 5vw;
+  background: rgb(7, 7, 7);
+}
+
+#storeContainer div {
+  transition: 0.05s;
+  width: 100%;
+  margin: 0vw;
+  background: rgba(104, 104, 104, 0.0);
+  text-shadow: -0.1vw 0.1vw 0.2vw black;
+}
+
+#storeContainer span {
+  pointer-events: none;
+}
+
+#storeContainer div:hover {
+  background: rgba(104, 104, 104, 0.5);
+  filter: brightness(1.25);
 }

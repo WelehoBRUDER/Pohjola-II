@@ -7,6 +7,9 @@ const topBarButtons = [
     name: "Perks",
   },
   {
+    name: "Inventory"
+  },
+  {
     name: "Store",
   },
   {
@@ -64,6 +67,8 @@ function select(target) {
   if (target == "Character") createCharacterScreen();
   if (target == "Floors & Stages") createStageSelection();
   if (target == "Perks") createPerkTree();
+  if (target == "Inventory") createInventory();
+  if (target == "Store") createStore();
   createTopBar();
 }
 
@@ -104,7 +109,7 @@ function combatStatsView() {
     </p>
     <p id="damage">
     <img src="images/damage_icon.png">
-    ${Math.floor(player.weapon.damage * (1 + player.stats.str / 20))}
+    ${Math.floor(player.weapon.damage * (1 + player.stats.str / 20) * (1 + player.physical_multiplier))}
     </p>
     <p id="dodge">
     <img src="images/dodge_icon.png">
@@ -229,6 +234,9 @@ function startFight(stage) {
   $("enemyName").textContent = "Lv" + enemy.level + " " + enemy.name;
   $("enemySprite").src = "images/" + enemy.name + ".png";
   $("playerName").textContent = "Lv" + player.level + " " + player.name;
+  for(let cd of player.moves) {
+    cd.onCooldown = 0;
+  }
   EnemyNameColor();
   $("combatScreen").style.display = "block";
   $("mainScreen").style.display = "none";
@@ -237,27 +245,279 @@ function startFight(stage) {
 
 function createPerkTree() {
   $("mainWindowContainer").textContent = "";
+  let hackywacky = create("div");
+  hackywacky.id = "perkBG";
+  $("mainWindowContainer").appendChild(hackywacky);
+  let title = create("p");
+  title.id = "perkTree--title";
+  title.textContent = selected_tree.colors.name;
+  $("mainWindowContainer").appendChild(title);
+  let treeButtons = create("div");
+  treeButtons.id = "perkTree--buttons";
+  for(let tree in trees) {
+    let treeButton = create("div");
+    treeButton.id = tree + "_tree";
+    treeButton.textContent = tree.toUpperCase();
+    if(selected_tree.colors.id == tree) treeButton.classList.add("perkTree--buttons-selected");
+    treeButton.addEventListener("click", changeTree);
+    treeButtons.appendChild(treeButton);
+  }
+  $("mainWindowContainer").appendChild(treeButtons);
   for(let perk in selected_tree) {
     if(perk == "colors") continue; 
+    let Perk = selected_tree[perk];
     let div = create("div");
+    div.id = perk;
     div.classList.add("perkTree--perk");
     div.style.background = selected_tree.colors.reg;
     div.style.boxShadow = `inset 0vw 0vw 0.2vw 0.2vw ${selected_tree.colors.box}`;
     let ico = create("img");
     ico.src = "images/" + selected_tree[perk].icon + ".png";
     ico.classList.add("perkTree--img");
-    if(perk.left) {
-
+    if(player.bought_perks[perk]) {
+      div.classList.add("perkTree--perk-bought");
     }
-    if(perk.right) {
-
+    if(Perk.left_of) {
+      let origin = $(Perk.left_of);
+      div.style.top = pxtovw(origin.offsetHeight) + 2 + "vw";
+      div.style.left = pxtovw(origin.offsetLeft) - 6 + "vw";
+      let connecter = create("div");
+      connecter.classList.add("perkConnecterSide");
+      connecter.style.top = pxtovw(origin.offsetHeight) + 4 + "vw";
+      connecter.style.left = pxtovw(origin.offsetLeft) - 4 + "vw";
+      hackywacky.appendChild(connecter);
+      if(!player.bought_perks[Perk.left_of]) {
+        div.classList.add("perkTree--perk-unavailable");
+      }
     }
-    if(perk.down) {
-
+    else if(Perk.right_of) {
+      let origin = $(Perk.right_of);
+      div.style.top = pxtovw(origin.offsetHeight) + 2 + "vw";
+      div.style.left = pxtovw(origin.offsetLeft) + 6 + "vw";
+      let connecter = create("div");
+      connecter.classList.add("perkConnecterSide");
+      connecter.style.top = pxtovw(origin.offsetHeight) + 4 + "vw";
+      connecter.style.left = pxtovw(origin.offsetLeft) + 4 + "vw";
+      hackywacky.appendChild(connecter);
+      if(!player.bought_perks[Perk.right_of]) {
+        div.classList.add("perkTree--perk-unavailable");
+      }
+    }
+    else if(Perk.down_of) {
+      let origin = $(Perk.down_of);
+      div.style.top = pxtovw(origin.offsetTop) + 6 + "vw";
+      div.style.left = pxtovw(origin.offsetLeft - origin.offsetWidth/2) + 2 + "vw";
+      let connecter = create("div");
+      connecter.classList.add("perkConnecterDown");
+      connecter.style.top = pxtovw(origin.offsetTop) + 2 + "vw";
+      connecter.style.left = pxtovw(origin.offsetLeft) + 1.5 + "vw";
+      hackywacky.appendChild(connecter);
+      if(!player.bought_perks[Perk.down_of]) {
+        div.classList.add("perkTree--perk-unavailable");
+      }
     }
     else div.classList.add("perkTree--perk-first");
-    addHoverBox(div, selected_tree[perk].name + "§:br§" + "§FS0.55FS/$Y/Hold shift for details§", selected_tree[perk].name.length/1.9, selected_tree[perk].desc);
+    addHoverBox(div, `§FS1.25FS/$Y/${Perk.name}§` + "§:br§" + Perk.desc, Perk.name.length/1.5);
+    div.addEventListener("click", buyPerk);
     div.appendChild(ico);
-    $("mainWindowContainer").appendChild(div);
+    hackywacky.appendChild(div);
   }
+}
+
+function buyPerk(e) {
+  let perk = e.target.id;
+  if(player.bought_perks[perk]) return;
+  if(player.perkpoints >= selected_tree[perk].cost) {
+    player.perkpoints -= selected_tree[perk].cost;
+    player.bought_perks[perk] = true;
+    for(let effect of selected_tree[perk].effect) {
+      if(effect.increase_stat) player.stats[effect.increase_stat] += effect.by;
+      else if(effect.increase) player[effect.increase] += effect.by;
+      else if(effect.grant_skill) player.moves.push(copy(effect.grant_skill));
+      else if(effect.modify_skill) {
+        for(let skill of player.moves) {
+          if(skill.id == effect.modify_skill) {
+            skill[effect.target] += effect.by;
+          }
+        }
+      }
+    }
+    updateLeftValues();
+    createPerkTree();
+  }
+}
+
+function changeTree(e) {
+  let tree = e.target.id;
+  selected_tree = eval(tree);
+  createPerkTree();
+}
+
+function createInventory() {
+  $("mainWindowContainer").textContent = "";
+  let invContainer = create("div");
+  let weaponContainer = create("div");
+  let armorContainer = create("div");
+  let weaponsContainer = create("div");
+  let armorsContainer = create("div");
+  weaponContainer.id = "weaponContainer";
+  armorContainer.id = "armorContainer";
+  weaponsContainer.id = "weaponsContainer";
+  armorsContainer.id = "armorsContainer";
+  weaponContainer.addEventListener("click", unequipWeapon);
+  armorContainer.addEventListener("click", unequipArmor);
+  weaponContainer.appendChild(textSyntax("Equipped weapon: §/$tiers[player.weapon.tier]/$player.weapon.name§"));
+  armorContainer.appendChild(textSyntax("Equipped armor: §/$tiers[player.armor.tier]/$player.armor.name§"));
+  addHoverBox(weaponContainer, "Damage: §/$Y/$player.weapon.damage§ §:br§ Speed: §/$B/$player.weapon.speed_bonus§", 6);
+  addHoverBox(armorContainer, "Physical Resistance: §/$Y/$player.armor.physical_resistance§§/$Y/%§ §:br§ Magical Resistance: §/$B/$player.armor.magical_resistance§§/$B/%§ §:br§ Speed: §$player.armor.speed_bonus§", 12);
+  for(let wep of player.items) {
+    if(wep.type == "weapon" && wep.name != "Fists") {
+      let id = wep.name;
+      let weapon;
+      if(wep.amount <= 1) weapon = textSyntax(`§/${tiers[wep.tier]}/${wep.name}§`);
+      else weapon = textSyntax(`§/${tiers[wep.tier]}/${wep.name} ${wep.amount}x§`);
+      weapon.id = id;
+      weapon.addEventListener("click", equipWeapon);
+      addHoverBox(weapon, `Damage: §/$Y/${wep.damage}§ §:br§ Speed: §/$B/${wep.speed_bonus}§ §:br§ Tier: §/${tiers[wep.tier]}/${wep.tier}§`, 6);
+      weaponsContainer.appendChild(weapon);
+    }
+  }
+  for(let arm of player.items) {
+      if(arm.type == "armor" && arm.name != "Nothing") {
+        let armor;
+        if(arm.amount <= 1) armor = textSyntax(`§/${tiers[arm.tier]}/${arm.name}§`);
+        else armor = textSyntax(`§/${tiers[arm.tier]}/${arm.name} ${arm.amount}x§`);
+        addHoverBox(armor, `Physical Resistance: §/$Y/${arm.physical_resistance}%§ §:br§ Magical Resistance: §/$B/${arm.magical_resistance}%§ §:br§ Speed: §/white/${arm.speed_bonus}§ §:br§ Tier: §/${tiers[arm.tier]}/${arm.tier}§`, 12);
+        armor.addEventListener("click", equipArmor);
+        armor.id = arm.name;
+        armorsContainer.appendChild(armor);
+    }
+  }
+  invContainer.appendChild(weaponContainer);
+  invContainer.appendChild(armorContainer);
+  invContainer.appendChild(weaponsContainer);
+  invContainer.appendChild(armorsContainer);
+  $("mainWindowContainer").appendChild(invContainer);
+}
+
+function equipWeapon(e) {
+  let weapon;
+  for(let wep of player.items) {
+    if(wep.name == e.target.id) weapon = wep;
+  }
+  if(weapon.amount <= 1) textBoxRemove();
+  let foundWep = false;
+  for(let wep of player.items) {
+    if(wep.name == player.weapon.name) {wep.amount++; foundWep = true}
+  }
+  if(!foundWep) {
+    player.items.push(player.weapon);
+  }
+  player.weapon = weapon;
+  if(weapon.amount > 1) {
+    weapon.amount--;
+  } 
+  else for(let i = 0; i<player.items.length; i++) {
+    if(player.items[i].name == weapon.name) player.items.splice(i, 1);
+  }
+  createInventory();
+  updateLeftValues();
+}
+
+function equipArmor(e) {
+  textBoxRemove();
+  let armor;
+  for(let arm of player.items) {
+    if(arm.name == e.target.id) armor = arm;
+  }
+  if(armor.amount <= 1) textBoxRemove();
+  let foundArm = false;
+  for(let arm of player.items) {
+    if(arm.name == player.armor.name) {arm.amount++; foundArm = true}
+  }
+  if(!foundArm) {
+    player.items.push(player.armor);
+  }
+  player.armor = armor;
+  if(armor.amount > 1) {
+    armor.amount--;
+  } 
+  else for(let i = 0; i<player.items.length; i++) {
+    if(player.items[i].name == armor.name) player.items.splice(i, 1);
+  }
+  createInventory();
+  updateLeftValues();
+}
+
+function unequipWeapon() {
+  if(player.weapon.name == "Fists") return;
+  let foundWep = false;
+  for(let wep of player.items) {
+    if(wep.name == player.weapon.name) {wep.amount++; foundWep = true}
+  }
+  if(!foundWep) {
+    player.items.push(player.weapon);
+  }
+  let fists;
+  for(let fist of player.items) {
+    if(fist.name == "Fists") fists = fist;
+  }
+  player.weapon = fists;
+  createInventory();
+  updateLeftValues();
+}
+
+function unequipArmor() {
+  if(player.armor.name == "Nothing") return;
+  let foundArm = false;
+  for(let arm of player.items) {
+    if(arm.name == player.armor.name) {arm.amount++; foundArm = true}
+  }
+  if(!foundArm) {
+    player.items.push(player.armor);
+  }
+  let naked;
+  for(let nothing of player.items) {
+    if(nothing.name == "Nothing") naked = nothing;
+  }
+  player.armor = naked;
+  createInventory();
+  updateLeftValues();
+}
+
+function createStore() {
+  $("mainWindowContainer").textContent = "";
+  let store = create("div");
+  store.id = "storeContainer";
+  for(let item of merchants["floor" + state.floor + "_merchant"].stock) {
+    console.log(item);
+    let merchandise = textSyntax(`§/${tiers[item.item.tier]}/${item.item.name}§`);
+    merchandise.id = item.item.name;
+    if(item.type == "consumable") addHoverBox(merchandise, `Recover: ${item.item.value} §/$Y/${item.item.recover.toUpperCase()}§ §:br§ Tier: §/${tiers[item.item.tier]}/${item.item.tier}§ §:br§ Price: §/$Y/${item.price}§`, 8);
+    else if(item.type == "weapon") addHoverBox(merchandise, `Damage: §/$Y/${item.item.damage}§ §:br§ Speed: §/$B/${item.item.speed_bonus}§ §:br§ Tier: §/${tiers[item.item.tier]}/${item.item.tier}§ §:br§ Price: §/$Y/${item.price}§`, 8);
+    else if(item.type == "armor") addHoverBox(merchandise, `Physical Resistance: §/$Y/${item.item.physical_resistance}§ §:br§ Magical Resistance: §/$B/${item.item.magical_resistance}§ §:br§ Speed: ${item.item.speed_bonus}§:br§ Tier: §/${tiers[item.item.tier]}/${item.item.tier}§ §:br§ Price: §/$Y/${item.price}§`, 12);
+    store.appendChild(merchandise);
+    merchandise.addEventListener("click", buyItem);
+  }
+  $("mainWindowContainer").appendChild(store);
+}
+
+function buyItem(e) {
+  let item;
+  for(let itm of merchants["floor" + state.floor + "_merchant"].stock) {
+    if(itm.item.name == e.target.id) item = itm;
+  }
+  if(player.gold < item.price) return;
+  player.gold -= item.price;
+  let itemFound = false;
+  for(let itm of player.items) {
+    if(itm.name == item.item.name) {
+      itm.amount++;
+      itemFound = true;
+    }
+  }
+  if(!itemFound) {
+    player.items.push(copy({...item.item, amount: 1}));
+  }
+  updateLeftValues();
 }

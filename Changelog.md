@@ -8,5 +8,8 @@
 - Added stage selection with 10 different stages so far
 - Made event log scroll automatically and wipe after battles.
 - Added new enemies
+- Added inventory, allowing you to change equipped items
+- Added store, allowing you to purchase more equipment and potions
+- Added perk trees for warrior and mage (mage has only 1 perk so far)
 # 0.1a
 - Initial combat update

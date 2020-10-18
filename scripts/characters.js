@@ -12,29 +12,28 @@ var player = {
     lck: 0
   },
   items: [
-    addItems(consumables.inferior_healing_potion, 3)
+    addItems(consumables.inferior_healing_potion, 3),
   ],
-  moves: [
-    copy(moves.pierce_through),
-    copy(moves.shields_up),
-    copy(moves.fireball),
-    copy(moves.heavy_attack),
-  ],
-  weapon: weapons.fists,
+  moves: [],
+  weapon: copy(weapons.fists),
+  armor: copy(armors.naked),
   xp: 0,
   xpCap: 10,
   level: 1,
   skillpoints: 0,
-  perkpoints: 0,
+  perkpoints: 1,
   gold: 50,
   physical_resistance: 0,
   magical_resistance: 0,
+  physical_multiplier: 0,
+  magical_multiplier: 0,
   speed: 0,
   action_points: 0,
   color: "rgb(50, 120, 50)",
   statuses: [],
   dodge: 0.05,
   sprite: "Player",
+  bought_perks: {}
 }
 
 const enemies = {
