@@ -55,6 +55,22 @@ const weapons = {
     item_type: "weapon",
     tier: "E"
   },
+  poleaxe: {
+    name: "Poleaxe",
+    damage: 23,
+    type: "physical",
+    speed_bonus: -1,
+    item_type: "weapon",
+    tier: "E"
+  },
+  enchanted_blade: {
+    name: "Enchanted Longsword",
+    damage: 25,
+    type: "physical",
+    speed_bonus: 4,
+    item_type: "weapon",
+    tier: "D"
+  },
   greatsword: {
     name: "Greatsword",
     damage: 31,
@@ -108,7 +124,7 @@ const armors = {
     magical_resistance: 7,
     speed_bonus: 2,
     effects: [
-      {increase_stat: "maxhp", by: 10}
+      {increase_stat: "maxhp", by: 25}
     ],
     item_type: "armor",
     tier: "E"

@@ -1,7 +1,13 @@
 # 0.3a
 - Floor 1 is now finished
 - Added new enemy "Death Knight" who serves as the final boss of Floor 1
-- Implemented saving
+- Implemented saving and loading
+- Added 10 warrior perks
+- Added 8 mage perks
+- Added Floor 2 with 2 stages
+- Added new items to shop
+- Changed how the shop works
+- Made inventory easier to use
 # 0.2a
 - Will add bank that can store up to 2/3 of exp. All exp not in bank is lost when defeated.
 - Added dodging to combat. Base chance is 5%, can eventually be increased with perks. Dodge nullifies damage and prevents statuses.

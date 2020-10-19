@@ -791,10 +791,17 @@ function EndGauntlet(condition) {
     player.gold += gauntletLoot.gold;
     gauntletLoot.xp = 0;
     gauntletLoot.gold = 0;
-    console.log(state.stage);
     let curStage = state.stage.name.replace(/( )/g, '');
     curStage = curStage.toLowerCase();
     if(!player.stages_beaten[curStage]) player.stages_beaten[curStage] = true;
+    let floorBeaten = true;
+    for(let stage in dungeon["floor" + state.floor].stages) {
+      if(stage == "stage0") continue;
+      if(!player?.stages_beaten[stage]) floorBeaten = false;
+    }
+    if(floorBeaten) {
+      player.floors_beaten["floor" + state.floor] = true;
+    }
     $("combatScreen").style.display = "none";
     $("mainScreen").style.display = "block";
     updateLeftValues();

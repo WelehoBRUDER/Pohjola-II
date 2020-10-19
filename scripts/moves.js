@@ -105,7 +105,7 @@ const moves = {
     base: 0
   },
   fireball: {
-    power: 1.25,
+    power: 1.4,
     penetration: 0,
     mp_cost: 25,
     cooldown: 0,
@@ -113,7 +113,7 @@ const moves = {
     name: "Fireball",
     onCooldown: 0,
     id: "fireball",
-    base: 3
+    base: 10
   },
   mana_blast: {
     power: 1.1,

@@ -1,11 +1,9 @@
 let dungeon = {
   floor1: {
     name: "Floor 1",
-    beaten: false,
     stages: {
       stage0: {
         name: "Stage 0",
-        beaten: false,
         gauntlet: [
           copy(enemies.skeleton),
           copy(enemies.skeleton)
@@ -13,14 +11,12 @@ let dungeon = {
       },
       stage1: {
         name: "Stage 1",
-        beaten: false,
         gauntlet: [
           copy(enemies.goblin)
         ]
       },
       stage2: {
         name: "Stage 2",
-        beaten: false,
         gauntlet: [
           copy(enemies.skeleton),
           copy(enemies.goblin)
@@ -28,7 +24,6 @@ let dungeon = {
       },
       stage3: {
         name: "Stage 3",
-        beaten: false,
         gauntlet: [
           copy(enemies.skeleton),
           copy(enemies.goblin),
@@ -37,7 +32,6 @@ let dungeon = {
       },
       stage4: {
         name: "Stage 4",
-        beaten: false,
         gauntlet: [
           copy(enemies.goblin),
           copy(enemies.goblin),
@@ -45,14 +39,12 @@ let dungeon = {
       },
       stage5: {
         name: "Stage 5",
-        beaten: false,
         gauntlet: [
           copy(enemies.orc),
         ]
       },
       stage6: {
         name: "Stage 6",
-        beaten: false,
         gauntlet: [
           copy(enemies.goblin),
           copy(enemies.orc),
@@ -60,7 +52,7 @@ let dungeon = {
       },
       stage7: {
         name: "Stage 7",
-        beaten: false,
+
         gauntlet: [
           copy(enemies.orc),
           copy(enemies.orc),
@@ -68,14 +60,14 @@ let dungeon = {
       },
       stage8: {
         name: "Stage 8",
-        beaten: false,
+
         gauntlet: [
           copy(enemies.skeleton_knight),
         ]
       },
       stage9: {
         name: "Stage 9",
-        beaten: false,
+
         gauntlet: [
           copy(enemies.orc),
           copy(enemies.orc),
@@ -84,14 +76,14 @@ let dungeon = {
       },
       stage10: {
         name: "Stage 10",
-        beaten: false,
+
         gauntlet: [
           copy(enemies.orc_berserker),
         ]
       },
       stage11: {
         name: "Stage 11",
-        beaten: false,
+
         gauntlet: [
           copy(enemies.skeleton_knight),
           copy(enemies.orc_berserker),
@@ -99,7 +91,7 @@ let dungeon = {
       },
       stage12: {
         name: "Stage 12",
-        beaten: false,
+
         gauntlet: [
           copy(enemies.skeleton_knight),
           copy(enemies.orc_berserker),
@@ -108,7 +100,7 @@ let dungeon = {
       },
       stage13: {
         name: "Stage 13",
-        beaten: false,
+
         gauntlet: [
           copy(enemies.orc_berserker),
           copy(enemies.orc_berserker),
@@ -116,7 +108,7 @@ let dungeon = {
       },
       stage14: {
         name: "Stage 14",
-        beaten: false,
+
         gauntlet: [
           copy(enemies.orc),
           copy(enemies.orc),
@@ -127,11 +119,31 @@ let dungeon = {
       },
       finalstage: {
         name: "Final Stage",
-        beaten: false,
+
         gauntlet: [
           copy(enemies.death_knight),
         ]
       },
+    }
+  },
+  floor2: {
+    name: "Floor 2",
+    stages: {
+      f2stage1: {
+        name: "Stage 1",
+        gauntlet: [
+          copy(enemies.ogre),
+          copy(enemies.ogre)
+        ]
+      },
+      f2stage2: {
+        name: "Stage 2",
+        gauntlet: [
+          copy(enemies.ogre),
+          copy(enemies.ogre),
+          copy(enemies.orc_berserker)
+        ]
+      }
     }
   }
 }

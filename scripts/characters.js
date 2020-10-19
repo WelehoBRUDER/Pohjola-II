@@ -21,7 +21,7 @@ var player = {
   xpCap: 10,
   level: 1,
   skillpoints: 0,
-  perkpoints: 1,
+  perkpoints: 0,
   gold: 50,
   physical_resistance: 0,
   magical_resistance: 0,
@@ -34,7 +34,8 @@ var player = {
   dodge: 0.05,
   sprite: "Player",
   bought_perks: {},
-  stages_beaten: {}
+  stages_beaten: {},
+  floors_beaten: {}
 }
 
 const enemies = {
@@ -245,5 +246,40 @@ const enemies = {
     action_points: 0,
     statuses: [],
     dodge: 0.06
+  },
+  ogre: {
+    name: "Ogre",
+    hp: 440,
+    mp: 25,
+    maxhp: 440,
+    maxmp: 25,
+    stats: {
+      str: 37,
+      vit: 12,
+      int: 2,
+      agi: 12,
+      lck: 1
+    },
+    items: [
+      addItems(consumables.healing_potion, 1)
+    ],
+    moves: [
+      copy(moves.crush),
+      copy(moves.thrust),
+      copy(moves.slice)
+    ],
+    weapon: weapons.battle_axe,
+    xp: 1550,
+    gold: {
+      min: 399,
+      max: 1008
+    },
+    level: 21,
+    physical_resistance: 17,
+    magical_resistance: 29,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.05
   }
 }

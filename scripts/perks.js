@@ -80,6 +80,47 @@ let warrior_tree = {
       {grant_skill: copy(moves.shields_up)},
     ],
   },
+  warrior_8: {
+    name: "Heightened Reflexes",
+    cost: 1,
+    desc: "Lowers §/$Y/Shields Up!§'s cooldown by 2s. §:br§ Cost: 1 perk point",
+    icon: "defense",
+    down_of: "warrior_7",
+    effect: [
+      {modify_skill: "shields_up", target: "cooldown", by: -2},
+    ],
+  },
+  warrior_9: {
+    name: "The Best Defense",
+    cost: 2,
+    desc: "Increases dodge chance by 5%. §:br§ Cost: 2 perk points",
+    icon: "dodge_icon",
+    down_of: "warrior_6",
+    effect: [
+      {increase: "dodge", by: 0.05},
+    ],
+  },
+  warrior_10: {
+    name: "Sheer Willpower",
+    cost: 2,
+    desc: "Increases §/red/HP§ by 150. §:br§ Cost: 2 perk points",
+    icon: "defense",
+    left_of: "warrior_6",
+    effect: [
+      {increase: "maxhp", by: 150},
+    ],
+  },
+  warrior_11: {
+    name: "Prepared for Anything",
+    cost: 2,
+    desc: "Increases both §/$Y/physical§ and §/$B/magical§ resistances by 5%. §:br§ Cost: 2 perk points",
+    icon: "defense",
+    right_of: "warrior_6",
+    effect: [
+      {increase: "physical_resistance", by: 5},
+      {increase: "magical_resistance", by: 5}
+    ],
+  },
   warrior_15: {
     name: "Sheer Berserking",
     cost: 2,
@@ -132,6 +173,17 @@ let warrior_tree = {
       {increase: "physical_multiplier", by: 0.03}
     ],
   },
+  warrior_20: {
+    name: "Piercer of the Heavens",
+    cost: 2,
+    desc: "Increases §/$Y/Pierce Through§'s damage by 20%, and armor piercing by 10%. §:br§ Cost: 2 perk points",
+    icon: "weapon_icon",
+    down_of: "warrior_17",
+    effect: [
+      {modify_skill: "pierce_through", target: "power", by: 0.2},
+      {modify_skill: "pierce_through", target: "penetration", by: 0.1}
+    ],
+  },
   warrior_24: {
     name: "Heavy Assault",
     cost: 1,
@@ -140,6 +192,58 @@ let warrior_tree = {
     down_of: "warrior_2",
     effect: [
       {modify_skill: "heavy_attack", target: "power", by: 0.3},
+    ],
+  },
+  warrior_25: {
+    name: "Defense Breacher",
+    cost: 2,
+    desc: "Grants skill '§/$Y/Sundering Slash§'. §:br§ Cost: 2 perk points",
+    icon: "damage_icon",
+    down_of: "warrior_24",
+    effect: [
+      {grant_skill: copy(moves.sundering_slash)},
+    ],
+  },
+  warrior_26: {
+    name: "Warrior Expertise",
+    cost: 3,
+    desc: "Increases §/red/HP§ by 50 and physical damage by 10%. §:br§ Cost: 3 perk points",
+    icon: "weapon_icon",
+    down_of: "warrior_25",
+    effect: [
+      {increase: "maxhp", by: 50},
+      {increase: "physical_multiplier", by: 0.1}
+    ],
+  },
+  warrior_27: {
+    name: "Agile Assault",
+    cost: 1,
+    desc: "Increases agility by 2 and physical damage by 2%. §:br§ Cost: 1 perk point",
+    icon: "weapon_icon",
+    right_of: "warrior_24",
+    effect: [
+      {increase_stat: "agi", by: 2},
+      {increase: "physical_multiplier", by: 0.02}
+    ],
+  },
+  warrior_28: {
+    name: "Careful Manuevers",
+    cost: 1,
+    desc: "Increases dodge chance by 3%. §:br§ Cost: 1 perk point",
+    icon: "dodge_icon",
+    left_of: "warrior_24",
+    effect: [
+      {increase: "dodge", by: 0.03}
+    ],
+  },
+  warrior_29: {
+    name: "Impatient Slasher",
+    cost: 1,
+    desc: "Lowers §/$Y/Sundering Slash§'s cooldown by 1s. §:br§ Cost: 1 perk point",
+    icon: "weapon_icon",
+    right_of: "warrior_25",
+    effect: [
+      {modify_skill: "sundering_slash", target: "cooldown", by: -1},
     ],
   },
 }
@@ -160,6 +264,119 @@ let mage_tree = {
     effect: [
       {increase_stat: "int", by: 1},
       {grant_skill: copy(moves.mana_blast)}
+    ],
+  },
+  mage_2: {
+    name: "A Tempered Mind",
+    cost: 1,
+    desc: "Increases §/$B/MP§ by 10. §:br§ Cost: 1 perk point",
+    icon: "wisdom",
+    down_of: "mage_1",
+    effect: [
+      {increase: "maxmp", by: 10},
+    ],
+  },
+  mage_3: {
+    name: "The Spirit Veil",
+    cost: 2,
+    desc: "Increases magical resistance by 5%. §:br§ Cost: 2 perk points",
+    icon: "defense",
+    left_of: "mage_2",
+    effect: [
+      {increase: "magical_resistance", by: 5},
+    ],
+  },
+  mage_4: {
+    name: "Barrier Magic",
+    cost: 2,
+    desc: "Increases physical resistance by 3%. §:br§ Cost: 2 perk points",
+    icon: "defense",
+    left_of: "mage_3",
+    effect: [
+      {increase: "physical_resistance", by: 3},
+    ],
+  },
+  mage_10: {
+    name: "Striking Prowess",
+    cost: 2,
+    desc: "Increases intelligence by 3. §:br§ Cost: 2 perk points",
+    icon: "damage_icon",
+    right_of: "mage_2",
+    effect: [
+      {increase_stat: "int", by: 3},
+    ],
+  },
+  mage_11: {
+    name: "Concentrated Anger",
+    cost: 2,
+    desc: "Increases magical damage by 4%. §:br§ Cost: 2 perk points",
+    icon: "damage_icon",
+    right_of: "mage_10",
+    effect: [
+      {increase: "magical_multiplier", by: 0.04},
+    ],
+  },
+  mage_12: {
+    name: "Strengthened Blast",
+    cost: 2,
+    desc: "Increases §/$Y/Mana Blast§'s damage by 15%, and base damage by 2. §:br§ Cost: 2 perk points",
+    icon: "damage_icon",
+    down_of: "mage_11",
+    effect: [
+      {modify_skill: "mana_blast", target: "power", by: 0.15},
+      {modify_skill: "mana_blast", target: "base", by: 2}
+    ],
+  },
+  mage_13: {
+    name: "Throwing the Flames",
+    cost: 2,
+    desc: "Grants spell §/$Y/Fireball§. §:br§ Cost: 2 perk points",
+    icon: "fireball",
+    down_of: "mage_12",
+    effect: [
+      {grant_skill: copy(moves.fireball)}
+    ],
+  },
+  mage_14: {
+    name: "Stronger Flame",
+    cost: 1,
+    desc: "Increases §/$Y/Fireball§'s base damage by 5, and power by 10%. §:br§ Cost: 1 perk point",
+    icon: "damage_icon",
+    right_of: "mage_13",
+    effect: [
+      {modify_skill: "fireball", target: "base", by: 5},
+      {modify_skill: "fireball", target: "power", by: 0.1}
+    ],
+  },
+  mage_15: {
+    name: "Efficient Casting",
+    cost: 1,
+    desc: "Lowers §/$Y/Fireball§'s §/$B/MP§ cost by 10. §:br§ Cost: 1 perk point",
+    icon: "wisdom",
+    left_of: "mage_13",
+    effect: [
+      {modify_skill: "fireball", target: "mp_cost", by: -10},
+    ],
+  },
+  mage_16: {
+    name: "We've Got to Fry 'Em Up!",
+    cost: 2,
+    desc: "Adds a 7 second §/red/cooldown§ to §/$Y/Fireball§, but increases damage by 150%. §:br§ Cost: 2 perk point",
+    icon: "fireball",
+    down_of: "mage_13",
+    effect: [
+      {modify_skill: "fireball", target: "cooldown", by: 7},
+      {modify_skill: "fireball", target: "power", by: 1.5}
+    ],
+  },
+  mage_20: {
+    name: "Channeling the Reserves",
+    cost: 1,
+    desc: "Increases §/$B/MP§ by 25. §:br§ Cost: 1 perk point",
+    icon: "wisdom",
+    down_of: "mage_2",
+    effect: [
+      {increase: "maxmp", by: 25},
     ],
   },
 }
