@@ -482,6 +482,8 @@ function equipArmor(e) {
   if (!foundArm) {
     player.items.push(player.armor);
   }
+  player.magical_resistance += armor.magical_resistance;
+  player.physical_resistance += armor.physical_resistance;
   player.armor = armor;
   if (armor.amount > 1) {
     armor.amount--;
@@ -530,6 +532,8 @@ function unequipArmor() {
   if (!foundArm) {
     player.items.push(player.armor);
   }
+  player.magical_resistance -= armor.magical_resistance;
+  player.physical_resistance -= armor.physical_resistance;
   let naked;
   for (let nothing of player.items) {
     if (nothing.name == "Nothing") naked = nothing;
