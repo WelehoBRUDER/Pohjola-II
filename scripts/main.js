@@ -136,7 +136,7 @@ function Update() {
   if(state.end) return;
 
   // Player action bar fill sequence
-  player.speed = (player.weapon.speed_bonus / 100) + player.stats.agi / 100;
+  player.speed = ((player.weapon.speed_bonus / 100) + (player.armor.speed_bonus / 100)) + player.stats.agi / 100;
   if(!state.paused) player.action_points += 0.5 + player.speed;
 
   // Enemy action bar fill sequence
