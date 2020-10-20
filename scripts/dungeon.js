@@ -129,21 +129,86 @@ let dungeon = {
   floor2: {
     name: "Floor 2",
     stages: {
-      f2stage1: {
-        name: "Stage 1",
+      stage15: {
+        name: "Stage 15",
         gauntlet: [
           copy(enemies.ogre),
           copy(enemies.ogre)
         ]
       },
-      f2stage2: {
-        name: "Stage 2",
+      stage16: {
+        name: "Stage 16",
         gauntlet: [
           copy(enemies.ogre),
           copy(enemies.ogre),
           copy(enemies.orc_berserker)
         ]
-      }
+      },
+      stage17: {
+        name: "Stage 17",
+        gauntlet: [
+          copy(enemies.ogre),
+          copy(enemies.minotaur),
+        ]
+      },
+      stage18: {
+        name: "Stage 18",
+        gauntlet: [
+          copy(enemies.minotaur),
+          copy(enemies.minotaur),
+        ]
+      },
+      stage19: {
+        name: "Stage 19",
+        gauntlet: [
+          copy(enemies.minotaur),
+          copy(enemies.ogre),
+          copy(enemies.minotaur),
+        ]
+      },
+      stage20: {
+        name: "Stage 20",
+        gauntlet: [
+          copy(enemies.spectral_knight),
+        ]
+      },
+      stage21: {
+        name: "Stage 21",
+        gauntlet: [
+          copy(enemies.ogre),
+          copy(enemies.minotaur),
+          copy(enemies.spectral_knight),
+        ]
+      },
+      stage22: {
+        name: "Stage 22",
+        gauntlet: [
+          copy(enemies.spectral_knight),
+          copy(enemies.spectral_knight),
+        ]
+      },
+      stage23: {
+        name: "Stage 23",
+        gauntlet: [
+          copy(enemies.grave_floater),
+          copy(enemies.spectral_knight),
+        ]
+      },
+      stage24: {
+        name: "Stage 24",
+        gauntlet: [
+          copy(enemies.minotaur),
+          copy(enemies.grave_floater),
+          copy(enemies.minotaur),
+          copy(enemies.spectral_knight),
+        ]
+      },
+      stage25: {
+        name: "Stage 25",
+        gauntlet: [
+          copy(enemies.gronk),
+        ]
+      },
     }
   }
 }

@@ -94,6 +94,26 @@ const moves = {
     onCooldown: 0,
     base: 0
   },
+  gronk_smash: {
+    power: 1.9,
+    penetration: 0.25,
+    mp_cost: 0,
+    cooldown: 0,
+    physical: true,
+    name: "GRONK SMASH!!",
+    onCooldown: 0,
+    base: 0
+  },
+  gronk_clobber: {
+    power: 1.85,
+    penetration: 0.3,
+    mp_cost: 0,
+    cooldown: 0,
+    physical: true,
+    name: "GRONK CLOB CLOB!!",
+    onCooldown: 0,
+    base: 0
+  },
   crush: {
     power: 1.0,
     penetration: 0.1,
@@ -101,6 +121,26 @@ const moves = {
     cooldown: 5,
     physical: true,
     name: "Crush",
+    onCooldown: 0,
+    base: 0
+  },
+  break: {
+    power: 1.25,
+    penetration: 0.25,
+    mp_cost: 0,
+    cooldown: 7,
+    physical: true,
+    name: "Break",
+    onCooldown: 0,
+    base: 0
+  },
+  hack: {
+    power: 1.1,
+    penetration: 0,
+    mp_cost: 0,
+    cooldown: 2,
+    physical: true,
+    name: "Hack",
     onCooldown: 0,
     base: 0
   },
@@ -124,13 +164,47 @@ const moves = {
     name: "Mana Blast",
     onCooldown: 0,
     id: "mana_blast",
-    base: 1
+    base: 5
+  },
+  fire_lance: {
+    power: 1.75,
+    penetration: 0.6,
+    mp_cost: 30,
+    cooldown: 4,
+    physical: false,
+    name: "Fire Lance",
+    onCooldown: 0,
+    id: "fire_lance",
+    base: 15
+  },
+  regeneration: {
+    power: 0.15,
+    penetration: 0,
+    mp_cost: 50,
+    cooldown: 8,
+    physical: false,
+    name: "Greater Heal",
+    onCooldown: 0,
+    id: "regeneration",
+    base: 0,
+    heal: true
+  },
+  astral_lance: {
+    power: 1.5,
+    penetration: 0.5,
+    mp_cost: 25,
+    cooldown: 5,
+    physical: false,
+    name: "Astral Lance",
+    onCooldown: 0,
+    id: "astral_lance",
+    base: 50
   },
 }
 
 const statuses = {
   sundered: {
-    power: 0.5,
+    power: -0.5,
     target: "physical_resistance",
     lasts: 5,
     name: "Sundered",

@@ -28,12 +28,19 @@ let warrior_tree = {
       {increase: "maxhp", by: 10}
     ],
   },
+  path_1: {
+    name: "PATH",
+    cost: 0,
+    left_of: "warrior_2",
+    GET_FROM: "warrior_2"
+  },
   warrior_3: {
     name: "Defense Training",
     cost: 2,
     desc: "Increases §/red/HP§ by 25. §:br§ Cost: 2 perk points",
     icon: "defense",
-    left_of: "warrior_2",
+    requires: "warrior_2",
+    left_of: "path_1",
     effect: [
       {increase: "maxhp", by: 25},
     ],
@@ -63,7 +70,7 @@ let warrior_tree = {
     name: "Immovable Body",
     cost: 3,
     desc: "Increases physical resistance by 2% and §/red/HP§ by 75. §:br§ Cost: 3 perk points",
-    icon: "defense",
+    icon: "physical_resistance",
     down_of: "warrior_5",
     effect: [
       {increase: "maxhp", by: 75},
@@ -121,12 +128,19 @@ let warrior_tree = {
       {increase: "magical_resistance", by: 5}
     ],
   },
+  path_2: {
+    name: "PATH",
+    cost: 0,
+    right_of: "warrior_2",
+    GET_FROM: "warrior_2"
+  },
   warrior_15: {
     name: "Sheer Berserking",
     cost: 2,
     desc: "Increases strength by 5, but decreases §/red/HP§ by 15. §:br§ Cost: 2 perk points",
     icon: "damage_icon",
-    right_of: "warrior_2",
+    right_of: "path_2",
+    requires: "warrior_2",
     effect: [
       {increase: "maxhp", by: -15},
       {increase_stat: "str", by: 5}
@@ -246,6 +260,39 @@ let warrior_tree = {
       {modify_skill: "sundering_slash", target: "cooldown", by: -1},
     ],
   },
+  warrior_30: {
+    name: "Cutting Deeper",
+    cost: 1,
+    desc: "Increases §/$Y/Sundering Slash§'s effect time by 1s. §:br§ Cost: 1 perk point",
+    icon: "weapon_icon",
+    left_of: "warrior_25",
+    effect: [
+      {modify_skill: "sundering_slash", target: "lasts", by: 1},
+    ],
+  },
+  warrior_31: {
+    name: "Titan's Strength",
+    cost: 4,
+    desc: "Increases strength by 10 and physical damage by 5%. §:br§ Lowers intelligence by 1. §:br§ Cost: 4 perk points",
+    icon: "strength",
+    down_of: "warrior_19",
+    effect: [
+      {increase_stat: "str", by: 10},
+      {increase: "physical_multiplier", by: 0.05},
+      {increase_stat: "int", by: -1},
+      {increase: "maxmp", by: -5}
+    ],
+  },
+  warrior_32: {
+    name: "Battlefield Looter",
+    cost: 2,
+    desc: "Increases XP gain by 5% and gold gain by 20%. §:br§ Cost: 2 perk points",
+    icon: "gold_small",
+    right_of: "warrior_19",
+    effect: [
+      {increase_stat: "lck", by: 5},
+    ],
+  },
 }
 
 let mage_tree = {
@@ -276,12 +323,19 @@ let mage_tree = {
       {increase: "maxmp", by: 10},
     ],
   },
+  path_mage_1: {
+    name: "PATH",
+    cost: 0,
+    left_of: "mage_2",
+    GET_FROM: "mage_2"
+  },
   mage_3: {
     name: "The Spirit Veil",
     cost: 2,
     desc: "Increases magical resistance by 5%. §:br§ Cost: 2 perk points",
-    icon: "defense",
-    left_of: "mage_2",
+    icon: "magical_resistance",
+    left_of: "path_mage_1",
+    requires: "mage_2",
     effect: [
       {increase: "magical_resistance", by: 5},
     ],
@@ -290,18 +344,46 @@ let mage_tree = {
     name: "Barrier Magic",
     cost: 2,
     desc: "Increases physical resistance by 3%. §:br§ Cost: 2 perk points",
-    icon: "defense",
+    icon: "physical_resistance",
     left_of: "mage_3",
     effect: [
       {increase: "physical_resistance", by: 3},
     ],
+  },
+  mage_5: {
+    name: "Battle Medic",
+    cost: 1,
+    desc: "Grants spell '§/$Y/Greater Heal§'. §:br§ Cost: 1 perk point",
+    icon: "regeneration",
+    left_of: "mage_4",
+    effect: [
+      {grant_skill: copy(moves.regeneration)},
+    ],
+  },
+  mage_6: {
+    name: "Path of the Healer",
+    cost: 2,
+    desc: "Increases §/$Y/Greater Heal§'s healing by 10% and decreases mana cost by 10. §:br§ Cost: 2 perk points",
+    icon: "regeneration",
+    down_of: "mage_5",
+    effect: [
+      {modify_skill: "regeneration", target: "power", by: 0.1},
+      {modify_skill: "regeneration", target: "mp_cost", by: -10}
+    ],
+  },
+  path_mage_2: {
+    name: "PATH",
+    cost: 0,
+    right_of: "mage_2",
+    GET_FROM: "mage_2"
   },
   mage_10: {
     name: "Striking Prowess",
     cost: 2,
     desc: "Increases intelligence by 3. §:br§ Cost: 2 perk points",
     icon: "damage_icon",
-    right_of: "mage_2",
+    right_of: "path_mage_2",
+    requires: "mage_2",
     effect: [
       {increase_stat: "int", by: 3},
     ],
@@ -361,12 +443,32 @@ let mage_tree = {
   mage_16: {
     name: "We've Got to Fry 'Em Up!",
     cost: 2,
-    desc: "Adds a 7 second §/red/cooldown§ to §/$Y/Fireball§, but increases damage by 150%. §:br§ Cost: 2 perk point",
+    desc: "Adds a 7 second §/red/cooldown§ to §/$Y/Fireball§, but increases damage by 150%. §:br§ Cost: 2 perk points",
     icon: "fireball",
     down_of: "mage_13",
     effect: [
       {modify_skill: "fireball", target: "cooldown", by: 7},
       {modify_skill: "fireball", target: "power", by: 1.5}
+    ],
+  },
+  mage_17: {
+    name: "Wisdoms of the Past",
+    cost: 2,
+    desc: "Increases magical damage by 10%. §:br§ Cost: 2 perk points",
+    icon: "mana_icon",
+    right_of: "mage_11",
+    effect: [
+      {increase: "magical_multiplier", by: 0.1}
+    ],
+  },
+  mage_18: {
+    name: "Concentrated Weak Point",
+    cost: 2,
+    desc: "Grant spell '§/$Y/Fire Lance§'. §:br§ Cost: 2 perk points",
+    icon: "fire_lance",
+    down_of: "mage_17",
+    effect: [
+      {grant_skill: copy(moves.fire_lance)}
     ],
   },
   mage_20: {
@@ -377,6 +479,18 @@ let mage_tree = {
     down_of: "mage_2",
     effect: [
       {increase: "maxmp", by: 25},
+    ],
+  },
+  mage_21: {
+    name: "The Thinking Man",
+    cost: 3,
+    desc: "Increases §/$B/MP§ by 50, intelligence by 5 and magical damage by 8%. §:br§ Cost: 3 perk points",
+    icon: "wisdom",
+    down_of: "mage_20",
+    effect: [
+      {increase: "maxmp", by: 50},
+      {increase: "magical_multiplier", by: 0.08},
+      {increase_stat: "int", by: 5},
     ],
   },
 }

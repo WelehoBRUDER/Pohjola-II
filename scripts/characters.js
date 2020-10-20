@@ -17,6 +17,7 @@ var player = {
   moves: [],
   weapon: copy(weapons.fists),
   armor: copy(armors.naked),
+  wand: copy(weapons.chant_only),
   xp: 0,
   xpCap: 10,
   level: 1,
@@ -281,5 +282,143 @@ const enemies = {
     action_points: 0,
     statuses: [],
     dodge: 0.05
+  },
+  minotaur: {
+    name: "Minotauros",
+    hp: 825,
+    mp: 25,
+    maxhp: 825,
+    maxmp: 25,
+    stats: {
+      str: 40,
+      vit: 10,
+      int: 1,
+      agi: 15,
+      lck: 1
+    },
+    items: [
+      addItems(consumables.healing_potion, 2)
+    ],
+    moves: [
+      copy(moves.crush),
+      copy(moves.slice),
+      copy(moves.break)
+    ],
+    weapon: weapons.executioner,
+    xp: 4000,
+    gold: {
+      min: 589,
+      max: 2007
+    },
+    level: 30,
+    physical_resistance: 41,
+    magical_resistance: 26,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.04
+  },
+  spectral_knight: {
+    name: "Spectral Knight",
+    hp: 750,
+    mp: 25,
+    maxhp: 750,
+    maxmp: 25,
+    stats: {
+      str: 28,
+      vit: 15,
+      int: 30,
+      agi: 30,
+      lck: 1
+    },
+    items: [
+      addItems(consumables.medium_healing_potion, 2)
+    ],
+    moves: [
+      copy(moves.thrust),
+      copy(moves.heavy_attack),
+      copy(moves.astral_lance),
+      copy(moves.bash)
+    ],
+    weapon: weapons.astral_spear,
+    xp: 20000,
+    gold: {
+      min: 1799,
+      max: 3522
+    },
+    level: 37,
+    physical_resistance: 79,
+    magical_resistance: 38,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.06
+  },
+  grave_floater: {
+    name: "Grave Floater",
+    hp: 300,
+    mp: 100,
+    maxhp: 300,
+    maxmp: 100,
+    stats: {
+      str: 6,
+      vit: 3,
+      int: 150,
+      agi: 65,
+      lck: 1
+    },
+    items: [
+      addItems(consumables.medium_healing_potion, 1)
+    ],
+    moves: [
+      copy(moves.mana_blast),
+      copy(moves.fireball),
+      copy(moves.astral_lance),
+    ],
+    weapon: weapons.astral_spear,
+    xp: 19000,
+    gold: {
+      min: 2155,
+      max: 3165
+    },
+    level: 35,
+    physical_resistance: 91,
+    magical_resistance: 50,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.03
+  },
+  gronk: {
+    name: "Gronk",
+    hp: 525,
+    mp: 0,
+    maxhp: 525,
+    maxmp: 0,
+    stats: {
+      str: 180,
+      vit: 5,
+      int: -50,
+      agi: 8,
+      lck: 1
+    },
+    items: [],
+    moves: [
+      copy(moves.gronk_smash),
+      copy(moves.gronk_clobber),
+    ],
+    weapon: weapons.smooth_mace,
+    xp: 30000,
+    gold: {
+      min: 1,
+      max: 5
+    },
+    level: 40,
+    physical_resistance: 30,
+    magical_resistance: 30,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.08
   }
 }

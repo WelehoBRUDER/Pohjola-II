@@ -2,9 +2,9 @@
 - Floor 1 is now finished
 - Added new enemy "Death Knight" who serves as the final boss of Floor 1
 - Implemented saving and loading
-- Added 10 warrior perks
-- Added 8 mage perks
-- Added Floor 2 with 2 stages
+- Added 13 warrior perks
+- Added 13 mage perks
+- Added Floor 2 with 5 stages
 - Added new items to shop
 - Changed how the shop works
 - Made inventory easier to use
@@ -12,6 +12,9 @@
 - Changes to damage calculation
 - Fixed minor issues and improved QOL
 - Hoverbox shifting now actually does what it says
+- Added tons of new items to the store
+- Added wands for mages, changing damage calculation formulas for spells
+- Added many new enemies for floor 2
 # 0.2a
 - Will add bank that can store up to 2/3 of exp. All exp not in bank is lost when defeated.
 - Added dodging to combat. Base chance is 5%, can eventually be increased with perks. Dodge nullifies damage and prevents statuses.

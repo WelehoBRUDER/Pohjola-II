@@ -367,13 +367,13 @@
 
 .perkConnecterDown {
   width: 0.5vw;
-  height: 8vw;
+  height: 8.1vw;
   background: rgb(80, 80, 80);
   position: absolute;
 }
 
 .perkConnecterSide {
-  width: 6vw;
+  width: 6.1vw;
   height: 0.5vw;
   background: rgb(80, 80, 80);
   position: absolute;
@@ -392,7 +392,7 @@
   filter: brightness(0.75) !important;
 }
 
-#weaponContainer, #armorContainer {
+#weaponContainer, #armorContainer, #wandContainer {
   transition: 0.1s;
   font-size: 1.5vw;
   width: fit-content;
@@ -403,8 +403,12 @@
   margin-top: 1.25vw;
 }
 
-#weaponContainer:hover, #armorContainer:hover {
+#weaponContainer:hover, #armorContainer:hover, #wandContainer:hover {
   background: rgba(60, 60, 60, 0.5);
+}
+
+.PERKPATH {
+  transform: scale(0);
 }
 
 #weaponsContainer {
@@ -414,6 +418,7 @@
   left: 2vw;
   bottom: 2vw;
   background: rgb(30, 30, 30);
+  overflow-y: auto;
 }
 
 #armorsContainer {
@@ -423,14 +428,16 @@
   left: 20vw;
   bottom: 2vw;
   background: rgb(30, 30, 30);
+  overflow-y: auto;
 }
+
 
 #weaponsContainer div, #armorsContainer div  {
   transition: 0.05s;
   width: 100%;
   margin: 0vw;
   background: rgba(104, 104, 104, 0.0);
-  text-shadow: -0.1vw 0.1vw 0.2vw black;
+  -webkit-text-stroke: 0.1px white;
   font-size: 1.2vw;
 }
 
@@ -441,6 +448,8 @@
 #weaponsContainer div:hover, #armorsContainer div:hover {
   background: rgba(104, 104, 104, 0.5);
   filter: brightness(1.25);
+  -webkit-text-stroke: 0px white;
+  text-shadow: 0px 0px 0.1vw white;
 }
 
 #storeContainer {
@@ -450,6 +459,7 @@
   left: 5vw;
   bottom: 5vw;
   background: rgb(7, 7, 7);
+  overflow-y: auto;
 }
 
 #storeBuyingContainer {
@@ -459,6 +469,7 @@
   right: 5vw;
   bottom: 5vw;
   background: rgb(7, 7, 7);
+  overflow-y: auto;
 }
 
 #storeContainer div, #storeBuyingContainer div {
@@ -466,7 +477,8 @@
   width: 100%;
   margin: 0vw;
   background: rgba(104, 104, 104, 0.0);
-  text-shadow: -0.1vw 0.1vw 0.2vw black;
+  /* text-shadow: -0.005vw -0.005vw 0 #fff, 0.005vw -0.005vw 0 #fff, -0.005vw 0.005vw 0 #fff, 0.005vw 0.005vw 0 #fff; */;
+  -webkit-text-stroke: 0.1px white;
 }
 
 #storeContainer span, #storeBuyingContainer span {
@@ -477,6 +489,8 @@
 #storeContainer div:hover, #storeBuyingContainer div:hover {
   background: rgba(104, 104, 104, 0.5);
   filter: brightness(1.25);
+  -webkit-text-stroke: 0px white;
+  text-shadow: 0px 0px 0.1vw white;
 }
 
 #storeTotal {

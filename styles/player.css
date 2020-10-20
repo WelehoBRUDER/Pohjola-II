@@ -310,6 +310,10 @@
   filter: drop-shadow(0.1vw 0.1vw 0.4vw rgb(126, 121, 59));
 }
 
+.item-unavailable {
+  filter: brightness(0.25) !important;
+}
+
 .slider--closed {
   width: 0vw;
   border: 0.0vw solid rgb(10, 10, 10);
@@ -328,6 +332,11 @@
 
 .player-attack--magical {
   animation-name: playerMagical;
+  animation-duration: 0.8s;
+}
+
+.enemy-attack--magical {
+  animation-name: enemyMagical;
   animation-duration: 0.8s;
 }
 
@@ -374,5 +383,27 @@
 
   100% {
     left: 26vw;
+  }
+}
+
+@keyframes enemyMagical {
+  0% {
+    right: 26vw;
+  }
+
+  60% {
+    right: 22vw;
+  }
+
+  80% {
+    right: 28vw;
+  }
+
+  85% {
+    right: 28vw;
+  }
+
+  100% {
+    right: 26vw;
   }
 }

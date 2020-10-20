@@ -133,6 +133,14 @@ function combatStatsView() {
     <img src="images/mana_icon.png">
     ${player.maxmp}
     </p>
+    <p id="physres">
+    <img src="images/physical_resistance.png">
+    ${player.physical_resistance}%
+    </p>
+    <p id="magires">
+    <img src="images/magical_resistance.png">
+    ${player.magical_resistance}%
+    </p>
   `;
   for (let child of combatStats.childNodes) {
     addHoverBox(child, texts[child.id + "_info"], 12);
@@ -188,8 +196,8 @@ function createStageSelection() {
     <div id="buttons">
     </div>
   `;
-  for(let floor in dungeon) {
-    if(floor != "floor1" && !player.floors_beaten["floor" + (+floor.substring(5) - 1)]) continue;
+  for (let floor in dungeon) {
+    if (floor != "floor1" && !player.floors_beaten["floor" + (+floor.substring(5) - 1)]) continue;
     let option = create("option");
     option.textContent = dungeon[floor].name;
     option.value = floor;
@@ -234,7 +242,7 @@ function createStages(floor) {
         };
       }
     }
-    if(player.stages_beaten[stage]) text += "§:br§ §/green/BEATEN!§";
+    if (player.stages_beaten[stage]) text += "§:br§ §/green/BEATEN!§";
     addHoverBox(but, text, 9);
     div.appendChild(but);
   }
@@ -309,8 +317,13 @@ function createPerkTree() {
       connecter.style.top = pxtovw(origin.offsetTop) + 2 + "vw";
       connecter.style.left = pxtovw(origin.offsetLeft) - 4 + "vw";
       hackywacky.appendChild(connecter);
-      if (!player.bought_perks[Perk.left_of]) {
+      if ((!player.bought_perks[Perk.left_of] && !Perk.left_of.startsWith("path"))) {
         div.classList.add("perkTree--perk-unavailable");
+      }
+      else if (Perk.requires) {
+        if (!player.bought_perks[Perk.requires]) {
+          div.classList.add("perkTree--perk-unavailable");
+        }
       }
     }
     else if (Perk.right_of) {
@@ -322,8 +335,14 @@ function createPerkTree() {
       connecter.style.top = pxtovw(origin.offsetTop) + 2 + "vw";
       connecter.style.left = pxtovw(origin.offsetLeft) + 4 + "vw";
       hackywacky.appendChild(connecter);
-      if (!player.bought_perks[Perk.right_of]) {
+      if ((!player.bought_perks[Perk.right_of] && !Perk.right_of.startsWith("path"))) {
         div.classList.add("perkTree--perk-unavailable");
+      }
+
+      else if (Perk.requires) {
+        if (!player.bought_perks[Perk.requires]) {
+          div.classList.add("perkTree--perk-unavailable");
+        }
       }
     }
     else if (Perk.down_of) {
@@ -335,14 +354,23 @@ function createPerkTree() {
       connecter.style.top = pxtovw(origin.offsetTop) + 2 + "vw";
       connecter.style.left = pxtovw(origin.offsetLeft + origin.offsetWidth / 2.25) + "vw";
       hackywacky.appendChild(connecter);
-      if (!player.bought_perks[Perk.down_of]) {
+      if ((!player.bought_perks[Perk.down_of] && !Perk.down_of.startsWith("path"))) {
         div.classList.add("perkTree--perk-unavailable");
+      }
+      else if (Perk.requires) {
+        if (!player.bought_perks[Perk.requires]) {
+          div.classList.add("perkTree--perk-unavailable");
+        }
       }
     }
     else div.classList.add("perkTree--perk-first");
-    addHoverBox(div, `§FS1.25FS/$Y/${Perk.name}§` + "§:br§" + Perk.desc, Perk.name.length / 1.5);
-    div.addEventListener("click", buyPerk);
-    div.appendChild(ico);
+    if (Perk.name === "PATH") {
+      div.classList.add("PERKPATH");
+    } else {
+      addHoverBox(div, `§FS1.25FS/$Y/${Perk.name}§` + "§:br§" + Perk.desc, Perk.name.length / 1.5);
+      div.addEventListener("click", buyPerk);
+      div.appendChild(ico);
+    }
     hackywacky.appendChild(div);
   }
 }
@@ -383,25 +411,30 @@ function createInventory() {
   let armorContainer = create("div");
   let weaponsContainer = create("div");
   let armorsContainer = create("div");
+  let wandContainer = create("div");
   weaponContainer.id = "weaponContainer";
   armorContainer.id = "armorContainer";
+  wandContainer.id = "wandContainer";
   weaponsContainer.id = "weaponsContainer";
   armorsContainer.id = "armorsContainer";
   weaponContainer.addEventListener("click", unequipWeapon);
+  wandContainer.addEventListener("click", unequipWand);
   armorContainer.addEventListener("click", unequipArmor);
   weaponContainer.appendChild(textSyntax("Equipped weapon: §/$tiers[player.weapon.tier]/$player.weapon.name§"));
   armorContainer.appendChild(textSyntax("Equipped armor: §/$tiers[player.armor.tier]/$player.armor.name§"));
+  wandContainer.appendChild(textSyntax("Equipped wand: §/$tiers[player.wand.tier]/$player.wand.name§"));
   addHoverBox(weaponContainer, "Damage: §/$Y/$player.weapon.damage§ §:br§ Speed: §/$B/$player.weapon.speed_bonus§", 6);
   addHoverBox(armorContainer, "Physical Resistance: §/$Y/$player.armor.physical_resistance§§/$Y/%§ §:br§ Magical Resistance: §/$B/$player.armor.magical_resistance§§/$B/%§ §:br§ Speed: §$player.armor.speed_bonus§", 12);
+  addHoverBox(wandContainer, "Magical Power: §/$Y/$player.wand.magical_power*100§§/$Y/%§ §:br§ Speed: §/$B/$player.wand.speed_bonus§", 12);
   for (let wep of player.items) {
-    if (wep.item_type == "weapon" && wep.name != "Fists") {
+    if (wep.item_type == "weapon" && wep.name != "Fists" && wep.name != "Chant Only") {
       let id = wep.name;
       let weapon;
       if (wep.amount <= 1) weapon = textSyntax(`§/${tiers[wep.tier]}/${wep.name}§`);
       else weapon = textSyntax(`§/${tiers[wep.tier]}/${wep.name} ${wep.amount}x§`);
       weapon.id = id;
       weapon.addEventListener("click", equipWeapon);
-      let hoverText = `Damage: §/$Y/${wep.damage}§ §:br§ Speed: §/$B/${wep.speed_bonus}§ §:br§ Tier: §/${tiers[wep.tier]}/${wep.tier}§`;
+      let hoverText = `${wep.magical_power ? "MagPower: " + "§/$Y/" + wep.magical_power * 100 + "%§" : "Damage: " + "§/$Y/" + wep.damage + "§"} §:br§ Speed: §/$B/${wep.speed_bonus}§ §:br§ Tier: §/${tiers[wep.tier]}/${wep.tier}§`;
       if (wep?.effects) {
         for (let effect of wep?.effects) {
           if (effect.increase || effect.increase_stat) {
@@ -434,6 +467,7 @@ function createInventory() {
   }
   invContainer.appendChild(weaponContainer);
   invContainer.appendChild(armorContainer);
+  invContainer.appendChild(wandContainer);
   invContainer.appendChild(weaponsContainer);
   invContainer.appendChild(armorsContainer);
   $("mainWindowContainer").appendChild(invContainer);
@@ -445,14 +479,25 @@ function equipWeapon(e) {
     if (wep.name == e.target.id) weapon = wep;
   }
   if (weapon.amount <= 1) textBoxRemove();
-  let foundWep = false;
-  for (let wep of player.items) {
-    if (wep.name == player.weapon.name) { wep.amount++; foundWep = true }
+  if (weapon.magical_power) {
+    let foundWep = false;
+    for (let wep of player.items) {
+      if (wep.name == player.wand.name) { wep.amount++; foundWep = true }
+    }
+    if (!foundWep) {
+      player.items.push(player.wand);
+    }
+    player.wand = weapon;
+  } else {
+    let foundWep = false;
+    for (let wep of player.items) {
+      if (wep.name == player.weapon.name) { wep.amount++; foundWep = true }
+    }
+    if (!foundWep) {
+      player.items.push(player.weapon);
+    }
+    player.weapon = weapon;
   }
-  if (!foundWep) {
-    player.items.push(player.weapon);
-  }
-  player.weapon = weapon;
   if (weapon.amount > 1) {
     weapon.amount--;
   }
@@ -465,6 +510,30 @@ function equipWeapon(e) {
       else if (effect.increase) player[effect.increase] += effect.by;
     }
   }
+  createInventory();
+  updateLeftValues();
+}
+
+function unequipWand(e) {
+  if (player.wand.name == "Chant Only") return;
+  let foundWep = false;
+  for (let wep of player.items) {
+    if (wep.name == player.wand.name) { wep.amount++; foundWep = true }
+  }
+  if (!foundWep) {
+    player.items.push(player.wand);
+  }
+  let chant;
+  for (let chanton of player.items) {
+    if (chanton.name == "Chant Only") chant = chanton;
+  }
+  if (player.wand?.effects) {
+    for (let effect of player.wand?.effects) {
+      if (effect.increase_stat) player.stats[effect.increase_stat] -= effect.by;
+      else if (effect.increase) player[effect.increase] -= effect.by;
+    }
+  }
+  player.wand = chant;
   createInventory();
   updateLeftValues();
 }
@@ -574,7 +643,7 @@ function createStore() {
       width = 8;
     }
     else if (item.type == "weapon") {
-      hoverText = `Damage: §/$Y/${item.item.damage}§ §:br§ Speed: §/$B/${item.item.speed_bonus}§ §:br§ Tier: §/${tiers[item.item.tier]}/${item.item.tier}§ §:br§ Price: §/$Y/${item.price}§`;
+      hoverText = `${item.item.magical_power ? "MagPower: " + "§/$Y/" + item.item.magical_power * 100 + "%§" : "Damage: " + "§/$Y/" + item.item.damage + "§"} §:br§ Speed: §/$B/${item.item.speed_bonus}§ §:br§ Tier: §/${tiers[item.item.tier]}/${item.item.tier}§ §:br§ Price: §/$Y/${item.price}§`;
       width = 8;
     }
     else if (item.type == "armor") {
@@ -699,12 +768,12 @@ var selected_slot = null;
 var input = "";
 
 function save_does_not_have_sortTime() {
-  for(let save of save_slots) {
-    if(!save.time || save.time == null) {
-      save.time = +(new Date(1/1/1970));
+  for (let save of save_slots) {
+    if (!save.time || save.time == null) {
+      save.time = +(new Date(1 / 1 / 1970));
     }
   }
-} 
+}
 
 function createSaving() {
   $("mainWindowContainer").textContent = "";
@@ -718,7 +787,7 @@ function createSaving() {
   $("mainWindowContainer").addEventListener("click", removeSelect);
   save_slots = JSON.parse(localStorage.getItem(`save_slots`)) || [];
   save_does_not_have_sortTime();
-  save_slots = save_slots.sort((x1, x2) => x2.time - x1.time );
+  save_slots = save_slots.sort((x1, x2) => x2.time - x1.time);
   resetIds();
   for (let save of save_slots) {
     let slot = create("p");
@@ -771,6 +840,7 @@ function loadGame() {
   if (selected_slot == null) return;
   player = selected_slot.save.player;
   state = selected_slot.save.state;
+  if (!player.wand) player.wand = copy(weapons.chant_only);
   updateLeftValues();
   createSaving();
 }
