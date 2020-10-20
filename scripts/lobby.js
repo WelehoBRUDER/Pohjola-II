@@ -7,10 +7,10 @@ const topBarButtons = [
     name: "Perks",
   },
   {
-    name: "Inventory"
+    name: "Store",
   },
   {
-    name: "Store",
+    name: "Inventory"
   },
   {
     name: "Bank",
@@ -259,6 +259,7 @@ function startFight(stage) {
   for (let cd of player.moves) {
     cd.onCooldown = 0;
   }
+  fixCooldowns();
   EnemyNameColor();
   $("combatScreen").style.display = "block";
   $("mainScreen").style.display = "none";
@@ -532,8 +533,8 @@ function unequipArmor() {
   if (!foundArm) {
     player.items.push(player.armor);
   }
-  player.magical_resistance -= armor.magical_resistance;
-  player.physical_resistance -= armor.physical_resistance;
+  player.magical_resistance -= player.armor.magical_resistance;
+  player.physical_resistance -= player.armor.physical_resistance;
   let naked;
   for (let nothing of player.items) {
     if (nothing.name == "Nothing") naked = nothing;
@@ -697,6 +698,14 @@ var save_slots = [];
 var selected_slot = null;
 var input = "";
 
+function save_does_not_have_sortTime() {
+  for(let save of save_slots) {
+    if(!save.time || save.time == null) {
+      save.time = +(new Date(1/1/1970));
+    }
+  }
+} 
+
 function createSaving() {
   $("mainWindowContainer").textContent = "";
   let save_container = create("div");
@@ -708,6 +717,9 @@ function createSaving() {
   $("mainWindowContainer").removeEventListener("click", removeSelect);
   $("mainWindowContainer").addEventListener("click", removeSelect);
   save_slots = JSON.parse(localStorage.getItem(`save_slots`)) || [];
+  save_does_not_have_sortTime();
+  save_slots = save_slots.sort((x1, x2) => x2.time - x1.time );
+  resetIds();
   for (let save of save_slots) {
     let slot = create("p");
     slot.textContent = save.text;
@@ -731,13 +743,15 @@ function createSaving() {
 
 function saveGame() {
   let saveName = $("save_input").value || player.name;
+  let sortTime = +(new Date());
   let saveTime = new Date();
   let gameSave = {};
   gameSave.player = player;
   gameSave.state = state;
   saveTime = ("0" + saveTime.getHours()).slice(-2) + "." + ("0" + saveTime.getMinutes()).slice(-2);
+  console.log(sortTime);
   let id = 0;
-  if (selected_slot == null) save_slots.push({ text: `${saveName} || Last Saved: ${saveTime} || Character Level: ${player.level}`, save: gameSave, id: save_slots.length });
+  if (selected_slot == null) save_slots.push({ text: `${saveName} || Last Saved: ${saveTime} || Character Level: ${player.level}`, save: gameSave, id: save_slots.length, time: sortTime });
   else {
     createPrompt(`Are you sure you wish to save over slot ${selected_slot.text}?`, () => saveOver(saveName, saveTime, gameSave));
     return;
@@ -747,7 +761,8 @@ function saveGame() {
 }
 
 function saveOver(name, time, save) {
-  save_slots[selected_slot.id] = { text: `${name} || Last Saved: ${time} || Character Level: ${player.level}`, save: save, id: selected_slot.id }
+  let sortTime = +(new Date());
+  save_slots[selected_slot.id] = { text: `${name} || Last Saved: ${time} || Character Level: ${player.level}`, save: save, id: selected_slot.id, time: sortTime }
   localStorage.setItem("save_slots", JSON.stringify(save_slots));
   createSaving();
 }

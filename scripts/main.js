@@ -124,6 +124,38 @@ addHoverBox($("enemyManabar"), texts.enemyManaPoints, 13);
 
 $("atk-button").addEventListener('click', ()=>PlayerAttack());
 
+function actionBar() {
+  try {
+  $("enemyActionbar-fill").classList.remove("actionbar-progress");
+  $("enemyActionbar-fill").classList.remove("actionbar-ready");
+  $("enemyActionbar-fill").classList.remove("actionbar-halt");
+  $("enemyActionbar-fill").classList.remove("actionbar-gone");
+  $("playerActionbar-fill").classList.remove("actionbar-progress");
+  $("playerActionbar-fill").classList.remove("actionbar-ready");
+  $("playerActionbar-fill").classList.remove("actionbar-halt");
+  $("playerActionbar-fill").classList.remove("actionbar-gone");
+  } catch {}
+  if(!state.paused && player.action_points < 100 && player.action_points > 0) {
+    $("playerActionbar-fill").classList.add("actionbar-progress");
+  } else if(state.paused && player.action_points < 100 && player.action_points > 0) {
+    $("playerActionbar-fill").classList.add("actionbar-halt");
+  } else if(player.action_points === 0) {
+    $("playerActionbar-fill").classList.add("actionbar-gone");
+  }
+   else {
+    $("playerActionbar-fill").classList.add("actionbar-ready");
+  }
+  if(!state.paused && enemy.action_points < 100 && enemy.action_points > 0) {
+    $("enemyActionbar-fill").classList.add("actionbar-progress");
+  } else if(state.paused && enemy.action_points < 100 && enemy.action_points > 0) {
+    $("enemyActionbar-fill").classList.add("actionbar-halt");
+  } else if(enemy.action_points === 0) {
+    $("enemyActionbar-fill").classList.add("actionbar-gone");
+  } else {
+    $("enemyActionbar-fill").classList.add("actionbar-ready");
+  }
+}
+
 function Update() {
   // Execute all code under this line 60 times per second.
 
@@ -155,19 +187,19 @@ function Update() {
     state.turn = "enemy";
   }
 
+
   if(!state.action && state.turn == "enemy") EnemyAttack();
+
 
   // Action bar (player)
   $("playerActionbar-fill").style.width = player.action_points + '%';
   $("playerActionbar-percentage").textContent = Math.ceil(player.action_points) + '%';
-  if(player.action_points == 0) $("playerActionbar-fill").style.boxShadow = "0px 0px 0vw 0vw rgb(60, 115, 15)";
-  else $("playerActionbar-fill").style.boxShadow = "0px 0px 0.25vw 0.2vw rgb(60, 115, 15)";
 
   // Action bar (enemy)
   $("enemyActionbar-fill").style.width = enemy.action_points + '%';
   $("enemyActionbar-percentage").textContent = Math.ceil(enemy.action_points) + '%';
-  if(enemy.action_points == 0) $("enemyActionbar-fill").style.boxShadow = "0px 0px 0vw 0vw rgb(60, 115, 15)";
-  else $("enemyActionbar-fill").style.boxShadow = "0px 0px 0.25vw 0.2vw rgb(60, 115, 15)";
+
+  actionBar();
 
   // Health bar (player)
   $("playerHealthbar-number").textContent = player.hp + " / " + player.maxhp + " HP";
@@ -401,6 +433,9 @@ function generateSkillMoves() {
   updateSkillMoves();
 }
 
+
+let hovering = undefined;
+
 function UseItem(item) {
   if(state.action || state.turn != "player" || item.amount < 1) return;
   player.action_points = 0;
@@ -420,12 +455,11 @@ function UseItem(item) {
 }
 
 function textBoxSet(point, text, width, alt) {
+  hovering = {point: point, text: text, alt: alt, width: width};
   textBox.style.display = "block";
   textBox.textContent = "";
-  if(point.shiftKey && alt) textBox.appendChild(textSyntax(alt));
-  else textBox.appendChild(textSyntax(text));
-  if(point.shiftKey && alt) textBox.style.width = width*1.5 + 'vw';
-  else textBox.style.width = width + 'vw';
+  textBox.appendChild(textSyntax(text));
+  textBox.style.width = width + 'vw';
   textBox.style.left = point.clientX + 20 + 'px';
   textBox.style.top = point.clientY + 20 + 'px';
   if(textBox.offsetLeft + textBox.offsetWidth > clientWidth) {
@@ -433,27 +467,44 @@ function textBoxSet(point, text, width, alt) {
   }
 }
 
-function textBoxMove(point) {
-  if(point.shiftKey) {
-
-  }
+function textBoxMove(point, text, alt) {
   textBox.style.left = point.clientX + 20 + 'px';
   textBox.style.top = point.clientY + 20 + 'px';
   if(textBox.offsetLeft + textBox.offsetWidth > clientWidth) {
     textBox.style.left = clientWidth - textBox.offsetWidth  + 'px';
+  }
+}
+
+function textBoxAlt(e) {
+  if(hovering?.point && e.shiftKey && hovering.alt) {
+    textBox.textContent = "";
+    textBox.style.width = hovering.width*1.5 + 'vw';
+    textBox.appendChild(textSyntax(hovering.alt));
+  }
+}
+
+function textBoxMain(e) {
+  if(hovering?.point) {
+    textBox.textContent = "";
+    textBox.style.width = hovering.width + 'vw';
+    textBox.appendChild(textSyntax(hovering.text));
   }
 }
 
 function textBoxRemove() {
+  hovering = undefined;
   textBox.style.display = "none";
   textBox.textContent = "";
 }
 
 function addHoverBox (element, text, width, alt) {
   element.addEventListener('mouseover', (e)=> textBoxSet(e, text, width, alt));
-  element.addEventListener('mousemove', (e) => textBoxMove(e))
-  element.addEventListener('mouseout', (e) => textBoxRemove(e))
+  element.addEventListener('mousemove', (e) => textBoxMove(e, text, alt));
+  element.addEventListener('mouseout', (e) => textBoxRemove(e));
 }
+
+document.body.addEventListener('keydown', textBoxAlt);
+document.body.addEventListener('keyup', textBoxMain);
 
 function textSyntax (txt) {
   let container = create("div")
@@ -540,7 +591,10 @@ function attackEnemy() {
   game.classList.add("shake1");
   $("enemySpriteContainer").classList.add("shake2");
   let damage = 0;
-  damage = Math.floor((player.weapon.damage * (1 + player.stats.str/20)) * (1 + player.physical_multiplier)) * (1 - ((resistance_modifiers(enemy, "physical_resistance") + (enemy.physical_resistance)/100)));
+  let armor =  (1 - ((enemy.physical_resistance/100) + resistance_modifiers(enemy, "physical_resistance")));
+  if (armor > 1) armor = 1;
+  else if(armor < 0) armor = 0;
+  damage = Math.floor((player.weapon.damage * (1 + player.stats.str/20)) * (1 + player.physical_multiplier)) * armor;
   if(damage < 0) damage = 0;
   damage = Math.floor(damage);
   enemy.hp -= damage;
@@ -560,11 +614,15 @@ function enemyAttacks(attack) {
   game.classList.add("shake1");
   $("playerSpriteContainer").classList.add("shake2");
   let damage = 0;
+  let armor;
+  if(attack.physical) armor = 1 - (resistance_modifiers(player, "physical_resistance") + (player.physical_resistance)/100) * (1 - attack.penetration);
+  else 1 - (resistance_modifiers(player, "magical_resistance") + (player.magical_resistance)/100) * (1 - attack.penetration);
+  if(armor > 1) armor = 1
   if(attack.physical) {
-    damage = Math.floor((enemy.weapon.damage * (1 + enemy.stats.str/20)) * attack.power) * (1 - (resistance_modifiers(player, "physical_resistance") + (player.physical_resistance)/100) * (1 - attack.penetration));
+    damage = Math.floor((enemy.weapon.damage * (1 + enemy.stats.str/20)) * attack.power) * armor;
   }
   else {
-    damage = Math.floor((enemy.weapon.damage * (1 + enemy.stats.int/20)) * attack.power) * (1 - (resistance_modifiers(player, "magical_resistance") + (player.magical_resistance)/100) * (1 - attack.penetration));
+    damage = Math.floor((enemy.weapon.damage * (1 + enemy.stats.int/20)) * attack.power) * armor;
   }
   if(damage < 0) damage = 0;
   damage = Math.floor(damage);
@@ -662,10 +720,14 @@ function hurtEnemy(move) {
   game.classList.add("shake1");
   $("enemySpriteContainer").classList.add("shake2");
   let damage = 0;
+  let armor;
+  if(move.physical) armor = (1 - ((enemy.physical_resistance/100) + resistance_modifiers(enemy, "physical_resistance"))) * (1 - move.penetration);
+  else armor = (1 - ((enemy.physical_resistance/100) + resistance_modifiers(enemy, "physical_resistance"))) * (1 - move.penetration);
+  if(armor > 1) armor = 1;
   if(move.physical) {
-    damage = Math.floor((((player.weapon.damage + move.base) * (1 + player.stats.str/20)) * (1 + player.physical_multiplier)) * move.power) * (1 - (resistance_modifiers(enemy, "physical_resistance") + (enemy.physical_resistance)/100) * (1 - move.penetration));
+    damage = Math.floor((((player.weapon.damage + move.base) * (1 + player.stats.str/20)) * (1 + player.physical_multiplier)) * move.power) * armor;
   } else {
-    damage = Math.floor((((player.weapon.damage + move.base) * (1 + player.stats.int/20)) * (1 + player.magical_multiplier)) * move.power) * (1 - (resistance_modifiers(enemy, "magical_resistance") + (enemy.magical_resistance)/100) * (1 - move.penetration));
+    damage = Math.floor((((player.weapon.damage + move.base) * (1 + player.stats.int/20)) * (1 + player.magical_multiplier)) * move.power) * armor;
   }
   if(damage < 0) damage = 0;
   damage = Math.floor(damage);
@@ -791,6 +853,7 @@ function EndGauntlet(condition) {
     if(floorBeaten) {
       player.floors_beaten["floor" + state.floor] = true;
     }
+    createStageSelection();
     $("combatScreen").style.display = "none";
     $("mainScreen").style.display = "block";
     updateLeftValues();
@@ -814,4 +877,15 @@ function NextInGauntlet() {
   $("enemySprite").src = "images/" + enemy.name + ".png";
   EnemyNameColor();
   smallUpdate();
+  fixCooldowns();
+}
+
+function fixCooldowns() {
+  if(state.open == "none")  {
+    if($("playerButtons-open").classList.contains("slider--open")) $("playerButtons-open").classList.remove("slider--open");
+    $("playerButtons-open").classList.add("slider--closed"); 
+  }
+  else if(state.open == "items") generateInventoryItems();
+  else if(state.open == "magical") generateMagicalMoves();
+  else if(state.open == "skills") generateSkillMoves();
 }

@@ -130,7 +130,7 @@ const moves = {
 
 const statuses = {
   sundered: {
-    power: -0.5,
+    power: 0.5,
     target: "physical_resistance",
     lasts: 5,
     name: "Sundered",

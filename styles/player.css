@@ -25,15 +25,34 @@
 #playerActionbar-fill {
   width: 100%;
   height: 100%;
-  background:rgb(85, 165, 20);;
-  background: linear-gradient(90deg, rgba(85, 165, 20,1) 0%, rgb(142, 235, 66) 10%, rgb(110, 196, 40) 25%, rgba(85, 165, 20,1) 100%);
   animation-name: BarShine;
   animation-duration: 1s;
   background-size: 200% 200%;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
-  box-shadow: 0px 0px 0.25vw 0.2vw rgb(60, 115, 15);
   border-radius: 1.5vw;
+}
+
+.actionbar-ready {
+  background:rgb(85, 165, 20);
+  background: linear-gradient(90deg, rgba(85, 165, 20,1) 0%, rgb(142, 235, 66) 10%, rgb(110, 196, 40) 25%, rgba(85, 165, 20,1) 100%);
+  box-shadow: 0px 0px 0.25vw 0.2vw rgb(60, 115, 15);
+}
+
+.actionbar-progress {
+  background:rgb(214, 211, 23);
+  background: linear-gradient(90deg, rgba(214, 211, 23,1) 0%, rgb(255, 253, 128) 10%, rgb(223, 220, 50) 25%, rgba(214, 211, 23,1) 100%);
+  box-shadow: 0px 0px 0.25vw 0.2vw rgb(161, 159, 16);
+}
+
+.actionbar-halt {
+  background:rgb(90, 90, 90);
+  background: linear-gradient(90deg, rgba(90, 90, 90,1) 0%, rgb(126, 126, 126) 10%, rgb(112, 112, 112) 25%, rgba(90, 90, 90,1) 100%);
+  box-shadow: 0px 0px 0.25vw 0.2vw rgb(85, 85, 85);
+}
+
+.actionbar-gone {
+  box-shadow: 0px 0px 0px 0px black;
 }
 
 #playerActionbar-percentage {

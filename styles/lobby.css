@@ -551,12 +551,13 @@
 }
 
 #saveBottom {
-  height: 28vw;
+  height: 27vw;
   width: 100%;
   position: absolute;
   left: 0vw;
   top: 4vw;
   text-align: center;
+  overflow-y: scroll;
 }
 
 #saveBottom p {
