@@ -11,6 +11,7 @@
 - Fixed skill cooldowns not displaying properly
 - Changes to damage calculation
 - Fixed minor issues and improved QOL
+- Hoverbox shifting now actually does what it says
 # 0.2a
 - Will add bank that can store up to 2/3 of exp. All exp not in bank is lost when defeated.
 - Added dodging to combat. Base chance is 5%, can eventually be increased with perks. Dodge nullifies damage and prevents statuses.
