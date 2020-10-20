@@ -8,6 +8,7 @@
 - Added new items to shop
 - Changed how the shop works
 - Made inventory easier to use
+- Fixed skill cooldowns not displaying properly
 # 0.2a
 - Will add bank that can store up to 2/3 of exp. All exp not in bank is lost when defeated.
 - Added dodging to combat. Base chance is 5%, can eventually be increased with perks. Dodge nullifies damage and prevents statuses.

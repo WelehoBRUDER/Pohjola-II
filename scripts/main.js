@@ -320,21 +320,11 @@ function generateMagicalMoves() {
     let img = create("img");
     img.src = "images/" + move.id + ".png";
     Move.appendChild(img);
-    if(move.onCooldown > 0) {
-      let cd = create("p");
-      cd.textContent = Math.ceil(move.onCooldown) + "s";
-      img.style.filter = "brightness(0.25)";
-      img.pointerEvents = "none";
-      Move.appendChild(cd);
-    }
-    else if(move.mp_cost > player.mp) {
-      img.style.filter = "brightness(0.25)";
-      img.pointerEvents = "none";
-    }
     addHoverBox(Move, move.name + " §FS0.4FS/$Y/Hold shift for details§", (move.name.length)/2, texts[move.id]);
     Move.addEventListener('click', ()=>Ability(move));
     buttons.appendChild(Move);
   }
+  updateMagicalMoves();
 }
 
 function updateMagicalMoves() {
@@ -356,6 +346,11 @@ function updateMagicalMoves() {
     else if(move.mp_cost > player.mp) {
       $(move.id).childNodes[0].style.filter = "brightness(0.25)";
       $(move.id).childNodes[0].pointerEvents = "none";
+    }
+    else {
+      $(move.id).childNodes[0].style.filter = "brightness(1)";
+      $(move.id).childNodes[0].pointerEvents = "all";
+      if($(move.id).childNodes[1]) $(move.id).removeChild($(move.id).childNodes[1]);
     }
   }
 }
@@ -379,6 +374,10 @@ function updateSkillMoves() {
     else if(move.mp_cost > player.mp) {
       $(move.id).childNodes[0].style.filter = "brightness(0.25)";
       $(move.id).childNodes[0].pointerEvents = "none";
+    } else {
+      $(move.id).childNodes[0].style.filter = "brightness(1)";
+      $(move.id).childNodes[0].pointerEvents = "all";
+      if($(move.id).childNodes[1]) $(move.id).removeChild($(move.id).childNodes[1]);
     }
   }
 }
@@ -394,22 +393,12 @@ function generateSkillMoves() {
     Move.classList.add("item");
     let img = create("img");
     img.src = "images/" + move.id + ".png";
-    if(move.onCooldown > 0) {
-      let cd = create("p");
-      cd.textContent = Math.ceil(move.onCooldown) + "s";
-      img.style.filter = "brightness(0.25)";
-      img.pointerEvents = "none";
-      Move.appendChild(cd);
-    }
-    else if(move.mp_cost > player.mp) {
-      img.style.filter = "brightness(0.25)";
-      img.pointerEvents = "none";
-    }
     addHoverBox(Move, move.name + " §FS0.55FS/$Y/Hold shift for details§", (move.name.length)/2, texts[move.id]);
     Move.addEventListener('click', ()=>Ability(move));
     Move.appendChild(img);
     buttons.appendChild(Move);
   }
+  updateSkillMoves();
 }
 
 function UseItem(item) {
@@ -824,4 +813,5 @@ function NextInGauntlet() {
   $("enemyName").textContent = "Lv" + enemy.level + " " + enemy.name;
   $("enemySprite").src = "images/" + enemy.name + ".png";
   EnemyNameColor();
+  smallUpdate();
 }
