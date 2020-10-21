@@ -211,6 +211,18 @@ const moves = {
     id: "astral_lance",
     base: 50
   },
+  immobilizing_shatter: {
+    power: 1.25,
+    penetration: 0,
+    mp_cost: 75,
+    cooldown: 12,
+    physical: false,
+    name: "Immobilizing Shatter",
+    onCooldown: 0,
+    id: "immobilizing_shatter",
+    base: 28,
+    status: "speed_down"
+  }
 }
 
 const statuses = {
@@ -227,5 +239,19 @@ const statuses = {
     lasts: 5,
     name: "Resistance",
     id: "resistance"
+  },
+  speed_down: {
+    lower: 0.4,
+    target: "speed",
+    lasts: 5,
+    name: "Slowness",
+    id: "speed_down"
+  },
+  speed_up: {
+    increase: 0.3,
+    target: "speed",
+    lasts: 4,
+    name: "Quick Moves",
+    id: "speed_up"
   }
 }

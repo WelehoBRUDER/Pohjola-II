@@ -60,5 +60,8 @@ const texts = {
   resistance: "§FS0.75FS/white/This character is on guard, and thus their physical resistance is increased by 60% of its original value.§",
   mana_blast: "Deals §$getBase(player, mana_blast)§ + §$Math.floor(getPower(player, mana_blast)*100)§% damage to enemy. Intelligence and wand increase damage further.",
   fire_lance: "Deals §$getBase(player, fire_lance)§ + §$Math.floor(getPower(player, fire_lance)*100)§% damage, also ignoring §$getPenetration(player, fire_lance)*100§% of armor. §:br§ Cooldown: §$getCooldown(player, fire_lance)§s",
-  regeneration: "Recovers §$Math.floor(getPower(player, regeneration)*100)§% of max §/$R/HP§. §:br§ Cooldown: §$getCooldown(player, regeneration)§s"
+  regeneration: "Recovers §$Math.floor(getPower(player, regeneration)*100)§% of max §/$R/HP§. §:br§ Cooldown: §$getCooldown(player, regeneration)§s",
+  immobilizing_shatter: "Deals §$getBase(player, immobilizing_shatter)§ + §$Math.floor(getPower(player, immobilizing_shatter)*100)§% damage and causes effect '§/$Y/Slowness§', that lowers enemy speed by 40%. Cooldown: §$getCooldown(player, immobilizing_shatter)§s",
+  speed_down: "This character's speed has been lowered by 40%",
+  speed_up: "This character's speed has been increased by 30%"
 }

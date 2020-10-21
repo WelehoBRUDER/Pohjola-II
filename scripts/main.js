@@ -162,6 +162,26 @@ function actionBar() {
   }
 }
 
+function speedDebuffs(char) {
+  let total = 1;
+  for(let debuff of char.statuses) {
+    if(debuff.lower) {
+      total += debuff.lower;
+    }
+  }
+  return total;
+}
+
+function speedBuffs(char) {
+  let total = 1;
+  for(let buff of char.statuses) {
+    if(buff.increase)  {
+      total += buff.increase;
+    }
+  }
+  return total;
+}
+
 function Update() {
   // Execute all code under this line 60 times per second.
 
@@ -175,11 +195,11 @@ function Update() {
 
   // Player action bar fill sequence
   player.speed = ((player.weapon.speed_bonus / 100) + (player.armor.speed_bonus / 100)) + player.stats.agi / 100;
-  if (!state.paused) player.action_points += 0.5 + player.speed;
+  if (!state.paused) player.action_points += (0.5 + player.speed / speedDebuffs(player)) * speedDebuffs(player);
 
   // Enemy action bar fill sequence
   enemy.speed = (enemy.weapon.speed_bonus / 100) + enemy.stats.agi / 100;
-  if (!state.paused) enemy.action_points += 0.5 + enemy.speed;
+  if (!state.paused) enemy.action_points += ((0.5 + enemy.speed) / speedDebuffs(enemy)) * speedBuffs(enemy);
 
   // Reset action points when they reach their goal
   if (player.action_points >= 100) {
@@ -275,8 +295,8 @@ function Update() {
   }
 
   // Random 
-  playerActionrate = ((0.5 + player.speed) * 60).toFixed(1) + '%';
-  enemyActionrate = ((0.5 + enemy.speed) * 60).toFixed(1) + '%';
+  playerActionrate = ((((0.5 + player.speed) / speedDebuffs(player)) * speedBuffs(player)) * 60).toFixed(1) + '%';
+  enemyActionrate = ((((0.5 + enemy.speed) / speedDebuffs(enemy)) * speedBuffs(enemy)) * 60).toFixed(1) + '%';
 
   // Check deaths
   if (player.hp <= 0) battleEnd("defeat");

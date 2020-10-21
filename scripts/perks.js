@@ -128,6 +128,17 @@ let warrior_tree = {
       {increase: "magical_resistance", by: 5}
     ],
   },
+  warrior_12: {
+    name: "Human Juggernaut",
+    cost: 3,
+    desc: "Increases both §/$Y/physical resistance§ by 3% and §/$R/HP§ by 100. §:br§ Cost: 3 perk points",
+    icon: "vitality",
+    down_of: "warrior_10",
+    effect: [
+      {increase: "physical_resistance", by: 3},
+      {increase: "maxhp", by: 100}
+    ],
+  },
   path_2: {
     name: "PATH",
     cost: 0,
@@ -491,6 +502,26 @@ let mage_tree = {
       {increase: "maxmp", by: 50},
       {increase: "magical_multiplier", by: 0.08},
       {increase_stat: "int", by: 5},
+    ],
+  },
+  mage_22: {
+    name: "Expanded Capacity",
+    cost: 2,
+    desc: "Increases §/$B/MP§ by 60. §:br§ Cost: 2 perk points",
+    icon: "wisdom",
+    left_of: "mage_20",
+    effect: [
+      {increase: "maxmp", by: 60},
+    ],
+  },
+  mage_23: {
+    name: "Bone Breaking Shatter",
+    cost: 2,
+    desc: "Grant spell '§/$Y/Immobilizing Shatter§'. §:br§ Cost: 2 perk points",
+    icon: "immobilizing_shatter",
+    left_of: "mage_22",
+    effect: [
+      {grant_skill: copy(moves.immobilizing_shatter)},
     ],
   },
 }
