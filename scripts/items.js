@@ -216,7 +216,7 @@ const armors = {
     magical_resistance: 7,
     speed_bonus: 2,
     effects: [
-      {increase_stat: "maxhp", by: 25}
+      {increase: "maxhp", by: 25}
     ],
     item_type: "armor",
     tier: "E"

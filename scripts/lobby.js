@@ -438,7 +438,7 @@ function createInventory() {
       if (wep?.effects) {
         for (let effect of wep?.effects) {
           if (effect.increase || effect.increase_stat) {
-            hoverText += `§:br§ Increases ${effect.increase?.toUpperCase() || effect.increase_stat?.toUpperCase()} by ${effect.by}`;
+            hoverText += `§:br§ Increases ${effectSyntax(effect, "stat")} by ${effectSyntax(effect, "value")}`;
           }
         }
       }
@@ -455,7 +455,7 @@ function createInventory() {
       if (arm?.effects) {
         for (let effect of arm?.effects) {
           if (effect.increase || effect.increase_stat) {
-            hoverText += `§:br§ Increases ${effect.increase?.toUpperCase() || effect.increase_stat?.toUpperCase()} by ${effect.by}`;
+            hoverText += `§:br§ Increases ${effectSyntax(effect, "stat")} by ${effectSyntax(effect, "value")}`;
           }
         }
       }
@@ -653,7 +653,7 @@ function createStore() {
     if (item?.item?.effects) {
       for (let effect of item?.item?.effects) {
         if (effect.increase || effect.increase_stat) {
-          hoverText += `§:br§ Increases ${effect.increase?.toUpperCase() || effect.increase_stat?.toUpperCase()} by ${effect.by}`;
+          hoverText += `§:br§ Increases ${effectSyntax(effect, "stat")} by ${effectSyntax(effect, "value")}`;
         }
       }
     }
@@ -682,7 +682,7 @@ function createStore() {
     if (item?.effects) {
       for (let effect of item?.effects) {
         if (effect.increase || effect.increase_stat) {
-          hoverText += `§:br§ Increases ${effect.increase?.toUpperCase() || effect.increase_stat?.toUpperCase()} by ${effect.by}`;
+          hoverText += `§:br§ Increases ${effectSyntax(effect, "stat")} by ${effectSyntax(effect, "value")}`;
         }
       }
     }
@@ -896,4 +896,30 @@ function spacesToNumber(number) {
     if ((txt.length - i) % 3 == 0 && i !== 0) empty += " ";
     empty += txt[i];
   } return empty;
+}
+
+function effectSyntax(effect, req) {
+  console.log(effect);
+  if(req == "stat") {
+    if(effect.increase) {
+      switch(effect.increase) {
+        case "physical_multiplier": return "§/$Y/physical damage§"
+        case "magical_multiplier": return "§/$Y/magical damage§"
+        case "maxhp": return "§/$R/HP§"
+        case "maxmp": return "§/$B/MP§"
+      }
+    } else if(effect.increase_stat) {
+      switch(effect.increase_stat) {
+        case "str": return "strength"
+        case "agi": return "agility"
+        case "vit": return "vitality"
+        case "int": return "intelligence"
+        case "lck": return "NOT_DESCRIBED"
+      }
+    }
+  } else if(req == "value") {
+      if(effect.increase?.indexOf("_multiplier") != -1) {
+        return effect.by*100 + "%";
+      } else return effect.by;
+  }
 }
