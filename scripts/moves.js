@@ -153,7 +153,7 @@ const moves = {
     name: "Fireball",
     onCooldown: 0,
     id: "fireball",
-    base: 10
+    base: 15
   },
   mana_blast: {
     power: 1.1,
@@ -164,7 +164,18 @@ const moves = {
     name: "Mana Blast",
     onCooldown: 0,
     id: "mana_blast",
-    base: 5
+    base: 8
+  },
+  grave_floater_blast: {
+    power: 1.15,
+    penetration: 0,
+    mp_cost: 10,
+    cooldown: 0,
+    physical: false,
+    name: "Mana Blast",
+    onCooldown: 0,
+    id: "grave_floater_blast",
+    base: 20
   },
   fire_lance: {
     power: 1.75,
@@ -175,7 +186,7 @@ const moves = {
     name: "Fire Lance",
     onCooldown: 0,
     id: "fire_lance",
-    base: 15
+    base: 16
   },
   regeneration: {
     power: 0.15,

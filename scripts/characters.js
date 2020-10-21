@@ -363,15 +363,15 @@ const enemies = {
     stats: {
       str: 6,
       vit: 3,
-      int: 150,
-      agi: 65,
+      int: 90,
+      agi: 51,
       lck: 1
     },
     items: [
       addItems(consumables.medium_healing_potion, 1)
     ],
     moves: [
-      copy(moves.mana_blast),
+      copy(moves.grave_floater_blast),
       copy(moves.fireball),
       copy(moves.astral_lance),
     ],
