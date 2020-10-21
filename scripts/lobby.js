@@ -504,6 +504,12 @@ function equipWeapon(e) {
     if (!foundWep) {
       player.items.push(player.wand);
     }
+    if (player.wand?.effects) {
+      for (let effect of player.wand?.effects) {
+        if (effect.increase_stat) player.stats[effect.increase_stat] -= effect.by;
+        else if (effect.increase) player[effect.increase] -= effect.by;
+      }
+    }
     player.wand = weapon;
   } else {
     let foundWep = false;
@@ -512,6 +518,12 @@ function equipWeapon(e) {
     }
     if (!foundWep) {
       player.items.push(player.weapon);
+    }
+    if (player.weapon?.effects) {
+      for (let effect of player.weapon?.effects) {
+        if (effect.increase_stat) player.stats[effect.increase_stat] -= effect.by;
+        else if (effect.increase) player[effect.increase] -= effect.by;
+      }
     }
     player.weapon = weapon;
   }
@@ -569,6 +581,14 @@ function equipArmor(e) {
   if (!foundArm) {
     player.items.push(player.armor);
   }
+  if (player.armor?.effects) {
+    for (let effect of player.armor?.effects) {
+      if (effect.increase_stat) player.stats[effect.increase_stat] -= effect.by;
+      else if (effect.increase) player[effect.increase] -= effect.by;
+    }
+  }
+  player.magical_resistance -= player.armor.magical_resistance;
+  player.physical_resistance -= player.armor.physical_resistance;
   player.magical_resistance += armor.magical_resistance;
   player.physical_resistance += armor.physical_resistance;
   player.armor = armor;
