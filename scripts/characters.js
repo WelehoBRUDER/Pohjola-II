@@ -390,7 +390,7 @@ const enemies = {
     dodge: 0.03
   },
   gronk: {
-    name: "Gronk",
+    name: "GRONK",
     hp: 525,
     mp: 0,
     maxhp: 525,
