@@ -817,9 +817,9 @@ function battleEnd(condition) {
     let xp = 0;
     let gold = 0;
     xp = enemy.xp;
-    xp = xp * (1 + player.stats.lck / 100);
+    xp = Math.ceil(xp * (1 + player.stats.lck / 100));
     gold = Random(enemy.gold.max, enemy.gold.min);
-    gold = gold * (1 + player.stats.lck / 25);
+    gold = Math.ceil(gold * (1 + player.stats.lck / 25));
     gauntletLoot.xp += xp
     gauntletLoot.gold += gold
     state.end = true;
