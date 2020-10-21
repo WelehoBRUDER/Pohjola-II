@@ -627,9 +627,11 @@ function unequipArmor() {
   for (let nothing of player.items) {
     if (nothing.name == "Nothing") naked = nothing;
   }
-  for (let effect of player.armor.effects) {
-    if (effect.increase_stat) player.stats[effect.increase_stat] -= effect.by;
-    else if (effect.increase) player[effect.increase] -= effect.by;
+  if(player.armor.effects) {
+    for (let effect of player.armor.effects) {
+      if (effect.increase_stat) player.stats[effect.increase_stat] -= effect.by;
+      else if (effect.increase) player[effect.increase] -= effect.by;
+    }
   }
   player.armor = naked;
   createInventory();
