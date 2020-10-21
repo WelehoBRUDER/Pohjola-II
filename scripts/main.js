@@ -914,7 +914,7 @@ function calculateDmg(actor, target, move) {
     console.log(damage);
     return damage;
   } else {
-    damage = (move.base ? move.base : 0) * (actor.wand?.magical_power ? actor.wand.magical_power : 1);
+    damage = (move.base ? move.base : 0 + actor.wand?.mag_damage ? actor.wand.mag_damage : 0) * (actor.wand?.magical_power ? actor.wand.magical_power : 1);
     res = target.magical_resistance / 100;
     multiplier += ((actor.stats.int / 20) + (actor.magical_multiplier ? actor.magical_multiplier : 0)) * (move.power ? move.power : 1);
     res = res * (1 + resistance_modifiers(target, "magical_resistance"));

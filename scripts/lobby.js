@@ -434,7 +434,7 @@ function createInventory() {
       else weapon = textSyntax(`§/${tiers[wep.tier]}/${wep.name} ${wep.amount}x§`);
       weapon.id = id;
       weapon.addEventListener("click", equipWeapon);
-      let hoverText = `${wep.magical_power ? "MagPower: " + "§/$Y/" + wep.magical_power * 100 + "%§" : "Damage: " + "§/$Y/" + wep.damage + "§"} §:br§ Speed: §/$B/${wep.speed_bonus}§ §:br§ Tier: §/${tiers[wep.tier]}/${wep.tier}§`;
+      let hoverText = `${wep.magical_power ? "MagPower: " + "§/$Y/" + wep.magical_power * 100 + "%§" : "Damage: " + "§/$Y/" + wep.damage + "§"} §:br§ Speed: §/$B/${wep.speed_bonus}§ §:br§ Tier: §/${tiers[wep.tier]}/${wep.tier}§ §:br§ ${wep.mag_damage ? "MagDamage: " + wep.mag_damage : ""}`;
       if (wep?.effects) {
         for (let effect of wep?.effects) {
           if (effect.increase || effect.increase_stat) {
@@ -643,7 +643,7 @@ function createStore() {
       width = 8;
     }
     else if (item.type == "weapon") {
-      hoverText = `${item.item.magical_power ? "MagPower: " + "§/$Y/" + item.item.magical_power * 100 + "%§" : "Damage: " + "§/$Y/" + item.item.damage + "§"} §:br§ Speed: §/$B/${item.item.speed_bonus}§ §:br§ Tier: §/${tiers[item.item.tier]}/${item.item.tier}§ §:br§ Price: §/$Y/${item.price}§`;
+      hoverText = `${item.item.magical_power ? "MagPower: " + "§/$Y/" + item.item.magical_power * 100 + "%§" : "Damage: " + "§/$Y/" + item.item.damage + "§"} §:br§ Speed: §/$B/${item.item.speed_bonus}§ §:br§ Tier: §/${tiers[item.item.tier]}/${item.item.tier}§ §:br§ Price: §/$Y/${item.price}§ §:br§ ${item.item.mag_damage ? "MagDamage: " + item.item.mag_damage : ""}`;
       width = 8;
     }
     else if (item.type == "armor") {

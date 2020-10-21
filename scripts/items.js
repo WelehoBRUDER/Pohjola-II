@@ -145,7 +145,8 @@ const weapons = {
     type: "magical",
     speed_bonus: 0,
     item_type: "weapon",
-    tier: "G"
+    tier: "G",
+    mag_damage: 5
   },
   apprentice_staff: {
     name: "Apprentice's Staff",
@@ -153,7 +154,8 @@ const weapons = {
     type: "magical",
     speed_bonus: 0,
     item_type: "weapon",
-    tier: "F"
+    tier: "F",
+    mag_damage: 12
   },
   wizard_staff: {
     name: "Wizard's Staff",
@@ -161,7 +163,8 @@ const weapons = {
     type: "magical",
     speed_bonus: 0,
     item_type: "weapon",
-    tier: "E"
+    tier: "E",
+    mag_damage: 18
   },
   staff_of_glory: {
     name: "Staff of Glory",
@@ -169,7 +172,8 @@ const weapons = {
     type: "magical",
     speed_bonus: 0,
     item_type: "weapon",
-    tier: "D"
+    tier: "D",
+    mag_damage: 30
   },
 }
 
