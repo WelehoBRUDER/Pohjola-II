@@ -578,9 +578,11 @@ function equipArmor(e) {
   else for (let i = 0; i < player.items.length; i++) {
     if (player.items[i].name == armor.name) player.items.splice(i, 1);
   }
-  for (let effect of armor.effects) {
-    if (effect.increase_stat) player.stats[effect.increase_stat] += effect.by;
-    else if (effect.increase) player[effect.increase] += effect.by;
+  if(armor.effects) {
+    for (let effect of armor.effects) {
+      if (effect.increase_stat) player.stats[effect.increase_stat] += effect.by;
+      else if (effect.increase) player[effect.increase] += effect.by;
+    }
   }
   createInventory();
   updateLeftValues();
