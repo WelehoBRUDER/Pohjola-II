@@ -13,7 +13,7 @@ const weapons = {
     type: "physical",
     speed_bonus: 1,
     item_type: "weapon",
-    tier: "G"
+    tier: "DEFAULT"
   },
   chant_only: {
     name: "Chant Only",
@@ -21,7 +21,7 @@ const weapons = {
     type: "magical",
     speed_bonus: 0,
     item_type: "weapon",
-    tier: "G"
+    tier: "DEFAULT"
   },
   broken_sword: {
     name: "Broken Sword",
@@ -185,7 +185,7 @@ const armors = {
     speed_bonus: 0,
     effects: [],
     item_type: "armor",
-    tier: "G"
+    tier: "DEFAULT"
   },
   rags: {
     name: "Rags",
@@ -374,6 +374,7 @@ const consumables = {
 }
 
 const tiers = {
+  DEFAULT: "#777B7E",
   G: "#292419",
   F: "#6e2004",
   E: "#c5cf7c",
