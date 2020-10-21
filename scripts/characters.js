@@ -14,7 +14,7 @@ var player = {
   items: [
     addItems(consumables.inferior_healing_potion, 3),
   ],
-  moves: [],
+  moves: [copy(moves.heavy_attack)],
   weapon: copy(weapons.fists),
   armor: copy(armors.naked),
   wand: copy(weapons.chant_only),
