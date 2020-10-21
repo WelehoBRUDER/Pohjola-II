@@ -1,7 +1,7 @@
 
 const texts = {
-  gold: "Your current §/$Y/gold§, a currency valued highly by merchants and bankers alike. §/$Y/Gold§ can be gained by beating enemies and completing §/$Y/quests§.",
-  xp: "Your current §/$Y/XP§, experience points. §/$Y/XP§ is gained by defeating enemies, and allows you to level up when reaching the required amount (§$player.xpCap§).",
+  gold: "Your current §/$Y/gold§, a currency valued highly by merchants and bankers alike. §/$Y/Gold§ can be gained by beating enemies and completing §/$Y/quests§. §:br§ Current gold: §/$Y/$spacesToNumber(player.gold)§",
+  xp: "Your current §/$Y/XP§, experience points. §/$Y/XP§ is gained by defeating enemies, and allows you to level up when reaching the required amount (§$spacesToNumber(player.xpCap)§).",
   you: "This is you, §/$player.color/$player.name§. §:br§ §FS0.75FS/white/You are currently level§ §/$Y/$player.level§",
   character: "View your current stats and improve them by leveling up.",
   perks: "Advance your perk tree with perk points gained from leveling up.",
@@ -15,10 +15,10 @@ const texts = {
   saves: "Save your progress and then load it later.",
   skill: "Your current stat points, used for upgrading your stats (STR, VIT, AGI, INT).",
   perk: "Your current perk points, used for purchasing perks from your perk tree.",
-  str: "Your current strength stat. Strength increases weapon damage by 5% per level.",
-  vit: "Your current vitality stat. Vitality increases hit points by 10 per level.",
-  agi: "Your current agility. Agility increases your speed in combat by roughly 0.6% per level.",
-  int: "Your current intelligence stat. Intelligence increases magic damage by 5% and mana by 5 per level.",
+  str: "Your current strength stat. Strength increases weapon damage by 5% per level. §:br§ §$player.skillpoints > 0 ? 'Click to increase!' : ''§",
+  vit: "Your current vitality stat. Vitality increases hit points by 10 per level. §:br§ §$player.skillpoints > 0 ? 'Click to increase!' : ''§",
+  agi: "Your current agility. Agility increases your speed in combat by roughly 0.6% per level. §:br§ §$player.skillpoints > 0 ? 'Click to increase!' : ''§",
+  int: "Your current intelligence stat. Intelligence increases magic damage by 5% and mana by 5 per level. §:br§ §$player.skillpoints > 0 ? 'Click to increase!' : ''§",
   save_button: "Create new save file or replace old one.",
   load_button: "Load selected save file.",
   delete_button: "Delete selected save file.",
@@ -61,7 +61,11 @@ const texts = {
   mana_blast: "Deals §$getBase(player, mana_blast)§ + §$Math.floor(getPower(player, mana_blast)*100)§% damage to enemy. Intelligence and wand increase damage further.",
   fire_lance: "Deals §$getBase(player, fire_lance)§ + §$Math.floor(getPower(player, fire_lance)*100)§% damage, also ignoring §$getPenetration(player, fire_lance)*100§% of armor. §:br§ Cooldown: §$getCooldown(player, fire_lance)§s",
   regeneration: "Recovers §$Math.floor(getPower(player, regeneration)*100)§% of max §/$R/HP§. §:br§ Cooldown: §$getCooldown(player, regeneration)§s",
-  immobilizing_shatter: "Deals §$getBase(player, immobilizing_shatter)§ + §$Math.floor(getPower(player, immobilizing_shatter)*100)§% damage and causes effect '§/$Y/Slowness§', that lowers enemy speed by 40%. Cooldown: §$getCooldown(player, immobilizing_shatter)§s",
-  speed_down: "This character's speed has been lowered by 40%",
-  speed_up: "This character's speed has been increased by 30%"
+  immobilizing_shatter: "Deals §$getBase(player, immobilizing_shatter)§ + §$Math.floor(getPower(player, immobilizing_shatter)*100)§% damage and causes effect '§/$Y/Slowness§', that lowers enemy speed by §$player.move_statuses.speed_down.lower*100§% for §$player.move_statuses.speed_down.lasts§s. Cooldown: §$getCooldown(player, immobilizing_shatter)§s",
+  speed_down: "This character's speed has been lowered by §$player.move_statuses.speed_down.lower*100§%",
+  speed_up: "This character's speed has been increased by 30%",
+  holy_grace: "Recovers §$player.move_statuses.holy_recovery.heal_ot*100§% of max §/$R/HP§ every second for §$player.move_statuses.holy_recovery.lasts§ seconds. Cooldown: §$getCooldown(player, holy_grace)§s",
+  holy_recovery: "This character will recover §$player.move_statuses.holy_recovery.heal_ot*100§% of max §/$R/HP§ every second.",
+  blessed_weapon: "Increases damage by §$player.move_statuses.damage_up.damage_buff*100§% for §$player.move_statuses.damage_up.lasts§ seconds. Cooldown: §$getCooldown(player, blessed_weapon)§s",
+  damage_up: "This character's damage has been increased by §$player.move_statuses.damage_up.damage_buff*100§%."
 }

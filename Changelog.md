@@ -1,3 +1,7 @@
+# 0.4a
+- Added Paladin perk tree
+- Improved level up button
+
 # 0.3a
 - Floor 1 is now finished
 - Added new enemy "Death Knight" who serves as the final boss of Floor 1

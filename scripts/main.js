@@ -77,6 +77,12 @@ function getPenetration(char, id) {
   }
 }
 
+function getLast(char, id) {
+  for (let move of char.moves) {
+    if (move.id == id.id) return move.last;
+  }
+}
+
 function getCooldown(char, id) {
   for (let move of char.moves) {
     if (move.id == id.id) return move.cooldown;
@@ -182,6 +188,23 @@ function speedBuffs(char) {
   return total;
 }
 
+function healOT(char) {
+  if(state.paused || state.end) return;
+  for(let stat of char.statuses) {
+    if(stat.heal_ot) {
+      if(stat.heal_limit < 100) {
+        stat.heal_limit += 100/60;
+      }
+      if(stat.heal_limit >= 100) {
+        char.hp += Math.ceil(char.maxhp * stat.heal_ot);
+        if(char.hp > char.maxhp) char.hp = char.maxhp; 
+        stat.heal_limit = 0;
+        createParticle(Math.ceil(char.maxhp * stat.heal_ot), "green", (char == player ? $("playerSprite") : $("enemySprite")));
+      }
+    }
+  }
+}
+
 function Update() {
   // Execute all code under this line 60 times per second.
 
@@ -276,6 +299,9 @@ function Update() {
       if (status.lasts == 0) player.statuses.splice(player.statuses[status], 1);
     }
   }
+
+  // Check heal overtime
+  healOT(player);
 
   // Stop animations when paused
   if (state.paused && !state.action) {
@@ -404,6 +430,7 @@ function updateMagicalMoves() {
     else if (move.mp_cost > player.mp) {
       $(move.id).childNodes[0].classList.add("item-unavailable");
       $(move.id).childNodes[0].pointerEvents = "none";
+      if(move.onCooldown <= 0) if ($(move.id).childNodes[1]) $(move.id).removeChild($(move.id).childNodes[1]);
     }
     else {
       $(move.id).childNodes[0].classList.remove("item-unavailable");
@@ -594,8 +621,9 @@ function Ability(move) {
     setTimeout(reset, 1000);
   }
   else if (move.power <= 0) {
+    if(move.mp_cost) player.mp -= move.mp_cost;
     $("playerSprite").classList.add("heal");
-    player.statuses.push(copy(statuses[move.status]));
+    player.statuses.push(copy(player.move_statuses[move.status]));
     createParticle(move.name, B, $("playerSprite"));
     createEventlog(player.name, move.name);
     setTimeout(reset, 1000);
@@ -762,7 +790,7 @@ function hurtEnemy(move) {
   createParticle(damage, "red", $("enemySprite"));
   createEventlog(player.name, move.name);
   if (move.status) {
-    enemy.statuses.push(copy(statuses[move.status]));
+    enemy.statuses.push(copy(player.move_statuses[move.status]));
     createStatuses();
   }
   player.mp -= move.mp_cost;
@@ -826,6 +854,7 @@ function enemyCanHeal() {
 function resistance_modifiers(char, res) {
   let modifier = 0;
   for (let resist of char.statuses) {
+    if(!resist.target) continue;
     if (resist.target == res) modifier += resist.power;
   }
   return modifier;
@@ -931,7 +960,7 @@ function calculateDmg(actor, target, move) {
     if (res > 1) res = 1;
     else if (res < 0) res = 0;
     damage = (damage * res) * (multiplier * res);
-    console.log(damage);
+    damage = (damage / getAttackDebuffs(actor)) * getAttackBuffs(actor);
     return damage;
   } else {
     damage = (move.base ? move.base : 0 + actor.wand?.mag_damage ? actor.wand.mag_damage : 0) * (actor.wand?.magical_power ? actor.wand.magical_power : 1);
@@ -943,6 +972,27 @@ function calculateDmg(actor, target, move) {
     if (res > 1) res = 1;
     else if (res < 0) res = 0;
     damage = (damage * res) * (multiplier * res);
+    damage = (damage / getAttackDebuffs(actor)) * getAttackBuffs(actor);
     return damage;
   }
+}
+
+function getAttackBuffs(char) {
+  let buff = 1;
+  for(let status of char.statuses) {
+    if(status.damage_buff) {
+      buff += status.damage_buff;
+    }
+  }
+  return buff;
+}
+
+function getAttackDebuffs(char) {
+  let debuff = 1;
+  for(let status of char.statuses) {
+    if(status.damage_debuff) {
+      debuff += status.damage_debuff;
+    }
+  }
+  return debuff;
 }

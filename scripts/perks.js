@@ -482,6 +482,18 @@ let mage_tree = {
       {grant_skill: copy(moves.fire_lance)}
     ],
   },
+  mage_19: {
+    name: "Simple and Reliable",
+    cost: 3,
+    desc: "Increases §/$Y/Mana Blast§'s damage by 10%, and base damage by 15, but §/red/doubles§ §/$B/MP§ cost. §:br§ Cost: 3 perk points",
+    icon: "mana_blast",
+    left_of: "mage_12",
+    effect: [
+      {modify_skill: "mana_blast", target: "power", by: 0.1},
+      {modify_skill: "mana_blast", target: "base", by: 15},
+      {modify_skill: "mana_blast", target: "mp_cost", by: 10}
+    ],
+  },
   mage_20: {
     name: "Channeling the Reserves",
     cost: 1,
@@ -524,11 +536,153 @@ let mage_tree = {
       {grant_skill: copy(moves.immobilizing_shatter)},
     ],
   },
+  mage_24: {
+    name: "Weigh Down Thy Foe",
+    cost: 2,
+    desc: "Increase §/$Y/Immobilizing Shatter§'s speed debuff by 10% and time by 2s, but increase cooldown by 2s. §:br§ Cost: 2 perk points",
+    icon: "speed_down",
+    down_of: "mage_23",
+    effect: [
+      {modify_status: "speed_down", target: "lower", by: 0.1},
+      {modify_status: "speed_down", target: "lasts", by: 2},
+      {modify_skill: "immobilizing_shatter", target: "cooldown", by: 2}
+    ],
+  },
+}
+
+let paladin_tree = {
+  colors: {
+    reg: "#f2f268",
+    box: "#c7c746",
+    name: "Paladin Tree",
+    id: "paladin"
+  },
+  paladin_1: {
+    first: true,
+    name: "Grasping the Holy Grace",
+    cost: 1,
+    desc: "Increases vitality by 1 and grants spell '§/$Y/Holy Grace§'. §:br§ Cost: 1 perk point",
+    icon: "holy",
+    effect: [
+      {increase_stat: "vit", by: 1},
+      {increase: "maxhp", by: 10},
+      {grant_skill: copy(moves.holy_grace)}
+    ],
+  },
+  paladin_2: {
+    name: "Divine Protection",
+    cost: 1,
+    desc: "Increases both §/$Y/physical§ and §/$B/magical§ resistances by 2%.§:br§ Cost: 1 perk point",
+    icon: "defense",
+    down_of: "paladin_1",
+    effect: [
+      {increase: "physical_resistance", by: 2},
+      {increase: "magical_resistance", by: 2},
+    ],
+  },
+  paladin_10: {
+    name: "Light from Within",
+    cost: 2,
+    desc: "Increases §/$Y/Holy Grace§'s healing by 3% and time by 1s. §:br§ Cost: 2 perk points",
+    icon: "holy_grace",
+    down_of: "paladin_2",
+    effect: [
+      {modify_status: "holy_recovery", target: "heal_ot", by: 0.03},
+      {modify_status: "holy_recovery", target: "lasts", by: 1},
+    ],
+  },
+  path_paladin_1: {
+    name: "PATH",
+    GET_FROM: "paladin_2",
+    left_of: "paladin_2"
+  },
+  paladin_3: {
+    name: "Divine Flesh",
+    cost: 2,
+    desc: "Increases §/$R/HP§ by 30. §:br§ Cost: 2 perk points",
+    icon: "health_icon",
+    left_of: "path_paladin_1",
+    requires: "paladin_2",
+    effect: [
+      {increase: "maxhp", by: 30},
+    ],
+  },
+  paladin_4: {
+    name: "Holy Guardian",
+    cost: 2,
+    desc: "Increases §/$R/HP§ by 25 and physical resistance by 3%. §:br§ Cost: 2 perk points",
+    icon: "physical_resistance",
+    left_of: "paladin_3",
+    effect: [
+      {increase: "maxhp", by: 25},
+      {increase: "physical_resistance", by: 3}
+    ],
+  },
+  path_paladin_2: {
+    name: "PATH",
+    GET_FROM: "paladin_2",
+    right_of: "paladin_2"
+  },
+  paladin_14: {
+    name: "Strength Training",
+    cost: 2,
+    desc: "Increases strength by 4. §:br§ Cost: 2 perk points",
+    icon: "strength",
+    right_of: "path_paladin_2",
+    requires: "paladin_2",
+    effect: [
+      {increase_stat: "str", by: 4},
+    ],
+  },
+  paladin_15: {
+    name: "Divine Blade",
+    cost: 2,
+    desc: "Grant skill '§/$Y/Blessed Weapon§'. §:br§ Cost: 2 perk points",
+    icon: "blessed_weapon",
+    right_of: "paladin_14",
+    effect: [
+      {grant_skill: copy(moves.blessed_weapon)},
+    ],
+  },
+  paladin_16: {
+    name: "Crusader Bladework",
+    cost: 2,
+    desc: "Improve §/$Y/Blessed Weapon§'s damage by 5% and time by 1s. §:br§ Cost: 2 perk points",
+    icon: "weapon_icon",
+    down_of: "paladin_15",
+    effect: [
+      {modify_status: "damage_up", target: "damage_buff", by: 0.05},
+      {modify_status: "damage_up", target: "lasts", by: 1},
+    ],
+  },
+  paladin_17: {
+    name: "Crusader King",
+    cost: 3,
+    desc: "Increase physical damage by 5%, §/$R/HP§ by 25 and magical resistance by 2% §:br§ Cost: 3 perk points",
+    icon: "crusader",
+    down_of: "paladin_16",
+    effect: [
+      {increase: "physical_multiplier", by: 0.05},
+      {increase: "maxhp", by: 25},
+      {increase: "magical_resistance", by: 2}
+    ],
+  },
+  paladin_18: {
+    name: "Blessed Be Thy Blade",
+    cost: 3,
+    desc: "Increases physical damage by 7%. §:br§ Cost: 3 perk points",
+    icon: "weapon_icon",
+    right_of: "paladin_15",
+    effect: [
+      {increase: "physical_multiplier", by: 0.07},
+    ],
+  },
 }
 
 let trees = {
   warrior: true,
-  mage: true
+  mage: true,
+  paladin: true
 }
 
 var selected_tree = warrior_tree;

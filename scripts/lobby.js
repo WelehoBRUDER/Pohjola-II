@@ -23,6 +23,13 @@ const topBarButtons = [
   }
 ];
 
+function number(num) {
+  if(num < 1000) return num;
+  else if(num < 1000000) return (num / 1000 % 1 !== 0 ? (num/1000).toFixed(2) : Math.floor(num/1000)) + "K";
+   else if(num < 1000000000) return (num / 1000000 % 1 !== 0 ? (num/1000000).toFixed(2) : Math.floor(num/1000000)) + "M";
+   else  return (num / 1000000000 % 1 !== 0 ? (num/1000000000).toFixed(2) : Math.floor(num/1000000000)) + "B";
+}
+
 addHoverBox($("goldContainer"), texts.gold, 14);
 addHoverBox($("xpContainer"), texts.xp, 14);
 addHoverBox($("xpBar"), texts.xp, 14);
@@ -47,8 +54,8 @@ function createTopBar() {
 }
 
 function updateLeftValues() {
-  $("goldNumber").textContent = player.gold;
-  $("xpNumber").textContent = player.xp + "/" + player.xpCap;
+  $("goldNumber").textContent = number(player.gold);
+  $("xpNumber").textContent = number(player.xp) + "/" + number(player.xpCap);
   $("xpBarFill").style.width = (player.xp / player.xpCap) * 100 + '%';
   if (player.xp > player.xpCap) $("xpBarFill").style.width = "100%";
   $("defaultSprite").src = "images/" + player.sprite + ".png";
@@ -97,13 +104,18 @@ function createCharacterScreen() {
         <p>${player.stats.int}</p>
       </div>
     </div>
-    <div id="levelUpButton">Level Up</div>
+    <div id="levelUpButton"></div>
   `;
   for (let child of $("characterStats").childNodes) {
     addHoverBox(child, texts[child.id], 12);
     child.addEventListener('click', (e) => UpgradeStat(e, child.id));
   }
-  $("levelUpButton").addEventListener('click', (e) => levelUp(e));
+  addHoverBox($("levelUpButton"), `Level up your character when you have enough experience points. §:br§ ${player.xp >= player.xpCap ? "§/$Y/CLICK TO LEVEL UP§" : ""}`, 12);
+  if(player.xp < player.xpCap) {
+    $("levelUpButton").classList.add("levelUpButton-cant");
+  } else {
+    $("levelUpButton").addEventListener('click', (e) => levelUp(e));
+    }
 }
 function combatStatsView() {
   Update();
@@ -174,14 +186,14 @@ function levelUp(e) {
     player.skillpoints += 3,
       player.perkpoints += 1,
       player.xp -= player.xpCap;
-    player.xpCap *= 1.21;
+    player.xpCap *= 1.17;
   } else if (player.xp >= player.xpCap && e.shiftKey) {
     while (player.xp >= player.xpCap) {
       player.level++;
       player.skillpoints += 3,
         player.perkpoints += 1,
         player.xp -= player.xpCap;
-      player.xpCap *= 1.21;
+      player.xpCap *= 1.17;
     }
   }
   player.xpCap = Math.ceil(player.xpCap);
@@ -384,13 +396,18 @@ function buyPerk(e) {
     for (let effect of selected_tree[perk].effect) {
       if (effect.increase_stat) player.stats[effect.increase_stat] += effect.by;
       else if (effect.increase) player[effect.increase] += effect.by;
-      else if (effect.grant_skill) player.moves.push(copy(effect.grant_skill));
+      else if (effect.grant_skill) { 
+        player.moves.push(copy(effect.grant_skill));
+        if(effect.grant_skill.status) player.move_statuses[effect.grant_skill.status] = (copy(statuses[effect.grant_skill.status]));
+       }
       else if (effect.modify_skill) {
         for (let skill of player.moves) {
           if (skill.id == effect.modify_skill) {
             skill[effect.target] += effect.by;
           }
         }
+      } else if(effect.modify_status) {
+        player.move_statuses[effect.modify_status][effect.target] += effect.by;
       }
     }
     updateLeftValues();
@@ -639,15 +656,15 @@ function createStore() {
     let hoverText = "";
     let width = 0;
     if (item.type == "consumable") {
-      hoverText = `Recover: ${item.item.value} §/$Y/${item.item.recover.toUpperCase()}§ §:br§ Tier: §/${tiers[item.item.tier]}/${item.item.tier}§ §:br§ Price: §/$Y/${item.price}§`;
+      hoverText = `Recover: ${item.item.value} §/$Y/${item.item.recover.toUpperCase()}§ §:br§ Tier: §/${tiers[item.item.tier]}/${item.item.tier}§ §:br§ Price: §/$Y/${number(item.price)}§`;
       width = 8;
     }
     else if (item.type == "weapon") {
-      hoverText = `${item.item.magical_power ? "MagPower: " + "§/$Y/" + item.item.magical_power * 100 + "%§" : "Damage: " + "§/$Y/" + item.item.damage + "§"} §:br§ Speed: §/$B/${item.item.speed_bonus}§ §:br§ Tier: §/${tiers[item.item.tier]}/${item.item.tier}§ §:br§ Price: §/$Y/${item.price}§ §:br§ ${item.item.mag_damage ? "MagDamage: " + item.item.mag_damage : ""}`;
+      hoverText = `${item.item.magical_power ? "MagPower: " + "§/$Y/" + item.item.magical_power * 100 + "%§" : "Damage: " + "§/$Y/" + item.item.damage + "§"} §:br§ Speed: §/$B/${item.item.speed_bonus}§ §:br§ Tier: §/${tiers[item.item.tier]}/${item.item.tier}§ §:br§ Price: §/$Y/${number(item.price)}§ §:br§ ${item.item.mag_damage ? "MagDamage: " + item.item.mag_damage : ""}`;
       width = 8;
     }
     else if (item.type == "armor") {
-      hoverText = `Physical Resistance: §/$Y/${item.item.physical_resistance}§ §:br§ Magical Resistance: §/$B/${item.item.magical_resistance}§ §:br§ Speed: ${item.item.speed_bonus}§:br§ Tier: §/${tiers[item.item.tier]}/${item.item.tier}§ §:br§ Price: §/$Y/${item.price}§`;
+      hoverText = `Physical Resistance: §/$Y/${item.item.physical_resistance}§ §:br§ Magical Resistance: §/$B/${item.item.magical_resistance}§ §:br§ Speed: ${item.item.speed_bonus}§:br§ Tier: §/${tiers[item.item.tier]}/${item.item.tier}§ §:br§ Price: §/$Y/${number(item.price)}§`;
       width = 12;
     }
     if (item?.item?.effects) {
@@ -846,6 +863,12 @@ function loadGame() {
   if(player.wand.name == "Chant Only") player.wand.tier = "DEFAULT";
     for(let item of player.items) {
       if(item.name == "Fists" || item.name == "Nothing" || item.name == "Chant Only") item.tier = "DEFAULT";
+  }
+  if(!player.move_statuses) player.move_statuses = {};
+  for(let move of player.moves) {
+    if(move.status) {
+      if(!player.move_statuses[move.status]) player.move_statuses[move.status] = copy(statuses[move.status]);
+    } 
   }
   updateLeftValues();
   createSaving();

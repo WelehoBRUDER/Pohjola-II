@@ -36,7 +36,8 @@ var player = {
   sprite: "Player",
   bought_perks: {},
   stages_beaten: {},
-  floors_beaten: {}
+  floors_beaten: {},
+  move_statuses: {}
 }
 
 const enemies = {
@@ -320,9 +321,9 @@ const enemies = {
   },
   spectral_knight: {
     name: "Spectral Knight",
-    hp: 750,
+    hp: 670,
     mp: 25,
-    maxhp: 750,
+    maxhp: 670,
     maxmp: 25,
     stats: {
       str: 28,
@@ -347,7 +348,7 @@ const enemies = {
       max: 3522
     },
     level: 37,
-    physical_resistance: 79,
+    physical_resistance: 69,
     magical_resistance: 38,
     speed: 0,
     action_points: 0,
@@ -419,6 +420,75 @@ const enemies = {
     speed: 0,
     action_points: 0,
     statuses: [],
-    dodge: 0.08
+    dodge: 0.025
+  },
+  lich: {
+    name: "Lich",
+    hp: 475,
+    mp: 300,
+    maxhp: 475,
+    maxmp: 300,
+    stats: {
+      str: 40,
+      vit: 5,
+      int: 120,
+      agi: 15,
+      lck: 1
+    },
+    items: [],
+    moves: [
+      copy(moves.thrust),
+      copy(moves.fire_lance),
+      copy(moves.grave_floater_blast),
+      copy(moves.astral_lance),
+    ],
+    weapon: weapons.lance_of_the_lord,
+    xp: 37500,
+    gold: {
+      min: 3109,
+      max: 5786
+    },
+    level: 42,
+    physical_resistance: 86,
+    magical_resistance: 52,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.05
+  },
+  wyvern: {
+    name: "Wyvern",
+    hp: 1200,
+    mp: 400,
+    maxhp: 1200,
+    maxmp: 400,
+    stats: {
+      str: 90,
+      vit: 25,
+      int: 130,
+      agi: 28,
+      lck: 1
+    },
+    items: [],
+    moves: [
+      copy(moves.thrust),
+      copy(moves.fire_lance),
+      copy(moves.slice),
+      copy(moves.fireball),
+      copy(moves.crush)
+    ],
+    weapon: weapons.greatsword_of_legend,
+    xp: 81850,
+    gold: {
+      min: 9958,
+      max: 14775
+    },
+    level: 50,
+    physical_resistance: 42,
+    magical_resistance: 65,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.04
   }
 }

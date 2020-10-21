@@ -84,6 +84,11 @@
   position: absolute;
   left: 11.5vw;
   top: -0.75vw;
+  text-overflow: ellipsis;
+  width: fit-content;
+  max-width: 8vw;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 #xpIcon {
@@ -94,6 +99,13 @@
   top: 0.75vw;
 }
 
+#xpContainer {
+  text-align: left;
+  overflow: hidden;
+  width: fit-content;
+  max-width: 10vw;
+}
+
 #xpNumber {
   font-size: 1.5vw;
   text-shadow: -0.1vw 0.1vw 0.2vw black;
@@ -101,6 +113,11 @@
   position: absolute;
   left: 2vw;
   top: -0.75vw;
+  text-overflow: ellipsis;
+  width: fit-content;
+  max-width: 8vw;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 #xpBar {
@@ -429,6 +446,30 @@
   bottom: 2vw;
   background: rgb(30, 30, 30);
   overflow-y: auto;
+}
+
+#levelUpButton {
+  transition: 0.1s;
+  background-image: url("../images/level_up.png");
+  background-size: cover;
+  border-radius: 100%;
+  width: 9vw;
+  height: 9vw;
+  background-color: rgb(60, 60, 60);
+  box-sizing: border-box;
+  border: 0.2vw solid gold;
+  box-shadow: inset 0vw 0vw 0.8vw 0.6vw rgb(37, 37, 37), -0.1vw 0.1vw 0.4vw 0.3vw rgb(16, 16, 16);
+  position: absolute;
+  left: 2.5vw;
+  top: 8vw;
+}
+
+#levelUpButton:hover {
+  filter: brightness(1.25);
+}
+
+.levelUpButton-cant {
+  filter: brightness(0.25) !important;
 }
 
 

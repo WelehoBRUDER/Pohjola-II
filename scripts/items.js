@@ -139,6 +139,20 @@ const weapons = {
     ],  
     tier: "B"
   },
+  club_of_the_giant_king: {
+    name: "Club of the Giant King",
+    damage: 119,
+    type: "physical",
+    speed_bonus: -10,
+    item_type: "weapon",
+    effects: [
+      {increase_stat: "str", by: 15},
+      {increase: "maxhp", by: 150},
+      {increase_stat: "int", by: -10},
+      {increase: "maxmp", by: -100}
+    ],  
+    tier: "B"
+  },
   broomstick: {
     name: "Broom Stick",
     magical_power: 0.8,
@@ -174,6 +188,18 @@ const weapons = {
     item_type: "weapon",
     tier: "D",
     mag_damage: 30
+  },
+  archmage_staff: {
+    name: "Archmage's Stiff Rod",
+    magical_power: 3.6,
+    type: "magical",
+    speed_bonus: 2,
+    item_type: "weapon",
+    tier: "B",
+    mag_damage: 62,
+    effects: [
+      {increase: "maxmp", by: 50}
+    ],
   },
 }
 

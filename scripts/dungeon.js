@@ -209,6 +209,41 @@ let dungeon = {
           copy(enemies.gronk),
         ]
       },
+      stage26: {
+        name: "Stage 26",
+        gauntlet: [
+          copy(enemies.lich),
+        ]
+      },
+      stage27: {
+        name: "Stage 27",
+        gauntlet: [
+          copy(enemies.spectral_knight),
+          copy(enemies.lich),
+        ]
+      },
+      stage28: {
+        name: "Stage 28",
+        gauntlet: [
+          copy(enemies.grave_floater),
+          copy(enemies.lich),
+          copy(enemies.grave_floater),
+        ]
+      },
+      stage29: {
+        name: "Stage 29",
+        gauntlet: [
+          copy(enemies.lich),
+          copy(enemies.lich),
+          copy(enemies.spectral_knight),
+        ]
+      },
+      floor2end: {
+        name: "Floor 2 End",
+        gauntlet: [
+          copy(enemies.wyvern),
+        ]
+      },
     }
   }
 }

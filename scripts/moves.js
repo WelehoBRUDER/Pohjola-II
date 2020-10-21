@@ -222,6 +222,28 @@ const moves = {
     id: "immobilizing_shatter",
     base: 28,
     status: "speed_down"
+  },
+  holy_grace: {
+    power: 0,
+    mp_cost: 10, 
+    cooldown: 10,
+    name: "Holy Grace",
+    physical: false,
+    onCooldown: 0,
+    base: 0,
+    id: "holy_grace",
+    status: "holy_recovery"
+  },
+  blessed_weapon: {
+    power: 0,
+    mp_cost: 0,
+    cooldown: 12,
+    name: "Blessed Weapon",
+    physical: true,
+    onCooldown: 0,
+    base: 0,
+    id: "blessed_weapon",
+    status: "damage_up"
   }
 }
 
@@ -253,5 +275,18 @@ const statuses = {
     lasts: 4,
     name: "Quick Moves",
     id: "speed_up"
+  },
+  holy_recovery: {
+    heal_ot: 0.05,
+    heal_limit: 0,
+    lasts: 6,
+    name: "Holy Recovery",
+    id: "holy_recovery"
+  },
+  damage_up: {
+    damage_buff: 0.25,
+    lasts: 7,
+    name: "Damage Increase",
+    id: "damage_up"
   }
 }
