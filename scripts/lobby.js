@@ -907,6 +907,7 @@ function effectSyntax(effect, req) {
         case "magical_multiplier": return "§/$Y/magical damage§"
         case "maxhp": return "§/$R/HP§"
         case "maxmp": return "§/$B/MP§"
+        case "dodge": return "§/$Y/dodge chance§"
       }
     } else if(effect.increase_stat) {
       switch(effect.increase_stat) {
@@ -918,7 +919,7 @@ function effectSyntax(effect, req) {
       }
     }
   } else if(req == "value") {
-      if(effect.increase?.indexOf("_multiplier") != -1) {
+      if((effect.increase?.indexOf("_multiplier") != -1 || effect.increase == "dodge") && !effect.increase_stat) {
         return effect.by*100 + "%";
       } else return effect.by;
   }
