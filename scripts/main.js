@@ -904,7 +904,9 @@ function calculateDmg(actor, target, move) {
   let res;
   if (move == "defaultAttack" || move?.physical) {
     res = target.physical_resistance / 100;
-    multiplier += ((actor.stats.str / 20) * (1 + (actor.physical_multiplier ? actor.physical_multiplier : 0)) + (move.power ? move.power - 1 : 0));
+    multiplier += ((actor.stats.str / 20));
+    if(actor.physical_multiplier) multiplier += actor.physical_multiplier;
+    damage = (damage * multiplier) * ( move.power ? move.power : 1);
     res = res * (1 + resistance_modifiers(target, "physical_resistance"));
     if (move?.penetration) res = res * move.penetration;
     res = 1 - res;
@@ -915,7 +917,9 @@ function calculateDmg(actor, target, move) {
   } else {
     damage = (move.base ? move.base : 0) * (actor.wand?.magical_power ? actor.wand.magical_power : 1);
     res = target.magical_resistance / 100;
-    multiplier += ((actor.stats.int / 20) * (1 + (actor.magical_multiplier ? actor.magical_multiplier : 0)) + (move?.power ? move.power - 1 : 0));
+    multiplier += ((actor.stats.int / 20));
+    if(actor.magical_multiplier) multiplier += actor.magical_multiplier;
+    damage = (damage * multiplier) * (move.power ? move.power : 1);
     res = res * (1 + resistance_modifiers(target, "magical_resistance"));
     if (move?.penetration) res = res * move.penetration;
     res = 1 - res;
