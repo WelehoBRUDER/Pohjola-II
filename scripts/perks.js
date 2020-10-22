@@ -485,12 +485,12 @@ let mage_tree = {
   mage_19: {
     name: "Simple and Reliable",
     cost: 3,
-    desc: "Increases §/$Y/Mana Blast§'s damage by 10%, and base damage by 15, but §/red/doubles§ §/$B/MP§ cost. §:br§ Cost: 3 perk points",
+    desc: "Increases §/$Y/Mana Blast§'s damage by 10%, and base damage by 7, but §/red/doubles§ §/$B/MP§ cost. §:br§ Cost: 3 perk points",
     icon: "mana_blast",
     left_of: "mage_12",
     effect: [
       {modify_skill: "mana_blast", target: "power", by: 0.1},
-      {modify_skill: "mana_blast", target: "base", by: 15},
+      {modify_skill: "mana_blast", target: "base", by: 7},
       {modify_skill: "mana_blast", target: "mp_cost", by: 10}
     ],
   },
