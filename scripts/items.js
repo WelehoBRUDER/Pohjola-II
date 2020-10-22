@@ -358,7 +358,7 @@ const consumables = {
     tier: "E"
   },
   medium_healing_potion: {
-    id: "healing_potion",
+    id: "medium_healing_potion",
     name: "Medium Healing Potion",
     value: 250,
     recover: "hp",

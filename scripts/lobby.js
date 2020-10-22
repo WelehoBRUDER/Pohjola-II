@@ -894,6 +894,9 @@ function loadGame() {
       if(!player.move_statuses[move.status]) player.move_statuses[move.status] = copy(statuses[move.status]);
     } 
   }
+  for(let medpot of player.items) {
+    if(medpot.name == "Medium Healing Potion" && medpot.id == "healing_potion") medpot.id = "medium_healing_potion";
+  }
   updateLeftValues();
   createSaving();
 }
