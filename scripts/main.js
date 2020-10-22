@@ -208,6 +208,12 @@ function healOT(char) {
 function Update() {
   // Execute all code under this line 60 times per second.
 
+  // Some stuff
+  if(player.maxmp < 0) player.maxmp = 0;
+  if(player.maxhp < 0) player.maxhp = 0;
+  if(player.mp < 0) player.mp = 0;
+  if(player.maxmp < 0) player.mp = 0;
+
   // Keeping the game window's size updated.
   // This makes sure that everything scales accordingly if screen is resized.
   clientWidth = game.offsetWidth;
@@ -254,26 +260,28 @@ function Update() {
   $("playerHealthbar-number").textContent = player.hp + " / " + player.maxhp + " HP";
   $("playerHealthbar-fill").style.width = (player.hp / player.maxhp) * 100 + '%';
   $("playerHealthbar-taken").style.width = (player.hp / player.maxhp) * 100 + '%';
-  if (player.hp == 0) $("playerHealthbar-fill").style.boxShadow = "0px 0px 0vw 0vw rgb(107, 18, 11)";
+  if (player.hp == 0 || player.maxhp == 0) $("playerHealthbar-fill").style.boxShadow = "0px 0px 0vw 0vw rgb(107, 18, 11)";
   else $("playerHealthbar-fill").style.boxShadow = "0px 0px 0.25vw 0.2vw rgb(107, 18, 11)";
 
   // Health bar (enemy)
   $("enemyHealthbar-number").textContent = enemy.hp + " / " + enemy.maxhp + " HP";
   $("enemyHealthbar-fill").style.width = (enemy.hp / enemy.maxhp) * 100 + '%';
   $("enemyHealthbar-taken").style.width = (enemy.hp / enemy.maxhp) * 100 + '%';
-  if (enemy.hp == 0) $("enemyHealthbar-fill").style.boxShadow = "0px 0px 0vw 0vw rgb(107, 18, 11)";
+  if (enemy.hp == 0 || enemy.maxhp == 0) $("enemyHealthbar-fill").style.boxShadow = "0px 0px 0vw 0vw rgb(107, 18, 11)";
   else $("enemyHealthbar-fill").style.boxShadow = "0px 0px 0.25vw 0.2vw rgb(107, 18, 11)";
 
   // Mana bar (player)
   $("playerManabar-number").textContent = player.mp + " / " + player.maxmp + " MP";
   $("playerManabar-fill").style.width = (player.mp / player.maxmp) * 100 + '%';
-  if (player.mp == 0) $("playerManabar-fill").style.boxShadow = "0px 0px 0vw 0 rgb(12, 58, 110)";
+  if (player.maxmp == 0 && player.mp == 0) $("playerManabar-fill").style.width = "0%";
+  if (player.mp == 0 || player.maxmp == 0) $("playerManabar-fill").style.boxShadow = "0px 0px 0vw 0 rgb(12, 58, 110)";
   else $("playerManabar-fill").style.boxShadow = "0px 0px 0.25vw 0.2vw rgb(12, 58, 110)";
 
   // Mana bar (enemy)
   $("enemyManabar-number").textContent = enemy.mp + " / " + enemy.maxmp + " MP";
   $("enemyManabar-fill").style.width = (enemy.mp / enemy.maxmp) * 100 + '%';
-  if (enemy.mp == 0) $("enemyManabar-fill").style.boxShadow = "0px 0px 0vw 0 rgb(12, 58, 110)";
+  if (enemy.maxmp == 0 && enemy.mp == 0) $("enemyManabar-fill").style.width = "0%";
+  if (enemy.mp == 0 || enemy.maxmp == 0) $("enemyManabar-fill").style.boxShadow = "0px 0px 0vw 0 rgb(12, 58, 110)";
   else $("enemyManabar-fill").style.boxShadow = "0px 0px 0.25vw 0.2vw rgb(12, 58, 110)";
 
   // Lower cooldowns

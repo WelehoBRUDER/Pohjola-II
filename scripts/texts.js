@@ -42,7 +42,7 @@ const texts = {
   enemyHealthPoints: "§$enemy.name§'s health points. Enemy §/$R/HP§ goes down when you attack them. When the §$enemy.name§'s §/$R/HP§ reaches 0, you win the battle.",
   enemyManaPoints: "§$enemy.name§'s mana points. §/$B/MP§ goes down whenever the §$enemy.name§ uses special §/$Y/skills§ or §/$Y/spells§. Enemy can only recover §/$B/MP§ with potions.",
   player: "This is your sprite. Your sprite represents you in battle, and will attack, heal and be attacked in your place.",
-  enemy: "This is the §$enemy.name§'s sprite. It represents the §$enemy.name§ in battle, and will attack you.",
+  enemy: "This is the §$enemy.name§'s sprite. It represents the §$enemy.name§ in battle, and will attack, heal and be attacked in §$enemy.name§'s place.",
   pierce_through: "Deals §$getPower(player, pierce_through) * 100§% damage and ignores §$getPenetration(player, pierce_through) * 100§% of armor. Cooldown: §$getCooldown(player, pierce_through)§s",
   fireball: "Deals §$getBase(player, fireball)§ + §$getPower(player, fireball) * 100§% damage. §/$B/MP§ cost: §$getManacost(player, fireball)§",
   inferior_healing_potion: "Recover 10 §/$R/HP§. Consumes your turn.",
