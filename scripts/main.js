@@ -427,7 +427,7 @@ function updateMagicalMoves() {
       $(move.id).childNodes[0].classList.add("item-unavailable");
       $(move.id).childNodes[0].pointerEvents = "none";
     }
-    else if (move.mp_cost > player.mp) {
+    else if (move.mp_cost > player.mp && move.mp_cost != 0) {
       $(move.id).childNodes[0].classList.add("item-unavailable");
       $(move.id).childNodes[0].pointerEvents = "none";
       if(move.onCooldown <= 0) if ($(move.id).childNodes[1]) $(move.id).removeChild($(move.id).childNodes[1]);
@@ -456,7 +456,7 @@ function updateSkillMoves() {
       $(move.id).childNodes[0].classList.add("item-unavailable");
       $(move.id).childNodes[0].pointerEvents = "none";
     }
-    else if (move.mp_cost > player.mp) {
+    else if (move.mp_cost > player.mp && move.mp_cost != 0) {
       $(move.id).childNodes[0].classList.add("item-unavailable");
       $(move.id).childNodes[0].pointerEvents = "none";
     } else {
