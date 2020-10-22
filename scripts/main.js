@@ -605,7 +605,7 @@ function PlayerAttack() {
 }
 
 function Ability(move) {
-  if (state.action || state.turn != "player" || move.onCooldown > 0 || move.mp_cost > player.mp) return;
+  if (state.action || state.turn != "player" || move.onCooldown > 0 || (move.mp_cost > player.mp && move.mp_cost != 0)) return;
   player.action_points = 0;
   state.action = true;
   move.onCooldown = move.cooldown;
