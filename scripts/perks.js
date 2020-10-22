@@ -548,6 +548,53 @@ let mage_tree = {
       {modify_skill: "immobilizing_shatter", target: "cooldown", by: 2}
     ],
   },
+  mage_25: {
+    name: "Weapon of Mass Destruction",
+    cost: 1,
+    desc: "Increases §/$Y/Fireball§'s damage by 12% and base damage by 8, but increases §/$B/MP§ cost by 30. §:br§ Cost: 1 perk point",
+    icon: "weapon_icon",
+    down_of: "mage_16",
+    effect: [
+      {modify_skill: "fireball", target: "power", by: 0.12},
+      {modify_skill: "fireball", target: "base", by: 8},
+      {modify_skill: "fireball", target: "mp_cost", by: 30}
+    ],
+  },
+  mage_26: {
+    name: "Hastened Casting",
+    cost: 1,
+    desc: "Lowers §/$Y/Fireball§'s cooldown by 2s, but increases §/$B/MP§ cost by 15. §:br§ Cost: 1 perk point",
+    icon: "weapon_icon",
+    left_of: "mage_25",
+    effect: [
+      {modify_skill: "fireball", target: "cooldown", by: -2},
+      {modify_skill: "fireball", target: "mp_cost", by: 15}
+    ],
+  },
+  mage_27: {
+    name: "The Flame Lancer",
+    cost: 1,
+    desc: "Increases §/$Y/Fire Lance§'s penetration by 10% and base damage by 7, but increases §/$B/MP§ cost by 30. §:br§ Cost: 1 perk point",
+    icon: "fire_lance",
+    right_of: "mage_18",
+    effect: [
+      {modify_skill: "fire_lance", target: "penetration", by: 0.1},
+      {modify_skill: "fire_lance", target: "base", by: 7},
+      {modify_skill: "fire_lance", target: "mp_cost", by: 30}
+    ],
+  },
+  mage_28: {
+    name: "Just Pump More Juice Into It!",
+    cost: 1,
+    desc: "Increases §/$Y/Fire Lance§'s damage by 25% and §/green/removes§ cooldown, but increases §/$B/MP§ cost by 55. §:br§ Cost: 1 perk point",
+    icon: "weapon_icon",
+    down_of: "mage_27",
+    effect: [
+      {modify_skill: "fire_lance", target: "power", by: 0.25},
+      {modify_skill: "fire_lance", target: "cooldown", by: -4},
+      {modify_skill: "fire_lance", target: "mp_cost", by: 55}
+    ],
+  },
 }
 
 let paladin_tree = {
