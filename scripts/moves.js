@@ -244,6 +244,27 @@ const moves = {
     base: 0,
     id: "blessed_weapon",
     status: "damage_up"
+  },
+  dispelling_light: {
+    power: 0,
+    mp_cost: 0,
+    cooldown: 10,
+    name: "Dispelling Light",
+    physical: true,
+    onCooldown: 0,
+    base: 0,
+    id: "dispelling_light",
+    status: "holy_resist"
+  },
+  holy_arrow: {
+    power: 1.8,
+    mp_cost: 30,
+    cooldown: 0,
+    name: "Holy Arrow",
+    physical: false,
+    onCooldown: 0,
+    base: 15,
+    id: "holy_arrow",
   }
 }
 
@@ -261,6 +282,13 @@ const statuses = {
     lasts: 5,
     name: "Resistance",
     id: "resistance"
+  },
+  holy_resist: {
+    power: 0.5,
+    target: "magical_resistance",
+    lasts: 6,
+    name: "Holy Resistance",
+    id: "holy_resist"
   },
   speed_down: {
     lower: 0.4,

@@ -201,6 +201,19 @@ const weapons = {
       {increase: "maxmp", by: 50}
     ],
   },
+  staff_of_legend: {
+    name: "Staff of the Legends",
+    magical_power: 5.75,
+    type: "magical",
+    speed_bonus: 8,
+    item_type: "weapon",
+    tier: "A",
+    mag_damage: 95,
+    effects: [
+      {increase: "maxmp", by: 200},
+      {increase_stat: "int", by: 20}
+    ],
+  },
 }
 
 const armors = {

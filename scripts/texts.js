@@ -67,5 +67,8 @@ const texts = {
   holy_grace: "Recovers §$player.move_statuses.holy_recovery.heal_ot*100§% of max §/$R/HP§ every second for §$player.move_statuses.holy_recovery.lasts§ seconds. Cooldown: §$getCooldown(player, holy_grace)§s",
   holy_recovery: "This character will recover §$player.move_statuses.holy_recovery.heal_ot*100§% of max §/$R/HP§ every second.",
   blessed_weapon: "Increases damage by §$player.move_statuses.damage_up.damage_buff*100§% for §$player.move_statuses.damage_up.lasts§ seconds. Cooldown: §$getCooldown(player, blessed_weapon)§s",
-  damage_up: "This character's damage has been increased by §$player.move_statuses.damage_up.damage_buff*100§%."
+  damage_up: "This character's damage has been increased by §$player.move_statuses.damage_up.damage_buff*100§%.",
+  dispelling_light: "Increases magical resistance by §$player.move_statuses.holy_resist.power*100§% for §$player.move_statuses.holy_resist.lasts§s. Cooldown: §$getCooldown(player, dispelling_light)§s",
+  holy_resist: "This character's magical resistance has been increased by §$player.move_statuses.holy_resist.power*100§%.",
+  holy_arrow: "Deals §$getBase(player, holy_arrow)§ + §$Math.floor(getPower(player, holy_arrow)*100)§% damage."
 }

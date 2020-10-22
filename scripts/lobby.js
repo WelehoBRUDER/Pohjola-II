@@ -279,6 +279,8 @@ function startFight(stage) {
   for (let cd of player.moves) {
     cd.onCooldown = 0;
   }
+  player.statuses = [];
+  enemy.statuses = [];
   fixCooldowns();
   EnemyNameColor();
   $("combatScreen").style.display = "block";

@@ -245,5 +245,17 @@ let dungeon = {
         ]
       },
     }
+  },
+  floor3: {
+    name: "Floor 3",
+    stages: {
+      stage30: {
+        name: "Stage 30",
+        gauntlet: [
+          copy(enemies.wyvern),
+          copy(enemies.lich),
+        ]
+      },
+    }
   }
 }

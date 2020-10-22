@@ -47,5 +47,11 @@ let merchants = {
       {item: copy(armors.lich_robes), price: 3795, type: "armor"},
       {item: copy(armors.kings_armor), price: 128500, type: "armor"}
     ],
+  },
+  floor3_merchant: {
+    name: "Harald Trolf",
+    stock: [
+      {item: copy(weapons.staff_of_legend), price: 105450, type: "weapon"}
+    ]
   }
 }

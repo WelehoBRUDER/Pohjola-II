@@ -382,6 +382,16 @@ let mage_tree = {
       {modify_skill: "regeneration", target: "mp_cost", by: -10}
     ],
   },
+  mage_7: {
+    name: "Defensive Stratagems",
+    cost: 1,
+    desc: "Increases §/$R/HP§ by 50.§:br§ Cost: 1 perk point",
+    icon: "defense",
+    down_of: "mage_4",
+    effect: [
+      {increase: "maxhp", by: 50},
+    ],
+  },
   path_mage_2: {
     name: "PATH",
     cost: 0,
@@ -599,8 +609,8 @@ let mage_tree = {
 
 let paladin_tree = {
   colors: {
-    reg: "#f2f268",
-    box: "#c7c746",
+    reg: "#fc8803",
+    box: "#c76f0a",
     name: "Paladin Tree",
     id: "paladin"
   },
@@ -630,12 +640,24 @@ let paladin_tree = {
   paladin_10: {
     name: "Light from Within",
     cost: 2,
-    desc: "Increases §/$Y/Holy Grace§'s healing by 3% and time by 1s. §:br§ Cost: 2 perk points",
+    desc: "Increases §/$Y/Holy Grace§'s healing by 3% and effect time by 1s. §:br§ Cost: 2 perk points",
     icon: "holy_grace",
     down_of: "paladin_2",
     effect: [
       {modify_status: "holy_recovery", target: "heal_ot", by: 0.03},
       {modify_status: "holy_recovery", target: "lasts", by: 1},
+    ],
+  },
+  paladin_11: {
+    name: "Solemn Prayer",
+    cost: 2,
+    desc: "Increases §/$Y/Holy Grace§'s healing by 2% and effect time by 3s, but increases §/$B/MP§ cost by 50. §:br§ Cost: 2 perk points",
+    icon: "holy_grace",
+    down_of: "paladin_10",
+    effect: [
+      {modify_status: "holy_recovery", target: "heal_ot", by: 0.02},
+      {modify_status: "holy_recovery", target: "lasts", by: 3},
+      {modify_skill: "holy_grace", target: "mp_cost", by: 50},
     ],
   },
   path_paladin_1: {
@@ -654,6 +676,16 @@ let paladin_tree = {
       {increase: "maxhp", by: 30},
     ],
   },
+  paladin_12: {
+    name: "Reward Our Faith",
+    cost: 1,
+    desc: "Increases §/$B/MP§ by 50. §:br§ Cost: 1 perk point",
+    icon: "holy",
+    down_of: "paladin_3",
+    effect: [
+      {increase: "maxmp", by: 50},
+    ],
+  },
   paladin_4: {
     name: "Holy Guardian",
     cost: 2,
@@ -663,6 +695,56 @@ let paladin_tree = {
     effect: [
       {increase: "maxhp", by: 25},
       {increase: "physical_resistance", by: 3}
+    ],
+  },
+  paladin_5: {
+    name: "Dispelling Light",
+    cost: 1,
+    desc: "Grants skill '§/$Y/Dispelling Light§'. §:br§ Cost: 1 perk point",
+    icon: "dispelling_light",
+    left_of: "paladin_4",
+    effect: [
+      {grant_skill: copy(moves.dispelling_light)},
+    ],
+  },
+  paladin_6: {
+    name: "Everlasting Prayer",
+    cost: 1,
+    desc: "Increases '§/$Y/Dispelling Light§'s effect time by 2s. §:br§ Cost: 1 perk point",
+    icon: "holy",
+    down_of: "paladin_5",
+    effect: [
+      {modify_status: "holy_resist", target: "lasts", by: 2},
+    ],
+  },
+  paladin_7: {
+    name: "Strenghtened by Crucifixion",
+    cost: 2,
+    desc: "Increases §/$R/HP§ by 100. §:br§ Cost: 2 perk points",
+    icon: "defense",
+    down_of: "paladin_4",
+    effect: [
+      {increase: "maxhp", by: 100},
+    ],
+  },
+  paladin_8: {
+    name: "A Body of Steel...",
+    cost: 1,
+    desc: "Increases §/$Y/physical resistance§ by 8%. §:br§ Cost: 1 perk point",
+    icon: "physical_resistance",
+    down_of: "paladin_7",
+    effect: [
+      {increase: "physical_resistance", by: 8},
+    ],
+  },
+  paladin_9: {
+    name: "And an Iron Will",
+    cost: 1,
+    desc: "Increases §/$Y/magical resistance§ by 8%. §:br§ Cost: 1 perk point",
+    icon: "magical_resistance",
+    down_of: "paladin_8",
+    effect: [
+      {increase: "magical_resistance", by: 8},
     ],
   },
   path_paladin_2: {
@@ -722,6 +804,28 @@ let paladin_tree = {
     right_of: "paladin_15",
     effect: [
       {increase: "physical_multiplier", by: 0.07},
+    ],
+  },
+  paladin_19: {
+    name: "Holy Arrow",
+    cost: 1,
+    desc: "Grant spell '§/$Y/Holy Arrow§'. §:br§ Cost: 1 perk point",
+    icon: "holy_arrow",
+    down_of: "paladin_14",
+    effect: [
+      {grant_skill: copy(moves.holy_arrow)},
+    ],
+  },
+  paladin_20: {
+    name: "Blessing The Arrow",
+    cost: 1,
+    desc: "Increases §/$Y/Holy Arrow§'s damage by 90% and base damage by 8, but §/red/doubles§ §/$B/MP§ cost. §:br§ Cost: 1 perk point",
+    icon: "holy",
+    left_of: "paladin_19",
+    effect: [
+      {modify_skill: "holy_arrow", target: "power", by: 0.9},
+      {modify_skill: "holy_arrow", target: "base", by: 8},
+      {modify_skill: "holy_arrow", target: "mp_cost", by: 30},
     ],
   },
 }
