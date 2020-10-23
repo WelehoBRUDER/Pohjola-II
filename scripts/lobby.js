@@ -24,10 +24,10 @@ const topBarButtons = [
 ];
 
 function number(num) {
-  if(num < 1000) return num;
-  else if(num < 1000000) return (num / 1000 % 1 !== 0 ? (num/1000).toFixed(2) : Math.floor(num/1000)) + "K";
-   else if(num < 1000000000) return (num / 1000000 % 1 !== 0 ? (num/1000000).toFixed(2) : Math.floor(num/1000000)) + "M";
-   else  return (num / 1000000000 % 1 !== 0 ? (num/1000000000).toFixed(2) : Math.floor(num/1000000000)) + "B";
+  if (num < 1000) return num;
+  else if (num < 1000000) return (num / 1000 % 1 !== 0 ? (num / 1000).toFixed(2) : Math.floor(num / 1000)) + "K";
+  else if (num < 1000000000) return (num / 1000000 % 1 !== 0 ? (num / 1000000).toFixed(2) : Math.floor(num / 1000000)) + "M";
+  else return (num / 1000000000 % 1 !== 0 ? (num / 1000000000).toFixed(2) : Math.floor(num / 1000000000)) + "B";
 }
 
 addHoverBox($("goldContainer"), texts.gold, 14);
@@ -68,6 +68,7 @@ function updateLeftValues() {
 }
 
 function select(target) {
+  SaveGameHC();
   updateLeftValues();
   $("mainWindowContainer").removeEventListener("click", removeSelect);
   for (let but of topBarButtons) {
@@ -111,11 +112,11 @@ function createCharacterScreen() {
     child.addEventListener('click', (e) => UpgradeStat(e, child.id));
   }
   addHoverBox($("levelUpButton"), `Level up your character when you have enough experience points. §:br§ ${player.xp >= player.xpCap ? "§/$Y/CLICK TO LEVEL UP§" : ""}`, 12);
-  if(player.xp < player.xpCap) {
+  if (player.xp < player.xpCap) {
     $("levelUpButton").classList.add("levelUpButton-cant");
   } else {
     $("levelUpButton").addEventListener('click', (e) => levelUp(e));
-    }
+  }
 }
 function combatStatsView() {
   Update();
@@ -127,7 +128,7 @@ function combatStatsView() {
     </p>
     <p id="damage">
     <img src="images/damage_icon.png">
-    ${Math.floor(player.weapon.damage * (1 + player.stats.str / 20) * (1 + player.physical_multiplier))}
+    ${Math.floor(calculateDmg(player, enemies.dummy, "defaultAttack"))}
     </p>
     <p id="dodge">
     <img src="images/dodge_icon.png">
@@ -265,8 +266,8 @@ function startFight(stage) {
   state.stage = copy(stage);
   gauntlet = copy(state.stage.gauntlet);
   enemy = gauntlet[0];
-  player.hp = player.maxhp;
-  player.mp = player.maxmp;
+  if (!state.hc) player.hp = player.maxhp;
+  if (!state.hc) player.mp = player.maxmp;
   state.end = false;
   state.turn = "none";
   state.action = false;
@@ -398,17 +399,17 @@ function buyPerk(e) {
     for (let effect of selected_tree[perk].effect) {
       if (effect.increase_stat) player.stats[effect.increase_stat] += effect.by;
       else if (effect.increase) player[effect.increase] += effect.by;
-      else if (effect.grant_skill) { 
+      else if (effect.grant_skill) {
         player.moves.push(copy(effect.grant_skill));
-        if(effect.grant_skill.status) player.move_statuses[effect.grant_skill.status] = (copy(statuses[effect.grant_skill.status]));
-       }
+        if (effect.grant_skill.status) player.move_statuses[effect.grant_skill.status] = (copy(statuses[effect.grant_skill.status]));
+      }
       else if (effect.modify_skill) {
         for (let skill of player.moves) {
           if (skill.id == effect.modify_skill) {
             skill[effect.target] += effect.by;
           }
         }
-      } else if(effect.modify_status) {
+      } else if (effect.modify_status) {
         player.move_statuses[effect.modify_status][effect.target] += effect.by;
       }
     }
@@ -431,11 +432,13 @@ function createInventory() {
   let weaponsContainer = create("div");
   let armorsContainer = create("div");
   let wandContainer = create("div");
+  let itemsContainer = create("div");
   weaponContainer.id = "weaponContainer";
   armorContainer.id = "armorContainer";
   wandContainer.id = "wandContainer";
   weaponsContainer.id = "weaponsContainer";
   armorsContainer.id = "armorsContainer";
+  itemsContainer.id = "itemsContainer";
   weaponContainer.addEventListener("click", unequipWeapon);
   wandContainer.addEventListener("click", unequipWand);
   armorContainer.addEventListener("click", unequipArmor);
@@ -484,12 +487,92 @@ function createInventory() {
       armorsContainer.appendChild(armor);
     }
   }
+  for (let itm of player.items) {
+    if (itm.item_type == "consumable") {
+      let item;
+      if (itm.amount <= 1) item = textSyntax(`§/${tiers[itm.tier]}/${itm.name}§`);
+      else item = textSyntax(`§/${tiers[itm.tier]}/${itm.name} ${itm.amount}x§`);
+      let hoverText = `Recovers ${itm.value} ${itm.recover == "mp" ? "§/$B/MP§" : "§/$R/HP§"} §:br§ Tier: §/${tiers[itm.tier]}/${itm.tier}§`;
+      if (itm?.effects) {
+        for (let effect of itm?.effects) {
+          if (effect.increase || effect.increase_stat) {
+            hoverText += `§:br§ Increases ${effectSyntax(effect, "stat")} by ${effectSyntax(effect, "value")} §:br§ ${effect.timed ? "Lasts: " + effect.timed + "s" : ""}`;
+          }
+        }
+      }
+      addHoverBox(item, hoverText, 12);
+      item.addEventListener("click", useItemFromInv);
+      item.id = itm.name;
+      itemsContainer.appendChild(item);
+    }
+  }
   invContainer.appendChild(weaponContainer);
   invContainer.appendChild(armorContainer);
   invContainer.appendChild(wandContainer);
   invContainer.appendChild(weaponsContainer);
   invContainer.appendChild(armorsContainer);
+  invContainer.appendChild(itemsContainer);
   $("mainWindowContainer").appendChild(invContainer);
+}
+
+function useItemFromInv(e) {
+  let item;
+  for (let itm of player.items) {
+    if (itm.name == e.target.id) item = itm;
+  }
+  if (!settings.dont_ask_when_using_item) createPrompt(`Are you sure you wish to use ${item.name}?`, () => useThisItem(item));
+  else useThisItem(item);
+}
+
+function useThisItem(item) {
+  if (item.amount <= 1) for (let i = 0; i < player.items.length; i++) {
+    if (player.items[i].name == item.name) player.items.splice(i, 1);
+    textBoxRemove();
+  } else item.amount--;
+  if (item.effects) {
+    for (let effect of item.effects) {
+      if (effect.timed) {
+        if (player.temporary_effects.length === 0) {
+          if (effect.increase) {
+            player[effect.increase] += effect.by;
+            player.temporary_effects.push({ increase: effect.increase, by: effect.by, timed: effect.timed })
+          }
+          else if (effect.increase_stat) {
+            player.stats[effect.increase_stat] += effect.by;
+            player.temporary_effects.push({ increase_stat: effect.increase_stat, by: effect.by, timed: effect.timed })
+          }
+        }
+        else for (let ef of player.temporary_effects) {
+          if (ef.increase == effect.increase) {
+            player[ef.increase] -= ef.by;
+            player[effect.increase] += effect.by;
+            ef.increase = effect.increase;
+            ef.timed = effect.timed;
+          } else if (ef.increase_stat == ef.increase_stat) {
+            player.stats[ef.increase_stat] -= ef.by;
+            player.stats[effect.increase_stat] += effect.by;
+            ef.increase_stat = effect.increase_stat;
+            ef.timed = effect.timed;
+          } else if (ef.increase != effect.increase) {
+            player[effect.increase] += effect.by;
+            player.temporary_effects.push({ increase: effect.increase, by: effect.by, timed: effect.timed })
+          } else if (ef.increase_stat != effect.increase_stat) {
+            player.stats[effect.increase_stat] += effect.by;
+            player.temporary_effects.push({ increase_stat: effect.increase_stat, by: effect.by, timed: effect.timed })
+          }
+        }
+      } else {
+        if (effect.increase_stat) player.stats[effect.increase_stat] += effect.by;
+        else if (effect.increase) player[effect.increase] += effect.increase_stat;
+      }
+    }
+  }
+  if (item.recover) player[item.recover] += item.value;
+  if (player.hp > player.maxhp) player.hp = player.maxhp;
+  if (player.mp > player.maxmp) player.mp = player.maxmp;
+  SaveGameHC();
+  createInventory();
+  updateLeftValues();
 }
 
 function equipWeapon(e) {
@@ -600,7 +683,7 @@ function equipArmor(e) {
   else for (let i = 0; i < player.items.length; i++) {
     if (player.items[i].name == armor.name) player.items.splice(i, 1);
   }
-  if(armor.effects) {
+  if (armor.effects) {
     for (let effect of armor.effects) {
       if (effect.increase_stat) player.stats[effect.increase_stat] += effect.by;
       else if (effect.increase) player[effect.increase] += effect.by;
@@ -649,7 +732,7 @@ function unequipArmor() {
   for (let nothing of player.items) {
     if (nothing.name == "Nothing") naked = nothing;
   }
-  if(player.armor.effects) {
+  if (player.armor.effects) {
     for (let effect of player.armor.effects) {
       if (effect.increase_stat) player.stats[effect.increase_stat] -= effect.by;
       else if (effect.increase) player[effect.increase] -= effect.by;
@@ -818,6 +901,10 @@ function save_does_not_have_sortTime() {
   }
 }
 
+function loadSettingsSave() {
+  settings = JSON.parse(localStorage.getItem(`settings`));
+}
+
 function createSaving() {
   $("mainWindowContainer").textContent = "";
   let save_container = create("div");
@@ -834,7 +921,8 @@ function createSaving() {
   resetIds();
   for (let save of save_slots) {
     let slot = create("p");
-    slot.textContent = save.text;
+    slot.textContent = save.text + " ";
+    if(save.hc) slot.innerHTML += "<span style='color: red'>HARDCORE!</span>";
     slot.id = "slot" + save.id;
     if (selected_slot?.id == save?.id) slot.classList.add("saveSelected");
     slot.addEventListener("click", selectSlot);
@@ -844,6 +932,7 @@ function createSaving() {
   save_container.appendChild(save_topbar);
   save_container.appendChild(save_bottom);
   $("mainWindowContainer").appendChild(save_container);
+  if(state.hc) $("saveBut").classList.add("unavailable");
   $("loadBut").addEventListener("click", () => createPrompt(`Are you sure you wish to load save ${selected_slot?.text}?`, () => loadGame()));
   $("deleteBut").addEventListener("click", () => createPrompt(`Are you sure you wish to DELETE save ${selected_slot?.text}?`, () => deleteGame()));
   addHoverBox($("saveBut"), texts.save_button, 8);
@@ -861,9 +950,8 @@ function saveGame() {
   gameSave.player = player;
   gameSave.state = state;
   saveTime = ("0" + saveTime.getHours()).slice(-2) + "." + ("0" + saveTime.getMinutes()).slice(-2);
-  console.log(sortTime);
   let id = 0;
-  if (selected_slot == null) save_slots.push({ text: `${saveName} || Last Saved: ${saveTime} || Character Level: ${player.level}`, save: gameSave, id: save_slots.length, time: sortTime });
+  if (selected_slot == null) save_slots.push({ text: `${saveName} || Last Saved: ${saveTime} || Character Level: ${player.level}`, save: gameSave, id: save_slots.length, time: sortTime, hc: state.hc });
   else {
     createPrompt(`Are you sure you wish to save over slot ${selected_slot.text}?`, () => saveOver(saveName, saveTime, gameSave));
     return;
@@ -872,33 +960,66 @@ function saveGame() {
   createSaving();
 }
 
+function SaveGameHC() {
+  if(!state.hc) return;
+  let saveTime = new Date();
+  let gameSave = {};
+  gameSave.player = player;
+  gameSave.state = state;
+  saveTime = ("0" + saveTime.getHours()).slice(-2) + "." + ("0" + saveTime.getMinutes()).slice(-2);
+  for(let save of save_slots) {
+    console.log(save.hc);
+    if(save.text.split("||")[0] == player.name + " " && save.hc) { 
+      console.log("HY");
+      selected_slot = save;
+      saveOver(player.name, saveTime, gameSave);
+     }
+  }
+  localStorage.setItem("save_slots", JSON.stringify(save_slots));
+  createSaving();
+}
+
+function DeleteGameHC() {
+  if(!state.hc) return;
+  for(let save of save_slots) {
+    if(save.text.split("||")[0] == player.name && save.hc) { 
+        save_slots.splice(save.id, 1);
+        resetIds();
+     }
+  }
+}
+
 function saveOver(name, time, save) {
   let sortTime = +(new Date());
-  save_slots[selected_slot.id] = { text: `${name} || Last Saved: ${time} || Character Level: ${player.level}`, save: save, id: selected_slot.id, time: sortTime }
+  save_slots[selected_slot.id] = { text: `${name} || Last Saved: ${time} || Character Level: ${player.level}`, save: save, id: selected_slot.id, time: sortTime, hc: state.hc }
   localStorage.setItem("save_slots", JSON.stringify(save_slots));
   createSaving();
 }
 
 function loadGame() {
   if (selected_slot == null) return;
+  if(!state.started) state.started = true;
   player = selected_slot.save.player;
   state = selected_slot.save.state;
   if (!player.wand) player.wand = copy(weapons.chant_only);
-  if(player.weapon.name == "Fists") player.weapon.tier = "DEFAULT";
-  if(player.armor.name == "Nothing") player.armor.tier = "DEFAULT";
-  if(player.wand.name == "Chant Only") player.wand.tier = "DEFAULT";
-    for(let item of player.items) {
-      if(item.name == "Fists" || item.name == "Nothing" || item.name == "Chant Only") item.tier = "DEFAULT";
+  if (player.weapon.name == "Fists") player.weapon.tier = "DEFAULT";
+  if (player.armor.name == "Nothing") player.armor.tier = "DEFAULT";
+  if (player.wand.name == "Chant Only") player.wand.tier = "DEFAULT";
+  for (let item of player.items) {
+    if (item.name == "Fists" || item.name == "Nothing" || item.name == "Chant Only") item.tier = "DEFAULT";
   }
-  if(!player.move_statuses) player.move_statuses = {};
-  for(let move of player.moves) {
-    if(move.status) {
-      if(!player.move_statuses[move.status]) player.move_statuses[move.status] = copy(statuses[move.status]);
-    } 
+  if (!player.move_statuses) player.move_statuses = {};
+  for (let move of player.moves) {
+    if (move.status) {
+      if (!player.move_statuses[move.status]) player.move_statuses[move.status] = copy(statuses[move.status]);
+    }
   }
-  for(let medpot of player.items) {
-    if(medpot.name == "Medium Healing Potion" && medpot.id == "healing_potion") medpot.id = "medium_healing_potion";
+  for (let medpot of player.items) {
+    if (medpot.name == "Medium Healing Potion" && medpot.id == "healing_potion") medpot.id = "medium_healing_potion";
   }
+  if (!state.hc) state.hc = false;
+  if (!player.temporary_effects) player.temporary_effects = [];
+  if(!state.started) state.started = true;
   updateLeftValues();
   createSaving();
 }
@@ -958,17 +1079,17 @@ function spacesToNumber(number) {
 
 function effectSyntax(effect, req) {
   console.log(effect);
-  if(req == "stat") {
-    if(effect.increase) {
-      switch(effect.increase) {
+  if (req == "stat") {
+    if (effect.increase) {
+      switch (effect.increase) {
         case "physical_multiplier": return "§/$Y/physical damage§"
         case "magical_multiplier": return "§/$Y/magical damage§"
         case "maxhp": return "§/$R/HP§"
         case "maxmp": return "§/$B/MP§"
         case "dodge": return "§/$Y/dodge chance§"
       }
-    } else if(effect.increase_stat) {
-      switch(effect.increase_stat) {
+    } else if (effect.increase_stat) {
+      switch (effect.increase_stat) {
         case "str": return "strength"
         case "agi": return "agility"
         case "vit": return "vitality"
@@ -976,9 +1097,9 @@ function effectSyntax(effect, req) {
         case "lck": return "NOT_DESCRIBED"
       }
     }
-  } else if(req == "value") {
-      if((effect.increase?.indexOf("_multiplier") != -1 || effect.increase == "dodge") && !effect.increase_stat) {
-        return effect.by*100 + "%";
-      } else return effect.by;
+  } else if (req == "value") {
+    if ((effect.increase?.indexOf("_multiplier") != -1 || effect.increase == "dodge") && !effect.increase_stat) {
+      return effect.by * 100 + "%";
+    } else return effect.by;
   }
 }

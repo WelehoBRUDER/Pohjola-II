@@ -42,7 +42,9 @@ let state = {
   open: "none",
   end: false,
   stage: dungeon.floor1.stages.stage0,
-  floor: 1
+  floor: 1,
+  hc: false,
+  started_game: false
 }
 
 const colorCodes = [
@@ -170,8 +172,8 @@ function actionBar() {
 
 function speedDebuffs(char) {
   let total = 1;
-  for(let debuff of char.statuses) {
-    if(debuff.lower) {
+  for (let debuff of char.statuses) {
+    if (debuff.lower) {
       total += debuff.lower;
     }
   }
@@ -180,8 +182,8 @@ function speedDebuffs(char) {
 
 function speedBuffs(char) {
   let total = 1;
-  for(let buff of char.statuses) {
-    if(buff.increase)  {
+  for (let buff of char.statuses) {
+    if (buff.increase) {
       total += buff.increase;
     }
   }
@@ -189,15 +191,15 @@ function speedBuffs(char) {
 }
 
 function healOT(char) {
-  if(state.paused || state.end) return;
-  for(let stat of char.statuses) {
-    if(stat.heal_ot) {
-      if(stat.heal_limit < 100) {
-        stat.heal_limit += 100/60;
+  if (state.paused || state.end) return;
+  for (let stat of char.statuses) {
+    if (stat.heal_ot) {
+      if (stat.heal_limit < 100) {
+        stat.heal_limit += 100 / 60;
       }
-      if(stat.heal_limit >= 100) {
+      if (stat.heal_limit >= 100) {
         char.hp += Math.ceil(char.maxhp * stat.heal_ot);
-        if(char.hp > char.maxhp) char.hp = char.maxhp; 
+        if (char.hp > char.maxhp) char.hp = char.maxhp;
         stat.heal_limit = 0;
         createParticle(Math.ceil(char.maxhp * stat.heal_ot), "green", (char == player ? $("playerSprite") : $("enemySprite")));
       }
@@ -209,10 +211,10 @@ function Update() {
   // Execute all code under this line 60 times per second.
 
   // Some stuff
-  if(player.maxmp < 0) player.maxmp = 0;
-  if(player.maxhp < 0) player.maxhp = 0;
-  if(player.mp < 0) player.mp = 0;
-  if(player.maxmp < 0) player.mp = 0;
+  if (player.maxmp < 0) player.maxmp = 0;
+  if (player.maxhp < 0) player.maxhp = 0;
+  if (player.mp < 0) player.mp = 0;
+  if (player.maxmp < 0) player.mp = 0;
 
   // Keeping the game window's size updated.
   // This makes sure that everything scales accordingly if screen is resized.
@@ -307,6 +309,23 @@ function Update() {
       if (status.lasts == 0) player.statuses.splice(player.statuses[status], 1);
     }
   }
+
+  // Lower temp effects
+  if (!state.paused && !state.action) {
+    for (let i = 0; i < player.temporary_effects.length; i++) {
+      if (player.temporary_effects[i].timed > 0) player.temporary_effects[i].timed -= 1 / 60;
+      if (player.temporary_effects[i].timed <= 0) {
+        player.temporary_effects[i].timed = 0;
+        if (player.temporary_effects[i].increase) player[player.temporary_effects[i].increase] -= player.temporary_effects[i].by;
+        else if (player.temporary_effects[i].increase_stat) player.stats[player.temporary_effects[i].increase] -= player.temporary_effects[i].by;
+        player.temporary_effects.splice(i, 1);
+      }
+    }
+  }
+
+  // for effects
+  if (player.hp > player.maxhp) player.hp = player.maxhp;
+  if (player.mp > player.maxmp) player.mp = player.maxmp;
 
   // Check heal overtime
   healOT(player);
@@ -438,7 +457,7 @@ function updateMagicalMoves() {
     else if (move.mp_cost > player.mp && move.mp_cost != 0) {
       $(move.id).childNodes[0].classList.add("item-unavailable");
       $(move.id).childNodes[0].pointerEvents = "none";
-      if(move.onCooldown <= 0) if ($(move.id).childNodes[1]) $(move.id).removeChild($(move.id).childNodes[1]);
+      if (move.onCooldown <= 0) if ($(move.id).childNodes[1]) $(move.id).removeChild($(move.id).childNodes[1]);
     }
     else {
       $(move.id).childNodes[0].classList.remove("item-unavailable");
@@ -501,6 +520,44 @@ function UseItem(item) {
   if (state.action || state.turn != "player" || item.amount < 1) return;
   player.action_points = 0;
   state.action = true;
+  if (item.effects) {
+    for (let effect of item.effects) {
+      if (effect.timed) {
+        if (player.temporary_effects.length === 0) {
+          if (effect.increase) {
+            player[effect.increase] += effect.by;
+            player.temporary_effects.push({ increase: effect.increase, by: effect.by, timed: effect.timed })
+          }
+          else if (effect.increase_stat) {
+            player.stats[effect.increase_stat] += effect.by;
+            player.temporary_effects.push({ increase_stat: effect.increase_stat, by: effect.by, timed: effect.timed })
+          }
+        }
+        else for (let ef of player.temporary_effects) {
+          if (ef.increase == effect.increase) {
+            player[ef.increase] -= ef.by;
+            player[effect.increase] += effect.by;
+            ef.increase = effect.increase;
+            ef.timed = effect.timed;
+          } else if (ef.increase_stat == ef.increase_stat) {
+            player.stats[ef.increase_stat] -= ef.by;
+            player.stats[effect.increase_stat] += effect.by;
+            ef.increase_stat = effect.increase_stat;
+            ef.timed = effect.timed;
+          } else if (ef.increase != effect.increase) {
+            player[effect.increase] += effect.by;
+            player.temporary_effects.push({ increase: effect.increase, by: effect.by, timed: effect.timed })
+          } else if (ef.increase_stat != effect.increase_stat) {
+            player.stats[effect.increase_stat] += effect.by;
+            player.temporary_effects.push({ increase_stat: effect.increase_stat, by: effect.by, timed: effect.timed })
+          }
+        }
+      } else {
+        if (effect.increase_stat) player.stats[effect.increase_stat] += effect.by;
+        else if (effect.increase) player[effect.increase] += effect.increase_stat;
+      }
+    }
+  }
   if (item.recover) {
     item.amount--;
     player[item.recover] += item.value;
@@ -512,6 +569,9 @@ function UseItem(item) {
     $("playerSprite").classList.add("heal");
     generateInventoryItems();
     setTimeout(reset, 1000);
+  }
+  if(item.amount < 1) for(let i = 0; i<player.items.length; i++) {
+    if(player.items[i].id == item.id) player.items.splice(i, 1);
   }
 }
 
@@ -629,7 +689,7 @@ function Ability(move) {
     setTimeout(reset, 1000);
   }
   else if (move.power <= 0) {
-    if(move.mp_cost) player.mp -= move.mp_cost;
+    if (move.mp_cost) player.mp -= move.mp_cost;
     $("playerSprite").classList.add("heal");
     player.statuses.push(copy(player.move_statuses[move.status]));
     createParticle(move.name, B, $("playerSprite"));
@@ -771,7 +831,7 @@ function createProjectile(id, start, left) {
   //projectile.classList.add("shoot");
   projectile.classList.add("projectile");
   projectile.src = "images/" + id + ".png";
-  if(left) projectile.style.left = (start.x + 50) + "px";
+  if (left) projectile.style.left = (start.x + 50) + "px";
   else projectile.style.left = (pxtovw(start.x + 50) + 26) + "vw";
   projectile.style.top = (start.y + start.clientHeight / 3.5) + "px";
   setTimeout(flyForwards, 25);
@@ -862,7 +922,7 @@ function enemyCanHeal() {
 function resistance_modifiers(char, res) {
   let modifier = 0;
   for (let resist of char.statuses) {
-    if(!resist.target) continue;
+    if (!resist.target) continue;
     if (resist.target == res) modifier += resist.power;
   }
   return modifier;
@@ -891,11 +951,13 @@ function battleEnd(condition) {
       $("battleEndButton").onclick = () => EndGauntlet("Victory");
     }
   } else if (condition == "defeat") {
+    DeleteGameHC();
     state.end = true;
     player.hp = 1;
     $("battleEndScreen").style.transform = "translateX(-50%) translateY(-50%) scale(1)";
     $("conclusion").textContent = "DEFEAT";
     $("battleEndText").textContent = `You have been defeated by the ${enemy.name}, and thus gain no gold and lose all of your experience!`;
+    if(state.hc) $("battleEndText").textContent += "Because you are playing in hardcore mode, your save is now deleted! Better luck next time :)";
     $("battleEndButton").onclick = () => EndGauntlet("Defeat");
   }
 }
@@ -903,6 +965,7 @@ function battleEnd(condition) {
 function EndGauntlet(condition) {
   $("battleEndScreen").style.transform = "translate(-50%) translateY(-50%) scale(0)";
   if (condition == "Victory") {
+    SaveGameHC();
     player.xp += gauntletLoot.xp;
     player.gold += gauntletLoot.gold;
     gauntletLoot.xp = 0;
@@ -961,25 +1024,25 @@ function calculateDmg(actor, target, move) {
   let res;
   if (move == "defaultAttack" || move?.physical) {
     res = target.physical_resistance / 100;
-    multiplier += ((actor.stats.str / 20) + (actor.physical_multiplier ? actor.physical_multiplier : 0)) * (move.power ? move.power : 1);
+    multiplier += ((actor.stats.str / 20) + (actor.physical_multiplier ? actor.physical_multiplier : 0)) + (move.power ? move.power - 1 : 0);
     res = res * (1 + resistance_modifiers(target, "physical_resistance"));
     if (move?.penetration) res = res * move.penetration;
     res = 1 - res;
     if (res > 1) res = 1;
     else if (res < 0) res = 0;
-    damage = (damage * res) * (multiplier * res);
+    damage = (damage * res) * multiplier;
     damage = (damage / getAttackDebuffs(actor)) * getAttackBuffs(actor);
     return damage;
   } else {
     damage = (move.base ? move.base : 0 + actor.wand?.mag_damage ? actor.wand.mag_damage : 0) * (actor.wand?.magical_power ? actor.wand.magical_power : 1);
     res = target.magical_resistance / 100;
-    multiplier += ((actor.stats.int / 20) + (actor.magical_multiplier ? actor.magical_multiplier : 0)) * (move.power ? move.power : 1);
+    multiplier += ((actor.stats.int / 20) + (actor.magical_multiplier ? actor.magical_multiplier : 0)) + (move.power ? move.power : 1);
     res = res * (1 + resistance_modifiers(target, "magical_resistance"));
     if (move?.penetration) res = res * move.penetration;
     res = 1 - res;
     if (res > 1) res = 1;
     else if (res < 0) res = 0;
-    damage = (damage * res) * (multiplier * res);
+    damage = (damage * res) * multiplier;
     damage = (damage / getAttackDebuffs(actor)) * getAttackBuffs(actor);
     return damage;
   }
@@ -987,8 +1050,8 @@ function calculateDmg(actor, target, move) {
 
 function getAttackBuffs(char) {
   let buff = 1;
-  for(let status of char.statuses) {
-    if(status.damage_buff) {
+  for (let status of char.statuses) {
+    if (status.damage_buff) {
       buff += status.damage_buff;
     }
   }
@@ -997,8 +1060,8 @@ function getAttackBuffs(char) {
 
 function getAttackDebuffs(char) {
   let debuff = 1;
-  for(let status of char.statuses) {
-    if(status.damage_debuff) {
+  for (let status of char.statuses) {
+    if (status.damage_debuff) {
       debuff += status.damage_debuff;
     }
   }

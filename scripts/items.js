@@ -352,7 +352,7 @@ const consumables = {
     value: 10,
     recover: "hp",
     item_type: "consumable",
-    tier: "G"
+    tier: "G",
   },
   lesser_healing_potion: {
     id: "lesser_healing_potion",
@@ -409,6 +409,28 @@ const consumables = {
     recover: "mp",
     item_type: "consumable",
     tier: "D"
+  },
+  agility_potion: {
+    id: "agility_potion",
+    name: "Agility Potion",
+    value: 1,
+    recover: "hp",
+    item_type: "consumable",
+    tier: "G",
+    effects: [
+      {increase_stat: "agi", by: 10, timed: 15}
+    ]
+  },
+  strength_potion: {
+    id: "strength_potion",
+    name: "Strength Potion",
+    value: 1,
+    recover: "hp",
+    item_type: "consumable",
+    tier: "G",
+    effects: [
+      {increase_stat: "str", by: 10, timed: 15}
+    ]
   },
 }
 

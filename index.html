@@ -8,10 +8,29 @@
   <link rel="stylesheet" href="styles/player.css">
   <link rel="stylesheet" href="styles/combat.css">
   <link rel="stylesheet" href="styles/lobby.css">
+  <link rel="stylesheet" href="styles/menu.css">
 </head>
 <body>
   <div id="gameWindow">
     <div id="gameInfoTextPopUp"></div>
+    <div id="mainMenu">
+      <div id="continueLastSave" class="menuButton">Continue</div>
+      <div id="newGame" class="menuButton">Start Game</div>
+      <div id="loadGame" class="menuButton">Load Game<div class="options" id="loadarr"></div></div>
+      <div id="settingsButton" class="menuButton">Options<div class="options" id="optarr"></div></div>
+      <div id="optionsMenu">
+        <div id="askItemUse"><p id="check--itemPrompt"></p>  Prompt Item Use</div>
+        <div id="soundEffects"><p id="check--soundEffects"></p>  Enable Sound Effects</div>
+      </div>
+      <div id="loadContainer"></div>
+    </div>
+    <div id="characterCreation" hidden>
+      <p id="charName">CharName: </p>
+      <input id="characterName">
+      <div id="backgroundForChar"></div>
+      <div id="hardcoreBut">HARDCORE</div>
+      <div id="startTheGame">Create</div>
+    </div>
     <div id="combatScreen" hidden>
       <div id="playerWindow">
         <div id="playerActionbar">
@@ -69,7 +88,7 @@
         <div id="battleEndButton">Continue</div>
       </div>
     </div>
-    <div id="mainScreen">
+    <div id="mainScreen" hidden>
       <div id="mainWindow">
         <div id="mainWindowTopBar"></div>
         <div id="mainWindowContainer"></div>
@@ -105,6 +124,7 @@
 </body>
 </html>
 
+<script src="scripts/menu.js"></script>
 <script src="scripts/texts.js"></script>
 <script src="scripts/items.js"></script>
 <script src="scripts/moves.js"></script>

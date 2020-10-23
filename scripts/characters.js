@@ -37,10 +37,21 @@ var player = {
   bought_perks: {},
   stages_beaten: {},
   floors_beaten: {},
-  move_statuses: {}
+  move_statuses: {},
+  temporary_effects: []
 }
 
 const enemies = {
+  dummy: {
+    name: "dummy",
+    hp: 999999,
+    mp: 0,
+    maxhp: 999999,
+    maxmp: 0,
+    physical_resistance: 0,
+    magical_resistance: 0,
+    statuses: []
+  },
   skeleton: {
     name: "Skeleton",
     hp: 8,

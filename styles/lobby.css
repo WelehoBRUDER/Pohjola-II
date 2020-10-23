@@ -449,6 +449,16 @@
   overflow-y: auto;
 }
 
+#itemsContainer {
+  width: 16vw;
+  height: 20vw;
+  position: absolute;
+  left: 38vw;
+  bottom: 2vw;
+  background: rgb(30, 30, 30);
+  overflow-y: auto;
+}
+
 #levelUpButton {
   transition: 0.1s;
   background-image: url("../images/level_up.png");
@@ -474,23 +484,22 @@
 }
 
 
-#weaponsContainer div, #armorsContainer div  {
+#weaponsContainer div, #armorsContainer div, #itemsContainer div  {
   transition: 0.05s;
   width: 100%;
   margin: 0vw;
   background: rgba(104, 104, 104, 0.0);
-  -webkit-text-stroke: 0.1px white;
   font-size: 1.2vw;
+  text-shadow: 0px 0px 0.1vw white;
 }
 
-#weaponsContainer span, #armorsContainer span {
+#weaponsContainer span, #armorsContainer span, #itemsContainer span {
   pointer-events: none;
 }
 
-#weaponsContainer div:hover, #armorsContainer div:hover {
+#weaponsContainer div:hover, #armorsContainer div:hover, #itemsContainer div:hover {
   background: rgba(104, 104, 104, 0.5);
   filter: brightness(1.25);
-  -webkit-text-stroke: 0px white;
   text-shadow: 0px 0px 0.1vw white;
 }
 

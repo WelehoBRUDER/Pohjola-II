@@ -1,0 +1,193 @@
+.menuButton {
+  transition: 0.1s;
+  font-size: 1.8vw;
+  background: rgb(70, 70, 70);
+  color: white;
+  text-shadow: 0vw 0vw 0.2vw black;
+  text-align: center;
+  width: 10vw;
+  position: relative;
+  top: 4vw;
+  left: 4vw;
+  margin-top: 1.5vw;
+  padding: 0.25vw;
+  border-radius: 0.25vw;
+  box-shadow: inset 0vw 0vw 0.25vw 0.2vw rgb(45, 45, 45), -0.1vw 0.1vw 0.2vw 0.2vw rgb(20, 20, 20);
+}
+
+.menuButton:hover {
+  filter: brightness(1.25);
+}
+
+.options {
+  transition: 0.25s;
+  content: "";
+  position: absolute;
+  right: -3vw;
+  top: 0.675vw;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 1.5vw 1.5vw 1.5vw;
+  border-color: transparent transparent #616161 transparent;
+  transform: rotateZ(0deg) scale(0);
+  z-index: 9999;
+}
+
+#optionsMenu {
+  transition: 0.35s;
+  width: 18vw;
+  height: 20vw;
+  background: rgb(25, 25, 25);
+  position: absolute;
+  left: 18vw;
+  top: 18.75vw;
+  transform: rotate(90deg) scale(0);
+  overflow: scroll;
+}
+
+#optionsMenu div {
+  transition: 0.1s;
+  color: white;
+  text-shadow: 0vw 0vw 0.2vw black;
+  font-size: 1.25vw;
+  position: relative;
+  display: flex;
+  margin: 1vw;
+  text-align: left;
+  max-height: 1.25vw;
+}
+
+#optionsMenu p {
+  margin-right: 0.5vw;
+  width: 1.25vw;
+  height: 1.25vw;
+  font-size: 1.0vw;
+  background: grey;
+  vertical-align: top;
+  position: relative;
+  bottom: 0.75vw;
+  text-align: center;
+}
+
+#optionsMenu div:hover {
+  filter: brightness(1.25);
+}
+
+#loadContainer {
+  transition: 0.35s;
+  width: 18vw;
+  height: 20vw;
+  background: rgb(25, 25, 25);
+  position: absolute;
+  left: 18vw;
+  top: 14.25vw;
+  transform: rotate(90deg) scale(0);
+  overflow: scroll;
+}
+
+#loadContainer p {
+  transition: 0.1s;
+  font-size: 1vw;
+  color: white;
+  width: 100%;
+  white-space: pre-wrap;
+  background: rgb(34, 34, 34);
+}
+
+#loadContainer p:hover {
+  filter:brightness(1.25)
+}
+
+#characterCreation {
+  position: absolute;
+  left: 50%;
+  top: 5vw;
+  transform: translateX(-50%);
+  width: 40vw;
+  height: 40vw;
+  background: rgb(20, 20, 20);
+}
+
+#charName {
+  font-size: 1.5vw;
+  color: white;
+  position: absolute;
+  left: 2vw;
+  top: 0.75vw;
+}
+
+#characterName {
+  font-size: 1.5vw;
+  color: white;
+  background: rgb(50, 50, 50);
+  width: 16vw;
+  height: 1.7vw;
+  border: none;
+  position: absolute;
+  left: 10vw;
+  top: 2.5vw;
+}
+
+#backgroundForChar {
+  width: 20vw;
+  height: 20vw;
+  background: rgb(10, 10, 10);
+  position: absolute; 
+  left: 10vw;
+  bottom: 10vw;
+}
+
+#backgroundForChar p {
+  transition: 0.1s;
+  width: 100%;
+  font-size: 1.25vw;
+  color: white;
+  background: rgb(75, 75, 75);
+  margin: 0vw;
+  border: 0.1vw solid black;
+}
+
+.charBG-select {
+  background: rgb(15, 35, 150) !important;
+}
+
+#backgroundForChar p:hover {
+  filter: brightness(1.25);
+}
+
+#hardcoreBut {
+  transition: 0.05s;
+  font-size: 2vw;
+  background: darkred;
+  color: white;
+  text-shadow: 0vw 0vw 0.2vw black;
+  width: 12vw;
+  height: 2.5vw;
+  text-align: center;
+  border-radius: 0.25vw;
+  position: absolute;
+  bottom: 5vw;
+  left: 50%;
+  margin-left: -6vw;
+}
+
+#hardcoreBut:hover {
+  filter: brightness(1.25);
+} 
+
+#startTheGame {
+  transition: 0.05s;
+  font-size: 2vw;
+  background: rgb(0, 139, 35);
+  color: white;
+  text-shadow: 0vw 0vw 0.2vw black;
+  width: 12vw;
+  height: 2.5vw;
+  text-align: center;
+  border-radius: 0.25vw;
+  position: absolute;
+  bottom: 1.5vw;
+  left: 50%;
+  margin-left: -6vw;
+}
