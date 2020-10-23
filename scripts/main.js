@@ -7,6 +7,7 @@ const add = (e) => { return game.appendChild(e); }
 const selectAll = (e) => { return document.querySelectorAll(e); }
 const pxtovh = v => v / clientHeight * 100;
 const pxtovw = v => v / clientWidth * 100;
+var isFirefox = typeof InstallTrigger !== 'undefined';
 
 function Random(max, min = 0) {
   return Math.floor((Math.random() * (max - min)) + min);
@@ -816,8 +817,8 @@ function createParticle(text, color, start) {
   particle.textContent = text;
   particle.style.transition = "1.2s";
   particle.classList.add("particle");
-  particle.style.left = (start.x + Random(200, 80)) + "px";
-  particle.style.top = (start.y + Random(150, 30)) + "px";
+  particle.style.left = ((isFirefox ? start.getBoundingClientRect().left : start.x) + Random(200, 80)) + "px";
+  particle.style.top = ((isFirefox ? start.getBoundingClientRect().top : start.y) + Random(150, 30)) + "px";
   particle.style.fontSize = Random(6, 5) + "vw";
   setTimeout(flyRandomly, 25);
   function flyRandomly() {
@@ -831,8 +832,8 @@ function createProjectile(id, start, left) {
   //projectile.classList.add("shoot");
   projectile.classList.add("projectile");
   projectile.src = "images/" + id + ".png";
-  if (left) projectile.style.left = (start.x + 50) + "px";
-  else projectile.style.left = (pxtovw(start.x + 50) + 26) + "vw";
+  if (left) projectile.style.left = ((isFirefox ? start.getBoundingClientRect().left : start.x) + 50) + "px";
+  else projectile.style.left = (pxtovw((isFirefox ? start.getBoundingClientRect().left : start.x) + 50) + 26) + "vw";
   projectile.style.top = (start.y + start.clientHeight / 3.5) + "px";
   setTimeout(flyForwards, 25);
   function flyForwards() {
