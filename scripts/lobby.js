@@ -197,6 +197,8 @@ function levelUp(e) {
       player.xpCap *= 1.17;
     }
   }
+  player.hp = player.maxhp;
+  player.mp = player.maxmp;
   player.xpCap = Math.ceil(player.xpCap);
   player.xp = Math.floor(player.xp);
   createCharacterScreen();
