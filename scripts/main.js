@@ -318,7 +318,7 @@ function Update() {
       if (player.temporary_effects[i].timed <= 0) {
         player.temporary_effects[i].timed = 0;
         if (player.temporary_effects[i].increase) player[player.temporary_effects[i].increase] -= player.temporary_effects[i].by;
-        else if (player.temporary_effects[i].increase_stat) player.stats[player.temporary_effects[i].increase] -= player.temporary_effects[i].by;
+        else if (player.temporary_effects[i].increase_stat) player.stats[player.temporary_effects[i].increase_stat] -= player.temporary_effects[i].by;
         player.temporary_effects.splice(i, 1);
       }
     }

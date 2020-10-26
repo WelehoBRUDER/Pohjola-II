@@ -7,7 +7,7 @@ const texts = {
   perks: "Advance your perk tree with perk points gained from leveling up.",
   inventory: "Change your equipment and manage your consumables",
   store: "Buy gear, items and knowledge from the merchant of this floor.",
-  bank: "Take a loan of gold or store your experience points.",
+  smithy: "Craft new items or upgrade existing ones.",
   floors_stages: "Fight enemies and complete quests by clearing stages and floors of the dungeon.",
   total_price: "The total cost of all your current purchases. Make sure you have enough coin!",
   checkout: "Confirm all your selected purchases and add them to your inventory. §:br§ §/orange/Can't be done if you lack the coin!§",

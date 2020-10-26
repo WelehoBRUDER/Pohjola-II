@@ -214,6 +214,49 @@ const weapons = {
       {increase_stat: "int", by: 20}
     ],
   },
+  // CRAFTABLE WEAPONS //
+  straight_sword: {
+    to_craft: [
+      {material: "iron_ingot", amount: 1},
+      {weapon: "broken_sword", amount: 1}
+    ],
+    name: "Straight Sword",
+    type: "physical",
+    damage: 7,
+    speed_bonus: 0,
+    item_type: "weapon",
+    tier: "G"
+  },
+  steel_blade: {
+    to_craft: [
+      {material: "steel_ingot", amount: 2},
+      {material: "iron_ingot", amount: 1},
+      {weapon: "long_sword", amount: 1}
+    ],
+    name: "Steel Blade",
+    type: "physical",
+    damage: 18,
+    speed_bonus: 1,
+    item_type: "weapon",
+    tier: "E"
+  },
+  doombringer_axe: {
+    to_craft: [
+      {material: "steel_ingot", amount: 5},
+      {material: "iron_ingot", amount: 10},
+      {weapon: "battle_axe", amount: 2},
+      {material: "monster_core", amount: 3}
+    ],
+    name: "Doombringer Axe",
+    type: "physical",
+    damage: 49,
+    speed_bonus: 5,
+    item_type: "weapon",
+    effects: [
+      {increase: "physical_multiplier", by: 0.08}
+    ],
+    tier: "D"
+  }
 }
 
 const armors = {

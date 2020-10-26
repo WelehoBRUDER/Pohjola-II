@@ -13,7 +13,7 @@ const topBarButtons = [
     name: "Inventory"
   },
   {
-    name: "Bank",
+    name: "Smithy",
   },
   {
     name: "Floors & Stages",
@@ -88,6 +88,7 @@ function select(target) {
   if (target == "Perks") createPerkTree();
   if (target == "Inventory") createInventory();
   if (target == "Store") createStore();
+  if (target == "Smithy") createSmithy();
   if (target == "Saves") createSaving();
   createTopBar();
 }
@@ -468,12 +469,14 @@ function createInventory() {
   let armorsContainer = create("div");
   let wandContainer = create("div");
   let itemsContainer = create("div");
+  let matContainer = create("div");
   weaponContainer.id = "weaponContainer";
   armorContainer.id = "armorContainer";
   wandContainer.id = "wandContainer";
   weaponsContainer.id = "weaponsContainer";
   armorsContainer.id = "armorsContainer";
   itemsContainer.id = "itemsContainer";
+  matContainer.id = "matContainer";
   weaponContainer.addEventListener("click", unequipWeapon);
   wandContainer.addEventListener("click", unequipWand);
   armorContainer.addEventListener("click", unequipArmor);
@@ -541,13 +544,33 @@ function createInventory() {
       itemsContainer.appendChild(item);
     }
   }
+  for(let mat in materials) {
+    let div = create("div");
+    let img = create("img");
+    let num = create("p");
+    div.classList.add("invMaterial");
+    img.src = "images/" + materials[mat].img || "images/iron_ingot.png";
+    num.textContent = getMatNum(materials[mat]);
+    addHoverBox(div, materials[mat].name, 8);
+    div.appendChild(img);
+    div.appendChild(num);
+    matContainer.appendChild(div);
+  }
   invContainer.appendChild(weaponContainer);
   invContainer.appendChild(armorContainer);
   invContainer.appendChild(wandContainer);
   invContainer.appendChild(weaponsContainer);
   invContainer.appendChild(armorsContainer);
   invContainer.appendChild(itemsContainer);
+  invContainer.appendChild(matContainer);
   $("mainWindowContainer").appendChild(invContainer);
+}
+
+function getMatNum(mat) {
+  for(let itm of player.items) {
+    if(itm.id == (mat.id === undefined ? mat : mat.id)) return itm.amount;
+  }
+  return 0;
 }
 
 function useItemFromInv(e) {
@@ -1141,5 +1164,78 @@ function effectSyntax(effect, req) {
 
 function ReturnToMainMenu() {
   $("mainMenu").style.display = "block";
-  $("mainWindow").style.display = "none";
+  $("mainScreen").style.display = "none";
+  $("combatScreen").style.display = "none";
+}
+
+function getPlayerItemAmount(id) {
+  console.log(id);
+  for(let item in player.items) {
+    if(item.id == id) return item.amount;
+  }
+  return 0;
+}
+
+function createSmithy() {
+  $("mainWindowContainer").textContent = "";
+  let matContainer = create("div");
+  matContainer.id = "matContainer";
+  matContainer.style.top = "0.5vw";
+  let smithableContainer = create("div");
+  smithableContainer.id = "smithableContainer";
+  for(let mat in materials) {
+    let div = create("div");
+    let img = create("img");
+    let num = create("p");
+    div.classList.add("invMaterial");
+    img.src = "images/" + materials[mat].img || "images/iron_ingot.png";
+    num.textContent = getMatNum(materials[mat]);
+    addHoverBox(div, materials[mat].name, 8);
+    div.appendChild(img);
+    div.appendChild(num);
+    matContainer.appendChild(div);
+  }
+  for(let smith in weapons) {
+    if(!weapons[smith].to_craft) continue;
+    let wep = create("p");
+    wep.style.color = tiers[weapons[smith].tier];
+    wep.textContent = weapons[smith].name;
+    let mainText = "";
+    for(let mat of weapons[smith].to_craft) {
+      if(mat.material) {
+        console.log(getMatNum(mat.material));
+        mainText += `${materials[mat.material].name} §/${getMatNum(mat.material) < mat.amount ? "$R" : "white"}/${mat.amount > 1 ? "x" + mat.amount : "1"}§ §:br§`;
+      } else if(mat.weapon) {
+        mainText += `§/${tiers[weapons[mat.weapon].tier]}/${weapons[mat.weapon].name}§ §/${getPlayerItemAmount(mat.weapon) < mat.amount ? "$R" : "white"}/${mat.amount > 1 ? "x" + mat.amount : "1"}§ §:br§`;
+      }
+    }
+    let alt = `${weapons[smith].magical_power ? "MagPower: " + "§/$Y/" + weapons[smith].magical_power * 100 + "%§" : "Damage: " + "§/$Y/" + weapons[smith].damage + "§"} §:br§ Speed: §/$B/${weapons[smith].speed_bonus}§ §:br§ Tier: §/${tiers[weapons[smith].tier]}/${weapons[smith].tier}§ §:br§ ${weapons[smith].mag_damage ? "MagDamage: " + weapons[smith].mag_damage : ""}`;
+    if (weapons[smith]?.effects) {
+      for (let effect of weapons[smith]?.effects) {
+        if (effect.increase || effect.increase_stat) {
+          alt += `§:br§ Increases ${effectSyntax(effect, "stat")} by ${effectSyntax(effect, "value")}`;
+        }
+      }
+    }
+    addHoverBox(wep, mainText + "§FS0.75FS/$Y/Hold shift for details§", 12, alt);
+    smithableContainer.appendChild(wep);
+  }
+  for(let smith in armors) {
+    if(!armors[smith].to_craft) continue;
+    let wep = create("p");
+    wep.style.color = tiers[armors[smith].tier];
+    wep.textContent = armors[smith].name;
+    let mainText = "";
+    for(let mat of armors[smith].to_craft) {
+      if(mat.material) {
+        mainText += `${materials[mat.material].name} ${mat.amount > 1 ? "x" + mat.amount : ""} §:br§`;
+      } else if(mat.armor) {
+        mainText += `§/${tiers[armors[mat.armor].tier]}/${armors[mat.armor].name}§ ${mat.amount > 1 ? "x" + mat.amount : ""} §:br§`;
+      }
+    }
+    addHoverBox(wep, mainText + "§FS0.75FS/$Y/Hold shift for details§", 12);
+    smithableContainer.appendChild(wep);
+  }
+  $("mainWindowContainer").appendChild(smithableContainer);
+  $("mainWindowContainer").appendChild(matContainer);
 }

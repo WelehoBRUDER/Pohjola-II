@@ -429,6 +429,44 @@
   transform: scale(0);
 }
 
+#matContainer {
+  height: 2vw;
+  width: max-content;
+  max-width: 24vw;
+  display: flex;
+  position: absolute;
+  left: 2.5vw;
+  top: 11vw;
+  border: 0.1vw solid black;
+}
+
+#matContainer div {
+  position: relative;
+  width: 2.5vw;
+  height: 2vw;
+  border: 0.1vw solid black;
+  text-align: center;
+}
+
+#matContainer img, #matContainer p {
+  position: absolute; 
+}
+
+#matContainer img {
+  width: 2vw;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0vw;
+}
+
+#matContainer p {
+  font-size: 0.75vw;
+  color: white;
+  text-shadow: 0vw 0vw 0.2vw black;
+  right: 0.25vw;
+  top: 0.35vw;
+}
+
 #weaponsContainer {
   width: 16vw;
   height: 20vw;
@@ -750,4 +788,33 @@
   right: 1vw;
   bottom: 1vw;
   padding: 0.25vw;
+}
+
+#smithableContainer {
+  width: 20vw;
+  height: 28vw;
+  position: absolute;
+  left: 2.5vw;
+  bottom: 2vw;
+  background: rgb(30, 30, 30);
+  overflow-y: auto;
+}
+
+#smithableContainer p {
+  transition: 0.05s;
+  width: 100%;
+  margin: 0vw;
+  background: rgba(104, 104, 104, 0.0);
+  font-size: 1.2vw;
+  text-shadow: 0px 0px 0.1vw white;
+}
+
+#smithableContainer span {
+  pointer-events: none;
+}
+
+#smithableContainer p:hover {
+  background: rgba(104, 104, 104, 0.5);
+  filter: brightness(1.25);
+  text-shadow: 0px 0px 0.1vw white;
 }
