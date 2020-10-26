@@ -51,6 +51,17 @@ const moves = {
     base: 0,
     id: "heavy_attack"
   },
+  holy_smite: {
+    power: 1.25,
+    penetration: 0,
+    mp_cost: 0,
+    cooldown: 5,
+    physical: true,
+    name: "Holy Smite",
+    onCooldown: 0,
+    base: 0,
+    id: "holy_smite"
+  },
   sundering_slash: {
     power: 0.6,
     penetration: 0,

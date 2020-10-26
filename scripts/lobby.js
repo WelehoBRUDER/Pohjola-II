@@ -23,6 +23,13 @@ const topBarButtons = [
   }
 ];
 
+var scroll = {
+  top: 0,
+  left: 0
+}
+
+var currentSave;
+
 function number(num) {
   if (num < 1000) return num;
   else if (num < 1000000) return (num / 1000 % 1 !== 0 ? (num / 1000).toFixed(2) : Math.floor(num / 1000)) + "K";
@@ -140,11 +147,11 @@ function combatStatsView() {
     </p>
     <p id="health">
     <img src="images/health_icon.png">
-    ${player.maxhp}
+    ${(state.hc ? player.hp + "/" : "") + player.maxhp}
     </p>
     <p id="mana">
     <img src="images/mana_icon.png">
-    ${player.maxmp}
+    ${(state.hc ? player.mp + "/" : "") + player.maxmp}
     </p>
     <p id="physres">
     <img src="images/physical_resistance.png">
@@ -389,6 +396,30 @@ function createPerkTree() {
       div.appendChild(ico);
     }
     hackywacky.appendChild(div);
+    $("mainWindowContainer").scrollTo(scroll.left, scroll.top);
+  }
+}
+
+$("mainWindowContainer").addEventListener('mousedown', action1);
+$("mainWindowContainer").addEventListener('mousemove', action2);
+
+let mouseX = 0;
+let mouseY = 0;
+let bgPosX = 0;
+let bgPosY = 0;
+
+function action1(e) {
+  mouseX = e.x;
+  mouseY = e.y;
+  bgPosX = $("mainWindowContainer").scrollLeft;
+  bgPosY = $("mainWindowContainer").scrollTop;
+}
+
+function action2(e) {
+  if (e.buttons == 1) {
+      let offsetX = e.x - mouseX;
+      let offsetY = e.y - mouseY;
+      $("mainWindowContainer").scrollTo(bgPosX - offsetX, bgPosY - offsetY);
   }
 }
 
@@ -415,6 +446,8 @@ function buyPerk(e) {
         player.move_statuses[effect.modify_status][effect.target] += effect.by;
       }
     }
+    scroll.top = $("mainWindowContainer").scrollTop;
+    scroll.left = $("mainWindowContainer").scrollLeft;
     updateLeftValues();
     createPerkTree();
   }
@@ -952,12 +985,13 @@ function saveGame() {
   gameSave.player = player;
   gameSave.state = state;
   saveTime = ("0" + saveTime.getHours()).slice(-2) + "." + ("0" + saveTime.getMinutes()).slice(-2);
-  let id = 0;
-  if (selected_slot == null) save_slots.push({ text: `${saveName} || Last Saved: ${saveTime} || Character Level: ${player.level}`, save: gameSave, id: save_slots.length, time: sortTime, hc: state.hc });
+  let key = generateKey(7);
+  if (selected_slot == null) save_slots.push({ text: `${saveName} || Last Saved: ${saveTime} || Character Level: ${player.level}`, save: gameSave, id: save_slots.length, time: sortTime, hc: state.hc, key: key});
   else {
     createPrompt(`Are you sure you wish to save over slot ${selected_slot.text}?`, () => saveOver(saveName, saveTime, gameSave));
     return;
   };
+  findIDs();
   localStorage.setItem("save_slots", JSON.stringify(save_slots));
   createSaving();
 }
@@ -970,9 +1004,7 @@ function SaveGameHC() {
   gameSave.state = state;
   saveTime = ("0" + saveTime.getHours()).slice(-2) + "." + ("0" + saveTime.getMinutes()).slice(-2);
   for(let save of save_slots) {
-    console.log(save.hc);
-    if(save.text.split("||")[0] == player.name + " " && save.hc) { 
-      console.log("HY");
+    if(save.key == currentSave.key && save.hc) { 
       selected_slot = save;
       saveOver(player.name, saveTime, gameSave);
      }
@@ -984,7 +1016,7 @@ function SaveGameHC() {
 function DeleteGameHC() {
   if(!state.hc) return;
   for(let save of save_slots) {
-    if(save.text.split("||")[0] == player.name && save.hc) { 
+    if(save.key == currentSave.key && save.hc) { 
         save_slots.splice(save.id, 1);
         resetIds();
      }
@@ -993,13 +1025,14 @@ function DeleteGameHC() {
 
 function saveOver(name, time, save) {
   let sortTime = +(new Date());
-  save_slots[selected_slot.id] = { text: `${name} || Last Saved: ${time} || Character Level: ${player.level}`, save: save, id: selected_slot.id, time: sortTime, hc: state.hc }
+  save_slots[selected_slot.id] = { text: `${name} || Last Saved: ${time} || Character Level: ${player.level}`, save: save, id: selected_slot.id, time: sortTime, hc: state.hc, key: selected_slot.key }
   localStorage.setItem("save_slots", JSON.stringify(save_slots));
   createSaving();
 }
 
 function loadGame() {
   if (selected_slot == null) return;
+  currentSave = selected_slot;
   if(!state.started) state.started = true;
   player = selected_slot.save.player;
   state = selected_slot.save.state;
@@ -1080,7 +1113,6 @@ function spacesToNumber(number) {
 }
 
 function effectSyntax(effect, req) {
-  console.log(effect);
   if (req == "stat") {
     if (effect.increase) {
       switch (effect.increase) {
@@ -1104,4 +1136,9 @@ function effectSyntax(effect, req) {
       return effect.by * 100 + "%";
     } else return effect.by;
   }
+}
+
+function ReturnToMainMenu() {
+  $("mainMenu").style.display = "block";
+  $("mainWindow").style.display = "none";
 }

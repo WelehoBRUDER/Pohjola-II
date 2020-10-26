@@ -959,7 +959,9 @@ function battleEnd(condition) {
     $("conclusion").textContent = "DEFEAT";
     $("battleEndText").textContent = `You have been defeated by the ${enemy.name}, and thus gain no gold and lose all of your experience!`;
     if(state.hc) $("battleEndText").textContent += "Because you are playing in hardcore mode, your save is now deleted! Better luck next time :)";
-    $("battleEndButton").onclick = () => EndGauntlet("Defeat");
+    if(state.hc) {
+      $("battleEndButton").onclick = ReturnToMainMenu();
+    } else $("battleEndButton").onclick = () => EndGauntlet("Defeat");
   }
 }
 
@@ -1025,7 +1027,7 @@ function calculateDmg(actor, target, move) {
   let res;
   if (move == "defaultAttack" || move?.physical) {
     res = target.physical_resistance / 100;
-    multiplier += ((actor.stats.str / 20) + (actor.physical_multiplier ? actor.physical_multiplier : 0)) + (move.power ? move.power - 1 : 0);
+    multiplier += ((actor.stats.str / 20) + (move.power ? move.power - 1 : 0)) * (1 + (actor.physical_multiplier ? actor.physical_multiplier : 0));
     res = res * (1 + resistance_modifiers(target, "physical_resistance"));
     if (move?.penetration) res = res * move.penetration;
     res = 1 - res;
@@ -1037,7 +1039,7 @@ function calculateDmg(actor, target, move) {
   } else {
     damage = (move.base ? move.base : 0 + actor.wand?.mag_damage ? actor.wand.mag_damage : 0) * (actor.wand?.magical_power ? actor.wand.magical_power : 1);
     res = target.magical_resistance / 100;
-    multiplier += ((actor.stats.int / 20) + (actor.magical_multiplier ? actor.magical_multiplier : 0)) + (move.power ? move.power : 1);
+    multiplier += ((actor.stats.int / 20) + (move.power ? move.power - 1 : 0)) * (1 + (actor.magical_multiplier ? actor.magical_multiplier : 0));
     res = res * (1 + resistance_modifiers(target, "magical_resistance"));
     if (move?.penetration) res = res * move.penetration;
     res = 1 - res;

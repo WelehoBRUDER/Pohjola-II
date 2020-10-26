@@ -798,8 +798,8 @@ let paladin_tree = {
   },
   paladin_18: {
     name: "Blessed Be Thy Blade",
-    cost: 3,
-    desc: "Increases physical damage by 7%. §:br§ Cost: 3 perk points",
+    cost: 1,
+    desc: "Increases physical damage by 7%. §:br§ Cost: 1 perk points",
     icon: "weapon_icon",
     right_of: "paladin_15",
     effect: [
@@ -826,6 +826,40 @@ let paladin_tree = {
       {modify_skill: "holy_arrow", target: "power", by: 0.9},
       {modify_skill: "holy_arrow", target: "base", by: 8},
       {modify_skill: "holy_arrow", target: "mp_cost", by: 30},
+    ],
+  },
+  paladin_21: {
+    name: "God's Blow",
+    cost: 1,
+    desc: "Grants skill '§/$Y/Holy Smite§'. §:br§ Cost: 1 perk points",
+    icon: "holy_smite",
+    right_of: "paladin_18",
+    effect: [
+      {grant_skill: copy(moves.holy_smite)},
+    ],
+  },
+  paladin_22: {
+    name: "Charging the Word",
+    cost: 1,
+    desc: "Increases §/$Y/Holy Smite§'s damage by 25% and base damage by 2, but increases cooldown by 1s. §:br§ Cost: 1 perk points",
+    icon: "weapon_icon",
+    down_of: "paladin_21",
+    effect: [
+      {modify_skill: "holy_smite", target: "power", by: 0.25},
+      {modify_skill: "holy_smite", target: "base", by: 5},
+      {modify_skill: "holy_smite", target: "cooldown", by: 1}
+    ],
+  },
+  paladin_23: {
+    name: "Cracking the Apostates!",
+    cost: 1,
+    desc: "Increases §/$Y/Holy Smite§'s base damage by 3 and gives 15% penetration, but increases cooldown by 2s. §:br§ Cost: 1 perk points",
+    icon: "weapon_icon",
+    down_of: "paladin_22",
+    effect: [
+      {modify_skill: "holy_smite", target: "penetration", by: 0.15},
+      {modify_skill: "holy_smite", target: "base", by: 10},
+      {modify_skill: "holy_smite", target: "cooldown", by: 2}
     ],
   },
 }

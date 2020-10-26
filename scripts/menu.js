@@ -3,7 +3,18 @@ let menu = {
   settings_open: false,
   load_open: false,
   selected_bg: "none",
-  hardcore: false
+  hardcore: false,
+  create_open: false
+}
+
+function generateKey(len) {
+  charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var randomString = '';
+  for (var i = 0; i < len; i++) {
+      var randomPoz = Math.floor(Math.random() * charSet.length);
+      randomString += charSet.substring(randomPoz,randomPoz+1);
+  }
+  return randomString;
 }
 
 function init() {
@@ -11,6 +22,7 @@ function init() {
     settings = JSON.parse(localStorage.getItem(`settings`));
   }
   save_slots = JSON.parse(localStorage.getItem(`save_slots`)) || [];
+  findIDs();
   $("continueLastSave").classList.add("unavailable");
   $("settingsButton").addEventListener("click", options);
   updateCheckboxes();
@@ -49,6 +61,23 @@ function init() {
     }
   ]
 };
+
+function keyExists(key) {
+  let found = 0;
+  for(let save of save_slots) {
+    if(save.key === key) found++;
+  }
+  return found;
+}
+
+function findIDs() {
+  for(let save of save_slots) {
+    if(!save.key) {
+      save.key = generateKey(7);
+      while(keyExists(save.key) > 1) save.key = generateKey(7);
+    } else while(keyExists(save.key) > 1) save.key = generateKey(7);
+  }
+}
 
 function savesLoadMenu() {
   $("loadContainer").textContent = "";
@@ -110,8 +139,16 @@ function openLoadedSaves() {
 }
 
 function startGame() {
-  $("mainMenu").style.display = "none";
-  $("characterCreation").style.display = "block";
+  if (!menu.create_open) {
+    $("startarr").style.transform = "rotateZ(90deg) scale(1)";
+    menu.create_open = true;
+    $("characterCreation").style.transform = "rotate(0deg) scale(1)";
+  } else {
+    $("startarr").style.transform = "rotateZ(0deg) scale(0)";
+    menu.create_open = false;
+    $("characterCreation").style.transform = "rotate(90deg) scale(0)";
+  }
+  $("backgroundForChar").textContent = "";
   for (let bg of char_bgs) {
     let back = create("p");
     back.textContent = bg.name;
@@ -149,18 +186,21 @@ function selectBG(bg) {
 
 function createCharacter() {
   if (menu.selected_bg == "none") return;
-  player.name = $("characterName").value;
+  player.name = $("characterName").value.length > 0 ? $("characterName").value : "Hero";
+  $("mainMenu").style.display = "none";
   if (menu.selected_bg.weapon) {
     player.items.push(player.weapon);
-    player.weapon = menu.selected_bg.weapon;
+    player.weapon = {...menu.selected_bg.weapon, amount: 1};
   } 
   if (menu.selected_bg.armor) {
     player.items.push(player.armor);
-    player.armor = menu.selected_bg.armor;
+    player.armor = {...menu.selected_bg.armor, amount: 1};
+    player.physical_resistance = player.armor.physical_resistance;
+    player.magical_resistance = player.armor.magical_resistance;
   } 
   if (menu.selected_bg.wand) {
     player.items.push(player.wand);
-    player.wand = menu.selected_bg.wand;
+    player.wand = {...menu.selected_bg.wand, amount: 1};
   } 
   for (let effect of menu.selected_bg.effects) {
     if (effect.increase_stat) player.stats[effect.increase_stat] += effect.by;
@@ -177,7 +217,9 @@ function createCharacter() {
     gameSave.player = player;
     gameSave.state = state;
     saveTime = ("0" + saveTime.getHours()).slice(-2) + "." + ("0" + saveTime.getMinutes()).slice(-2);
-    save_slots.push({ text: `${saveName} || Last Saved: ${saveTime} || Character Level: ${player.level}`, save: gameSave, id: save_slots.length, time: sortTime, hc: menu.hardcore });
+    save_slots.push({ text: `${saveName} || Last Saved: ${saveTime} || Character Level: ${player.level}`, save: gameSave, id: save_slots.length, time: sortTime, hc: menu.hardcore, key: generateKey(7) });
+    findIDs();
+    currentSave = save_slots[save_slots.length-1];
     localStorage.setItem("save_slots", JSON.stringify(save_slots));
     $("characterCreation").style.display = "none";
     $("combatScreen").style.display = "block";
