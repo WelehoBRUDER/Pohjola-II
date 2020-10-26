@@ -1019,6 +1019,7 @@ function DeleteGameHC() {
     if(save.key == currentSave.key && save.hc) { 
         save_slots.splice(save.id, 1);
         resetIds();
+        localStorage.setItem("save_slots", JSON.stringify(save_slots));
      }
   }
 }
