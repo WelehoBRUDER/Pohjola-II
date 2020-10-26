@@ -43,7 +43,7 @@ addHoverBox($("xpBar"), texts.xp, 14);
 addHoverBox($("defaultSprite"), texts.you, 10);
 
 createTopBar();
-select("Character");
+select("Floors & Stages");
 
 function createTopBar() {
   $("mainWindowTopBar").textContent = "";

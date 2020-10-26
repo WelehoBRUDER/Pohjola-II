@@ -43,7 +43,7 @@
   left: 18vw;
   top: 18.75vw;
   transform: rotate(90deg) scale(0);
-  overflow: scroll;
+  overflow: auto;
   box-sizing: border-box;
   border: 0.25vw solid black;
 }
@@ -85,7 +85,7 @@
   left: 18vw;
   top: 14.25vw;
   transform: rotate(90deg) scale(0);
-  overflow: scroll;
+  overflow: auto;
   box-sizing: border-box;
   border: 0.25vw solid black;
 }
