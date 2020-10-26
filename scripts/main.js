@@ -929,6 +929,7 @@ function resistance_modifiers(char, res) {
   return modifier;
 }
 
+
 function battleEnd(condition) {
   if (condition == "victory") {
     gauntlet.splice(gauntlet[enemy], 1);
@@ -938,6 +939,14 @@ function battleEnd(condition) {
     xp = Math.ceil(xp * (1 + player.stats.lck / 100));
     gold = Random(enemy.gold.max, enemy.gold.min);
     gold = Math.ceil(gold * (1 + player.stats.lck / 25));
+    if(enemy.drops) {
+      for(let drop of enemy.drops) {
+        if(drop.chance >= Math.random())  {
+          if(player.items.map(item => item = item.id).indexOf(drop.item.id) == -1) player.items.push({...drop.item, amount: Random(drop.max, drop.min)});
+          else player.items[player.items.map(item => item = item.id).indexOf(drop.item.id)].amount += Random(drop.max, drop.min);
+        }
+      }
+    }
     gauntletLoot.xp += xp
     gauntletLoot.gold += gold
     state.end = true;

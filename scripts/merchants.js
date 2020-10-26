@@ -10,6 +10,8 @@ let merchants = {
       {item: copy(consumables.mana_potion), price: 325, type: "consumable"},
       {item: copy(consumables.agility_potion), price: 180, type: "consumable"},
       {item: copy(consumables.strength_potion), price: 180, type: "consumable"},
+      {item: copy(materials.iron_ingot), price: 90, type: "material"},
+      {item: copy(materials.steel_ingot), price: 240, type: "material"},
       {item: copy(weapons.broken_sword), price: 100, type: "weapon"},
       {item: copy(weapons.broken_mace), price: 120, type: "weapon"},
       {item: copy(weapons.battle_axe), price: 950, type: "weapon"},

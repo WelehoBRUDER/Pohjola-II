@@ -3,6 +3,7 @@
 - Improved level up button
 - Added hardcore mode
 - Added main menu
+- Added simple crafting system
 
 # 0.3a
 - Floor 1 is now finished

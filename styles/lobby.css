@@ -818,3 +818,11 @@
   filter: brightness(1.25);
   text-shadow: 0px 0px 0.1vw white;
 }
+
+.unavailableCraft {
+  filter: brightness(0.25) !important;
+}
+
+.unavailableCraft:hover {
+  filter: brightness(0.25) !important;
+}

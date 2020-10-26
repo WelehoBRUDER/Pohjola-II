@@ -84,7 +84,10 @@ const enemies = {
     speed: 0,
     action_points: 0,
     statuses: [],
-    dodge: 0.05
+    dodge: 0.05,
+    drops: [
+      {item: materials.monster_core, chance: 1, min: 3, max: 7}
+    ]
   },
   goblin: {
     name: "Goblin",
@@ -222,7 +225,10 @@ const enemies = {
     speed: 0,
     action_points: 0,
     statuses: [],
-    dodge: 0.07
+    dodge: 0.07,
+    drops: [
+      {item: materials.monster_core, chance: 0.1, min: 1, max: 1}
+    ]
   },
   death_knight: {
     name: "Death Knight",
@@ -258,7 +264,10 @@ const enemies = {
     speed: 0,
     action_points: 0,
     statuses: [],
-    dodge: 0.06
+    dodge: 0.06,
+    drops: [
+      {item: materials.monster_core, chance: 0.15, min: 1, max: 2}
+    ]
   },
   ogre: {
     name: "Ogre",
@@ -293,7 +302,10 @@ const enemies = {
     speed: 0,
     action_points: 0,
     statuses: [],
-    dodge: 0.05
+    dodge: 0.05,
+    drops: [
+      {item: materials.monster_core, chance: 0.2, min: 1, max: 2}
+    ]
   },
   minotaur: {
     name: "Minotauros",
@@ -328,7 +340,10 @@ const enemies = {
     speed: 0,
     action_points: 0,
     statuses: [],
-    dodge: 0.04
+    dodge: 0.04,
+    drops: [
+      {item: materials.monster_core, chance: 0.2, min: 1, max: 2}
+    ]
   },
   spectral_knight: {
     name: "Spectral Knight",
@@ -364,7 +379,10 @@ const enemies = {
     speed: 0,
     action_points: 0,
     statuses: [],
-    dodge: 0.06
+    dodge: 0.06,
+    drops: [
+      {item: materials.monster_core, chance: 0.5, min: 1, max: 3}
+    ]
   },
   grave_floater: {
     name: "Grave Floater",
@@ -399,7 +417,10 @@ const enemies = {
     speed: 0,
     action_points: 0,
     statuses: [],
-    dodge: 0.03
+    dodge: 0.03,
+    drops: [
+      {item: materials.monster_core, chance: 0.5, min: 1, max: 3}
+    ]
   },
   gronk: {
     name: "GRONK",
@@ -431,7 +452,10 @@ const enemies = {
     speed: 0,
     action_points: 0,
     statuses: [],
-    dodge: 0.025
+    dodge: 0.025,
+    drops: [
+      {item: materials.monster_core, chance: 0.5, min: 1, max: 3}
+    ]
   },
   lich: {
     name: "Lich",
@@ -465,7 +489,10 @@ const enemies = {
     speed: 0,
     action_points: 0,
     statuses: [],
-    dodge: 0.05
+    dodge: 0.05,
+    drops: [
+      {item: materials.monster_core, chance: 0.5, min: 1, max: 3}
+    ]
   },
   wyvern: {
     name: "Wyvern",
@@ -500,6 +527,9 @@ const enemies = {
     speed: 0,
     action_points: 0,
     statuses: [],
-    dodge: 0.04
+    dodge: 0.04,
+    drops: [
+      {item: materials.monster_core, chance: 1, min: 3, max: 7}
+    ]
   }
 }

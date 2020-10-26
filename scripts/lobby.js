@@ -834,6 +834,10 @@ function createStore() {
       hoverText = `Physical Resistance: §/$Y/${item.item.physical_resistance}§ §:br§ Magical Resistance: §/$B/${item.item.magical_resistance}§ §:br§ Speed: ${item.item.speed_bonus}§:br§ Tier: §/${tiers[item.item.tier]}/${item.item.tier}§ §:br§ Price: §/$Y/${number(item.price)}§`;
       width = 12;
     }
+    else if (item.type == "material") {
+      hoverText = `${item.item.name} §:br§ Price: §/$Y/${number(item.price)}§`;
+      width = 8;
+    }
     if (item?.item?.effects) {
       for (let effect of item?.item?.effects) {
         if (effect.increase || effect.increase_stat) {
@@ -1169,9 +1173,8 @@ function ReturnToMainMenu() {
 }
 
 function getPlayerItemAmount(id) {
-  console.log(id);
-  for(let item in player.items) {
-    if(item.id == id) return item.amount;
+  for(let item of player.items) {
+    if(item.name == id) return item.amount;
   }
   return 0;
 }
@@ -1195,45 +1198,43 @@ function createSmithy() {
     div.appendChild(num);
     matContainer.appendChild(div);
   }
-  for(let smith in weapons) {
-    if(!weapons[smith].to_craft) continue;
+  for(let smith in craftable_items) {
+    if(!craftable_items[smith].to_craft) continue;
     let wep = create("p");
-    wep.style.color = tiers[weapons[smith].tier];
-    wep.textContent = weapons[smith].name;
+    wep.style.color = tiers[craftable_items[smith].tier];
+    wep.textContent = craftable_items[smith].name;
     let mainText = "";
-    for(let mat of weapons[smith].to_craft) {
+    let canCraft = true;
+    for (let need of craftable_items[smith].to_craft) {
+      if (need.material) {
+        if (getMatNum(need.material) < need.amount) canCraft = false;
+      } else if (need.weapon) {
+        if (getPlayerItemAmount(need.weapon.name) < need.amount) canCraft = false;
+      } else if (need.armor) {
+        if (getPlayerItemAmount(need.armor.name) < need.amount) canCraft = false;
+      }
+    }
+    if(!canCraft) wep.classList.add("unavailableCraft");
+    for(let mat of craftable_items[smith].to_craft) {
       if(mat.material) {
         console.log(getMatNum(mat.material));
         mainText += `${materials[mat.material].name} §/${getMatNum(mat.material) < mat.amount ? "$R" : "white"}/${mat.amount > 1 ? "x" + mat.amount : "1"}§ §:br§`;
       } else if(mat.weapon) {
-        mainText += `§/${tiers[weapons[mat.weapon].tier]}/${weapons[mat.weapon].name}§ §/${getPlayerItemAmount(mat.weapon) < mat.amount ? "$R" : "white"}/${mat.amount > 1 ? "x" + mat.amount : "1"}§ §:br§`;
+        mainText += `§/${tiers[mat.weapon.tier]}/${mat.weapon.name}§ §/${getPlayerItemAmount(mat.weapon.name) < mat.amount ? "$R" : "white"}/${mat.amount > 1 ? "x" + mat.amount : "1"}§ §:br§`;
+      } else if(mat.armor) {
+        mainText += `§/${tiers[mat.armor.tier]}/${mat.armor.name}§ §/${getPlayerItemAmount(mat.armor.name) < mat.amount ? "$R" : "white"}/${mat.amount > 1 ? "x" + mat.amount : "1"}§ §:br§`;
       }
     }
-    let alt = `${weapons[smith].magical_power ? "MagPower: " + "§/$Y/" + weapons[smith].magical_power * 100 + "%§" : "Damage: " + "§/$Y/" + weapons[smith].damage + "§"} §:br§ Speed: §/$B/${weapons[smith].speed_bonus}§ §:br§ Tier: §/${tiers[weapons[smith].tier]}/${weapons[smith].tier}§ §:br§ ${weapons[smith].mag_damage ? "MagDamage: " + weapons[smith].mag_damage : ""}`;
-    if (weapons[smith]?.effects) {
-      for (let effect of weapons[smith]?.effects) {
+    let alt = `${craftable_items[smith].magical_power ? "MagPower: " + "§/$Y/" + craftable_items[smith].magical_power * 100 + "%§" : "Damage: " + "§/$Y/" + craftable_items[smith].damage + "§"} §:br§ Speed: §/$B/${craftable_items[smith].speed_bonus}§ §:br§ Tier: §/${tiers[craftable_items[smith].tier]}/${craftable_items[smith].tier}§ §:br§ ${craftable_items[smith].mag_damage ? "MagDamage: " + craftable_items[smith].mag_damage : ""}`;
+    if (craftable_items[smith]?.effects) {
+      for (let effect of craftable_items[smith]?.effects) {
         if (effect.increase || effect.increase_stat) {
           alt += `§:br§ Increases ${effectSyntax(effect, "stat")} by ${effectSyntax(effect, "value")}`;
         }
       }
     }
     addHoverBox(wep, mainText + "§FS0.75FS/$Y/Hold shift for details§", 12, alt);
-    smithableContainer.appendChild(wep);
-  }
-  for(let smith in armors) {
-    if(!armors[smith].to_craft) continue;
-    let wep = create("p");
-    wep.style.color = tiers[armors[smith].tier];
-    wep.textContent = armors[smith].name;
-    let mainText = "";
-    for(let mat of armors[smith].to_craft) {
-      if(mat.material) {
-        mainText += `${materials[mat.material].name} ${mat.amount > 1 ? "x" + mat.amount : ""} §:br§`;
-      } else if(mat.armor) {
-        mainText += `§/${tiers[armors[mat.armor].tier]}/${armors[mat.armor].name}§ ${mat.amount > 1 ? "x" + mat.amount : ""} §:br§`;
-      }
-    }
-    addHoverBox(wep, mainText + "§FS0.75FS/$Y/Hold shift for details§", 12);
+    wep.addEventListener("click", ()=>CraftItem(smith));
     smithableContainer.appendChild(wep);
   }
   $("mainWindowContainer").appendChild(smithableContainer);
