@@ -85,9 +85,6 @@ const enemies = {
     action_points: 0,
     statuses: [],
     dodge: 0.05,
-    drops: [
-      {item: materials.monster_core, chance: 1, min: 3, max: 7}
-    ]
   },
   goblin: {
     name: "Goblin",
