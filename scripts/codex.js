@@ -203,6 +203,7 @@ function GetEnemyInfo(enemy) {
   Vitality: ${enemy.stats.vit}
   Agility: ${enemy.stats.agi}
   Intelligence: ${enemy.stats.int}
+  XP: ${enemy.xp}
   `;
   return text;
 }
