@@ -204,6 +204,7 @@ function GetEnemyInfo(enemy) {
   Agility: ${enemy.stats.agi}
   Intelligence: ${enemy.stats.int}
   XP: ${enemy.xp}
+  §/$Y/Gold§: ${enemy.gold.min}-${enemy.gold.max}
   `;
   return text;
 }
