@@ -31,7 +31,7 @@
   border-width: 0 1.5vw 1.5vw 1.5vw;
   border-color: transparent transparent #616161 transparent;
   transform: rotateZ(0deg) scale(0);
-  z-index: 9999;
+  z-index: 3;
 }
 
 #optionsMenu {
