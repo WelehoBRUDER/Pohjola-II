@@ -5,7 +5,7 @@ const codex = [
     content: [
       {
         name: "Monster Core",
-        text: "Monster cores are materials used in crafting that drop from powerful monsters, such as the §/$Y/Orc Berserker§.",
+        text: "Monster cores are materials used in crafting that drop from powerful monsters, such as the §/$Y/Orc Berserker§",
         image: "monster_core.png"
       },
       {
@@ -38,13 +38,165 @@ const codex = [
   {
     name: "Enemies",
     text: "You can view the statistics and trivia of all the enemies you have defeated here.",
-    content: {
-      skeleton: {
+    content: [
+      {
+        name: "Skeleton",
         desc: "Skeletons are reanimated corpses that are quite weak, but should never be underestimated by rookie adventurers."
       },
-      goblin: {
+      {
+        name: "Goblin",
         desc: "Goblins are simple tribal creatures that wield simple weapons and are fond of bashing human skulls. Don't underestimate them!"
+      },
+      {
+        name: "Orc",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "Orc Berserker",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "Death Knight",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "Ogre",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "Minotaur",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "Spectral Knight",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "Gronk",
+        desc: "GRONK IS GRONK. NO MORE THINK."
+      },
+      {
+        name: "Grave floater",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "Lich",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "Wyvern",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+    ]
+  }
+]
+
+function createCodex() {
+  let codexText = create("div");
+  let codexSelect = create("div");
+  codexText.id = "codexText";
+  codexSelect.id = "codexSelect";
+  for (let title of codex) {
+    let tit = create("p");
+    tit.textContent = title.name;
+    tit.id = title.name;
+    tit.addEventListener("click", openContent);
+    let content = create("div");
+    for (let con of title.content) {
+      let p = create("p");
+      p.textContent = con.name;
+      p.id = con.name;
+      p.onclick = function (e) {
+        e.stopPropagation();
+        openCodex(e);
+      }
+      p.style.fontSize = "0.75vw";
+      content.appendChild(p);
+    }
+    content.style.maxHeight = "0vw";
+    content.id = title.name + "Content";
+    tit.appendChild(content);
+    codexSelect.appendChild(tit);
+  }
+  $("mainWindowContainer").appendChild(codexText);
+  $("mainWindowContainer").appendChild(codexSelect);
+}
+
+function openContent(e) {
+  if (e.target.id.indexOf("Content") != -1) return;
+  if ($(e.target.id + "Content").style.maxHeight == "0vw") {
+    $(e.target.id + "Content").style.maxHeight = "20vw";
+  } else {
+    $(e.target.id + "Content").style.maxHeight = "0vw";
+  }
+  for (let title of codex) {
+    if (title.name == e.target.id) $("codexText").innerHTML = `<p>${title.text}</p>`;
+  }
+}
+
+function openCodex(e) {
+  if (e.target.id.indexOf("Content") != -1) return;
+  $("codexText").textContent = "";
+  for (let title of codex) {
+    for (let con of title.content) {
+      if (con.name == e.target.id) {
+        if (con.image) {
+          let img = create("img");
+          img.src = "images/" + con.image;
+          img.id = "codexImage";
+          $("codexText").appendChild(img);
+        }
+        if (con.text) $("codexText").appendChild(textSyntax(con.text));
+        if (con.desc) {
+          let foe = enemies[con.name.replace(/\s/g, "_").toLowerCase()];
+          let img = create("img");
+          img.src = "images/" + foe.name + ".png";
+          img.id = "codexImage";
+          $("codexText").appendChild(img);
+          $("codexText").appendChild(textSyntax(con.desc));
+          $("codexText").appendChild(textSyntax(GetEnemyInfo(foe)));
+          $("codexText").appendChild(codexLoot(foe));
+        }
       }
     }
   }
-]
+}
+
+function GetEnemyInfo(enemy) {
+  let text = "";
+  text = `
+  ${enemy.name}'s Stats:                               ${enemy.name}'s Loot: §:br§  
+  §/$R/HP§: ${enemy.maxhp}                             
+  §/$B/MP§: ${enemy.maxmp}
+  §/$Y/Physical Resistance§: ${enemy.physical_resistance}%
+  §/$B/Magical Resistance§: ${enemy.magical_resistance}%
+  Weapon: §/$Y/${enemy.weapon.name}§
+  Dodge Chance: ${Math.floor(enemy.dodge * 100)}%
+  Strength: ${enemy.stats.str}
+  Vitality: ${enemy.stats.vit}
+  Agility: ${enemy.stats.agi}
+  Intelligence: ${enemy.stats.int}
+  `;
+  return text;
+}
+
+function codexLoot(enemy) {
+  let div = create("div");
+  div.id = "codexLoot";
+  for (let loot of enemy.drops) {
+    let drop = "";
+    let found = false;
+    for (let itm of player.items) {
+      if (itm.name == loot.item.name) {
+        drop = `| §/${loot.item?.tier ? tiers[loot.item.tier] : "white"}/${loot.item.name}§ | ${loot.max > loot.min ? loot.min + "-" + loot.max : loot.min} | Chance: ${Math.floor(loot.chance*100)}% |`;
+        div.appendChild(textSyntax(drop));
+        found = true;
+      }
+    }
+    if (!found) {
+      drop = "§/black/???§";
+      div.appendChild(textSyntax(drop));
+    }
+  }
+  return div;
+}

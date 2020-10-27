@@ -679,13 +679,13 @@ const craftable_items = {
   },
   legendary_swordspear: {
     to_craft: [
-      {material: "wood_stick", amount: 5},
-      {material: "steel_ingot", amount: 10},
-      {material: "iron_ingot", amount: 10},
-      {weapon: copy(weapons.greatsword_of_legend), amount: 1},
+      {material: "wood_stick", amount: 10},
+      {material: "steel_ingot", amount: 15},
+      {material: "iron_ingot", amount: 25},
+      {weapon: copy(weapons.greatsword_of_legend), amount: 2},
       {weapon: copy(weapons.lance_of_the_lord), amount: 1},
-      {material: "enchanted_stone", amount: 2},
-      {material: "monster_core", amount: 10}
+      {material: "enchanted_stone", amount: 5},
+      {material: "monster_core", amount: 60}
     ],
     name: "Legendary Swordspear",
     type: "physical",
@@ -743,12 +743,12 @@ const craftable_items = {
   },
   armor_of_the_great_lord: {
     to_craft: [
-      {material: "iron_ingot", amount: 10},
-      {material: "steel_ingot", amount: 10},
-      {material: "leather", amount: 10},
+      {material: "iron_ingot", amount: 30},
+      {material: "steel_ingot", amount: 20},
+      {material: "leather", amount: 25},
       {armor: copy(armors.kings_armor), amount: 1},
-      {material: "enchanted_stone", amount: 5},
-      {material: "monster_core", amount: 25}
+      {material: "enchanted_stone", amount: 10},
+      {material: "monster_core", amount: 75}
     ],
     name: "The Great Lord's Armour",
     physical_resistance: 38,

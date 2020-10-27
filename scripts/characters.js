@@ -559,8 +559,8 @@ const enemies = {
     statuses: [],
     dodge: 0.04,
     drops: [
-      {item: materials.monster_core, chance: 1, min: 3, max: 7},
-      {item: weapons.greatsword_of_legend, chance: 0.5, min: 1, max: 1},
+      {item: materials.monster_core, chance: 0.5, min: 3, max: 7},
+      {item: weapons.greatsword_of_legend, chance: 0.1, min: 1, max: 1},
       {item: consumables.medium_healing_potion, chance: 0.2, min: 1, max: 3},
       {item: consumables.medium_mana_potion, chance: 0.2, min: 1, max: 3}
     ]

@@ -19,6 +19,9 @@ const topBarButtons = [
     name: "Floors & Stages",
   },
   {
+    name: "Codex"
+  },
+  {
     name: "Saves"
   }
 ];
@@ -89,6 +92,7 @@ function select(target) {
   if (target == "Inventory") createInventory();
   if (target == "Store") createStore();
   if (target == "Smithy") createSmithy();
+  if (target == "Codex") createCodex();
   if (target == "Saves") createSaving();
   createTopBar();
 }
