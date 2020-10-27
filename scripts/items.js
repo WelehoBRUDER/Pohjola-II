@@ -714,6 +714,28 @@ const craftable_items = {
     tier: "F",
     mag_damage: 5,
   },
+  staff_of_fortune: {
+    to_craft: [
+      {material: "wood_stick", amount: 15},
+      {material: "leather", amount: 4},
+      {material: "steel_ingot", amount: 7},
+      {material: "enchanted_stone", amount: 13},
+      {weapon: copy(weapons.staff_of_legend), amount: 1},
+      {material: "monster_core", amount: 80}
+    ],
+    name: "Fortunous Stave",
+    magical_power: 5.5,
+    type: "magical",
+    speed_bonus: 1,
+    item_type: "weapon",
+    tier: "A",
+    mag_damage: 148,
+    effects: [
+      {increase_stat: "int", by: 20},
+      {increase: "maxmp", by: 250},
+      {increase: "magical_multiplier", by: 0.33}
+    ]
+  },
   thick_leather_armor: {
     to_craft: [
       {material: "wood_stick", amount: 1},
