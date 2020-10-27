@@ -22,6 +22,7 @@ function init() {
     settings = JSON.parse(localStorage.getItem(`settings`));
   }
   save_slots = JSON.parse(localStorage.getItem(`save_slots`)) || [];
+  save_slots = save_slots.sort((x1, x2) => x2.time - x1.time);
   findIDs();
   $("continueLastSave").classList.add("unavailable");
   $("settingsButton").addEventListener("click", options);
