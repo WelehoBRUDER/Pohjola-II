@@ -7,6 +7,7 @@
 - Added enemy drops
 - Added smelting to get materials
 - Gronk now has a new weapon drop
+- Added codex. You can find out more about materials and enemies there
 # 0.3a
 - Floor 1 is now finished
 - Added new enemy "Death Knight" who serves as the final boss of Floor 1

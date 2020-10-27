@@ -4,34 +4,46 @@ const codex = [
     text: "This part touches upon all the materials and crafting recipes found in the smithy.",
     content: [
       {
+        name: "Getting Started With Crafting",
+        text: "So you want to start crafting items? Well that's excellent! Crafting is one of the most powerful systems in §/$Y/Pohjola II§, as it grants you access to far more powerful items than you could otherwise get. §:br§ §:br§ Let's get you situated with the layout. On the left, below materials, are all of the items that can be crafted. If they are highlighted, you can craft them immediately. Hovering over them will allow you to see what you need to craft them. Clicking will craft. §:br§ §:br§ On the right are all items that you can smelt for materials. Smelting an item will give you the materials you see when hovering over the item.",
+        image: "smithy.png",
+        imageSize: 24
+      },
+      {
         name: "Monster Core",
         text: "Monster cores are materials used in crafting that drop from powerful monsters, such as the §/$Y/Orc Berserker§",
-        image: "monster_core.png"
+        image: "monster_core.png",
+        imageSize: 6
       },
       {
         name: "Iron Ingot",
         text: "Iron Ingots are one of the most basic crafting materials, gained from smelting most items.",
-        image: "iron_ingot.png"
+        image: "iron_ingot.png",
+        imageSize: 6
       },
       {
         name: "Steel Ingot",
         text: "Steel Ingots are more advanced crafting material than iron ingots, but are still smelted from most items.",
-        image: "steel_ingot.png"
+        image: "steel_ingot.png",
+        imageSize: 6
       },
       {
         name: "Leather",
         text: "Leather is a simple yet durable material used for crafting armors and some weapons. It is gained by smelting most armors.",
-        image: "leather.png"
+        image: "leather.png",
+        imageSize: 6
       },
       {
         name: "Wooden Stick",
         text: "Sticks are crafting materials that are used in most items. Gained very easily from smelting most weapons and some armors.",
-        image: "wood_stick.png"
+        image: "wood_stick.png",
+        imageSize: 6
       },
       {
         name: "Enchanted Stone",
         text: "Enchanted stones are the most rare of resources, used in crafting the most exquisite items. They are gained from smelting equally valuable items.",
-        image: "enchanted_stone.png"
+        image: "enchanted_stone.png",
+        imageSize: 6
       }
     ]
   },
@@ -144,6 +156,7 @@ function openCodex(e) {
           let img = create("img");
           img.src = "images/" + con.image;
           img.id = "codexImage";
+          if(con.imageSize) img.style.width = con.imageSize + "vw";
           $("codexText").appendChild(img);
         }
         if (con.text) $("codexText").appendChild(textSyntax(con.text));
@@ -152,6 +165,7 @@ function openCodex(e) {
           let img = create("img");
           img.src = "images/" + foe.name + ".png";
           img.id = "codexImage";
+          if(con.imageSize) img.style.width = con.imageSize + "vw";
           $("codexText").appendChild(img);
           $("codexText").appendChild(textSyntax(con.desc));
           $("codexText").appendChild(textSyntax(GetEnemyInfo(foe)));
