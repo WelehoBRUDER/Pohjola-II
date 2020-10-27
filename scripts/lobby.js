@@ -1061,7 +1061,7 @@ function saveOver(name, time, save) {
   createSaving();
 }
 
-function loadGame() {
+function loadGame(menu) {
   if (selected_slot == null) return;
   currentSave = selected_slot;
   if(!state.started) state.started = true;
@@ -1086,8 +1086,9 @@ function loadGame() {
   if (!state.hc) state.hc = false;
   if (!player.temporary_effects) player.temporary_effects = [];
   if(!state.started) state.started = true;
+  if(menu) select("Character");
+  else select("Saves");
   updateLeftValues();
-  createSaving();
 }
 
 function selectSlot(e) {

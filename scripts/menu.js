@@ -95,7 +95,7 @@ function savesLoadMenu() {
 
 function load_game_menu(slot) {
   selected_slot = slot;
-  loadGame();
+  loadGame(true);
   $("mainMenu").style.display = "none";
   $("mainScreen").style.display = "block";
 }
