@@ -165,6 +165,7 @@ function openCodex(e) {
           let img = create("img");
           img.src = "images/" + foe.name + ".png";
           img.id = "codexImage";
+          img.style.width = "16vw";
           if(con.imageSize) img.style.width = con.imageSize + "vw";
           $("codexText").appendChild(img);
           $("codexText").appendChild(textSyntax(con.desc));
