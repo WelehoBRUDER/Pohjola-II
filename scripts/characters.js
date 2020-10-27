@@ -129,12 +129,12 @@ const enemies = {
   },
   orc: {
     name: "Orc",
-    hp: 40,
+    hp: 45,
     mp: 15,
-    maxhp: 40,
+    maxhp: 45,
     maxmp: 15,
     stats: {
-      str: 5,
+      str: 10,
       vit: 1,
       int: 1,
       agi: 3,
@@ -171,7 +171,7 @@ const enemies = {
     maxhp: 100,
     maxmp: 25,
     stats: {
-      str: 8,
+      str: 14,
       vit: 4,
       int: 4,
       agi: 5,
@@ -455,7 +455,7 @@ const enemies = {
     maxhp: 525,
     maxmp: 0,
     stats: {
-      str: 120,
+      str: 55,
       vit: 5,
       int: -50,
       agi: 8,
@@ -563,6 +563,83 @@ const enemies = {
       {item: weapons.greatsword_of_legend, chance: 0.1, min: 1, max: 1},
       {item: consumables.medium_healing_potion, chance: 0.2, min: 1, max: 3},
       {item: consumables.medium_mana_potion, chance: 0.2, min: 1, max: 3}
+    ]
+  },
+  dwarf_warrior: {
+    name: "Dwarf Warrior",
+    hp: 4100,
+    mp: 50,
+    maxhp: 4100,
+    maxmp: 50,
+    stats: {
+      str: 110,
+      vit: 90,
+      int: 10,
+      agi: 19,
+      lck: 1
+    },
+    items: [],
+    moves: [
+      copy(moves.thrust),
+      copy(moves.slice),
+      copy(moves.crush)
+    ],
+    weapon: weapons.battle_axe,
+    xp: 150775,
+    gold: {
+      min: 18575,
+      max: 26485
+    },
+    level: 60,
+    physical_resistance: 40,
+    magical_resistance: 47,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.05,
+    drops: [
+      {item: materials.monster_core, chance: 0.33, min: 3, max: 7},
+      {item: weapons.battle_axe, chance: 0.22, min: 1, max: 3},
+    ]
+  },
+  wyvern_rider: {
+    name: "Wyvern Rider",
+    hp: 13800,
+    mp: 1500,
+    maxhp: 13800,
+    maxmp: 1500,
+    stats: {
+      str: 70,
+      vit: 200,
+      int: 130,
+      agi: 19,
+      lck: 1
+    },
+    items: [],
+    moves: [
+      copy(moves.thrust),
+      copy(moves.slice),
+      copy(moves.crush),
+      copy(moves.astral_lance),
+      copy(moves.fire_lance)
+    ],
+    weapon: weapons.lance_of_the_lord,
+    xp: 480000,
+    gold: {
+      min: 53995,
+      max: 82445
+    },
+    level: 75,
+    physical_resistance: 51,
+    magical_resistance: 58,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.09,
+    drops: [
+      {item: materials.monster_core, chance: 0.66, min: 10, max: 18},
+      {item: weapons.lance_of_the_lord, chance: 0.27, min: 1, max: 2},
+      {item: materials.enchanted_stone, chance: 0.4, min: 1, max: 5}
     ]
   }
 }

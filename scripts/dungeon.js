@@ -252,8 +252,13 @@ let dungeon = {
       stage30: {
         name: "Stage 30",
         gauntlet: [
-          copy(enemies.wyvern),
-          copy(enemies.lich),
+          copy(enemies.dwarf_warrior),
+        ]
+      },
+      stage35: {
+        name: "Stage 35",
+        gauntlet: [
+          copy(enemies.wyvern_rider),
         ]
       },
     }

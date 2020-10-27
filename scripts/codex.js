@@ -64,6 +64,10 @@ const codex = [
         desc: "This is a placeholder description. You should see less of these as development continues."
       },
       {
+        name: "Skeleton Knight",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
         name: "Orc Berserker",
         desc: "This is a placeholder description. You should see less of these as development continues."
       },
@@ -97,6 +101,14 @@ const codex = [
       },
       {
         name: "Wyvern",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "Dwarf Warrior",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "Wyvern Rider",
         desc: "This is a placeholder description. You should see less of these as development continues."
       },
     ]
