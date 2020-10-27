@@ -1037,7 +1037,6 @@ function SaveGameHC() {
      }
   }
   localStorage.setItem("save_slots", JSON.stringify(save_slots));
-  createSaving();
 }
 
 function DeleteGameHC() {
@@ -1244,7 +1243,7 @@ function createSmithy() {
     if(!smith.smelt) continue;
     let wep = create("p");
     wep.style.color = tiers[smith.tier];
-    wep.textContent = smith.name;
+    wep.textContent = smith.name + " " + smith.amount + "x";
     let mainText = "";
     for(let mat of smith.smelt) {
         mainText += `${materials[mat.item.id].name} §${mat.amount > 1 ? "x" + mat.amount : "1"}§ §:br§`;
