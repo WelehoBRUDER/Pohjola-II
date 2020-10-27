@@ -4,7 +4,9 @@
 - Added hardcore mode
 - Added main menu
 - Added simple crafting system
-
+- Added enemy drops
+- Added smelting to get materials
+- Gronk now has a new weapon drop
 # 0.3a
 - Floor 1 is now finished
 - Added new enemy "Death Knight" who serves as the final boss of Floor 1

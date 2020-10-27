@@ -571,8 +571,8 @@ function UseItem(item) {
     generateInventoryItems();
     setTimeout(reset, 1000);
   }
-  if(item.amount < 1) for(let i = 0; i<player.items.length; i++) {
-    if(player.items[i].id == item.id) player.items.splice(i, 1);
+  if (item.amount < 1) for (let i = 0; i < player.items.length; i++) {
+    if (player.items[i].id == item.id) player.items.splice(i, 1);
   }
 }
 
@@ -929,6 +929,14 @@ function resistance_modifiers(char, res) {
   return modifier;
 }
 
+function DroppedText(drops) {
+  let text = "";
+  for(let drop of drops) {
+    text += `| ${drop.amount}x ${drop.name} |`;
+  }
+  return text;
+}
+
 
 function battleEnd(condition) {
   if (condition == "victory") {
@@ -939,11 +947,19 @@ function battleEnd(condition) {
     xp = Math.ceil(xp * (1 + player.stats.lck / 100));
     gold = Random(enemy.gold.max, enemy.gold.min);
     gold = Math.ceil(gold * (1 + player.stats.lck / 25));
-    if(enemy.drops) {
-      for(let drop of enemy.drops) {
-        if(drop.chance >= Math.random())  {
-          if(player.items.map(item => item = item.id).indexOf(drop.item.id) == -1) player.items.push({...drop.item, amount: Random(drop.max, drop.min)});
-          else player.items[player.items.map(item => item = item.id).indexOf(drop.item.id)].amount += Random(drop.max, drop.min);
+    let dropped = [];
+    if (enemy.drops) {
+      for (let drop of enemy.drops) {
+        if (drop.chance >= Math.random()) {
+          amount = Random(drop.max, drop.min);
+          dropped.push({...drop.item, amount: amount});
+          if (dropped.id) {
+            if (player.items.map(item => item = item.id).indexOf(drop.item.id) == -1) player.items.push({ ...drop.item, amount: amount});
+            else player.items[player.items.map(item => item = item.id).indexOf(drop.item.id)].amount += amount;
+          } else {
+            if (player.items.map(item => item = item.name).indexOf(drop.item.name) == -1) player.items.push({ ...drop.item, amount: amount});
+            else player.items[player.items.map(item => item = item.name).indexOf(drop.item.name)].amount += amount;
+          }
         }
       }
     }
@@ -952,7 +968,7 @@ function battleEnd(condition) {
     state.end = true;
     $("battleEndScreen").style.transform = "translateX(-50%) translateY(-50%) scale(1)";
     $("conclusion").textContent = "VICTORY";
-    $("battleEndText").textContent = `You have defeated the ${enemy.name}! It drops ${xp} XP and ${gold} Gold! `;
+    $("battleEndText").textContent = `You have defeated the ${enemy.name}! It drops ${xp} XP and ${gold} Gold! ${dropped.length > 0 ? "In addition you gather " + DroppedText(dropped) : ""}`;
     if (gauntlet.length > 0) {
       $("battleEndText").textContent += " However, more enemies still await you deeper in the dungeon. Brace yourself for battle!";
       $("battleEndButton").onclick = () => NextInGauntlet();
@@ -967,8 +983,8 @@ function battleEnd(condition) {
     $("battleEndScreen").style.transform = "translateX(-50%) translateY(-50%) scale(1)";
     $("conclusion").textContent = "DEFEAT";
     $("battleEndText").textContent = `You have been defeated by the ${enemy.name}, and thus gain no gold and lose all of your experience!`;
-    if(state.hc) $("battleEndText").textContent += "Because you are playing in hardcore mode, your save is now deleted! Better luck next time :)";
-    if(state.hc) {
+    if (state.hc) $("battleEndText").textContent += "Because you are playing in hardcore mode, your save is now deleted! Better luck next time :)";
+    if (state.hc) {
       $("battleEndButton").onclick = ReturnToMainMenu();
     } else $("battleEndButton").onclick = () => EndGauntlet("Defeat");
   }

@@ -1,4 +1,18 @@
 const materials = {
+  wood_stick: {
+    name: "Wooden Stick",
+    id: "wood_stick",
+    img: "wood_stick.png",
+    value: 30,
+    amount: 0
+  },
+  leather: {
+    name: "Leather",
+    id: "leather",
+    img: "leather.png",
+    value: 35,
+    amount: 0
+  },
   iron_ingot: {
     name: "Iron Ingot",
     id: "iron_ingot",
@@ -11,6 +25,13 @@ const materials = {
     id: "steel_ingot",
     img: "steel_ingot.png",
     value: 180,
+    amount: 0
+  },
+  enchanted_stone: {
+    name: "Enchanted Stone",
+    id: "enchanted_stone",
+    img: "enchanted_stone.png",
+    value: 750,
     amount: 0
   },
   monster_core: {
@@ -60,5 +81,22 @@ function createItem(item) {
     }
   }
   player.items.push({ ...craftable_items[item], amount: 1 });
+  createSmithy();
+}
+
+function SmeltItem(item) {
+  createPrompt("Are you sure you wish to smelt " + item.name + "?", () => smeltItem(item));
+}
+
+function smeltItem(item) {
+  for(let mat of item.smelt) {
+    for(let itm of player.items) {
+      if(itm.name == mat.item.name) {itm.amount += mat.amount; continue;}
+    }
+    player.items.push({...mat.item, amount: mat.amount});
+  }
+  for(let i = 0; i<player.items.length; i++) {
+    if(player.items[i].name == item.name) player.items[i].amount <= 1 ? player.items.splice(i, 1) : player.items[i].amount--;
+  }
   createSmithy();
 }

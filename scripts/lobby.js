@@ -1185,7 +1185,9 @@ function createSmithy() {
   matContainer.id = "matContainer";
   matContainer.style.top = "0.5vw";
   let smithableContainer = create("div");
+  let smeltContainer = create("div");
   smithableContainer.id = "smithableContainer";
+  smeltContainer.id = "smeltContainer";
   for(let mat in materials) {
     let div = create("div");
     let img = create("img");
@@ -1217,7 +1219,6 @@ function createSmithy() {
     if(!canCraft) wep.classList.add("unavailableCraft");
     for(let mat of craftable_items[smith].to_craft) {
       if(mat.material) {
-        console.log(getMatNum(mat.material));
         mainText += `${materials[mat.material].name} §/${getMatNum(mat.material) < mat.amount ? "$R" : "white"}/${mat.amount > 1 ? "x" + mat.amount : "1"}§ §:br§`;
       } else if(mat.weapon) {
         mainText += `§/${tiers[mat.weapon.tier]}/${mat.weapon.name}§ §/${getPlayerItemAmount(mat.weapon.name) < mat.amount ? "$R" : "white"}/${mat.amount > 1 ? "x" + mat.amount : "1"}§ §:br§`;
@@ -1225,7 +1226,9 @@ function createSmithy() {
         mainText += `§/${tiers[mat.armor.tier]}/${mat.armor.name}§ §/${getPlayerItemAmount(mat.armor.name) < mat.amount ? "$R" : "white"}/${mat.amount > 1 ? "x" + mat.amount : "1"}§ §:br§`;
       }
     }
-    let alt = `${craftable_items[smith].magical_power ? "MagPower: " + "§/$Y/" + craftable_items[smith].magical_power * 100 + "%§" : "Damage: " + "§/$Y/" + craftable_items[smith].damage + "§"} §:br§ Speed: §/$B/${craftable_items[smith].speed_bonus}§ §:br§ Tier: §/${tiers[craftable_items[smith].tier]}/${craftable_items[smith].tier}§ §:br§ ${craftable_items[smith].mag_damage ? "MagDamage: " + craftable_items[smith].mag_damage : ""}`;
+    let alt;
+    if(craftable_items[smith].damage || craftable_items[smith].mag_damage) alt = `${craftable_items[smith].magical_power ? "MagPower: " + "§/$Y/" + craftable_items[smith].magical_power * 100 + "%§" : "Damage: " + "§/$Y/" + craftable_items[smith].damage + "§"} §:br§ Speed: §/$B/${craftable_items[smith].speed_bonus}§ §:br§ Tier: §/${tiers[craftable_items[smith].tier]}/${craftable_items[smith].tier}§ §:br§ ${craftable_items[smith].mag_damage ? "MagDamage: " + craftable_items[smith].mag_damage : ""}`;
+    else alt = `Physical Resistance: §/$Y/${craftable_items[smith].physical_resistance}§ §:br§ Magical Resistance: §/$B/${craftable_items[smith].magical_resistance}§ §:br§ Speed: ${craftable_items[smith].speed_bonus}§:br§ Tier: §/${tiers[craftable_items[smith].tier]}/${craftable_items[smith].tier}§ §:br§`;
     if (craftable_items[smith]?.effects) {
       for (let effect of craftable_items[smith]?.effects) {
         if (effect.increase || effect.increase_stat) {
@@ -1237,6 +1240,30 @@ function createSmithy() {
     wep.addEventListener("click", ()=>CraftItem(smith));
     smithableContainer.appendChild(wep);
   }
+  for(let smith of player.items) {
+    if(!smith.smelt) continue;
+    let wep = create("p");
+    wep.style.color = tiers[smith.tier];
+    wep.textContent = smith.name;
+    let mainText = "";
+    for(let mat of smith.smelt) {
+        mainText += `${materials[mat.item.id].name} §${mat.amount > 1 ? "x" + mat.amount : "1"}§ §:br§`;
+    }
+    let alt;
+    if(smith.mag_damage || smith.damage) alt = `${smith.magical_power ? "MagPower: " + "§/$Y/" + smith.magical_power * 100 + "%§" : "Damage: " + "§/$Y/" + smith.damage + "§"} §:br§ Speed: §/$B/${smith.speed_bonus}§ §:br§ Tier: §/${tiers[smith.tier]}/${smith.tier}§ §:br§ ${smith.mag_damage ? "MagDamage: " + smith.mag_damage : ""}`;
+    else `Physical Resistance: §/$Y/${smith.physical_resistance}§ §:br§ Magical Resistance: §/$B/${smith.magical_resistance}§ §:br§ Speed: ${smith.speed_bonus}§:br§ Tier: §/${tiers[smith.tier]}/${smith.tier}§ §:br§`;
+    if (smith?.effects) {
+      for (let effect of smith?.effects) {
+        if (effect.increase || effect.increase_stat) {
+          alt += `§:br§ Increases ${effectSyntax(effect, "stat")} by ${effectSyntax(effect, "value")}`;
+        }
+      }
+    }
+    addHoverBox(wep, mainText + "§FS0.75FS/$Y/Hold shift for details§", 12, alt);
+    wep.addEventListener("click", ()=>SmeltItem(smith));
+    smeltContainer.appendChild(wep);
+  }
   $("mainWindowContainer").appendChild(smithableContainer);
+  $("mainWindowContainer").appendChild(smeltContainer);
   $("mainWindowContainer").appendChild(matContainer);
 }

@@ -85,6 +85,9 @@ const enemies = {
     action_points: 0,
     statuses: [],
     dodge: 0.05,
+    drops: [
+      {item: weapons.broken_sword, chance: 0.1, min: 1, max: 1}
+    ]
   },
   goblin: {
     name: "Goblin",
@@ -118,7 +121,11 @@ const enemies = {
     speed: 0,
     action_points: 0,
     statuses: [],
-    dodge: 0.05
+    dodge: 0.05,
+    drops: [
+      {item: weapons.broken_mace, chance: 0.1, min: 1, max: 1},
+      {item: consumables.inferior_healing_potion, chance: 0.07, min: 1, max: 1}
+    ]
   },
   orc: {
     name: "Orc",
@@ -151,7 +158,11 @@ const enemies = {
     speed: 0,
     action_points: 0,
     statuses: [],
-    dodge: 0.05
+    dodge: 0.05,
+    drops: [
+      {item: weapons.broken_mace, chance: 0.15, min: 1, max: 1},
+      {item: consumables.inferior_healing_potion, chance: 0.15, min: 1, max: 1}
+    ]
   },
   skeleton_knight: {
     name: "Skeleton Knight",
@@ -186,7 +197,11 @@ const enemies = {
     speed: 0,
     action_points: 0,
     statuses: [],
-    dodge: 0.05
+    dodge: 0.05,
+    drops: [
+      {item: weapons.long_sword, chance: 0.1, min: 1, max: 1},
+      {item: consumables.inferior_healing_potion, chance: 0.13, min: 1, max: 2}
+    ]
   },
   orc_berserker: {
     name: "Orc Berserker",
@@ -224,7 +239,9 @@ const enemies = {
     statuses: [],
     dodge: 0.07,
     drops: [
-      {item: materials.monster_core, chance: 0.1, min: 1, max: 1}
+      {item: materials.monster_core, chance: 0.1, min: 1, max: 1},
+      {item: weapons.battle_axe, chance: 0.2, min: 1, max: 1},
+      {item: consumables.lesser_healing_potion, chance: 0.1, min: 1, max: 1}
     ]
   },
   death_knight: {
@@ -263,7 +280,9 @@ const enemies = {
     statuses: [],
     dodge: 0.06,
     drops: [
-      {item: materials.monster_core, chance: 0.15, min: 1, max: 2}
+      {item: materials.monster_core, chance: 0.15, min: 1, max: 2},
+      {item: weapons.greatsword, chance: 0.15, min: 1, max: 1},
+      {item: consumables.lesser_healing_potion, chance: 0.2, min: 2, max: 5}
     ]
   },
   ogre: {
@@ -301,7 +320,9 @@ const enemies = {
     statuses: [],
     dodge: 0.05,
     drops: [
-      {item: materials.monster_core, chance: 0.2, min: 1, max: 2}
+      {item: materials.monster_core, chance: 0.2, min: 1, max: 2},
+      {item: weapons.battle_axe, chance: 0.25, min: 1, max: 1},
+      {item: consumables.healing_potion, chance: 0.1, min: 1, max: 1}
     ]
   },
   minotaur: {
@@ -339,7 +360,9 @@ const enemies = {
     statuses: [],
     dodge: 0.04,
     drops: [
-      {item: materials.monster_core, chance: 0.2, min: 1, max: 2}
+      {item: materials.monster_core, chance: 0.2, min: 1, max: 2},
+      {item: weapons.executioner, chance: 0.15, min: 1, max: 1},
+      {item: consumables.healing_potion, chance: 0.1, min: 1, max: 1}
     ]
   },
   spectral_knight: {
@@ -378,7 +401,10 @@ const enemies = {
     statuses: [],
     dodge: 0.06,
     drops: [
-      {item: materials.monster_core, chance: 0.5, min: 1, max: 3}
+      {item: materials.monster_core, chance: 0.5, min: 1, max: 3},
+      {item: weapons.astral_spear, chance: 0.1, min: 1, max: 1},
+      {item: consumables.healing_potion, chance: 0.1, min: 1, max: 2},
+      {item: consumables.mana_potion, chance: 0.1, min: 1, max: 2}
     ]
   },
   grave_floater: {
@@ -416,7 +442,10 @@ const enemies = {
     statuses: [],
     dodge: 0.03,
     drops: [
-      {item: materials.monster_core, chance: 0.5, min: 1, max: 3}
+      {item: materials.monster_core, chance: 0.5, min: 1, max: 3},
+      {item: weapons.astral_spear, chance: 0.1, min: 1, max: 1},
+      {item: consumables.healing_potion, chance: 0.1, min: 1, max: 2},
+      {item: consumables.mana_potion, chance: 0.1, min: 1, max: 2}
     ]
   },
   gronk: {
@@ -426,7 +455,7 @@ const enemies = {
     maxhp: 525,
     maxmp: 0,
     stats: {
-      str: 180,
+      str: 120,
       vit: 5,
       int: -50,
       agi: 8,
@@ -437,21 +466,22 @@ const enemies = {
       copy(moves.gronk_smash),
       copy(moves.gronk_clobber),
     ],
-    weapon: weapons.smooth_mace,
+    weapon: weapons.club_of_the_giant_king,
     xp: 30000,
     gold: {
       min: 1,
       max: 5
     },
     level: 40,
-    physical_resistance: 30,
-    magical_resistance: 30,
+    physical_resistance: 22,
+    magical_resistance: 19,
     speed: 0,
     action_points: 0,
     statuses: [],
     dodge: 0.025,
     drops: [
-      {item: materials.monster_core, chance: 0.5, min: 1, max: 3}
+      {item: materials.monster_core, chance: 0.5, min: 1, max: 3},
+      {item: weapons.club_of_the_giant_king, chance: 0.12, min: 1, max: 1}
     ]
   },
   lich: {
@@ -488,7 +518,10 @@ const enemies = {
     statuses: [],
     dodge: 0.05,
     drops: [
-      {item: materials.monster_core, chance: 0.5, min: 1, max: 3}
+      {item: materials.monster_core, chance: 0.5, min: 1, max: 3},
+      {item: weapons.lance_of_the_lord, chance: 0.01, min: 1, max: 1},
+      {item: consumables.healing_potion, chance: 0.1, min: 1, max: 2},
+      {item: consumables.medium_mana_potion, chance: 0.15, min: 1, max: 3}
     ]
   },
   wyvern: {
@@ -526,7 +559,10 @@ const enemies = {
     statuses: [],
     dodge: 0.04,
     drops: [
-      {item: materials.monster_core, chance: 1, min: 3, max: 7}
+      {item: materials.monster_core, chance: 1, min: 3, max: 7},
+      {item: weapons.greatsword_of_legend, chance: 0.5, min: 1, max: 1},
+      {item: consumables.medium_healing_potion, chance: 0.2, min: 1, max: 3},
+      {item: consumables.medium_mana_potion, chance: 0.2, min: 1, max: 3}
     ]
   }
 }
