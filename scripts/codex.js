@@ -198,6 +198,9 @@ function GetEnemyInfo(enemy) {
   §/$Y/Physical Resistance§: ${enemy.physical_resistance}%
   §/$B/Magical Resistance§: ${enemy.magical_resistance}%
   Weapon: §/$Y/${enemy.weapon.name}§
+  Highest DMG: §/$R/${enemyHighestDamage(enemy)}§
+  Average DMG: §/$R/${enemyAverageDamage(enemy)}§
+  Lowest DMG: §/$R/${enemyLowestDamage(enemy)}§
   Dodge Chance: ${Math.floor(enemy.dodge * 100)}%
   Strength: ${enemy.stats.str}
   Vitality: ${enemy.stats.vit}
@@ -207,6 +210,31 @@ function GetEnemyInfo(enemy) {
   §/$Y/Gold§: ${enemy.gold.min}-${enemy.gold.max}
   `;
   return text;
+}
+
+function enemyAverageDamage(enemy) {
+  let dmg = 0;
+  for(let abi of enemy.moves) {
+    dmg += calculateDmg(enemy, enemies.dummy, abi);
+  }
+  dmg = Math.floor(dmg / enemy.moves.length);
+  return dmg;
+}
+
+function enemyLowestDamage(enemy) {
+  let dmg = 99999999;
+  for(let abi of enemy.moves) {
+   if(calculateDmg(enemy, enemies.dummy, abi) < dmg) dmg = calculateDmg(enemy, enemies.dummy, abi);
+  }
+  return Math.floor(dmg);
+}
+
+function enemyHighestDamage(enemy) {
+  let dmg = 0;
+  for(let abi of enemy.moves) {
+    if(calculateDmg(enemy, enemies.dummy, abi) > dmg) dmg = calculateDmg(enemy, enemies.dummy, abi);
+   }
+   return Math.floor(dmg);
 }
 
 function codexLoot(enemy) {
