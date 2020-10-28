@@ -92,10 +92,11 @@ function SmeltItem(item) {
 function smeltItem(item) {
   playSound("click");
   for(let mat of item.smelt) {
+    let exists = false;
     for(let itm of player.items) {
-      if(itm.name == mat.item.name) {itm.amount += mat.amount; continue;}
+      if(itm.name == mat.item.name) {itm.amount += mat.amount; exists = true}
     }
-    player.items.push({...mat.item, amount: mat.amount});
+    if(!exists) player.items.push({...mat.item, amount: mat.amount});
   }
   for(let i = 0; i<player.items.length; i++) {
     if(player.items[i].name == item.name) player.items[i].amount <= 1 ? player.items.splice(i, 1) : player.items[i].amount--;
