@@ -1087,9 +1087,9 @@ function loadGame(menu) {
   player = selected_slot.save.player;
   state = selected_slot.save.state;
   if (!player.wand) player.wand = copy(weapons.chant_only);
-  if (player.weapon.name == "Fists") player.weapon.tier = "DEFAULT";
-  if (player.armor.name == "Nothing") player.armor.tier = "DEFAULT";
-  if (player.wand.name == "Chant Only") player.wand.tier = "DEFAULT";
+  if (player.weapon?.name == "Fists") player.weapon.tier = "DEFAULT";
+  if (player.armor?.name == "Nothing") player.armor.tier = "DEFAULT";
+  if (player.wand?.name == "Chant Only") player.wand.tier = "DEFAULT";
   for (let item of player.items) {
     if (item.name == "Fists" || item.name == "Nothing" || item.name == "Chant Only") item.tier = "DEFAULT";
   }
