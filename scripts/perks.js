@@ -304,6 +304,17 @@ let warrior_tree = {
       {increase_stat: "lck", by: 5},
     ],
   },
+  warrior_33: {
+    name: "Power and Grace",
+    cost: 2,
+    desc: "Increases physical damage by 5% and agility by 3. §:br§ Cost: 2 perk points",
+    icon: "weapon_icon",
+    down_of: "warrior_31",
+    effect: [
+      {increase_stat: "agi", by: 3},
+      {increase: "physical_multiplier", by: 0.05},
+    ],
+  },
 }
 
 let mage_tree = {
@@ -860,6 +871,20 @@ let paladin_tree = {
       {modify_skill: "holy_smite", target: "penetration", by: 0.15},
       {modify_skill: "holy_smite", target: "base", by: 10},
       {modify_skill: "holy_smite", target: "cooldown", by: 2}
+    ],
+  },
+  paladin_24: {
+    name: "Sheer Might And Guts",
+    cost: 4,
+    desc: "Increase physical damage by 4%, §/$R/HP§ by 75 and strength by 5. §:br§ §/$R/Lowers§ intelligence by 2. §:br§ Cost: 4 perk points",
+    icon: "weapon_icon",
+    down_of: "paladin_17",
+    effect: [
+      {increase: "physical_multiplier", by: 0.04},
+      {increase: "maxhp", by: 75},
+      {increase_stat: "str", by: 5},
+      {increase_stat: "int", by: 2},
+      {increase: "maxmp", by: -10}
     ],
   },
 }
