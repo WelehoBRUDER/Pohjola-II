@@ -78,6 +78,7 @@ function updateLeftValues() {
 }
 
 function select(target) {
+  playSound("click");
   SaveGameHC();
   updateLeftValues();
   $("mainWindowContainer").removeEventListener("click", removeSelect);
@@ -189,6 +190,7 @@ function UpgradeStat(act, stat) {
     else if (stat == "int") player.maxmp += 5 * player.skillpoints;
     player.skillpoints = 0;
   }
+  playSound("click");
   createCharacterScreen();
   updateLeftValues();
 }
@@ -213,6 +215,7 @@ function levelUp(e) {
   player.mp = player.maxmp;
   player.xpCap = Math.ceil(player.xpCap);
   player.xp = Math.floor(player.xp);
+  playSound("click");
   createCharacterScreen();
   updateLeftValues();
 }
@@ -298,6 +301,8 @@ function startFight(stage) {
   enemy.statuses = [];
   fixCooldowns();
   EnemyNameColor();
+  if(!enemy.music) playMusic("combat");
+  else playBossMusic(enemy.music);
   $("combatScreen").style.display = "block";
   $("mainScreen").style.display = "none";
   $("eventWindow").textContent = "";
@@ -431,6 +436,7 @@ function action2(e) {
 function buyPerk(e) {
   let perk = e.target.id;
   if (player.bought_perks[perk] || e.target.classList.contains("perkTree--perk-unavailable")) return;
+  playSound("click");
   if (player.perkpoints >= selected_tree[perk].cost) {
     player.perkpoints -= selected_tree[perk].cost;
     player.bought_perks[perk] = true;
@@ -587,6 +593,7 @@ function useItemFromInv(e) {
 }
 
 function useThisItem(item) {
+  playSound("click");
   if (item.amount <= 1) for (let i = 0; i < player.items.length; i++) {
     if (player.items[i].name == item.name) player.items.splice(i, 1);
     textBoxRemove();
@@ -638,6 +645,7 @@ function useThisItem(item) {
 }
 
 function equipWeapon(e) {
+  playSound("click");
   let weapon;
   for (let wep of player.items) {
     if (wep.name == e.target.id) weapon = wep;
@@ -691,6 +699,7 @@ function equipWeapon(e) {
 }
 
 function unequipWand(e) {
+  playSound("click");
   if (player.wand.name == "Chant Only") return;
   let foundWep = false;
   for (let wep of player.items) {
@@ -715,6 +724,7 @@ function unequipWand(e) {
 }
 
 function equipArmor(e) {
+  playSound("click");
   textBoxRemove();
   let armor;
   for (let arm of player.items) {
@@ -756,6 +766,7 @@ function equipArmor(e) {
 }
 
 function unequipWeapon() {
+  playSound("click");
   if (player.weapon.name == "Fists") return;
   let foundWep = false;
   for (let wep of player.items) {
@@ -780,6 +791,7 @@ function unequipWeapon() {
 }
 
 function unequipArmor() {
+  playSound("click");
   if (player.armor.name == "Nothing") return;
   let foundArm = false;
   for (let arm of player.items) {
@@ -906,6 +918,7 @@ function createStore() {
 }
 
 function addItem(e) {
+  playSound("click");
   let item;
   for (let itm of merchants["floor" + state.floor + "_merchant"].stock) {
     if (itm.item.name == e.target.id) item = itm;
@@ -924,6 +937,7 @@ function addItem(e) {
 }
 
 function removeItem(e) {
+  playSound("click");
   for (let i = 0; i < store_buying.length; i++) {
     if (store_buying[i].name === e.target.id && store_buying[i].amount <= 1) { store_buying.splice(i, 1); textBoxRemove(); break; }
     else if (store_buying[i].name === e.target.id) { store_buying[i].amount--; break; }
@@ -932,6 +946,7 @@ function removeItem(e) {
 }
 
 function buyItems(price) {
+  playSound("click");
   if (price > player.gold) return;
   player.gold -= price;
   for (let itm of store_buying) {
@@ -1009,6 +1024,7 @@ function createSaving() {
 }
 
 function saveGame() {
+  playSound("click");
   let saveName = $("save_input").value || player.name;
   let sortTime = +(new Date());
   let saveTime = new Date();
@@ -1055,6 +1071,7 @@ function DeleteGameHC() {
 }
 
 function saveOver(name, time, save) {
+  playSound("click");
   let sortTime = +(new Date());
   save_slots[selected_slot.id] = { text: `${name} || Last Saved: ${time} || Character Level: ${player.level}`, save: save, id: selected_slot.id, time: sortTime, hc: state.hc, key: selected_slot.key }
   localStorage.setItem("save_slots", JSON.stringify(save_slots));
@@ -1062,6 +1079,8 @@ function saveOver(name, time, save) {
 }
 
 function loadGame(menu) {
+  playSound("click");
+  playLobbyMusic();
   if (selected_slot == null) return;
   currentSave = selected_slot;
   if(!state.started) state.started = true;
@@ -1092,6 +1111,7 @@ function loadGame(menu) {
 }
 
 function selectSlot(e) {
+  playSound("click");
   let id = e.target.id.substring(4);
   selected_slot = save_slots[id];
   if (save_slots.length === 1) selected_slot = save_slots[0];

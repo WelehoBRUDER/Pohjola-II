@@ -283,7 +283,8 @@ const enemies = {
       {item: materials.monster_core, chance: 0.15, min: 1, max: 2},
       {item: weapons.greatsword, chance: 0.15, min: 1, max: 1},
       {item: consumables.lesser_healing_potion, chance: 0.2, min: 2, max: 5}
-    ]
+    ],
+    music: 1
   },
   ogre: {
     name: "Ogre",
@@ -563,7 +564,8 @@ const enemies = {
       {item: weapons.greatsword_of_legend, chance: 0.1, min: 1, max: 1},
       {item: consumables.medium_healing_potion, chance: 0.2, min: 1, max: 3},
       {item: consumables.medium_mana_potion, chance: 0.2, min: 1, max: 3}
-    ]
+    ],
+    music: 2
   },
   dwarf_warrior: {
     name: "Dwarf Warrior",
@@ -640,6 +642,7 @@ const enemies = {
       {item: materials.monster_core, chance: 0.66, min: 10, max: 18},
       {item: weapons.lance_of_the_lord, chance: 0.27, min: 1, max: 2},
       {item: materials.enchanted_stone, chance: 0.4, min: 1, max: 5}
-    ]
+    ],
+    music: 2
   }
 }

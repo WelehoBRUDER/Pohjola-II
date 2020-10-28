@@ -8,6 +8,49 @@ const selectAll = (e) => { return document.querySelectorAll(e); }
 const pxtovh = v => v / clientHeight * 100;
 const pxtovw = v => v / clientWidth * 100;
 var isFirefox = typeof InstallTrigger !== 'undefined';
+let audio = {
+  music: $("music"),
+  effect: $("effect")
+}
+let music = [
+  {
+    type: "lobby",
+    loop: true,
+    source: "audio/music/lobby.mp3"
+  },
+  {
+    type: "combat",
+    num: 1,
+    loop: true,
+    source: "audio/music/combat1.mp3"
+  },
+  {
+    type: "combat",
+    num: 2,
+    loop: true,
+    source: "audio/music/combat2.mp3"
+  },
+  {
+    type: "boss",
+    num: 1,
+    loop: true,
+    source: "audio/music/boss1.mp3"
+  },
+  {
+    type: "boss",
+    num: 2,
+    loop: true,
+    source: "audio/music/boss2.mp3"
+  }
+]
+
+let effects = [
+  {
+    type: "click",
+    loop: false,
+    source: "audio/effects/click.wav"
+  }
+]
 
 function Random(max, min = 0) {
   return Math.floor((Math.random() * (max - min)) + min);
@@ -15,6 +58,56 @@ function Random(max, min = 0) {
 
 function PercentOf(value, max) {
   return (max * (value / 100));
+}
+
+function playSound(type) {
+  for(let sound of effects) {
+    if(sound.type == type) {
+      audio.effect.src = sound.source;
+      audio.effect.volume = 0.55;
+      audio.effect.loop = sound.loop;
+      audio.effect.play();
+    }
+  }
+}
+
+function playBossMusic(num) {
+  for(let sound of music) {
+    if(sound.type == "boss" && sound.num == num) {
+      audio.music.src = sound.source;
+      audio.music.volume = 0.01;
+      audio.music.loop = sound.loop;
+      audio.music.play();
+    }
+  }
+}
+
+function playMusic(type) {
+  let sound = music[Random(music.length-1)];
+  while(sound.type != type) {
+    sound = music[Random(music.length-1)];
+  }
+  audio.music.src = sound.source;
+  audio.music.volume = 0.01;
+  audio.music.loop = sound.loop;
+  audio.music.play();
+}
+
+function playLobbyMusic() {
+  let musc;
+  for(let mus of music) {
+    if(mus.type == "lobby") musc = mus;
+  }
+  audio.music.src = musc.source;
+  audio.music.volume = 0.01;
+  audio.music.loop = musc.loop;
+  audio.music.play();
+}
+
+function PlayHitSound() {
+  audio.effect.src = `audio/effects/hurt${Random(3, 1)}.wav`;
+  audio.effect.volume = 0.75;
+  audio.effect.play();
 }
 
 let smallUpdater = setInterval(smallUpdate, 500);
@@ -722,6 +815,7 @@ function attackEnemy() {
     createEventlog(player.name, "attack");
     return;
   }
+  PlayHitSound();
   game.classList.add("shake1");
   $("enemySpriteContainer").classList.add("shake2");
   let damage = 0;
@@ -742,6 +836,7 @@ function enemyAttacks(attack) {
     enemy.mp -= attack.mp_cost;
     return;
   }
+  PlayHitSound();
   game.classList.add("shake1");
   $("playerSpriteContainer").classList.add("shake2");
   let damage = 0;
@@ -850,6 +945,7 @@ function hurtEnemy(move) {
     player.mp -= move.mp_cost;
     return;
   }
+  PlayHitSound();
   game.classList.add("shake1");
   $("enemySpriteContainer").classList.add("shake2");
   let damage = Math.floor(calculateDmg(player, enemy, move));
@@ -992,6 +1088,7 @@ function battleEnd(condition) {
 
 function EndGauntlet(condition) {
   $("battleEndScreen").style.transform = "translate(-50%) translateY(-50%) scale(0)";
+  playLobbyMusic();
   if (condition == "Victory") {
     SaveGameHC();
     player.xp += gauntletLoot.xp;

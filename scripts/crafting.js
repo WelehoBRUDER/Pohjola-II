@@ -60,6 +60,7 @@ function CraftItem(item) {
 }
 
 function createItem(item) {
+  playSound("click");
   for (let need of craftable_items[item].to_craft) {
     if (need.material) {
       for (let mat of player.items) {
@@ -89,6 +90,7 @@ function SmeltItem(item) {
 }
 
 function smeltItem(item) {
+  playSound("click");
   for(let mat of item.smelt) {
     for(let itm of player.items) {
       if(itm.name == mat.item.name) {itm.amount += mat.amount; continue;}
