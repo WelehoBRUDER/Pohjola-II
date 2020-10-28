@@ -883,7 +883,7 @@ let paladin_tree = {
       {increase: "physical_multiplier", by: 0.04},
       {increase: "maxhp", by: 75},
       {increase_stat: "str", by: 5},
-      {increase_stat: "int", by: 2},
+      {increase_stat: "int", by: -2},
       {increase: "maxmp", by: -10}
     ],
   },
