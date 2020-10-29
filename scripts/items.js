@@ -523,6 +523,14 @@ const consumables = {
     item_type: "consumable",
     tier: "D"
   },
+  greater_healing_potion: {
+    id: "greater_healing_potion",
+    name: "Greater Healing Potion",
+    value: 700,
+    recover: "hp",
+    item_type: "consumable",
+    tier: "C"
+  },
   inferior_mana_potion: {
     id: "inferior_mana_potion",
     name: "Inferior Mana Potion",

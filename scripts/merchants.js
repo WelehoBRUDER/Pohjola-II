@@ -52,6 +52,7 @@ let merchants = {
   floor3_merchant: {
     name: "Harald Trolf",
     stock: [
+      {item: copy(consumables.greater_healing_potion), price: 25795, type: "consumable"},
       {item: copy(weapons.staff_of_legend), price: 105450, type: "weapon"}
     ]
   }
