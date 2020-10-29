@@ -139,6 +139,16 @@ let warrior_tree = {
       {increase: "maxhp", by: 100}
     ],
   },
+  warrior_13: {
+    name: "I Can Take a Hit! (Or Two)",
+    cost: 5,
+    desc: "Increases §/$R/HP§ by 300. §:br§ Cost: 5 perk points",
+    icon: "vitality",
+    down_of: "warrior_9",
+    effect: [
+      {increase: "maxhp", by: 300},
+    ],
+  },
   path_2: {
     name: "PATH",
     cost: 0,
@@ -315,6 +325,27 @@ let warrior_tree = {
       {increase: "physical_multiplier", by: 0.05},
     ],
   },
+  warrior_34: {
+    name: "Strength through Experience",
+    cost: 2,
+    desc: "Increases physical damage by 6% and strength by 3. §:br§ Cost: 2 perk points",
+    icon: "strength",
+    right_of: "warrior_33",
+    effect: [
+      {increase_stat: "str", by: 3},
+      {increase: "physical_multiplier", by: 0.06},
+    ],
+  },
+  warrior_35: {
+    name: "Finding a Weakpoint",
+    cost: 3,
+    desc: "Increases physical damage by 10%. §:br§ Cost: 2 perk points",
+    icon: "damage_icon",
+    left_of: "warrior_33",
+    effect: [
+      {increase: "physical_multiplier", by: 0.1},
+    ],
+  },
 }
 
 let mage_tree = {
@@ -401,6 +432,27 @@ let mage_tree = {
     down_of: "mage_4",
     effect: [
       {increase: "maxhp", by: 50},
+    ],
+  },
+  mage_8: {
+    name: "Attending the Flesh",
+    cost: 2,
+    desc: "Increases §/$R/HP§ by 70.§:br§ Cost: 2 perk points",
+    icon: "defense",
+    down_of: "mage_7",
+    effect: [
+      {increase: "maxhp", by: 70},
+    ],
+  },
+  mage_9: {
+    name: "Body and Soul, In Sync",
+    cost: 3,
+    desc: "Increases §/$R/HP§ and §/$B/MP§ by 100.§:br§ Cost: 3 perk points",
+    icon: "defense",
+    down_of: "mage_8",
+    effect: [
+      {increase: "maxhp", by: 100},
+      {increase: "maxmp", by: 100},
     ],
   },
   path_mage_2: {
@@ -614,6 +666,28 @@ let mage_tree = {
       {modify_skill: "fire_lance", target: "power", by: 0.25},
       {modify_skill: "fire_lance", target: "cooldown", by: -4},
       {modify_skill: "fire_lance", target: "mp_cost", by: 55}
+    ],
+  },
+  mage_29: {
+    name: "Commitment to Offense",
+    cost: 3,
+    desc: "Increases magical damage by 25%. §:br§ Cost: 3 perk points",
+    icon: "wisdom",
+    down_of: "mage_21",
+    effect: [
+      {increase: "magical_multiplier", by: 0.25},
+    ],
+  },
+  mage_30: {
+    name: "Forsaking the Flesh",
+    cost: 4,
+    desc: "Increases magical damage by 45%, but §/$R/lowers§ strength by 10 and §/$R/HP§ by 50. §:br§ Cost: 4 perk points",
+    icon: "damage_icon",
+    down_of: "mage_29",
+    effect: [
+      {increase: "magical_multiplier", by: 0.45},
+      {increase: "maxhp", by: -50},
+      {increase_stat: "str", by: -10}
     ],
   },
 }
@@ -885,6 +959,26 @@ let paladin_tree = {
       {increase_stat: "str", by: 5},
       {increase_stat: "int", by: -2},
       {increase: "maxmp", by: -10}
+    ],
+  },
+  paladin_25: {
+    name: "Commitment to Defense",
+    cost: 2,
+    desc: "Increases §/$R/HP§ by 200. §:br§ Cost: 2 perk points",
+    icon: "defense",
+    right_of: "paladin_9",
+    effect: [
+      {increase: "maxhp", by: 200},
+    ],
+  },
+  paladin_26: {
+    name: "Accept The Spirit",
+    cost: 2,
+    desc: "Increases physical damage by 9%. §:br§ Cost: 2 perk points",
+    icon: "damage_icon",
+    left_of: "paladin_24",
+    effect: [
+      {increase: "physical_multiplier", by: 0.09},
     ],
   },
 }
