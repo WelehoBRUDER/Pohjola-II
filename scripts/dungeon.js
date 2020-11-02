@@ -255,10 +255,70 @@ let dungeon = {
           copy(enemies.dwarf_warrior),
         ]
       },
+      stage31: {
+        name: "Stage 31",
+        gauntlet: [
+          copy(enemies.dwarf_hero),
+        ]
+      },
+      stage32: {
+        name: "Stage 32",
+        gauntlet: [
+          copy(enemies.dwarf_warrior),
+          copy(enemies.dwarf_hero),
+        ]
+      },
+      stage33: {
+        name: "Stage 33",
+        gauntlet: [
+          copy(enemies.dwarf_warrior),
+          copy(enemies.dwarf_hero),
+          copy(enemies.dwarf_warrior),
+        ]
+      },
+      stage34: {
+        name: "Stage 34",
+        gauntlet: [
+          copy(enemies.dwarf_hero),
+          copy(enemies.dwarf_hero),
+        ]
+      },
       stage35: {
         name: "Stage 35",
         gauntlet: [
           copy(enemies.wyvern_rider),
+        ]
+      },
+      stage36: {
+        name: "Stage 36",
+        gauntlet: [
+          copy(enemies.elven_warrior),
+        ]
+      },
+      stage37: {
+        name: "Stage 37",
+        gauntlet: [
+          copy(enemies.elven_archer),
+        ]
+      },
+      stage38: {
+        name: "Stage 38",
+        gauntlet: [
+          copy(enemies.elven_hero),
+        ]
+      },
+      stage39: {
+        name: "Stage 39",
+        gauntlet: [
+          copy(enemies.elven_warrior),
+          copy(enemies.elven_archer),
+          copy(enemies.elven_hero),
+        ]
+      },
+      stage40: {
+        name: "Stage 40",
+        gauntlet: [
+          copy(enemies.elven_king),
         ]
       },
     }

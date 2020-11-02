@@ -604,6 +604,44 @@ const enemies = {
       {item: weapons.battle_axe, chance: 0.22, min: 1, max: 3},
     ]
   },
+  dwarf_hero: {
+    name: "Dwarf Hero",
+    hp: 7950,
+    mp: 50,
+    maxhp: 7950,
+    maxmp: 50,
+    stats: {
+      str: 135,
+      vit: 140,
+      int: 2,
+      agi: 46,
+      lck: 1
+    },
+    items: [],
+    moves: [
+      copy(moves.thrust),
+      copy(moves.slice),
+      copy(moves.crush),
+      copy(moves.heavy_attack)
+    ],
+    weapon: weapons.battle_axe,
+    xp: 295780,
+    gold: {
+      min: 18575,
+      max: 26485
+    },
+    level: 66,
+    physical_resistance: 50,
+    magical_resistance: 50,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.05,
+    drops: [
+      {item: materials.monster_core, chance: 0.33, min: 4, max: 8},
+      {item: weapons.battle_axe, chance: 0.47, min: 1, max: 3},
+    ]
+  },
   wyvern_rider: {
     name: "Wyvern Rider",
     hp: 13800,
@@ -644,5 +682,160 @@ const enemies = {
       {item: materials.enchanted_stone, chance: 0.4, min: 1, max: 5}
     ],
     music: 2
+  },
+  elven_warrior: {
+    name: "Elven Warrior",
+    hp: 9000,
+    mp: 1000,
+    maxhp: 9000,
+    maxmp: 1000,
+    stats: {
+      str: 100,
+      vit: 100,
+      int: 25,
+      agi: 66,
+      lck: 1
+    },
+    items: [],
+    moves: [
+      copy(moves.thrust),
+      copy(moves.slice),
+      copy(moves.crush),
+    ],
+    weapon: weapons.greatsword_of_legend,
+    xp: 370500,
+    gold: {
+      min: 37552,
+      max: 62985
+    },
+    level: 70,
+    physical_resistance: 51,
+    magical_resistance: 58,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.1,
+    drops: [
+      {item: materials.monster_core, chance: 0.66, min: 6, max: 11},
+      {item: weapons.greatsword_of_legend, chance: 0.27, min: 1, max: 2},
+      {item: materials.enchanted_stone, chance: 0.4, min: 1, max: 5}
+    ],
+  },
+  elven_archer: {
+    name: "Elven Archer",
+    hp: 6500,
+    mp: 2000,
+    maxhp: 6500,
+    maxmp: 2000,
+    stats: {
+      str: 90,
+      vit: 70,
+      int: 140,
+      agi: 90,
+      lck: 1
+    },
+    items: [],
+    moves: [
+      copy(moves.thrust),
+      copy(moves.slice),
+      copy(moves.power_shot),
+    ],
+    weapon: weapons.greatsword_of_legend,
+    xp: 425750,
+    gold: {
+      min: 55955,
+      max: 77488
+    },
+    level: 74,
+    physical_resistance: 37,
+    magical_resistance: 61,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.1,
+    drops: [
+      {item: materials.monster_core, chance: 0.66, min: 6, max: 11},
+      {item: weapons.greatsword_of_legend, chance: 0.27, min: 1, max: 2},
+      {item: materials.enchanted_stone, chance: 0.4, min: 1, max: 7}
+    ],
+  },
+  elven_hero: {
+    name: "Elven Hero",
+    hp: 15750,
+    mp: 2000,
+    maxhp: 15750,
+    maxmp: 2000,
+    stats: {
+      str: 120,
+      vit: 120,
+      int: 120,
+      agi: 80,
+      lck: 1
+    },
+    items: [],
+    moves: [
+      copy(moves.thrust),
+      copy(moves.slice),
+      copy(moves.power_shot),
+      copy(moves.immobilizing_shatter)
+    ],
+    weapon: craftable_items.enchanted_greatsword,
+    xp: 790800,
+    gold: {
+      min: 95855,
+      max: 127545
+    },
+    level: 80,
+    physical_resistance: 53,
+    magical_resistance: 53,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.1,
+    drops: [
+      {item: materials.monster_core, chance: 0.66, min: 13, max: 25},
+      {item: craftable_items.enchanted_greatsword, chance: 0.27, min: 1, max: 2},
+      {item: materials.enchanted_stone, chance: 0.4, min: 2, max: 7}
+    ],
+  },
+  elven_king: {
+    name: "Elven King",
+    hp: 26800,
+    mp: 3000,
+    maxhp: 26800,
+    maxmp: 3000,
+    stats: {
+      str: 200,
+      vit: 200,
+      int: 210,
+      agi: 110,
+      lck: 1
+    },
+    items: [],
+    moves: [
+      copy(moves.thrust),
+      copy(moves.slice),
+      copy(moves.power_shot),
+      copy(moves.immobilizing_shatter),
+      copy(moves.sundering_slash)
+    ],
+    weapon: craftable_items.enchanted_greatsword,
+    xp: 2790800,
+    gold: {
+      min: 155757,
+      max: 266557
+    },
+    level: 90,
+    physical_resistance: 40,
+    magical_resistance: 33,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.1,
+    drops: [
+      {item: materials.monster_core, chance: 0.87, min: 20, max: 28},
+      {item: craftable_items.enchanted_greatsword, chance: 0.55, min: 3, max: 9},
+      {item: materials.enchanted_stone, chance: 0.9, min: 5, max: 12}
+    ],
   }
 }

@@ -188,6 +188,17 @@ const moves = {
     id: "grave_floater_blast",
     base: 20
   },
+  power_shot: {
+    power: 1.33,
+    penetration: 0.7,
+    mp_cost: 100,
+    cooldown: 0,
+    physical: false,
+    name: "Power Shot",
+    onCooldown: 0,
+    id: "power_shot",
+    base: 75
+  },
   fire_lance: {
     power: 1.75,
     penetration: 0.6,
