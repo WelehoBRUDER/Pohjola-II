@@ -108,7 +108,27 @@ const codex = [
         desc: "This is a placeholder description. You should see less of these as development continues."
       },
       {
+        name: "Dwarf Hero",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
         name: "Wyvern Rider",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "Elven Warrior",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "Elven Archer",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "Elven Hero",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "Elven King",
         desc: "This is a placeholder description. You should see less of these as development continues."
       },
     ]
