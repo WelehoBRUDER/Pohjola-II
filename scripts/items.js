@@ -219,7 +219,7 @@ const weapons = {
     effects: [
       {increase_stat: "agi", by: 20},
       {increase: "physical_multiplier", by: 0.25},
-      {increase: "str", by: 10}
+      {increase_stat: "str", by: 10}
     ],  
     tier: "A",
     smelt: [

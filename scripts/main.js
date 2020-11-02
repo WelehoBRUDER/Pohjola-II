@@ -680,6 +680,9 @@ function textBoxSet(point, text, width, alt) {
   if (textBox.offsetLeft + textBox.offsetWidth > clientWidth) {
     textBox.style.left = clientWidth - textBox.offsetWidth + 'px';
   }
+  if (textBox.offsetTop + textBox.offsetHeight > clientHeight) {
+    textBox.style.top = clientHeight - textBox.offsetHeight + 'px';
+  }
 }
 
 function textBoxMove(point, text, alt) {
@@ -687,6 +690,9 @@ function textBoxMove(point, text, alt) {
   textBox.style.top = point.clientY + 20 + 'px';
   if (textBox.offsetLeft + textBox.offsetWidth > clientWidth) {
     textBox.style.left = clientWidth - textBox.offsetWidth + 'px';
+  }
+  if (textBox.offsetTop + textBox.offsetHeight > clientHeight) {
+    textBox.style.top = clientHeight - textBox.offsetHeight + 'px';
   }
 }
 
