@@ -836,6 +836,7 @@ function enemyAttacks(attack) {
     enemy.mp -= attack.mp_cost;
     return;
   }
+  if(attack.status) player.statuses.push(copy(statuses[attack.status]));
   PlayHitSound();
   game.classList.add("shake1");
   $("playerSpriteContainer").classList.add("shake2");

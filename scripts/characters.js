@@ -690,7 +690,7 @@ const enemies = {
     maxhp: 9000,
     maxmp: 1000,
     stats: {
-      str: 100,
+      str: 95,
       vit: 100,
       int: 25,
       agi: 66,
@@ -730,7 +730,7 @@ const enemies = {
     stats: {
       str: 90,
       vit: 70,
-      int: 140,
+      int: 90,
       agi: 90,
       lck: 1
     },
@@ -766,9 +766,9 @@ const enemies = {
     maxhp: 15750,
     maxmp: 2000,
     stats: {
-      str: 120,
+      str: 95,
       vit: 120,
-      int: 120,
+      int: 95,
       agi: 80,
       lck: 1
     },
@@ -805,9 +805,9 @@ const enemies = {
     maxhp: 26800,
     maxmp: 3000,
     stats: {
-      str: 200,
+      str: 140,
       vit: 200,
-      int: 210,
+      int: 145,
       agi: 110,
       lck: 1
     },
