@@ -51,6 +51,7 @@ select("Floors & Stages");
 function createTopBar() {
   $("mainWindowTopBar").textContent = "";
   for (let button of topBarButtons) {
+    if(button.name == "Saves" && state.hc) continue;
     let but = create("div");
     but.classList.add("mainWindowTopBar--button");
     if (button.selected) but.classList.add("mainWindowTopBar--button-selected");
@@ -81,6 +82,7 @@ function select(target) {
   playSound("click");
   SaveGameHC();
   updateLeftValues();
+  if(state.hc && target == "Saves") return;
   $("mainWindowContainer").removeEventListener("click", removeSelect);
   for (let but of topBarButtons) {
     if (target == but.name) but.selected = true;
@@ -987,6 +989,7 @@ function loadSettingsSave() {
 }
 
 function createSaving() {
+  if(state.hc) return;
   $("mainWindowContainer").textContent = "";
   let save_container = create("div");
   let save_topbar = create("div");
