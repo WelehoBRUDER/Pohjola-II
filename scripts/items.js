@@ -210,6 +210,25 @@ const weapons = {
       {item: materials.enchanted_stone, amount: 3}
     ]
   },
+  elven_greatsword: {
+    name: "Elven Greatsword",
+    damage: 166,
+    type: "physical",
+    speed_bonus: 25,
+    item_type: "weapon",
+    effects: [
+      {increase_stat: "agi", by: 20},
+      {increase: "physical_multiplier", by: 0.25},
+      {increase: "str", by: 10}
+    ],  
+    tier: "A",
+    smelt: [
+      {item: materials.wood_stick, amount: 5},
+      {item: materials.iron_ingot, amount: 14},
+      {item: materials.steel_ingot, amount: 25},
+      {item: materials.enchanted_stone, amount: 10}
+    ]
+  },
   club_of_the_giant_king: {
     name: "Club of the Giant King",
     damage: 119,

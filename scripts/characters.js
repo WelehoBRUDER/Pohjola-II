@@ -834,7 +834,7 @@ const enemies = {
     dodge: 0.1,
     drops: [
       {item: materials.monster_core, chance: 0.87, min: 20, max: 28},
-      {item: craftable_items.enchanted_greatsword, chance: 0.55, min: 3, max: 9},
+      {item: weapons.elven_greatsword, chance: 1, min: 1, max: 1},
       {item: materials.enchanted_stone, chance: 0.9, min: 5, max: 12}
     ],
   }
