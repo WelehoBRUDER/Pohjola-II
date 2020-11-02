@@ -800,15 +800,15 @@ const enemies = {
   },
   elven_king: {
     name: "Elven King",
-    hp: 26800,
+    hp: 21500,
     mp: 3000,
-    maxhp: 26800,
+    maxhp: 21500,
     maxmp: 3000,
     stats: {
       str: 140,
-      vit: 200,
+      vit: 170,
       int: 145,
-      agi: 110,
+      agi: 60,
       lck: 1
     },
     items: [],
