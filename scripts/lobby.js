@@ -145,7 +145,7 @@ function combatStatsView() {
     </p>
     <p id="dodge">
     <img src="images/dodge_icon.png">
-    ${player.dodge * 100}%
+    ${Math.floor(player.dodge * 100)}%
     </p>
     <p id="speed">
     <img src="images/speed_icon.png">
@@ -161,11 +161,11 @@ function combatStatsView() {
     </p>
     <p id="physres">
     <img src="images/physical_resistance.png">
-    ${player.physical_resistance}%
+    ${Math.floor(player.physical_resistance)}%
     </p>
     <p id="magires">
     <img src="images/magical_resistance.png">
-    ${player.magical_resistance}%
+    ${Math.floor(player.magical_resistance)}%
     </p>
   `;
   for (let child of combatStats.childNodes) {

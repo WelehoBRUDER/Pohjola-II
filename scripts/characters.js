@@ -586,7 +586,7 @@ const enemies = {
       copy(moves.slice),
       copy(moves.crush)
     ],
-    weapon: weapons.battle_axe,
+    weapon: craftable_items.doombringer_axe,
     xp: 150775,
     gold: {
       min: 18575,
@@ -601,7 +601,7 @@ const enemies = {
     dodge: 0.05,
     drops: [
       {item: materials.monster_core, chance: 0.33, min: 3, max: 7},
-      {item: weapons.battle_axe, chance: 0.22, min: 1, max: 3},
+      {item: craftable_items.doombringer_axe, chance: 0.22, min: 1, max: 3},
     ]
   },
   dwarf_hero: {
@@ -611,7 +611,7 @@ const enemies = {
     maxhp: 7950,
     maxmp: 50,
     stats: {
-      str: 135,
+      str: 90,
       vit: 140,
       int: 2,
       agi: 46,
@@ -624,7 +624,7 @@ const enemies = {
       copy(moves.crush),
       copy(moves.heavy_attack)
     ],
-    weapon: weapons.battle_axe,
+    weapon: weapons.greatsword_of_legend,
     xp: 295780,
     gold: {
       min: 18575,
