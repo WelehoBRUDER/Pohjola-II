@@ -277,6 +277,7 @@ function codexLoot(enemy) {
   for (let loot of enemy.drops) {
     let drop = "";
     let found = false;
+    if(loot.item == undefined) continue;
     for (let itm of player.items) {
       console.log(loot.item);
       if (itm.name == loot.item.name) {

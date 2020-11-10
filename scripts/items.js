@@ -510,6 +510,14 @@ const armors = {
 }
 
 const consumables = {
+  dummy: {
+    id: "dummy",
+    name: "not an item",
+    value: -1,
+    recover: false,
+    item_type: "consumable",
+    tier: "N/A"
+  },
   inferior_healing_potion: {
     id: "inferior_healing_potion",
     name: "Inferior Healing Potion",

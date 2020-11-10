@@ -874,7 +874,7 @@ const enemies = {
     drops: [
       {item: materials.dark_core, chance: 0.25, min: 1, max: 1},
       {item: weapons.enchanted_greatsword, chance: 1, min: 1, max: 1},
-      {item: materials.enchanted_stone, chance: 0.9, min: 5, max: 12}
+      {item: copy(materials.enchanted_stone), chance: 0.9, min: 5, max: 12},
     ]
   },
   corrupted_elf: {
@@ -915,7 +915,8 @@ const enemies = {
     drops: [
       {item: materials.dark_core, chance: 1, min: 40, max: 55},
       {item: weapons.enchanted_greatsword, chance: 1, min: 3, max: 15},
-      {item: materials.enchanted_stone, chance: 0.9, min: 5, max: 12}
+      {item: copy(materials.enchanted_stone), chance: 0.9, min: 5, max: 12},
+      {item: consumables.dummy, chance: 0, min: 0, max: 0}
     ]
   }
 }
