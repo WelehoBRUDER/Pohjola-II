@@ -223,7 +223,7 @@ const enemies = {
       copy(moves.crush),
       copy(moves.thrust),
       copy(moves.slice),
-      copy(moves.bash)
+      copy(moves.bash),
     ],
     weapon: weapons.battle_axe,
     xp: 750,
@@ -837,5 +837,85 @@ const enemies = {
       {item: weapons.elven_greatsword, chance: 1, min: 1, max: 1},
       {item: materials.enchanted_stone, chance: 0.9, min: 5, max: 12}
     ],
+  },
+  dark_elf_warrior: {
+    name: "Dark Elf Warrior",
+    hp: 15200,
+    mp: 3000,
+    maxhp: 15200,
+    maxmp: 3000,
+    stats: {
+      str: 110,
+      vit: 125,
+      int: 100,
+      agi: 80,
+      lck: 1
+    },
+    items: [],
+    moves: [
+      copy(moves.thrust),
+      copy(moves.slice),
+      copy(moves.immobilizing_shatter),
+      copy(moves.cursed_strike)
+    ],
+    weapon: craftable_items.enchanted_greatsword,
+    xp: 1805520,
+    gold: {
+      min: 96333,
+      max: 178545
+    },
+    level: 85,
+    physical_resistance: 27,
+    magical_resistance: 22,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.05,
+    drops: [
+      {item: materials.dark_core, chance: 0.25, min: 1, max: 1},
+      {item: weapons.enchanted_greatsword, chance: 1, min: 1, max: 1},
+      {item: materials.enchanted_stone, chance: 0.9, min: 5, max: 12}
+    ]
+  },
+  corrupted_elf: {
+    name: "Corrupted Elf",
+    hp: 38500,
+    mp: 5000,
+    maxhp: 38500,
+    maxmp: 5000,
+    stats: {
+      str: 150,
+      vit: 200,
+      int: 150,
+      agi: 90,
+      lck: 1
+    },
+    items: [],
+    moves: [
+      copy(moves.thrust),
+      copy(moves.slice),
+      copy(moves.immobilizing_shatter),
+      copy(moves.astral_lance),
+      copy(moves.cursed_strike),
+      copy(moves.holy_grace)
+    ],
+    weapon: craftable_items.enchanted_greatsword,
+    xp: 9800500,
+    gold: {
+      min: 523799,
+      max: 866755
+    },
+    level: 100,
+    physical_resistance: 35,
+    magical_resistance: 32,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.05,
+    drops: [
+      {item: materials.dark_core, chance: 1, min: 40, max: 55},
+      {item: weapons.enchanted_greatsword, chance: 1, min: 3, max: 15},
+      {item: materials.enchanted_stone, chance: 0.9, min: 5, max: 12}
+    ]
   }
 }

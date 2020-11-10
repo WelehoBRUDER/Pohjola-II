@@ -814,6 +814,32 @@ const craftable_items = {
     item_type: "armor",
     tier: "A",
   },
+  set_of_the_mythic_legend: {
+    to_craft: [
+      {material: "iron_ingot", amount: 200},
+      {material: "steel_ingot", amount: 300},
+      {material: "leather", amount: 200},
+      {armor: copy(armors.kings_armor), amount: 2},
+      {weapon: copy(weapons.elven_greatsword)},
+      {material: "enchanted_stone", amount: 50},
+      {material: "monster_core", amount: 100},
+      {material: "dark_core", amount: 5}
+    ],
+    name: "The Mythic Legend Set",
+    physical_resistance: 50,
+    magical_resistance: 45,
+    speed_bonus: 20,
+    effects: [
+      {increase: "maxhp", by: 1000},
+      {increase: "maxmp", by: 500},
+      {increase: "physical_multiplier", by: 0.5},
+      {increase_stat: "str", by: 50},
+      {increase_stat: "int", by: 50},
+      {increase: "dodge", by: 0.08}
+    ],
+    item_type: "armor",
+    tier: "S",
+  },
 }
 
 const tiers = {

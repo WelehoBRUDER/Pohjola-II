@@ -301,6 +301,23 @@ function healOT(char) {
   }
 }
 
+function dmgOT(char) {
+  if(state.paused ||state.end) return;
+  for(let stat of char.statuses) {
+    if (stat.dmg_ot) {
+      if (stat.dmg_limit < 100) {
+        stat.dmg_limit += 100 / 60;
+      }
+      if (stat.dmg_limit >= 100) {
+        char.hp -= Math.ceil(char.maxhp * stat.dmg_ot);
+        if (char.hp > char.maxhp) char.hp = char.maxhp;
+        stat.dmg_limit = 0;
+        createParticle(Math.ceil(char.maxhp * stat.dmg_ot), "purple", (char == player ? $("playerSprite") : $("enemySprite")));
+      }
+    }
+  }
+}
+
 function Update() {
   // Execute all code under this line 60 times per second.
 
@@ -423,6 +440,11 @@ function Update() {
 
   // Check heal overtime
   healOT(player);
+  healOT(enemy);
+
+  // Check damage overtime
+  dmgOT(player);
+  dmgOT(enemy);
 
   // Stop animations when paused
   if (state.paused && !state.action) {
@@ -723,6 +745,7 @@ function addHoverBox(element, text, width, alt) {
   element.addEventListener('mousemove', (e) => textBoxMove(e, text, alt));
   element.addEventListener('mouseout', (e) => textBoxRemove(e));
 }
+
 
 document.body.addEventListener('keydown', textBoxAlt);
 document.body.addEventListener('keyup', textBoxMain);

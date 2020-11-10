@@ -179,7 +179,7 @@ function UpgradeStat(act, stat) {
   if (player.skillpoints > 0 && !act.shiftKey) {
     player.skillpoints--;
     player.stats[stat]++;
-    if (stat == "vit") player.maxhp += 10;
+    if (stat == "vit") player.maxhp += 25;
     else if (stat == "int") player.maxmp += 5;
   } else if (player.skillpoints >= 5 && act.shiftKey) {
     player.skillpoints -= 5;

@@ -74,6 +74,18 @@ const moves = {
     id: "sundering_slash",
     status: "sundered"
   },
+  cursed_strike: {
+    power: 1.3,
+    penetration: 0,
+    mp_cost: 0,
+    cooldown: 8,
+    physical: true,
+    name: "Cursed Strike",
+    onCooldown: 0,
+    base: 0,
+    id: "cursed_strike",
+    status: "curse"
+  },
   shields_up: {
     power: 0,
     mp_cost: 0, 
@@ -338,5 +350,12 @@ const statuses = {
     lasts: 7,
     name: "Damage Increase",
     id: "damage_up"
+  },
+  curse: {
+    dmg_ot: 0.07,
+    dmg_limit: 0,
+    lasts: 8,
+    name: "Cursed",
+    id: "curse"
   }
 }

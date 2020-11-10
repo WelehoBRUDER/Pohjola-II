@@ -17,7 +17,7 @@ const texts = {
   skill: "Your current stat points, used for upgrading your stats (STR, VIT, AGI, INT).",
   perk: "Your current perk points, used for purchasing perks from your perk tree.",
   str: "Your current strength stat. Strength increases weapon damage by 5% per level. §:br§ §$player.skillpoints > 0 ? 'Click to increase!' : ''§",
-  vit: "Your current vitality stat. Vitality increases hit points by 10 per level. §:br§ §$player.skillpoints > 0 ? 'Click to increase!' : ''§",
+  vit: "Your current vitality stat. Vitality increases hit points by 25 per level. §:br§ §$player.skillpoints > 0 ? 'Click to increase!' : ''§",
   agi: "Your current agility. Agility increases your speed in combat by roughly 0.6% per level. §:br§ §$player.skillpoints > 0 ? 'Click to increase!' : ''§",
   int: "Your current intelligence stat. Intelligence increases magic damage by 5% and mana by 5 per level. §:br§ §$player.skillpoints > 0 ? 'Click to increase!' : ''§",
   save_button: "Create new save file or replace old one.",
@@ -54,6 +54,8 @@ const texts = {
   lesser_mana_potion: "Recover 25 §/$B/MP§. Consumes your turn.",
   mana_potion: "Recover 100 §/$B/MP§. Consumes your turn.",
   medium_mana_potion: "Recover 250 §/$B/MP§. Consumes your turn.",
+  agility_potion: "Increases agility by 10 for 15 seconds. Consumes your turn.",
+  strength_potion: "Increases strength by 10 for 15 seconds. Consumes your turn.",
   sundering_slash: "Deals §$Math.floor(calculateDmg(player, enemy, getMove(player, 'sundering_slash')))§ damage and inflicts status 'Sundered', that halves enemy physical resistance for 5 seconds. Cooldown: §$getCooldown(player, sundering_slash)§s",
   heavy_attack: "Deals §$Math.floor(calculateDmg(player, enemy, getMove(player, 'heavy_attack')))§ damage. §:br§ §$(getCooldown(player, heavy_attack) > 0 ? 'Cooldown: ' + getCooldown(player, heavy_attack) + 's' : '')§",
   sundered: "§FS0.75FS/white/This character is sundered, reducing their physical resistance by 50%.§",
@@ -77,7 +79,8 @@ const texts = {
   Soldier: "Gain 10 HP and 2 str. Start with broken sword and leather armor.",
   Barbarian: "Gain 5 HP and 5 str.",
   Scholar: "Gain 10 MP and 2 int. Start with broomstick and rags.",
-  holy_smite: "Deals §$Math.floor(calculateDmg(player, enemy, getMove(player, 'holy_smite')))§ damage. §:br§ Cooldown: §$getCooldown(player, holy_smite)§s"
+  holy_smite: "Deals §$Math.floor(calculateDmg(player, enemy, getMove(player, 'holy_smite')))§ damage. §:br§ Cooldown: §$getCooldown(player, holy_smite)§s",
+  curse: "Deals 7% damage per second."
 }
 
 var settings = {

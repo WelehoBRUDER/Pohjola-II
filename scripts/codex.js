@@ -44,6 +44,12 @@ const codex = [
         text: "Enchanted stones are the most rare of resources, used in crafting the most exquisite items. They are gained from smelting equally valuable items.",
         image: "enchanted_stone.png",
         imageSize: 6
+      },
+      {
+        name: "Dark Core",
+        text: "An incredibly rare material gained from defeating powerful corrupted beings.",
+        image: "dark_core.png",
+        imageSize: 6
       }
     ]
   },
@@ -131,6 +137,14 @@ const codex = [
         name: "Elven King",
         desc: "This is a placeholder description. You should see less of these as development continues."
       },
+      {
+        name: "Dark Elf Warrior",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "Corrupted Elf",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      }
     ]
   }
 ]
@@ -264,6 +278,7 @@ function codexLoot(enemy) {
     let drop = "";
     let found = false;
     for (let itm of player.items) {
+      console.log(loot.item);
       if (itm.name == loot.item.name) {
         drop = `| §/${loot.item?.tier ? tiers[loot.item.tier] : "white"}/${loot.item.name}§ | ${loot.max > loot.min ? loot.min + "-" + loot.max : loot.min} | Chance: ${Math.floor(loot.chance*100)}% |`;
         div.appendChild(textSyntax(drop));

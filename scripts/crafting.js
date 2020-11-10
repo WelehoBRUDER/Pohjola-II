@@ -34,6 +34,13 @@ const materials = {
     value: 750,
     amount: 0
   },
+  dark_core: {
+    name: "Dark Core",
+    id: "dark_core",
+    img: "dark_core.png",
+    value: 1500,
+    amount: 0
+  },
   monster_core: {
     name: "Monster Core",
     id: "monster_core",

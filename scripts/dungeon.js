@@ -321,6 +321,26 @@ let dungeon = {
           copy(enemies.elven_king),
         ]
       },
+      stage41: {
+        name: "Stage 41",
+        gauntlet: [
+          copy(enemies.dark_elf_warrior),
+        ]
+      },
+      stage42: {
+        name: "Stage 42",
+        gauntlet: [
+          copy(enemies.elven_hero),
+          copy(enemies.elven_warrior),
+          copy(enemies.dark_elf_warrior)
+        ]
+      },
+      stage43: {
+        name: "Stage 43",
+        gauntlet: [
+          copy(enemies.corrupted_elf),
+        ]
+      },
     }
   }
 }
