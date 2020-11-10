@@ -1076,6 +1076,7 @@ function battleEnd(condition) {
     let dropped = [];
     if (enemy.drops) {
       for (let drop of enemy.drops) {
+        if(drop == undefined) continue;
         if (drop.chance >= Math.random()) {
           amount = Random(drop.max, drop.min);
           dropped.push({...drop.item, amount: amount});
