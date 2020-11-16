@@ -962,9 +962,9 @@ const enemies = {
   senator_armstrong: {
     name: "Senator Armstrong",
     hp: 48000,
-    mp: 5000,
+    mp: 1500,
     maxhp: 48000,
-    maxmp: 5000,
+    maxmp: 1500,
     stats: {
       str: 280,
       vit: 200,
