@@ -976,7 +976,7 @@ const enemies = {
     moves: [
       copy(moves.thrust),
       copy(moves.crush),
-      copy(moves.immobilizing_shatter),
+      copy(moves.vehicle_throw),
       copy(moves.sundering_slash),
       copy(moves.heavy_attack)
     ],

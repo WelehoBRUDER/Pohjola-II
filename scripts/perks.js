@@ -338,7 +338,7 @@ let warrior_tree = {
   },
   warrior_35: {
     name: "Finding a Weakpoint",
-    cost: 3,
+    cost: 2,
     desc: "Increases physical damage by 10%. §:br§ Cost: 2 perk points",
     icon: "damage_icon",
     left_of: "warrior_33",

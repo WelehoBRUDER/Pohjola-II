@@ -257,6 +257,18 @@ const moves = {
     base: 28,
     status: "speed_down"
   },
+  vehicle_throw: {
+    power: 1.8,
+    penetration: 0,
+    mp_cost: 500,
+    cooldown: 30,
+    physical: false,
+    name: "Vehicle Throw",
+    onCooldown: 0,
+    id: "vehicle_throw",
+    base: 51,
+    status: "speed_down"
+  },
   holy_grace: {
     power: 0,
     mp_cost: 10, 
