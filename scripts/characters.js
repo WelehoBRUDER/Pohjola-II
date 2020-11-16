@@ -918,5 +918,87 @@ const enemies = {
       {item: copy(materials.enchanted_stone), chance: 0.9, min: 5, max: 12},
       {item: consumables.dummy, chance: 0, min: 0, max: 0}
     ]
+  },
+  excelsus: {
+    name: "EXCELSUS",
+    hp: 60500,
+    mp: 5000,
+    maxhp: 60500,
+    maxmp: 5000,
+    stats: {
+      str: 25,
+      vit: 300,
+      int: 100,
+      agi: 15,
+      lck: 1
+    },
+    items: [],
+    moves: [
+      copy(moves.thrust),
+      copy(moves.slice),
+      copy(moves.crush),
+    ],
+    weapon: weapons.METAL_GEAR_WEAPON,
+    xp: 15200500,
+    gold: {
+      min: 923799,
+      max: 1866755
+    },
+    level: 100,
+    physical_resistance: 22,
+    magical_resistance: 19,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.03,
+    drops: [
+      {item: materials.dark_core, chance: 1, min: 1, max: 1},
+      {item: weapons.METAL_GEAR_WEAPON, chance: 1, min: 1, max: 1},
+      {item: copy(materials.enchanted_stone), chance: 0.9, min: 5, max: 12},
+      {item: consumables.dummy, chance: 0, min: 0, max: 0}
+    ],
+    music: 3
+  },
+  senator_armstrong: {
+    name: "Senator Armstrong",
+    hp: 48000,
+    mp: 5000,
+    maxhp: 48000,
+    maxmp: 5000,
+    stats: {
+      str: 280,
+      vit: 200,
+      int: 100,
+      agi: 75,
+      lck: 1
+    },
+    items: [],
+    moves: [
+      copy(moves.thrust),
+      copy(moves.crush),
+      copy(moves.immobilizing_shatter),
+      copy(moves.sundering_slash),
+      copy(moves.heavy_attack)
+    ],
+    weapon: weapons.NANO_MACHINES,
+    xp: 46500000,
+    gold: {
+      min: 288799,
+      max: 512788
+    },
+    level: 105,
+    physical_resistance: 41,
+    magical_resistance: 42,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0.02,
+    drops: [
+      {item: materials.dark_core, chance: 1, min: 2, max: 4},
+      {item: weapons.muramasa, chance: 1, min: 1, max: 1},
+      {item: copy(materials.enchanted_stone), chance: 0.9, min: 15, max: 28},
+      {item: consumables.dummy, chance: 0, min: 0, max: 0}
+    ],
+    music: 3
   }
 }

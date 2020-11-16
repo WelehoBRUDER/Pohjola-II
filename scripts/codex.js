@@ -144,6 +144,14 @@ const codex = [
       {
         name: "Corrupted Elf",
         desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "EXCELSUS",
+        desc: "This is a placeholder description. You should see less of these as development continues."
+      },
+      {
+        name: "Senator Armstrong",
+        desc: "This is a placeholder description. You should see less of these as development continues."
       }
     ]
   }
@@ -183,7 +191,7 @@ function createCodex() {
 function openContent(e) {
   if (e.target.id.indexOf("Content") != -1) return;
   if ($(e.target.id + "Content").style.maxHeight == "0vw") {
-    $(e.target.id + "Content").style.maxHeight = "22vw";
+    $(e.target.id + "Content").style.maxHeight = "25vw";
   } else {
     $(e.target.id + "Content").style.maxHeight = "0vw";
   }

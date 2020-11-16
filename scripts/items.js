@@ -229,6 +229,49 @@ const weapons = {
       {item: materials.enchanted_stone, amount: 10}
     ]
   },
+  METAL_GEAR_WEAPON: {
+    name: "METAL GEAR ARM",
+    damage: 218,
+    type: "physical",
+    speed_bonus: -15,
+    item_type: "weapon",
+    effects: [
+      {increase: "physical_multiplier", by: 0.39},
+      {increase_stat: "str", by: 15}
+    ],
+    tier: "S",
+    smelt: [
+      {item: materials.steel_ingot, amount: 80},
+      {item: materials.enchanted_stone, amount: 21}
+    ]
+  },
+  NANO_MACHINES: {
+    name: "NANO MACHINE FISTS",
+    damage: 60,
+    type: "physical",
+    speed_bonus: 30,
+    item_type: "weapon",
+    tier: "S",
+  },
+  muramasa: {
+    name: "Muramasa",
+    damage: 200,
+    type: "physical",
+    speed_bonus: 20,
+    item_type: "weapon",
+    effects: [
+      {increase: "physical_multiplier", by: 0.3},
+      {incrase_stat: "agi", by: 15},
+      {increase_stat: "str", by: 15},
+      {increase: "maxhp", by: 180}
+    ],
+    tier: "S",
+    smelt: [
+      {item: materials.steel_ingot, amount: 40},
+      {item: materials.iron_ingot, amount: 30},
+      {item: materials.enchanted_stone, amount: 25}
+    ]
+  },
   club_of_the_giant_king: {
     name: "Club of the Giant King",
     damage: 119,

@@ -341,6 +341,18 @@ let dungeon = {
           copy(enemies.corrupted_elf),
         ]
       },
+      stage44: {
+        name: "Stage 44",
+        gauntlet: [
+          copy(enemies.excelsus),
+        ]
+      },
+      college_ball: {
+        name: "COLLEGE BALL",
+        gauntlet: [
+          copy(enemies.senator_armstrong),
+        ]
+      },
     }
   }
 }
