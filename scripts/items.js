@@ -601,6 +601,14 @@ const consumables = {
     item_type: "consumable",
     tier: "C"
   },
+  vitality_recovery_concoction: {
+    id: "vitality_recovery_concoction",
+    name: "Vitality Recovery Concoction",
+    value: 1500,
+    recover: "hp",
+    item_type: "consumable",
+    tier: "A"
+  },
   inferior_mana_potion: {
     id: "inferior_mana_potion",
     name: "Inferior Mana Potion",
