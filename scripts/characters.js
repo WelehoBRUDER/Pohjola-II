@@ -978,7 +978,8 @@ const enemies = {
       copy(moves.crush),
       copy(moves.vehicle_throw),
       copy(moves.sundering_slash),
-      copy(moves.heavy_attack)
+      copy(moves.heavy_attack),
+      copy(moves.attack)
     ],
     weapon: weapons.NANO_MACHINES,
     xp: 46500000,

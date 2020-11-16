@@ -897,7 +897,7 @@ function EnemyAttack() {
   enemy.action_points = 0;
   state.action = true;
   if (enemy.hp / enemy.maxhp <= 0.4) {
-    if (enemyCanHeal()) {
+    if (enemyCanHeal() && enemy.items.length > 0) {
       for (let item of enemy.items) {
         if (item.recover == "hp" && item.amount > 0) {
           $("enemySprite").classList.add("heal");
