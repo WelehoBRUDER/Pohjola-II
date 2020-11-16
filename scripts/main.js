@@ -41,6 +41,18 @@ let music = [
     num: 2,
     loop: true,
     source: "audio/music/boss2.mp3"
+  },
+  {
+    type: "boss",
+    num: 3,
+    loop: true,
+    source: "audio/music/boss3.mp3"
+  },
+  {
+    type: "boss",
+    num: 4,
+    loop: true,
+    source: "audio/music/boss4.mp3"
   }
 ]
 
