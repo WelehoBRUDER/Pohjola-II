@@ -274,6 +274,25 @@ const weapons = {
       { item: materials.enchanted_stone, amount: 25 },
     ],
   },
+  blacksmith_hammer: {
+    name: "Blacksmith Hammer",
+    damage: 300,
+    type: "physical",
+    speed_bonus: 99,
+    item_type: "weapon",
+    effects: [
+      { increase: "physical_multiplier", by: 0.99 },
+      { incrase_stat: "agi", by: 99 },
+      { increase_stat: "str", by: 99 },
+      { increase: "maxhp", by: 999 },
+    ],
+    tier: "S",
+    smelt: [
+      { item: materials.steel_ingot, amount: 99 },
+      { item: materials.iron_ingot, amount: 99 },
+      { item: materials.enchanted_stone, amount: 99 },
+    ],
+  },
   club_of_the_giant_king: {
     name: "Club of the Giant King",
     damage: 119,

@@ -277,6 +277,7 @@ function createStages(floor) {
   let div = create("div");
   for (let stage in floor.stages) {
     if (floor.stages[stage].name == "Stage 0") continue;
+    if (floor.stages[stage].name == "_God_" && !player.stages_beaten.college_ball) continue;
     let but = create("button");
     but.textContent = floor.stages[stage].name;
     but.addEventListener("click", () => startFight(floor.stages[stage]));

@@ -9,11 +9,9 @@ var player = {
     vit: 1,
     int: 1,
     agi: 1,
-    lck: 0
+    lck: 0,
   },
-  items: [
-    addItems(consumables.inferior_healing_potion, 3),
-  ],
+  items: [addItems(consumables.inferior_healing_potion, 3)],
   moves: [],
   weapon: copy(weapons.fists),
   armor: copy(armors.naked),
@@ -38,8 +36,8 @@ var player = {
   stages_beaten: {},
   floors_beaten: {},
   move_statuses: {},
-  temporary_effects: []
-}
+  temporary_effects: [],
+};
 
 const enemies = {
   dummy: {
@@ -50,7 +48,7 @@ const enemies = {
     maxmp: 0,
     physical_resistance: 0,
     magical_resistance: 0,
-    statuses: []
+    statuses: [],
   },
   skeleton: {
     name: "Skeleton",
@@ -63,20 +61,15 @@ const enemies = {
       vit: 1,
       int: 1,
       agi: 1,
-      lck: 1
+      lck: 1,
     },
-    items: [
-      addItems(consumables.inferior_healing_potion, 1)
-    ],
-    moves: [
-      copy(moves.slice),
-      copy(moves.thrust)
-    ],
+    items: [addItems(consumables.inferior_healing_potion, 1)],
+    moves: [copy(moves.slice), copy(moves.thrust)],
     weapon: weapons.broken_sword,
     xp: 5,
     gold: {
       min: 3,
-      max: 9
+      max: 9,
     },
     level: 1,
     physical_resistance: 0,
@@ -85,9 +78,7 @@ const enemies = {
     action_points: 0,
     statuses: [],
     dodge: 0.05,
-    drops: [
-      {item: weapons.broken_sword, chance: 0.1, min: 1, max: 1}
-    ]
+    drops: [{ item: weapons.broken_sword, chance: 0.1, min: 1, max: 1 }],
   },
   goblin: {
     name: "Goblin",
@@ -100,20 +91,15 @@ const enemies = {
       vit: 1,
       int: 1,
       agi: 2,
-      lck: 1
+      lck: 1,
     },
-    items: [
-      addItems(consumables.inferior_healing_potion, 1)
-    ],
-    moves: [
-      copy(moves.crush),
-      copy(moves.bash)
-    ],
+    items: [addItems(consumables.inferior_healing_potion, 1)],
+    moves: [copy(moves.crush), copy(moves.bash)],
     weapon: weapons.broken_mace,
     xp: 15,
     gold: {
       min: 8,
-      max: 21
+      max: 21,
     },
     level: 2,
     physical_resistance: 5,
@@ -123,9 +109,14 @@ const enemies = {
     statuses: [],
     dodge: 0.05,
     drops: [
-      {item: weapons.broken_mace, chance: 0.1, min: 1, max: 1},
-      {item: consumables.inferior_healing_potion, chance: 0.07, min: 1, max: 1}
-    ]
+      { item: weapons.broken_mace, chance: 0.1, min: 1, max: 1 },
+      {
+        item: consumables.inferior_healing_potion,
+        chance: 0.07,
+        min: 1,
+        max: 1,
+      },
+    ],
   },
   orc: {
     name: "Orc",
@@ -138,19 +129,15 @@ const enemies = {
       vit: 1,
       int: 1,
       agi: 3,
-      lck: 1
+      lck: 1,
     },
-    items: [
-    ],
-    moves: [
-      copy(moves.crush),
-      copy(moves.bash)
-    ],
+    items: [],
+    moves: [copy(moves.crush), copy(moves.bash)],
     weapon: weapons.broken_mace,
     xp: 50,
     gold: {
       min: 14,
-      max: 37
+      max: 37,
     },
     level: 5,
     physical_resistance: 5,
@@ -160,9 +147,14 @@ const enemies = {
     statuses: [],
     dodge: 0.05,
     drops: [
-      {item: weapons.broken_mace, chance: 0.15, min: 1, max: 1},
-      {item: consumables.inferior_healing_potion, chance: 0.15, min: 1, max: 1}
-    ]
+      { item: weapons.broken_mace, chance: 0.15, min: 1, max: 1 },
+      {
+        item: consumables.inferior_healing_potion,
+        chance: 0.15,
+        min: 1,
+        max: 1,
+      },
+    ],
   },
   skeleton_knight: {
     name: "Skeleton Knight",
@@ -175,21 +167,15 @@ const enemies = {
       vit: 4,
       int: 4,
       agi: 5,
-      lck: 1
+      lck: 1,
     },
-    items: [
-      addItems(consumables.inferior_healing_potion, 2)
-    ],
-    moves: [
-      copy(moves.crush),
-      copy(moves.thrust),
-      copy(moves.slice)
-    ],
+    items: [addItems(consumables.inferior_healing_potion, 2)],
+    moves: [copy(moves.crush), copy(moves.thrust), copy(moves.slice)],
     weapon: weapons.long_sword,
     xp: 200,
     gold: {
       min: 51,
-      max: 82
+      max: 82,
     },
     level: 10,
     physical_resistance: 10,
@@ -199,9 +185,14 @@ const enemies = {
     statuses: [],
     dodge: 0.05,
     drops: [
-      {item: weapons.long_sword, chance: 0.1, min: 1, max: 1},
-      {item: consumables.inferior_healing_potion, chance: 0.13, min: 1, max: 2}
-    ]
+      { item: weapons.long_sword, chance: 0.1, min: 1, max: 1 },
+      {
+        item: consumables.inferior_healing_potion,
+        chance: 0.13,
+        min: 1,
+        max: 2,
+      },
+    ],
   },
   orc_berserker: {
     name: "Orc Berserker",
@@ -214,11 +205,9 @@ const enemies = {
       vit: 5,
       int: 2,
       agi: 10,
-      lck: 1
+      lck: 1,
     },
-    items: [
-      addItems(consumables.lesser_healing_potion, 3)
-    ],
+    items: [addItems(consumables.lesser_healing_potion, 3)],
     moves: [
       copy(moves.crush),
       copy(moves.thrust),
@@ -229,7 +218,7 @@ const enemies = {
     xp: 750,
     gold: {
       min: 197,
-      max: 284
+      max: 284,
     },
     level: 15,
     physical_resistance: 18,
@@ -239,10 +228,10 @@ const enemies = {
     statuses: [],
     dodge: 0.07,
     drops: [
-      {item: materials.monster_core, chance: 0.1, min: 1, max: 1},
-      {item: weapons.battle_axe, chance: 0.2, min: 1, max: 1},
-      {item: consumables.lesser_healing_potion, chance: 0.1, min: 1, max: 1}
-    ]
+      { item: materials.monster_core, chance: 0.1, min: 1, max: 1 },
+      { item: weapons.battle_axe, chance: 0.2, min: 1, max: 1 },
+      { item: consumables.lesser_healing_potion, chance: 0.1, min: 1, max: 1 },
+    ],
   },
   death_knight: {
     name: "Death Knight",
@@ -255,22 +244,20 @@ const enemies = {
       vit: 12,
       int: 2,
       agi: 17,
-      lck: 1
+      lck: 1,
     },
-    items: [
-      addItems(consumables.healing_potion, 2)
-    ],
+    items: [addItems(consumables.healing_potion, 2)],
     moves: [
       copy(moves.crush),
       copy(moves.thrust),
       copy(moves.slice),
-      copy(moves.shield_bash)
+      copy(moves.shield_bash),
     ],
     weapon: weapons.greatsword,
     xp: 2500,
     gold: {
       min: 577,
-      max: 1229
+      max: 1229,
     },
     level: 25,
     physical_resistance: 30,
@@ -280,11 +267,11 @@ const enemies = {
     statuses: [],
     dodge: 0.06,
     drops: [
-      {item: materials.monster_core, chance: 0.15, min: 1, max: 2},
-      {item: weapons.greatsword, chance: 0.15, min: 1, max: 1},
-      {item: consumables.lesser_healing_potion, chance: 0.2, min: 2, max: 5}
+      { item: materials.monster_core, chance: 0.15, min: 1, max: 2 },
+      { item: weapons.greatsword, chance: 0.15, min: 1, max: 1 },
+      { item: consumables.lesser_healing_potion, chance: 0.2, min: 2, max: 5 },
     ],
-    music: 1
+    music: 1,
   },
   ogre: {
     name: "Ogre",
@@ -297,21 +284,15 @@ const enemies = {
       vit: 12,
       int: 2,
       agi: 12,
-      lck: 1
+      lck: 1,
     },
-    items: [
-      addItems(consumables.healing_potion, 1)
-    ],
-    moves: [
-      copy(moves.crush),
-      copy(moves.thrust),
-      copy(moves.slice)
-    ],
+    items: [addItems(consumables.healing_potion, 1)],
+    moves: [copy(moves.crush), copy(moves.thrust), copy(moves.slice)],
     weapon: weapons.battle_axe,
     xp: 1550,
     gold: {
       min: 399,
-      max: 1008
+      max: 1008,
     },
     level: 21,
     physical_resistance: 17,
@@ -321,10 +302,10 @@ const enemies = {
     statuses: [],
     dodge: 0.05,
     drops: [
-      {item: materials.monster_core, chance: 0.2, min: 1, max: 2},
-      {item: weapons.battle_axe, chance: 0.25, min: 1, max: 1},
-      {item: consumables.healing_potion, chance: 0.1, min: 1, max: 1}
-    ]
+      { item: materials.monster_core, chance: 0.2, min: 1, max: 2 },
+      { item: weapons.battle_axe, chance: 0.25, min: 1, max: 1 },
+      { item: consumables.healing_potion, chance: 0.1, min: 1, max: 1 },
+    ],
   },
   minotaur: {
     name: "Minotauros",
@@ -337,21 +318,15 @@ const enemies = {
       vit: 10,
       int: 1,
       agi: 15,
-      lck: 1
+      lck: 1,
     },
-    items: [
-      addItems(consumables.healing_potion, 2)
-    ],
-    moves: [
-      copy(moves.crush),
-      copy(moves.slice),
-      copy(moves.break)
-    ],
+    items: [addItems(consumables.healing_potion, 2)],
+    moves: [copy(moves.crush), copy(moves.slice), copy(moves.break)],
     weapon: weapons.executioner,
     xp: 4000,
     gold: {
       min: 589,
-      max: 2007
+      max: 2007,
     },
     level: 30,
     physical_resistance: 41,
@@ -361,10 +336,10 @@ const enemies = {
     statuses: [],
     dodge: 0.04,
     drops: [
-      {item: materials.monster_core, chance: 0.2, min: 1, max: 2},
-      {item: weapons.executioner, chance: 0.15, min: 1, max: 1},
-      {item: consumables.healing_potion, chance: 0.1, min: 1, max: 1}
-    ]
+      { item: materials.monster_core, chance: 0.2, min: 1, max: 2 },
+      { item: weapons.executioner, chance: 0.15, min: 1, max: 1 },
+      { item: consumables.healing_potion, chance: 0.1, min: 1, max: 1 },
+    ],
   },
   spectral_knight: {
     name: "Spectral Knight",
@@ -377,22 +352,20 @@ const enemies = {
       vit: 15,
       int: 30,
       agi: 30,
-      lck: 1
+      lck: 1,
     },
-    items: [
-      addItems(consumables.medium_healing_potion, 2)
-    ],
+    items: [addItems(consumables.medium_healing_potion, 2)],
     moves: [
       copy(moves.thrust),
       copy(moves.heavy_attack),
       copy(moves.astral_lance),
-      copy(moves.bash)
+      copy(moves.bash),
     ],
     weapon: weapons.astral_spear,
     xp: 20000,
     gold: {
       min: 1799,
-      max: 3522
+      max: 3522,
     },
     level: 37,
     physical_resistance: 69,
@@ -402,11 +375,11 @@ const enemies = {
     statuses: [],
     dodge: 0.06,
     drops: [
-      {item: materials.monster_core, chance: 0.5, min: 1, max: 3},
-      {item: weapons.astral_spear, chance: 0.1, min: 1, max: 1},
-      {item: consumables.healing_potion, chance: 0.1, min: 1, max: 2},
-      {item: consumables.mana_potion, chance: 0.1, min: 1, max: 2}
-    ]
+      { item: materials.monster_core, chance: 0.5, min: 1, max: 3 },
+      { item: weapons.astral_spear, chance: 0.1, min: 1, max: 1 },
+      { item: consumables.healing_potion, chance: 0.1, min: 1, max: 2 },
+      { item: consumables.mana_potion, chance: 0.1, min: 1, max: 2 },
+    ],
   },
   grave_floater: {
     name: "Grave Floater",
@@ -419,11 +392,9 @@ const enemies = {
       vit: 3,
       int: 90,
       agi: 51,
-      lck: 1
+      lck: 1,
     },
-    items: [
-      addItems(consumables.medium_healing_potion, 1)
-    ],
+    items: [addItems(consumables.medium_healing_potion, 1)],
     moves: [
       copy(moves.grave_floater_blast),
       copy(moves.fireball),
@@ -433,7 +404,7 @@ const enemies = {
     xp: 19000,
     gold: {
       min: 2155,
-      max: 3165
+      max: 3165,
     },
     level: 35,
     physical_resistance: 91,
@@ -443,11 +414,11 @@ const enemies = {
     statuses: [],
     dodge: 0.03,
     drops: [
-      {item: materials.monster_core, chance: 0.5, min: 1, max: 3},
-      {item: weapons.astral_spear, chance: 0.1, min: 1, max: 1},
-      {item: consumables.healing_potion, chance: 0.1, min: 1, max: 2},
-      {item: consumables.mana_potion, chance: 0.1, min: 1, max: 2}
-    ]
+      { item: materials.monster_core, chance: 0.5, min: 1, max: 3 },
+      { item: weapons.astral_spear, chance: 0.1, min: 1, max: 1 },
+      { item: consumables.healing_potion, chance: 0.1, min: 1, max: 2 },
+      { item: consumables.mana_potion, chance: 0.1, min: 1, max: 2 },
+    ],
   },
   gronk: {
     name: "GRONK",
@@ -460,18 +431,15 @@ const enemies = {
       vit: 5,
       int: -50,
       agi: 8,
-      lck: 1
+      lck: 1,
     },
     items: [],
-    moves: [
-      copy(moves.gronk_smash),
-      copy(moves.gronk_clobber),
-    ],
+    moves: [copy(moves.gronk_smash), copy(moves.gronk_clobber)],
     weapon: weapons.club_of_the_giant_king,
     xp: 30000,
     gold: {
       min: 1,
-      max: 5
+      max: 5,
     },
     level: 40,
     physical_resistance: 22,
@@ -481,9 +449,9 @@ const enemies = {
     statuses: [],
     dodge: 0.025,
     drops: [
-      {item: materials.monster_core, chance: 0.5, min: 1, max: 3},
-      {item: weapons.club_of_the_giant_king, chance: 0.12, min: 1, max: 1}
-    ]
+      { item: materials.monster_core, chance: 0.5, min: 1, max: 3 },
+      { item: weapons.club_of_the_giant_king, chance: 0.12, min: 1, max: 1 },
+    ],
   },
   lich: {
     name: "Lich",
@@ -496,7 +464,7 @@ const enemies = {
       vit: 5,
       int: 120,
       agi: 15,
-      lck: 1
+      lck: 1,
     },
     items: [],
     moves: [
@@ -509,7 +477,7 @@ const enemies = {
     xp: 37500,
     gold: {
       min: 3109,
-      max: 5786
+      max: 5786,
     },
     level: 42,
     physical_resistance: 86,
@@ -519,11 +487,11 @@ const enemies = {
     statuses: [],
     dodge: 0.05,
     drops: [
-      {item: materials.monster_core, chance: 0.5, min: 1, max: 3},
-      {item: weapons.lance_of_the_lord, chance: 0.01, min: 1, max: 1},
-      {item: consumables.healing_potion, chance: 0.1, min: 1, max: 2},
-      {item: consumables.medium_mana_potion, chance: 0.15, min: 1, max: 3}
-    ]
+      { item: materials.monster_core, chance: 0.5, min: 1, max: 3 },
+      { item: weapons.lance_of_the_lord, chance: 0.01, min: 1, max: 1 },
+      { item: consumables.healing_potion, chance: 0.1, min: 1, max: 2 },
+      { item: consumables.medium_mana_potion, chance: 0.15, min: 1, max: 3 },
+    ],
   },
   wyvern: {
     name: "Wyvern",
@@ -536,7 +504,7 @@ const enemies = {
       vit: 25,
       int: 130,
       agi: 28,
-      lck: 1
+      lck: 1,
     },
     items: [],
     moves: [
@@ -544,13 +512,13 @@ const enemies = {
       copy(moves.fire_lance),
       copy(moves.slice),
       copy(moves.fireball),
-      copy(moves.crush)
+      copy(moves.crush),
     ],
     weapon: weapons.greatsword_of_legend,
     xp: 81850,
     gold: {
       min: 9958,
-      max: 14775
+      max: 14775,
     },
     level: 50,
     physical_resistance: 42,
@@ -560,12 +528,12 @@ const enemies = {
     statuses: [],
     dodge: 0.04,
     drops: [
-      {item: materials.monster_core, chance: 0.5, min: 3, max: 7},
-      {item: weapons.greatsword_of_legend, chance: 0.1, min: 1, max: 1},
-      {item: consumables.medium_healing_potion, chance: 0.2, min: 1, max: 3},
-      {item: consumables.medium_mana_potion, chance: 0.2, min: 1, max: 3}
+      { item: materials.monster_core, chance: 0.5, min: 3, max: 7 },
+      { item: weapons.greatsword_of_legend, chance: 0.1, min: 1, max: 1 },
+      { item: consumables.medium_healing_potion, chance: 0.2, min: 1, max: 3 },
+      { item: consumables.medium_mana_potion, chance: 0.2, min: 1, max: 3 },
     ],
-    music: 2
+    music: 2,
   },
   dwarf_warrior: {
     name: "Dwarf Warrior",
@@ -578,19 +546,15 @@ const enemies = {
       vit: 90,
       int: 10,
       agi: 19,
-      lck: 1
+      lck: 1,
     },
     items: [],
-    moves: [
-      copy(moves.thrust),
-      copy(moves.slice),
-      copy(moves.crush)
-    ],
+    moves: [copy(moves.thrust), copy(moves.slice), copy(moves.crush)],
     weapon: craftable_items.doombringer_axe,
     xp: 150775,
     gold: {
       min: 18575,
-      max: 26485
+      max: 26485,
     },
     level: 60,
     physical_resistance: 40,
@@ -600,9 +564,9 @@ const enemies = {
     statuses: [],
     dodge: 0.05,
     drops: [
-      {item: materials.monster_core, chance: 0.33, min: 3, max: 7},
-      {item: craftable_items.doombringer_axe, chance: 0.22, min: 1, max: 3},
-    ]
+      { item: materials.monster_core, chance: 0.33, min: 3, max: 7 },
+      { item: craftable_items.doombringer_axe, chance: 0.22, min: 1, max: 3 },
+    ],
   },
   dwarf_hero: {
     name: "Dwarf Hero",
@@ -615,20 +579,20 @@ const enemies = {
       vit: 140,
       int: 2,
       agi: 46,
-      lck: 1
+      lck: 1,
     },
     items: [],
     moves: [
       copy(moves.thrust),
       copy(moves.slice),
       copy(moves.crush),
-      copy(moves.heavy_attack)
+      copy(moves.heavy_attack),
     ],
     weapon: weapons.greatsword_of_legend,
     xp: 295780,
     gold: {
       min: 18575,
-      max: 26485
+      max: 26485,
     },
     level: 66,
     physical_resistance: 50,
@@ -638,9 +602,9 @@ const enemies = {
     statuses: [],
     dodge: 0.05,
     drops: [
-      {item: materials.monster_core, chance: 0.33, min: 4, max: 8},
-      {item: weapons.battle_axe, chance: 0.47, min: 1, max: 3},
-    ]
+      { item: materials.monster_core, chance: 0.33, min: 4, max: 8 },
+      { item: weapons.battle_axe, chance: 0.47, min: 1, max: 3 },
+    ],
   },
   wyvern_rider: {
     name: "Wyvern Rider",
@@ -653,7 +617,7 @@ const enemies = {
       vit: 200,
       int: 130,
       agi: 19,
-      lck: 1
+      lck: 1,
     },
     items: [],
     moves: [
@@ -661,13 +625,13 @@ const enemies = {
       copy(moves.slice),
       copy(moves.crush),
       copy(moves.astral_lance),
-      copy(moves.fire_lance)
+      copy(moves.fire_lance),
     ],
     weapon: weapons.lance_of_the_lord,
     xp: 480000,
     gold: {
       min: 53995,
-      max: 82445
+      max: 82445,
     },
     level: 75,
     physical_resistance: 51,
@@ -677,11 +641,11 @@ const enemies = {
     statuses: [],
     dodge: 0.09,
     drops: [
-      {item: materials.monster_core, chance: 0.66, min: 10, max: 18},
-      {item: weapons.lance_of_the_lord, chance: 0.27, min: 1, max: 2},
-      {item: materials.enchanted_stone, chance: 0.4, min: 1, max: 5}
+      { item: materials.monster_core, chance: 0.66, min: 10, max: 18 },
+      { item: weapons.lance_of_the_lord, chance: 0.27, min: 1, max: 2 },
+      { item: materials.enchanted_stone, chance: 0.4, min: 1, max: 5 },
     ],
-    music: 2
+    music: 2,
   },
   elven_warrior: {
     name: "Elven Warrior",
@@ -694,19 +658,15 @@ const enemies = {
       vit: 100,
       int: 25,
       agi: 66,
-      lck: 1
+      lck: 1,
     },
     items: [],
-    moves: [
-      copy(moves.thrust),
-      copy(moves.slice),
-      copy(moves.crush),
-    ],
+    moves: [copy(moves.thrust), copy(moves.slice), copy(moves.crush)],
     weapon: weapons.greatsword_of_legend,
     xp: 370500,
     gold: {
       min: 37552,
-      max: 62985
+      max: 62985,
     },
     level: 70,
     physical_resistance: 51,
@@ -716,9 +676,9 @@ const enemies = {
     statuses: [],
     dodge: 0.1,
     drops: [
-      {item: materials.monster_core, chance: 0.66, min: 6, max: 11},
-      {item: weapons.greatsword_of_legend, chance: 0.27, min: 1, max: 2},
-      {item: materials.enchanted_stone, chance: 0.4, min: 1, max: 5}
+      { item: materials.monster_core, chance: 0.66, min: 6, max: 11 },
+      { item: weapons.greatsword_of_legend, chance: 0.27, min: 1, max: 2 },
+      { item: materials.enchanted_stone, chance: 0.4, min: 1, max: 5 },
     ],
   },
   elven_archer: {
@@ -732,19 +692,15 @@ const enemies = {
       vit: 70,
       int: 90,
       agi: 90,
-      lck: 1
+      lck: 1,
     },
     items: [],
-    moves: [
-      copy(moves.thrust),
-      copy(moves.slice),
-      copy(moves.power_shot),
-    ],
+    moves: [copy(moves.thrust), copy(moves.slice), copy(moves.power_shot)],
     weapon: weapons.greatsword_of_legend,
     xp: 425750,
     gold: {
       min: 55955,
-      max: 77488
+      max: 77488,
     },
     level: 74,
     physical_resistance: 37,
@@ -754,9 +710,9 @@ const enemies = {
     statuses: [],
     dodge: 0.1,
     drops: [
-      {item: materials.monster_core, chance: 0.66, min: 6, max: 11},
-      {item: weapons.greatsword_of_legend, chance: 0.27, min: 1, max: 2},
-      {item: materials.enchanted_stone, chance: 0.4, min: 1, max: 7}
+      { item: materials.monster_core, chance: 0.66, min: 6, max: 11 },
+      { item: weapons.greatsword_of_legend, chance: 0.27, min: 1, max: 2 },
+      { item: materials.enchanted_stone, chance: 0.4, min: 1, max: 7 },
     ],
   },
   elven_hero: {
@@ -770,20 +726,20 @@ const enemies = {
       vit: 120,
       int: 95,
       agi: 80,
-      lck: 1
+      lck: 1,
     },
     items: [],
     moves: [
       copy(moves.thrust),
       copy(moves.slice),
       copy(moves.power_shot),
-      copy(moves.immobilizing_shatter)
+      copy(moves.immobilizing_shatter),
     ],
     weapon: craftable_items.enchanted_greatsword,
     xp: 790800,
     gold: {
       min: 95855,
-      max: 127545
+      max: 127545,
     },
     level: 80,
     physical_resistance: 53,
@@ -793,9 +749,14 @@ const enemies = {
     statuses: [],
     dodge: 0.1,
     drops: [
-      {item: materials.monster_core, chance: 0.66, min: 13, max: 25},
-      {item: craftable_items.enchanted_greatsword, chance: 0.27, min: 1, max: 2},
-      {item: materials.enchanted_stone, chance: 0.4, min: 2, max: 7}
+      { item: materials.monster_core, chance: 0.66, min: 13, max: 25 },
+      {
+        item: craftable_items.enchanted_greatsword,
+        chance: 0.27,
+        min: 1,
+        max: 2,
+      },
+      { item: materials.enchanted_stone, chance: 0.4, min: 2, max: 7 },
     ],
   },
   elven_king: {
@@ -809,7 +770,7 @@ const enemies = {
       vit: 170,
       int: 145,
       agi: 60,
-      lck: 1
+      lck: 1,
     },
     items: [],
     moves: [
@@ -817,13 +778,13 @@ const enemies = {
       copy(moves.slice),
       copy(moves.power_shot),
       copy(moves.immobilizing_shatter),
-      copy(moves.sundering_slash)
+      copy(moves.sundering_slash),
     ],
     weapon: craftable_items.enchanted_greatsword,
     xp: 2790800,
     gold: {
       min: 155757,
-      max: 266557
+      max: 266557,
     },
     level: 90,
     physical_resistance: 40,
@@ -833,9 +794,9 @@ const enemies = {
     statuses: [],
     dodge: 0.1,
     drops: [
-      {item: materials.monster_core, chance: 0.87, min: 20, max: 28},
-      {item: weapons.elven_greatsword, chance: 1, min: 1, max: 1},
-      {item: materials.enchanted_stone, chance: 0.9, min: 5, max: 12}
+      { item: materials.monster_core, chance: 0.87, min: 20, max: 28 },
+      { item: weapons.elven_greatsword, chance: 1, min: 1, max: 1 },
+      { item: materials.enchanted_stone, chance: 0.9, min: 5, max: 12 },
     ],
   },
   dark_elf_warrior: {
@@ -849,20 +810,20 @@ const enemies = {
       vit: 125,
       int: 100,
       agi: 80,
-      lck: 1
+      lck: 1,
     },
     items: [],
     moves: [
       copy(moves.thrust),
       copy(moves.slice),
       copy(moves.immobilizing_shatter),
-      copy(moves.cursed_strike)
+      copy(moves.cursed_strike),
     ],
     weapon: craftable_items.enchanted_greatsword,
     xp: 1805520,
     gold: {
       min: 96333,
-      max: 178545
+      max: 178545,
     },
     level: 85,
     physical_resistance: 27,
@@ -872,10 +833,10 @@ const enemies = {
     statuses: [],
     dodge: 0.05,
     drops: [
-      {item: materials.dark_core, chance: 0.25, min: 1, max: 1},
-      {item: weapons.enchanted_greatsword, chance: 1, min: 1, max: 1},
-      {item: copy(materials.enchanted_stone), chance: 0.9, min: 5, max: 12},
-    ]
+      { item: materials.dark_core, chance: 0.25, min: 1, max: 1 },
+      { item: weapons.enchanted_greatsword, chance: 1, min: 1, max: 1 },
+      { item: copy(materials.enchanted_stone), chance: 0.9, min: 5, max: 12 },
+    ],
   },
   corrupted_elf: {
     name: "Corrupted Elf",
@@ -888,7 +849,7 @@ const enemies = {
       vit: 200,
       int: 150,
       agi: 90,
-      lck: 1
+      lck: 1,
     },
     items: [],
     moves: [
@@ -897,13 +858,13 @@ const enemies = {
       copy(moves.immobilizing_shatter),
       copy(moves.astral_lance),
       copy(moves.cursed_strike),
-      copy(moves.holy_grace)
+      copy(moves.holy_grace),
     ],
     weapon: craftable_items.enchanted_greatsword,
     xp: 9800500,
     gold: {
       min: 523799,
-      max: 866755
+      max: 866755,
     },
     level: 100,
     physical_resistance: 35,
@@ -913,11 +874,11 @@ const enemies = {
     statuses: [],
     dodge: 0.05,
     drops: [
-      {item: materials.dark_core, chance: 1, min: 1, max: 1},
-      {item: weapons.enchanted_greatsword, chance: 1, min: 3, max: 15},
-      {item: copy(materials.enchanted_stone), chance: 0.9, min: 5, max: 12},
-      {item: consumables.dummy, chance: 0, min: 0, max: 0}
-    ]
+      { item: materials.dark_core, chance: 1, min: 1, max: 1 },
+      { item: weapons.enchanted_greatsword, chance: 1, min: 3, max: 15 },
+      { item: copy(materials.enchanted_stone), chance: 0.9, min: 5, max: 12 },
+      { item: consumables.dummy, chance: 0, min: 0, max: 0 },
+    ],
   },
   excelsus: {
     name: "EXCELSUS",
@@ -930,19 +891,15 @@ const enemies = {
       vit: 300,
       int: 100,
       agi: 15,
-      lck: 1
+      lck: 1,
     },
     items: [],
-    moves: [
-      copy(moves.thrust),
-      copy(moves.slice),
-      copy(moves.crush),
-    ],
+    moves: [copy(moves.thrust), copy(moves.slice), copy(moves.crush)],
     weapon: weapons.METAL_GEAR_WEAPON,
     xp: 15200500,
     gold: {
       min: 923799,
-      max: 1866755
+      max: 1866755,
     },
     level: 100,
     physical_resistance: 22,
@@ -952,12 +909,12 @@ const enemies = {
     statuses: [],
     dodge: 0.03,
     drops: [
-      {item: materials.dark_core, chance: 1, min: 1, max: 1},
-      {item: weapons.METAL_GEAR_WEAPON, chance: 1, min: 1, max: 1},
-      {item: copy(materials.enchanted_stone), chance: 0.9, min: 5, max: 12},
-      {item: consumables.dummy, chance: 0, min: 0, max: 0}
+      { item: materials.dark_core, chance: 1, min: 1, max: 1 },
+      { item: weapons.METAL_GEAR_WEAPON, chance: 1, min: 1, max: 1 },
+      { item: copy(materials.enchanted_stone), chance: 0.9, min: 5, max: 12 },
+      { item: consumables.dummy, chance: 0, min: 0, max: 0 },
     ],
-    music: 3
+    music: 3,
   },
   senator_armstrong: {
     name: "Senator Armstrong",
@@ -970,7 +927,7 @@ const enemies = {
       vit: 200,
       int: 100,
       agi: 75,
-      lck: 1
+      lck: 1,
     },
     items: [],
     moves: [
@@ -979,13 +936,13 @@ const enemies = {
       copy(moves.vehicle_throw),
       copy(moves.sundering_slash),
       copy(moves.heavy_attack),
-      copy(moves.attack)
+      copy(moves.attack),
     ],
     weapon: weapons.NANO_MACHINES,
     xp: 46500000,
     gold: {
       min: 288799,
-      max: 512788
+      max: 512788,
     },
     level: 105,
     physical_resistance: 41,
@@ -995,11 +952,52 @@ const enemies = {
     statuses: [],
     dodge: 0.02,
     drops: [
-      {item: materials.dark_core, chance: 1, min: 2, max: 4},
-      {item: weapons.muramasa, chance: 1, min: 1, max: 1},
-      {item: copy(materials.enchanted_stone), chance: 0.9, min: 15, max: 28},
-      {item: consumables.dummy, chance: 0, min: 0, max: 0}
+      { item: materials.dark_core, chance: 1, min: 2, max: 4 },
+      { item: weapons.muramasa, chance: 1, min: 1, max: 1 },
+      { item: copy(materials.enchanted_stone), chance: 0.9, min: 15, max: 28 },
+      { item: consumables.dummy, chance: 0, min: 0, max: 0 },
     ],
-    music: 3
-  }
-}
+    music: 3,
+  },
+  blacksmith_andre: {
+    name: "Blacksmith Andre",
+    hp: 99999,
+    mp: 9999,
+    maxhp: 99999,
+    maxmp: 9999,
+    stats: {
+      str: 99,
+      vit: 300,
+      int: 99,
+      agi: 99,
+      lck: -1,
+    },
+    items: [],
+    moves: [
+      copy(moves.crush),
+      copy(moves.sundering_slash),
+      copy(moves.heavy_attack),
+      copy(moves.attack),
+    ],
+    weapon: weapons.blacksmith_hammer,
+    xp: 465000000,
+    gold: {
+      min: 2887990,
+      max: 5127880,
+    },
+    level: 999,
+    physical_resistance: 60,
+    magical_resistance: 60,
+    speed: 0,
+    action_points: 0,
+    statuses: [],
+    dodge: 0,
+    drops: [
+      { item: materials.dark_core, chance: 1, min: 5, max: 25 },
+      { item: weapons.blacksmith_hammer, chance: 1, min: 1, max: 1 },
+      { item: copy(materials.enchanted_stone), chance: 1, min: 20, max: 40 },
+      { item: consumables.dummy, chance: 0, min: 0, max: 0 },
+    ],
+    music: 1,
+  },
+};
