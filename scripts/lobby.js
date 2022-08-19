@@ -24,8 +24,8 @@ const topBarButtons = [
     name: "Saves",
   },
   {
-    name: "Statistics"
-  }
+    name: "Statistics",
+  },
 ];
 
 const scroll = {
@@ -183,11 +183,17 @@ function combatStatsView() {
     </p>
     <p id="health">
     <img src="images/health_icon.png">
-    ${(state.gamemode.prevent_recovery_after_battle ? player.hp + "/" : "") + player.maxhp}
+    ${
+      (state.gamemode.prevent_recovery_after_battle ? player.hp + "/" : "") +
+      player.maxhp
+    }
     </p>
     <p id="mana">
     <img src="images/mana_icon.png">
-    ${(state.gamemode.prevent_recovery_after_battle ? player.mp + "/" : "") + player.maxmp}
+    ${
+      (state.gamemode.prevent_recovery_after_battle ? player.mp + "/" : "") +
+      player.maxmp
+    }
     </p>
     <p id="physres">
     <img src="images/physical_resistance.png">
@@ -322,7 +328,7 @@ function startFight(stage) {
   state.stage = copy(stage);
   gauntlet = copy(state.stage.gauntlet);
   enemy = gauntlet[0];
-  if(!state.gamemode.prevent_recovery_after_battle) {
+  if (!state.gamemode.prevent_recovery_after_battle) {
     player.hp = player.maxhp;
     player.mp = player.maxmp;
   }
@@ -558,19 +564,71 @@ function createInventory() {
   wandContainer.appendChild(
     textSyntax("Equipped wand: §/$tiers[player.wand.tier]/$player.wand.name§")
   );
+  let weaponHover = "";
+  let armorHover = "";
+  let wandHover = "";
+  weaponHover += `${
+    player.weapon.magical_power
+      ? "MagPower: " + "§/$Y/" + player.weapon.magical_power * 100 + "%§"
+      : "Damage: " + "§/$Y/" + player.weapon.damage + "§"
+  } §:br§ Speed: §/$B/${player.weapon.speed_bonus}§ §:br§ Tier: §/${
+    tiers[player.weapon.tier]
+  }/${player.weapon.tier}§ §:br§ ${
+    player.weapon.mag_damage ? "MagDamage: " + player.weapon.mag_damage : ""
+  }`;
+  armorHover += "Physical Resistance: §/$Y/$player.armor.physical_resistance§§/$Y/%§ §:br§ Magical Resistance: §/$B/$player.armor.magical_resistance§§/$B/%§ §:br§ Speed: §$player.armor.speed_bonus§";
+  wandHover += `${
+    player.wand.magical_power
+      ? "MagPower: " + "§/$Y/" + player.wand.magical_power * 100 + "%§"
+      : "Damage: " + "§/$Y/" + player.wand.damage + "§"
+  } §:br§ Speed: §/$B/${player.wand.speed_bonus}§ §:br§ Tier: §/${
+    tiers[player.wand.tier]
+  }/${player.wand.tier}§ §:br§ ${
+    player.wand.mag_damage ? "MagDamage: " + player.wand.mag_damage : ""
+  }`;
+  if (player.weapon?.effects) {
+    for (let effect of player.weapon?.effects) {
+      if (effect.increase || effect.increase_stat) {
+        weaponHover += `§:br§ Increases ${effectSyntax(
+          effect,
+          "stat"
+        )} by ${effectSyntax(effect, "value")}`;
+      }
+    }
+  }
+  if (player.armor?.effects) {
+    for (let effect of player.armor?.effects) {
+      if (effect.increase || effect.increase_stat) {
+        armorHover += `§:br§ Increases ${effectSyntax(
+          effect,
+          "stat"
+        )} by ${effectSyntax(effect, "value")}`;
+      }
+    }
+  }
+  if (player.wand?.effects) {
+    for (let effect of player.wand?.effects) {
+      if (effect.increase || effect.increase_stat) {
+        wandHover += `§:br§ Increases ${effectSyntax(
+          effect,
+          "stat"
+        )} by ${effectSyntax(effect, "value")}`;
+      }
+    }
+  }
   addHoverBox(
     weaponContainer,
-    "Damage: §/$Y/$player.weapon.damage§ §:br§ Speed: §/$B/$player.weapon.speed_bonus§",
-    6
+    weaponHover,
+    12
   );
   addHoverBox(
     armorContainer,
-    "Physical Resistance: §/$Y/$player.armor.physical_resistance§§/$Y/%§ §:br§ Magical Resistance: §/$B/$player.armor.magical_resistance§§/$B/%§ §:br§ Speed: §$player.armor.speed_bonus§",
+    armorHover,
     12
   );
   addHoverBox(
     wandContainer,
-    "Magical Power: §/$Y/$player.wand.magical_power*100§§/$Y/%§ §:br§ Speed: §/$B/$player.wand.speed_bonus§",
+    wandHover,
     12
   );
   for (let wep of player.items) {
@@ -1002,7 +1060,7 @@ function createStore() {
       } §/$Y/${item.item.recover.toUpperCase()}§ §:br§ Tier: §/${
         tiers[item.item.tier]
       }/${item.item.tier}§ §:br§ Price: §/$Y/${number(item.price)}§`;
-      width = 8;
+      width = 12;
     } else if (item.type == "weapon") {
       hoverText = `${
         item.item.magical_power
@@ -1013,7 +1071,7 @@ function createStore() {
       }/${item.item.tier}§ §:br§ Price: §/$Y/${number(item.price)}§ §:br§ ${
         item.item.mag_damage ? "MagDamage: " + item.item.mag_damage : ""
       }`;
-      width = 8;
+      width = 12;
     } else if (item.type == "armor") {
       hoverText = `Physical Resistance: §/$Y/${
         item.item.physical_resistance
@@ -1025,7 +1083,7 @@ function createStore() {
       width = 12;
     } else if (item.type == "material") {
       hoverText = `${item.item.name} §:br§ Price: §/$Y/${number(item.price)}§`;
-      width = 8;
+      width = 12;
     }
     if (item?.item?.effects) {
       for (let effect of item?.item?.effects) {
@@ -1322,7 +1380,7 @@ function loadGame(menu) {
   if (!state.started) state.started = true;
   player = selected_slot.save.player;
   state = selected_slot.save.state;
-  if(!state.gamemode) state.gamemode = gamemodes.casual;
+  if (!state.gamemode) state.gamemode = gamemodes.casual;
   if (!player.wand) player.wand = copy(weapons.chant_only);
   if (player.weapon?.name == "Fists") player.weapon.tier = "DEFAULT";
   if (player.armor?.name == "Nothing") player.armor.tier = "DEFAULT";
@@ -1346,18 +1404,18 @@ function loadGame(menu) {
     if (medpot.name == "Medium Healing Potion" && medpot.id == "healing_potion")
       medpot.id = "medium_healing_potion";
   }
-  game_stats = selected_slot.stats
- if(!game_stats) {
-  game_stats = {
-    enemies_killed: 0,
-    items_used: 0,
-    most_damage_dealt: 0,
-    most_damage_taken: 0,
-    longest_battle_in_turns: 0,
-    most_turns_player: 0,
-    most_turns_enemy: 0,
+  game_stats = selected_slot.stats;
+  if (!game_stats) {
+    game_stats = {
+      enemies_killed: 0,
+      items_used: 0,
+      most_damage_dealt: 0,
+      most_damage_taken: 0,
+      longest_battle_in_turns: 0,
+      most_turns_player: 0,
+      most_turns_enemy: 0,
+    };
   }
- }
   if (!player.temporary_effects) player.temporary_effects = [];
   if (!state.started) state.started = true;
   if (menu) select("Character");
