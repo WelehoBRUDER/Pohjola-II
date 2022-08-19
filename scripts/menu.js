@@ -1,4 +1,28 @@
 document.addEventListener("DOMContentLoaded", init);
+
+const gamemodes = {
+  casual: {
+    id: "casual",
+    description: "Easy mode",
+  },
+  hardcore: {
+    id: "hardcore",
+    description: "Hard mode",
+    prevent_manual_save: true,
+    prevent_recovery_after_battle: true,
+    delete_save_on_death: true,
+  },
+  eetucore: {
+    id: "eetucore",
+    description: "Eetucore mode",
+    prevent_manual_save: true,
+    prevent_recovery_after_battle: true,
+    delete_save_on_death: true,
+    can_only_fight_once: true,
+    give_enemy_scaling_power: true,
+  },
+};
+
 let menu = {
   settings_open: false,
   load_open: false,
@@ -85,9 +109,9 @@ function savesLoadMenu() {
   for (let save of save_slots) {
     let slot = create("p");
     slot.textContent = save.text + " ";
-    if (save.gamemode.id === "hardcore")
+    if (save.gamemode?.id === "hardcore")
       slot.innerHTML += "<span style='color: red'>HARDCORE!</span>";
-    else if (save.gamemode.id === "eetucore")
+    else if (save.gamemode?.id === "eetucore")
       slot.innerHTML += "<span style='color: darkred'>EETUCORE!</span>";
     slot.id = "slot" + save.id;
     if (selected_slot?.id == save?.id) slot.classList.add("saveSelected");
@@ -251,4 +275,35 @@ function createCharacter() {
   }
 }
 
-var char_bgs = {};
+let char_bgs = {};
+
+let game_stats = {
+  enemies_killed: 0,
+  items_used: 0,
+  most_damage_dealt: 0,
+  most_damage_taken: 0,
+  longest_battle_in_turns: 0,
+  most_turns_player: 0,
+  most_turns_enemy: 0,
+};
+
+const stat_texts = {
+  enemies_killed: "Enemies Killed",
+  items_used: "Items Used During Battle",
+  most_damage_dealt: "Most Damage Dealt",
+  most_damage_taken: "Most Damage Taken",
+  longest_battle_in_turns: "Longest Battle in Turns",
+  most_turns_player: "Most Turns You Got In a Battle",
+  most_turns_enemy: "Most Turns Your Enemy Got in a Battle",
+};
+
+function createStatistics() {
+  const statistics = create("div");
+  statistics.id = "statistics";
+  Object.entries(game_stats).forEach(([key, value]) => {
+    let stat = create("p");
+    stat.textContent = `${stat_texts[key]}: ${value}`;
+    statistics.appendChild(stat);
+  });
+  $("mainWindowContainer").appendChild(statistics);
+}

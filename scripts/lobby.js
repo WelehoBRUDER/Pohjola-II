@@ -23,6 +23,9 @@ const topBarButtons = [
   {
     name: "Saves",
   },
+  {
+    name: "Statistics"
+  }
 ];
 
 const scroll = {
@@ -115,6 +118,7 @@ function select(target) {
   if (target == "Smithy") createSmithy();
   if (target == "Codex") createCodex();
   if (target == "Saves") createSaving();
+  if (target == "Statistics") createStatistics();
   createTopBar();
 }
 
@@ -1197,9 +1201,9 @@ function createSaving() {
   for (let save of save_slots) {
     let slot = create("p");
     slot.textContent = save.text + " ";
-    if (save.gamemode.id === "hardcore")
+    if (save.gamemode?.id === "hardcore")
       slot.innerHTML += "<span style='color: red'>HARDCORE!</span>";
-    else if (save.gamemode.id === "eetucore")
+    else if (save.gamemode?.id === "eetucore")
       slot.innerHTML += "<span style='color: darkred'>EETUCORE!</span>";
     slot.id = "slot" + save.id;
     if (selected_slot?.id == save?.id) slot.classList.add("saveSelected");
@@ -1210,7 +1214,6 @@ function createSaving() {
   save_container.appendChild(save_topbar);
   save_container.appendChild(save_bottom);
   $("mainWindowContainer").appendChild(save_container);
-  if (state.hc) $("saveBut").classList.add("unavailable");
   $("loadBut").addEventListener("click", () =>
     createPrompt(
       `Are you sure you wish to load save ${selected_slot?.text}?`,
@@ -1250,6 +1253,7 @@ function saveGame() {
       id: save_slots.length,
       time: sortTime,
       gamemode: state.gamemode,
+      stats: game_stats,
       key: key,
     });
   else {
@@ -1275,7 +1279,7 @@ function SaveGameHC() {
     "." +
     ("0" + saveTime.getMinutes()).slice(-2);
   for (let save of save_slots) {
-    if (save.key == currentSave.key && save.gamemode.prevent_manual_save) {
+    if (save.key == currentSave.key && save.gamemode?.prevent_manual_save) {
       selected_slot = save;
       saveOver(player.name, saveTime, gameSave);
     }
@@ -1286,7 +1290,7 @@ function SaveGameHC() {
 function DeleteGameHC() {
   if (!state.gamemode.prevent_manual_save) return;
   for (let save of save_slots) {
-    if (save.key == currentSave.key && save.gamemode.prevent_manual_save) {
+    if (save.key == currentSave.key && save.gamemode?.prevent_manual_save) {
       save_slots.splice(save.id, 1);
       resetIds();
       localStorage.setItem("save_slots", JSON.stringify(save_slots));
@@ -1303,6 +1307,7 @@ function saveOver(name, time, save) {
     id: selected_slot.id,
     time: sortTime,
     gamemode: state.gamemode,
+    stats: game_stats,
     key: selected_slot.key,
   };
   localStorage.setItem("save_slots", JSON.stringify(save_slots));
@@ -1317,6 +1322,7 @@ function loadGame(menu) {
   if (!state.started) state.started = true;
   player = selected_slot.save.player;
   state = selected_slot.save.state;
+  if(!state.gamemode) state.gamemode = gamemodes.casual;
   if (!player.wand) player.wand = copy(weapons.chant_only);
   if (player.weapon?.name == "Fists") player.weapon.tier = "DEFAULT";
   if (player.armor?.name == "Nothing") player.armor.tier = "DEFAULT";
@@ -1340,7 +1346,18 @@ function loadGame(menu) {
     if (medpot.name == "Medium Healing Potion" && medpot.id == "healing_potion")
       medpot.id = "medium_healing_potion";
   }
-  state.gamemode = save.gamemode;
+  game_stats = selected_slot.stats
+ if(!game_stats) {
+  game_stats = {
+    enemies_killed: 0,
+    items_used: 0,
+    most_damage_dealt: 0,
+    most_damage_taken: 0,
+    longest_battle_in_turns: 0,
+    most_turns_player: 0,
+    most_turns_enemy: 0,
+  }
+ }
   if (!player.temporary_effects) player.temporary_effects = [];
   if (!state.started) state.started = true;
   if (menu) select("Character");

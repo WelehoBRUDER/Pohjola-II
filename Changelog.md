@@ -3,6 +3,7 @@
 - Added missing images
 - Added new items
 - Added new boss
+- Added stat tracking
 - Crafted items can now be smelted to recover materials
 - Tweaked some abilities
 - Fixed missing tooltips

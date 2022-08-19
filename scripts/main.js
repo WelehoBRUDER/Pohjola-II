@@ -145,31 +145,8 @@ const Y = "#E9DC38"; // Yellow
 const B = "#2B69DC"; // Blue
 const R = "#DC4C2B"; // Red
 
-const gamemodes = {
-  casual: {
-    id: "casual",
-    description: "Easy mode",
-  },
-  hardcore: {
-    id: "hardcore",
-    description: "Hard mode",
-    prevent_manual_save: true,
-    prevent_recovery_after_battle: true,
-    delete_save_on_death: true,
-  },
-  eetucore: {
-    id: "eetucore",
-    description: "Eetucore mode",
-    prevent_manual_save: true,
-    prevent_recovery_after_battle: true,
-    delete_save_on_death: true,
-    can_only_fight_once: true,
-    give_enemy_scaling_power: true,
-  },
-};
-
 // stuff
-const state = {
+let state = {
   paused: false,
   turn: "none",
   action: false,
@@ -372,6 +349,9 @@ function dmgOT(char) {
     }
   }
 }
+
+let player_turns = 0;
+let enemy_turns = 0;
 
 function Update() {
   // Execute all code under this line 60 times per second.
@@ -744,6 +724,8 @@ let hovering = undefined;
 function UseItem(item) {
   if (state.action || state.turn != "player" || item.amount < 1) return;
   player.action_points = 0;
+  player_turns++;
+  game_stats.items_used++;
   state.action = true;
   if (item.effects) {
     for (let effect of item.effects) {
@@ -923,6 +905,7 @@ function EnemyNameColor() {
 function PlayerAttack() {
   if (state.action || state.turn != "player") return;
   player.action_points = 0;
+  player_turns++;
   state.action = true;
   $("playerSpriteContainer").classList.add("player-attack");
   setTimeout(attackEnemy, 1050);
@@ -938,6 +921,7 @@ function Ability(move) {
   )
     return;
   player.action_points = 0;
+  player_turns++;
   state.action = true;
   move.onCooldown = move.cooldown;
   smallUpdate();
@@ -992,6 +976,8 @@ function attackEnemy() {
   if (damage < 0) damage = 0;
   damage = Math.floor(damage);
   enemy.hp -= damage;
+  if (damage > game_stats.most_damage_dealt)
+    game_stats.most_damage_dealt = damage;
   createParticle(damage, "red", $("enemySprite"));
   createEventlog(player.name, "attack");
   if (enemy.hp < 0) enemy.hp = 0;
@@ -1013,6 +999,8 @@ function enemyAttacks(attack) {
   if (damage < 0) damage = 0;
   damage = Math.floor(damage);
   player.hp -= damage;
+  if (damage > game_stats.most_damage_taken)
+    game_stats.most_damage_taken = damage;
   enemy.mp -= attack.mp_cost;
   attack.onCooldown = attack.cooldown;
   createParticle(damage, "red", $("playerSprite"));
@@ -1022,6 +1010,7 @@ function enemyAttacks(attack) {
 
 function EnemyAttack() {
   enemy.action_points = 0;
+  enemy_turns++;
   state.action = true;
   if (enemy.hp / enemy.maxhp <= 0.4) {
     if (enemyCanHeal() && enemy.items.length > 0) {
@@ -1138,6 +1127,8 @@ function hurtEnemy(move) {
   if (damage < 0) damage = 0;
   damage = Math.floor(damage);
   enemy.hp -= damage;
+  if (damage > game_stats.most_damage_dealt)
+    game_stats.most_damage_dealt = damage;
   createParticle(damage, "red", $("enemySprite"));
   createEventlog(player.name, move.name);
   if (move.status) {
@@ -1221,6 +1212,13 @@ function DroppedText(drops) {
 function battleEnd(condition) {
   if (condition == "victory") {
     gauntlet.splice(gauntlet[enemy], 1);
+    game_stats.enemies_killed++;
+    if (player_turns > game_stats.most_turns_player)
+      game_stats.most_turns_player = player_turns;
+    if (enemy_turns > game_stats.most_turns_enemy)
+      game_stats.most_turns_enemy = enemy_turns;
+    if (enemy_turns + player_turns > game_stats.longest_battle_in_turns)
+      game_stats.longest_battle_in_turns = enemy_turns + player_turns;
     let xp = 0;
     let gold = 0;
     xp = enemy.xp;
@@ -1345,6 +1343,8 @@ function NextInGauntlet() {
   player.action_points = 0;
   enemy.action_points = 0;
   state.end = false;
+  player_turns = 0;
+  enemy_turns = 0;
   enemy = gauntlet[0];
   $("enemyName").textContent = "Lv" + enemy.level + " " + enemy.name;
   $("enemySprite").src = "images/" + enemy.name + ".png";
