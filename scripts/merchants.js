@@ -38,6 +38,16 @@ let merchants = {
         price: 180,
         type: "consumable",
       },
+      {
+        item: copy(consumables.vitality_potion),
+        price: 180,
+        type: "consumable",
+      },
+      {
+        item: copy(consumables.intelligence_potion),
+        price: 180,
+        type: "consumable",
+      },
       { item: copy(weapons.broken_sword), price: 100, type: "weapon" },
       { item: copy(weapons.broken_mace), price: 120, type: "weapon" },
       { item: copy(weapons.battle_axe), price: 950, type: "weapon" },

@@ -3,16 +3,16 @@ let menu = {
   settings_open: false,
   load_open: false,
   selected_bg: "none",
-  hardcore: false,
-  create_open: false
-}
+  gamemode: gamemodes.casual,
+  create_open: false,
+};
 
 function generateKey(len) {
-  charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  var randomString = '';
+  charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var randomString = "";
   for (var i = 0; i < len; i++) {
-      var randomPoz = Math.floor(Math.random() * charSet.length);
-      randomString += charSet.substring(randomPoz,randomPoz+1);
+    var randomPoz = Math.floor(Math.random() * charSet.length);
+    randomString += charSet.substring(randomPoz, randomPoz + 1);
   }
   return randomString;
 }
@@ -28,9 +28,9 @@ function init() {
   $("settingsButton").addEventListener("click", options);
   updateCheckboxes();
   addHoverBox($("askItemUse"), texts._menu_itemuse, 10);
-  $("askItemUse").addEventListener("click", () => toggle("itemUse"))
+  $("askItemUse").addEventListener("click", () => toggle("itemUse"));
   addHoverBox($("soundEffects"), texts._menu_sound, 9);
-  $("soundEffects").addEventListener("click", () => toggle("soundEffects"))
+  $("soundEffects").addEventListener("click", () => toggle("soundEffects"));
   $("loadGame").addEventListener("click", openLoadedSaves);
   $("newGame").addEventListener("click", startGame);
   savesLoadMenu();
@@ -39,44 +39,44 @@ function init() {
       name: "Soldier",
       effects: [
         { increase: "maxhp", by: 10 },
-        { increase_stat: "str", by: 2 }
+        { increase_stat: "str", by: 2 },
       ],
       weapon: copy(weapons.broken_sword),
-      armor: copy(armors.leather_armor)
+      armor: copy(armors.leather_armor),
     },
     {
       name: "Barbarian",
       effects: [
         { increase: "maxhp", by: 5 },
-        { increase_stat: "str", by: 5 }
-      ]
+        { increase_stat: "str", by: 5 },
+      ],
     },
     {
       name: "Scholar",
       effects: [
         { increase: "maxmp", by: 10 },
-        { increase_stat: "int", by: 2 }
+        { increase_stat: "int", by: 2 },
       ],
       wand: copy(weapons.broomstick),
-      armor: copy(armors.rags)
-    }
-  ]
-};
+      armor: copy(armors.rags),
+    },
+  ];
+}
 
 function keyExists(key) {
   let found = 0;
-  for(let save of save_slots) {
-    if(save.key === key) found++;
+  for (let save of save_slots) {
+    if (save.key === key) found++;
   }
   return found;
 }
 
 function findIDs() {
-  for(let save of save_slots) {
-    if(!save.key) {
+  for (let save of save_slots) {
+    if (!save.key) {
       save.key = generateKey(7);
-      while(keyExists(save.key) > 1) save.key = generateKey(7);
-    } else while(keyExists(save.key) > 1) save.key = generateKey(7);
+      while (keyExists(save.key) > 1) save.key = generateKey(7);
+    } else while (keyExists(save.key) > 1) save.key = generateKey(7);
   }
 }
 
@@ -85,10 +85,18 @@ function savesLoadMenu() {
   for (let save of save_slots) {
     let slot = create("p");
     slot.textContent = save.text + " ";
-    if (save.hc) slot.innerHTML += "<span style='color: red'>HARDCORE!</span>";
+    if (save.gamemode.id === "hardcore")
+      slot.innerHTML += "<span style='color: red'>HARDCORE!</span>";
+    else if (save.gamemode.id === "eetucore")
+      slot.innerHTML += "<span style='color: darkred'>EETUCORE!</span>";
     slot.id = "slot" + save.id;
     if (selected_slot?.id == save?.id) slot.classList.add("saveSelected");
-    slot.addEventListener("click", () => createPrompt(`Are you sure you wish to load game ${save.text.split("||")[0]}?`, () => load_game_menu(save)));
+    slot.addEventListener("click", () =>
+      createPrompt(
+        `Are you sure you wish to load game ${save.text.split("||")[0]}?`,
+        () => load_game_menu(save)
+      )
+    );
     $("loadContainer").appendChild(slot);
   }
 }
@@ -123,7 +131,9 @@ function toggle(tog) {
 }
 
 function updateCheckboxes() {
-  $("check--itemPrompt").textContent = !settings.dont_ask_when_using_item ? "X" : "";
+  $("check--itemPrompt").textContent = !settings.dont_ask_when_using_item
+    ? "X"
+    : "";
   $("check--soundEffects").textContent = settings.sound_effects ? "X" : "";
 }
 
@@ -187,40 +197,51 @@ function selectBG(bg) {
 
 function createCharacter() {
   if (menu.selected_bg == "none") return;
-  player.name = $("characterName").value.length > 0 ? $("characterName").value : "Hero";
+  player.name =
+    $("characterName").value.length > 0 ? $("characterName").value : "Hero";
   $("mainMenu").style.display = "none";
   if (menu.selected_bg.weapon) {
     player.items.push(player.weapon);
-    player.weapon = {...menu.selected_bg.weapon, amount: 1};
-  } 
+    player.weapon = { ...menu.selected_bg.weapon, amount: 1 };
+  }
   if (menu.selected_bg.armor) {
     player.items.push(player.armor);
-    player.armor = {...menu.selected_bg.armor, amount: 1};
+    player.armor = { ...menu.selected_bg.armor, amount: 1 };
     player.physical_resistance = player.armor.physical_resistance;
     player.magical_resistance = player.armor.magical_resistance;
-  } 
+  }
   if (menu.selected_bg.wand) {
     player.items.push(player.wand);
-    player.wand = {...menu.selected_bg.wand, amount: 1};
-  } 
+    player.wand = { ...menu.selected_bg.wand, amount: 1 };
+  }
   for (let effect of menu.selected_bg.effects) {
     if (effect.increase_stat) player.stats[effect.increase_stat] += effect.by;
     else if (effect.increase) player[effect.increase] += effect.by;
   }
   player.hp = player.maxhp;
   player.mp = player.maxmp;
-  if (menu.hardcore) {
-    state.hc = true;
+  state.gamemode = menu.gamemode;
+  if (menu.gamemode.delete_save_on_death) {
     let saveName = player.name;
-    let sortTime = +(new Date());
+    let sortTime = +new Date();
     let saveTime = new Date();
     let gameSave = {};
     gameSave.player = player;
     gameSave.state = state;
-    saveTime = ("0" + saveTime.getHours()).slice(-2) + "." + ("0" + saveTime.getMinutes()).slice(-2);
-    save_slots.push({ text: `${saveName} || Last Saved: ${saveTime} || Character Level: ${player.level}`, save: gameSave, id: save_slots.length, time: sortTime, hc: menu.hardcore, key: generateKey(7) });
+    saveTime =
+      ("0" + saveTime.getHours()).slice(-2) +
+      "." +
+      ("0" + saveTime.getMinutes()).slice(-2);
+    save_slots.push({
+      text: `${saveName} || Last Saved: ${saveTime} || Character Level: ${player.level}`,
+      save: gameSave,
+      id: save_slots.length,
+      time: sortTime,
+      gamemode: menu.gamemode,
+      key: generateKey(7),
+    });
     findIDs();
-    currentSave = save_slots[save_slots.length-1];
+    currentSave = save_slots[save_slots.length - 1];
     localStorage.setItem("save_slots", JSON.stringify(save_slots));
     $("characterCreation").style.display = "none";
     $("combatScreen").style.display = "block";
@@ -231,4 +252,3 @@ function createCharacter() {
 }
 
 var char_bgs = {};
-

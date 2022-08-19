@@ -957,7 +957,7 @@ const enemies = {
       { item: copy(materials.enchanted_stone), chance: 0.9, min: 15, max: 28 },
       { item: consumables.dummy, chance: 0, min: 0, max: 0 },
     ],
-    music: 3,
+    music: 4,
   },
   blacksmith_andre: {
     name: "Blacksmith Andre",
@@ -998,6 +998,6 @@ const enemies = {
       { item: copy(materials.enchanted_stone), chance: 1, min: 20, max: 40 },
       { item: consumables.dummy, chance: 0, min: 0, max: 0 },
     ],
-    music: 1,
+    music: 2,
   },
 };

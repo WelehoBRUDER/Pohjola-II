@@ -65,7 +65,7 @@ select("Floors & Stages");
 function createTopBar() {
   $("mainWindowTopBar").textContent = "";
   for (let button of topBarButtons) {
-    if (button.name == "Saves" && state.hc) continue;
+    if (button.name == "Saves" && state.gamemode.prevent_manual_save) continue;
     let but = create("div");
     but.classList.add("mainWindowTopBar--button");
     if (button.selected) but.classList.add("mainWindowTopBar--button-selected");
@@ -100,7 +100,7 @@ function select(target) {
   playSound("click");
   SaveGameHC();
   updateLeftValues();
-  if (state.hc && target == "Saves") return;
+  if (state.gamemode.prevent_manual_save && target == "Saves") return;
   $("mainWindowContainer").removeEventListener("click", removeSelect);
   for (let but of topBarButtons) {
     if (target == but.name) but.selected = true;
@@ -179,11 +179,11 @@ function combatStatsView() {
     </p>
     <p id="health">
     <img src="images/health_icon.png">
-    ${(state.hc ? player.hp + "/" : "") + player.maxhp}
+    ${(state.gamemode.prevent_recovery_after_battle ? player.hp + "/" : "") + player.maxhp}
     </p>
     <p id="mana">
     <img src="images/mana_icon.png">
-    ${(state.hc ? player.mp + "/" : "") + player.maxmp}
+    ${(state.gamemode.prevent_recovery_after_battle ? player.mp + "/" : "") + player.maxmp}
     </p>
     <p id="physres">
     <img src="images/physical_resistance.png">
@@ -277,7 +277,11 @@ function createStages(floor) {
   let div = create("div");
   for (let stage in floor.stages) {
     if (floor.stages[stage].name == "Stage 0") continue;
-    if (floor.stages[stage].name == "_God_" && !player.stages_beaten.college_ball) continue;
+    if (
+      floor.stages[stage].name == "_God_" &&
+      !player.stages_beaten.college_ball
+    )
+      continue;
     let but = create("button");
     but.textContent = floor.stages[stage].name;
     but.addEventListener("click", () => startFight(floor.stages[stage]));
@@ -314,8 +318,10 @@ function startFight(stage) {
   state.stage = copy(stage);
   gauntlet = copy(state.stage.gauntlet);
   enemy = gauntlet[0];
-  if (!state.hc) player.hp = player.maxhp;
-  if (!state.hc) player.mp = player.maxmp;
+  if(!state.gamemode.prevent_recovery_after_battle) {
+    player.hp = player.maxhp;
+    player.mp = player.maxmp;
+  }
   state.end = false;
   state.turn = "none";
   state.action = false;
@@ -1174,7 +1180,7 @@ function loadSettingsSave() {
 }
 
 function createSaving() {
-  if (state.hc) return;
+  if (state.gamemode.prevent_manual_save) return;
   $("mainWindowContainer").textContent = "";
   let save_container = create("div");
   let save_topbar = create("div");
@@ -1191,7 +1197,10 @@ function createSaving() {
   for (let save of save_slots) {
     let slot = create("p");
     slot.textContent = save.text + " ";
-    if (save.hc) slot.innerHTML += "<span style='color: red'>HARDCORE!</span>";
+    if (save.gamemode.id === "hardcore")
+      slot.innerHTML += "<span style='color: red'>HARDCORE!</span>";
+    else if (save.gamemode.id === "eetucore")
+      slot.innerHTML += "<span style='color: darkred'>EETUCORE!</span>";
     slot.id = "slot" + save.id;
     if (selected_slot?.id == save?.id) slot.classList.add("saveSelected");
     slot.addEventListener("click", selectSlot);
@@ -1240,7 +1249,7 @@ function saveGame() {
       save: gameSave,
       id: save_slots.length,
       time: sortTime,
-      hc: state.hc,
+      gamemode: state.gamemode,
       key: key,
     });
   else {
@@ -1256,7 +1265,7 @@ function saveGame() {
 }
 
 function SaveGameHC() {
-  if (!state.hc) return;
+  if (!state.gamemode.prevent_manual_save) return;
   let saveTime = new Date();
   let gameSave = {};
   gameSave.player = player;
@@ -1266,7 +1275,7 @@ function SaveGameHC() {
     "." +
     ("0" + saveTime.getMinutes()).slice(-2);
   for (let save of save_slots) {
-    if (save.key == currentSave.key && save.hc) {
+    if (save.key == currentSave.key && save.gamemode.prevent_manual_save) {
       selected_slot = save;
       saveOver(player.name, saveTime, gameSave);
     }
@@ -1275,9 +1284,9 @@ function SaveGameHC() {
 }
 
 function DeleteGameHC() {
-  if (!state.hc) return;
+  if (!state.gamemode.prevent_manual_save) return;
   for (let save of save_slots) {
-    if (save.key == currentSave.key && save.hc) {
+    if (save.key == currentSave.key && save.gamemode.prevent_manual_save) {
       save_slots.splice(save.id, 1);
       resetIds();
       localStorage.setItem("save_slots", JSON.stringify(save_slots));
@@ -1293,7 +1302,7 @@ function saveOver(name, time, save) {
     save: save,
     id: selected_slot.id,
     time: sortTime,
-    hc: state.hc,
+    gamemode: state.gamemode,
     key: selected_slot.key,
   };
   localStorage.setItem("save_slots", JSON.stringify(save_slots));
@@ -1331,7 +1340,7 @@ function loadGame(menu) {
     if (medpot.name == "Medium Healing Potion" && medpot.id == "healing_potion")
       medpot.id = "medium_healing_potion";
   }
-  if (!state.hc) state.hc = false;
+  state.gamemode = save.gamemode;
   if (!player.temporary_effects) player.temporary_effects = [];
   if (!state.started) state.started = true;
   if (menu) select("Character");
@@ -1558,6 +1567,7 @@ function createSmithy() {
     smithableContainer.appendChild(wep);
   }
   for (let smith of player.items) {
+    console.log(smith);
     if (!smith.smelt) continue;
     let wep = create("p");
     wep.style.color = tiers[smith.tier];
