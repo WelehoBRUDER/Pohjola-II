@@ -7,7 +7,7 @@ const moves = {
     physical: true,
     name: "Attack",
     onCooldown: 0,
-    base: 0
+    base: 0,
   },
   slice: {
     power: 0.8,
@@ -17,7 +17,7 @@ const moves = {
     physical: true,
     name: "Slice",
     onCooldown: 0,
-    base: 0
+    base: 0,
   },
   thrust: {
     power: 1.1,
@@ -27,7 +27,7 @@ const moves = {
     physical: true,
     name: "Thrust",
     onCooldown: 0,
-    base: 0
+    base: 0,
   },
   pierce_through: {
     power: 1.2,
@@ -38,7 +38,7 @@ const moves = {
     name: "Pierce Through",
     onCooldown: 0,
     base: 0,
-    id: "pierce_through"
+    id: "pierce_through",
   },
   heavy_attack: {
     power: 1.5,
@@ -49,7 +49,7 @@ const moves = {
     name: "Heavy Attack",
     onCooldown: 0,
     base: 0,
-    id: "heavy_attack"
+    id: "heavy_attack",
   },
   holy_smite: {
     power: 1.25,
@@ -60,7 +60,7 @@ const moves = {
     name: "Holy Smite",
     onCooldown: 0,
     base: 0,
-    id: "holy_smite"
+    id: "holy_smite",
   },
   sundering_slash: {
     power: 0.6,
@@ -72,7 +72,7 @@ const moves = {
     onCooldown: 0,
     base: 0,
     id: "sundering_slash",
-    status: "sundered"
+    status: "sundered",
   },
   cursed_strike: {
     power: 1.3,
@@ -84,18 +84,18 @@ const moves = {
     onCooldown: 0,
     base: 0,
     id: "cursed_strike",
-    status: "curse"
+    status: "curse",
   },
   shields_up: {
     power: 0,
-    mp_cost: 0, 
+    mp_cost: 0,
     cooldown: 10,
     name: "Shields Up",
     physical: true,
     onCooldown: 0,
     base: 0,
     id: "shields_up",
-    status: "resistance"
+    status: "resistance",
   },
   bash: {
     power: 0.9,
@@ -105,7 +105,7 @@ const moves = {
     physical: true,
     name: "Bash",
     onCooldown: 0,
-    base: 0
+    base: 0,
   },
   shield_bash: {
     power: 1.3,
@@ -115,7 +115,7 @@ const moves = {
     physical: true,
     name: "Shield Bash",
     onCooldown: 0,
-    base: 0
+    base: 0,
   },
   gronk_smash: {
     power: 1.9,
@@ -125,7 +125,7 @@ const moves = {
     physical: true,
     name: "GRONK SMASH!!",
     onCooldown: 0,
-    base: 0
+    base: 0,
   },
   gronk_clobber: {
     power: 1.85,
@@ -135,7 +135,7 @@ const moves = {
     physical: true,
     name: "GRONK CLOB CLOB!!",
     onCooldown: 0,
-    base: 0
+    base: 0,
   },
   crush: {
     power: 1.0,
@@ -145,7 +145,7 @@ const moves = {
     physical: true,
     name: "Crush",
     onCooldown: 0,
-    base: 0
+    base: 0,
   },
   break: {
     power: 1.25,
@@ -155,7 +155,7 @@ const moves = {
     physical: true,
     name: "Break",
     onCooldown: 0,
-    base: 0
+    base: 0,
   },
   hack: {
     power: 1.1,
@@ -165,7 +165,7 @@ const moves = {
     physical: true,
     name: "Hack",
     onCooldown: 0,
-    base: 0
+    base: 0,
   },
   fireball: {
     power: 1.4,
@@ -176,7 +176,7 @@ const moves = {
     name: "Fireball",
     onCooldown: 0,
     id: "fireball",
-    base: 15
+    base: 15,
   },
   mana_blast: {
     power: 1.1,
@@ -187,7 +187,7 @@ const moves = {
     name: "Mana Blast",
     onCooldown: 0,
     id: "mana_blast",
-    base: 8
+    base: 8,
   },
   grave_floater_blast: {
     power: 1.15,
@@ -198,7 +198,7 @@ const moves = {
     name: "Mana Blast",
     onCooldown: 0,
     id: "grave_floater_blast",
-    base: 20
+    base: 20,
   },
   power_shot: {
     power: 1.33,
@@ -209,18 +209,18 @@ const moves = {
     name: "Power Shot",
     onCooldown: 0,
     id: "power_shot",
-    base: 75
+    base: 75,
   },
   fire_lance: {
     power: 1.75,
     penetration: 0.6,
-    mp_cost: 30,
-    cooldown: 4,
+    mp_cost: 25,
+    cooldown: 3,
     physical: false,
     name: "Fire Lance",
     onCooldown: 0,
     id: "fire_lance",
-    base: 16
+    base: 19,
   },
   regeneration: {
     power: 0.15,
@@ -232,7 +232,7 @@ const moves = {
     onCooldown: 0,
     id: "regeneration",
     base: 0,
-    heal: true
+    heal: true,
   },
   astral_lance: {
     power: 1.5,
@@ -243,7 +243,7 @@ const moves = {
     name: "Astral Lance",
     onCooldown: 0,
     id: "astral_lance",
-    base: 50
+    base: 50,
   },
   immobilizing_shatter: {
     power: 1.25,
@@ -255,7 +255,7 @@ const moves = {
     onCooldown: 0,
     id: "immobilizing_shatter",
     base: 28,
-    status: "speed_down"
+    status: "speed_down",
   },
   vehicle_throw: {
     power: 1.8,
@@ -267,18 +267,18 @@ const moves = {
     onCooldown: 0,
     id: "vehicle_throw",
     base: 51,
-    status: "speed_down"
+    status: "speed_down",
   },
   holy_grace: {
     power: 0,
-    mp_cost: 10, 
+    mp_cost: 10,
     cooldown: 10,
     name: "Holy Grace",
     physical: false,
     onCooldown: 0,
     base: 0,
     id: "holy_grace",
-    status: "holy_recovery"
+    status: "holy_recovery",
   },
   blessed_weapon: {
     power: 0,
@@ -289,7 +289,7 @@ const moves = {
     onCooldown: 0,
     base: 0,
     id: "blessed_weapon",
-    status: "damage_up"
+    status: "damage_up",
   },
   dispelling_light: {
     power: 0,
@@ -300,7 +300,7 @@ const moves = {
     onCooldown: 0,
     base: 0,
     id: "dispelling_light",
-    status: "holy_resist"
+    status: "holy_resist",
   },
   holy_arrow: {
     power: 1.8,
@@ -311,8 +311,8 @@ const moves = {
     onCooldown: 0,
     base: 15,
     id: "holy_arrow",
-  }
-}
+  },
+};
 
 const statuses = {
   sundered: {
@@ -320,54 +320,60 @@ const statuses = {
     target: "physical_resistance",
     lasts: 5,
     name: "Sundered",
-    id: "sundered"
+    id: "sundered",
   },
   resistance: {
     power: 0.6,
     target: "physical_resistance",
     lasts: 5,
     name: "Resistance",
-    id: "resistance"
+    id: "resistance",
   },
   holy_resist: {
     power: 0.5,
     target: "magical_resistance",
     lasts: 6,
     name: "Holy Resistance",
-    id: "holy_resist"
+    id: "holy_resist",
   },
   speed_down: {
     lower: 0.4,
     target: "speed",
     lasts: 5,
     name: "Slowness",
-    id: "speed_down"
+    id: "speed_down",
   },
   speed_up: {
     increase: 0.3,
     target: "speed",
     lasts: 4,
     name: "Quick Moves",
-    id: "speed_up"
+    id: "speed_up",
   },
   holy_recovery: {
     heal_ot: 0.05,
     heal_limit: 0,
     lasts: 6,
     name: "Holy Recovery",
-    id: "holy_recovery"
+    id: "holy_recovery",
   },
   damage_up: {
     damage_buff: 0.25,
     lasts: 7,
     name: "Damage Increase",
-    id: "damage_up"
+    id: "damage_up",
   },
   curse: {
     dmg_ot: 0.07,
     dmg_limit: 0,
     lasts: 8,
     name: "Cursed",
-    id: "curse"
-  }
-}
+    id: "curse",
+  },
+  enemy_rage: {
+    does_not_decay: true, // this status is never removed
+    damage_buff: 0.003,
+    name: "Rage",
+    id: "enemy_rage",
+  },
+};

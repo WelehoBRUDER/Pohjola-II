@@ -108,20 +108,25 @@
   position: absolute;
   left: 18vw;
   top: 10.25vw;
-  width: 18vw;
-  height: 20vw;
+  width: 62.5vw;
+  height: 75vh;
   background: rgb(25, 25, 25);
   transform: rotate(90deg) scale(0);
   box-sizing: border-box;
   border: 0.25vw solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#characterCreation > * {
+  margin: 1%;
 }
 
 #charName {
   font-size: 0.75vw;
   color: white;
-  position: absolute;
-  left: 1vw;
-  top: 0.375vw;
 }
 
 #characterName {
@@ -131,18 +136,12 @@
   width: 8vw;
   height: 0.8vw;
   border: none;
-  position: absolute;
-  left: 5vw;
-  top: 1.25vw;
 }
 
 #backgroundForChar {
-  width: 9vw;
-  height: 10vw;
+  width: 75%;
+  height: 25%;
   background: rgb(10, 10, 10);
-  position: absolute; 
-  left: 4.5vw;
-  bottom: 5vw;
 }
 
 #backgroundForChar p {
@@ -163,24 +162,6 @@
   filter: brightness(1.25);
 }
 
-#hardcoreBut {
-  transition: 0.05s;
-  font-size: 0.55vw;
-  background: darkred;
-  color: white;
-  text-shadow: 0vw 0vw 0.2vw black;
-  width: 6vw;
-  height: 1.25vw;
-  text-align: center;
-  border-radius: 0.25vw;
-  position: absolute;
-  bottom: 2.5vw;
-  left: 50%;
-  margin-left: -3vw;
-  box-sizing: border-box;
-  vertical-align: middle;
-}
-
 #hardcoreBut:hover {
   filter: brightness(1.25);
 } 
@@ -192,15 +173,61 @@
   color: white;
   text-shadow: 0vw 0vw 0.2vw black;
   width: 6vw;
-  height: 1.25vw;
+  height: 1.85vw;
   text-align: center;
   border-radius: 0.25vw;
-  position: absolute;
-  bottom: 0.75vw;
-  left: 50%;
-  margin-left: -3vw;
 }
 
 #startTheGame:hover {
   filter: brightness(1.25);
+}
+
+#statistics {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: 1.5vw;
+}
+
+#statistics > p {
+  color: white;
+  text-shadow: 0vw 0vw 0.2vw black;
+  font-size: 1.5vw;
+  margin: 0.15vw;
+}
+
+#gamemode {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: 1.5vw;
+  
+}
+
+#gamemode > div {
+  box-sizing: border-box;
+  width: 18.5vw;
+  height: 40vh;
+  color: white;
+  text-shadow: 0 0 0.25vw black;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border: 0.5vw solid rgb(58, 58, 58);
+}
+
+
+#gamemode > div:hover {
+  filter: brightness(1.25);
+}
+
+#gamemode > div > * {
+  margin-left: 10%;
+}
+
+#gamemode > div.gamemodeSelected {
+  border: 0.5vw solid gold;
 }

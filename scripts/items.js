@@ -1,4 +1,6 @@
-const copy = (e) => {return JSON.parse(JSON.stringify(e));}
+const copy = (e) => {
+  return JSON.parse(JSON.stringify(e));
+};
 
 function addItems(itm, amnt) {
   let item = copy(itm);
@@ -13,7 +15,7 @@ const weapons = {
     type: "physical",
     speed_bonus: 1,
     item_type: "weapon",
-    tier: "DEFAULT"
+    tier: "DEFAULT",
   },
   chant_only: {
     name: "Chant Only",
@@ -21,7 +23,7 @@ const weapons = {
     type: "magical",
     speed_bonus: 0,
     item_type: "weapon",
-    tier: "DEFAULT"
+    tier: "DEFAULT",
   },
   broken_sword: {
     name: "Broken Sword",
@@ -31,9 +33,9 @@ const weapons = {
     item_type: "weapon",
     tier: "G",
     smelt: [
-      {item: materials.wood_stick, amount: 1},
-      {item: materials.iron_ingot, amount: 1}
-    ]
+      { item: materials.wood_stick, amount: 1 },
+      { item: materials.iron_ingot, amount: 1 },
+    ],
   },
   broken_mace: {
     name: "Broken Mace",
@@ -43,9 +45,9 @@ const weapons = {
     item_type: "weapon",
     tier: "G",
     smelt: [
-      {item: materials.wood_stick, amount: 1},
-      {item: materials.iron_ingot, amount: 1}
-    ]
+      { item: materials.wood_stick, amount: 1 },
+      { item: materials.iron_ingot, amount: 1 },
+    ],
   },
   long_sword: {
     name: "Long Sword",
@@ -55,10 +57,10 @@ const weapons = {
     item_type: "weapon",
     tier: "F",
     smelt: [
-      {item: materials.wood_stick, amount: 2},
-      {item: materials.iron_ingot, amount: 2},
-      {item: materials.steel_ingot, amount: 1}
-    ]
+      { item: materials.wood_stick, amount: 2 },
+      { item: materials.iron_ingot, amount: 2 },
+      { item: materials.steel_ingot, amount: 1 },
+    ],
   },
   battle_axe: {
     name: "Battle Axe",
@@ -68,10 +70,10 @@ const weapons = {
     item_type: "weapon",
     tier: "E",
     smelt: [
-      {item: materials.wood_stick, amount: 3},
-      {item: materials.iron_ingot, amount: 5},
-      {item: materials.steel_ingot, amount: 2}
-    ]
+      { item: materials.wood_stick, amount: 3 },
+      { item: materials.iron_ingot, amount: 5 },
+      { item: materials.steel_ingot, amount: 2 },
+    ],
   },
   dual_daggers: {
     name: "Twin Daggers",
@@ -81,10 +83,10 @@ const weapons = {
     item_type: "weapon",
     tier: "E",
     smelt: [
-      {item: materials.wood_stick, amount: 2},
-      {item: materials.iron_ingot, amount: 2},
-      {item: materials.steel_ingot, amount: 1}
-    ]
+      { item: materials.wood_stick, amount: 2 },
+      { item: materials.iron_ingot, amount: 2 },
+      { item: materials.steel_ingot, amount: 1 },
+    ],
   },
   poleaxe: {
     name: "Poleaxe",
@@ -94,10 +96,10 @@ const weapons = {
     item_type: "weapon",
     tier: "E",
     smelt: [
-      {item: materials.wood_stick, amount: 3},
-      {item: materials.iron_ingot, amount: 3},
-      {item: materials.steel_ingot, amount: 2}
-    ]
+      { item: materials.wood_stick, amount: 3 },
+      { item: materials.iron_ingot, amount: 3 },
+      { item: materials.steel_ingot, amount: 2 },
+    ],
   },
   enchanted_blade: {
     name: "Enchanted Longsword",
@@ -107,11 +109,11 @@ const weapons = {
     item_type: "weapon",
     tier: "D",
     smelt: [
-      {item: materials.wood_stick, amount: 2},
-      {item: materials.iron_ingot, amount: 3},
-      {item: materials.steel_ingot, amount: 1},
-      {item: materials.enchanted_stone, amount: 1}
-    ]
+      { item: materials.wood_stick, amount: 2 },
+      { item: materials.iron_ingot, amount: 3 },
+      { item: materials.steel_ingot, amount: 1 },
+      { item: materials.enchanted_stone, amount: 1 },
+    ],
   },
   greatsword: {
     name: "Greatsword",
@@ -121,10 +123,10 @@ const weapons = {
     item_type: "weapon",
     tier: "E",
     smelt: [
-      {item: materials.wood_stick, amount: 3},
-      {item: materials.iron_ingot, amount: 1},
-      {item: materials.steel_ingot, amount: 4}
-    ]
+      { item: materials.wood_stick, amount: 3 },
+      { item: materials.iron_ingot, amount: 1 },
+      { item: materials.steel_ingot, amount: 4 },
+    ],
   },
   executioner: {
     name: "Executioner",
@@ -134,10 +136,10 @@ const weapons = {
     item_type: "weapon",
     tier: "E",
     smelt: [
-      {item: materials.wood_stick, amount: 3},
-      {item: materials.iron_ingot, amount: 1},
-      {item: materials.steel_ingot, amount: 4}
-    ]
+      { item: materials.wood_stick, amount: 3 },
+      { item: materials.iron_ingot, amount: 1 },
+      { item: materials.steel_ingot, amount: 4 },
+    ],
   },
   speed_dagger: {
     name: "Dagger of Speed",
@@ -147,10 +149,10 @@ const weapons = {
     item_type: "weapon",
     tier: "D",
     smelt: [
-      {item: materials.wood_stick, amount: 1},
-      {item: materials.iron_ingot, amount: 1},
-      {item: materials.steel_ingot, amount: 3}
-    ]
+      { item: materials.wood_stick, amount: 1 },
+      { item: materials.iron_ingot, amount: 1 },
+      { item: materials.steel_ingot, amount: 3 },
+    ],
   },
   astral_spear: {
     name: "Astral Spear",
@@ -160,11 +162,11 @@ const weapons = {
     item_type: "weapon",
     tier: "C",
     smelt: [
-      {item: materials.wood_stick, amount: 3},
-      {item: materials.iron_ingot, amount: 2},
-      {item: materials.steel_ingot, amount: 5},
-      {item: materials.enchanted_stone, amount: 2}
-    ]
+      { item: materials.wood_stick, amount: 3 },
+      { item: materials.iron_ingot, amount: 2 },
+      { item: materials.steel_ingot, amount: 5 },
+      { item: materials.enchanted_stone, amount: 2 },
+    ],
   },
   smooth_mace: {
     name: "A Very Smooth Mace",
@@ -174,10 +176,10 @@ const weapons = {
     item_type: "weapon",
     tier: "C",
     smelt: [
-      {item: materials.wood_stick, amount: 2},
-      {item: materials.iron_ingot, amount: 1},
-      {item: materials.steel_ingot, amount: 2}
-    ]
+      { item: materials.wood_stick, amount: 2 },
+      { item: materials.iron_ingot, amount: 1 },
+      { item: materials.steel_ingot, amount: 2 },
+    ],
   },
   greatsword_of_legend: {
     name: "Greatsword of Legend",
@@ -187,10 +189,10 @@ const weapons = {
     item_type: "weapon",
     tier: "C",
     smelt: [
-      {item: materials.wood_stick, amount: 2},
-      {item: materials.iron_ingot, amount: 2},
-      {item: materials.steel_ingot, amount: 3}
-    ]
+      { item: materials.wood_stick, amount: 2 },
+      { item: materials.iron_ingot, amount: 2 },
+      { item: materials.steel_ingot, amount: 3 },
+    ],
   },
   lance_of_the_lord: {
     name: "Lance of the Lords",
@@ -199,16 +201,16 @@ const weapons = {
     speed_bonus: 8,
     item_type: "weapon",
     effects: [
-      {increase_stat: "str", by: 10},
-      {increase: "maxhp", by: 100}
-    ],  
+      { increase_stat: "str", by: 10 },
+      { increase: "maxhp", by: 100 },
+    ],
     tier: "B",
     smelt: [
-      {item: materials.wood_stick, amount: 5},
-      {item: materials.iron_ingot, amount: 8},
-      {item: materials.steel_ingot, amount: 10},
-      {item: materials.enchanted_stone, amount: 3}
-    ]
+      { item: materials.wood_stick, amount: 5 },
+      { item: materials.iron_ingot, amount: 8 },
+      { item: materials.steel_ingot, amount: 10 },
+      { item: materials.enchanted_stone, amount: 3 },
+    ],
   },
   elven_greatsword: {
     name: "Elven Greatsword",
@@ -217,17 +219,17 @@ const weapons = {
     speed_bonus: 25,
     item_type: "weapon",
     effects: [
-      {increase_stat: "agi", by: 20},
-      {increase: "physical_multiplier", by: 0.25},
-      {increase_stat: "str", by: 10}
-    ],  
+      { increase_stat: "agi", by: 20 },
+      { increase: "physical_multiplier", by: 0.25 },
+      { increase_stat: "str", by: 10 },
+    ],
     tier: "A",
     smelt: [
-      {item: materials.wood_stick, amount: 5},
-      {item: materials.iron_ingot, amount: 14},
-      {item: materials.steel_ingot, amount: 25},
-      {item: materials.enchanted_stone, amount: 10}
-    ]
+      { item: materials.wood_stick, amount: 5 },
+      { item: materials.iron_ingot, amount: 14 },
+      { item: materials.steel_ingot, amount: 25 },
+      { item: materials.enchanted_stone, amount: 10 },
+    ],
   },
   METAL_GEAR_WEAPON: {
     name: "METAL GEAR ARM",
@@ -236,14 +238,14 @@ const weapons = {
     speed_bonus: -15,
     item_type: "weapon",
     effects: [
-      {increase: "physical_multiplier", by: 0.39},
-      {increase_stat: "str", by: 15}
+      { increase: "physical_multiplier", by: 0.39 },
+      { increase_stat: "str", by: 15 },
     ],
     tier: "S",
     smelt: [
-      {item: materials.steel_ingot, amount: 80},
-      {item: materials.enchanted_stone, amount: 21}
-    ]
+      { item: materials.steel_ingot, amount: 80 },
+      { item: materials.enchanted_stone, amount: 21 },
+    ],
   },
   NANO_MACHINES: {
     name: "NANO MACHINE FISTS",
@@ -260,17 +262,36 @@ const weapons = {
     speed_bonus: 20,
     item_type: "weapon",
     effects: [
-      {increase: "physical_multiplier", by: 0.3},
-      {incrase_stat: "agi", by: 15},
-      {increase_stat: "str", by: 15},
-      {increase: "maxhp", by: 180}
+      { increase: "physical_multiplier", by: 0.3 },
+      { incrase_stat: "agi", by: 15 },
+      { increase_stat: "str", by: 15 },
+      { increase: "maxhp", by: 180 },
     ],
     tier: "S",
     smelt: [
-      {item: materials.steel_ingot, amount: 40},
-      {item: materials.iron_ingot, amount: 30},
-      {item: materials.enchanted_stone, amount: 25}
-    ]
+      { item: materials.steel_ingot, amount: 40 },
+      { item: materials.iron_ingot, amount: 30 },
+      { item: materials.enchanted_stone, amount: 25 },
+    ],
+  },
+  blacksmith_hammer: {
+    name: "Blacksmith Hammer",
+    damage: 300,
+    type: "physical",
+    speed_bonus: 99,
+    item_type: "weapon",
+    effects: [
+      { increase: "physical_multiplier", by: 0.99 },
+      { incrase_stat: "agi", by: 99 },
+      { increase_stat: "str", by: 99 },
+      { increase: "maxhp", by: 999 },
+    ],
+    tier: "S",
+    smelt: [
+      { item: materials.steel_ingot, amount: 99 },
+      { item: materials.iron_ingot, amount: 99 },
+      { item: materials.enchanted_stone, amount: 99 },
+    ],
   },
   club_of_the_giant_king: {
     name: "Club of the Giant King",
@@ -279,18 +300,37 @@ const weapons = {
     speed_bonus: -10,
     item_type: "weapon",
     effects: [
-      {increase_stat: "str", by: 15},
-      {increase: "maxhp", by: 150},
-      {increase_stat: "int", by: -10},
-      {increase: "maxmp", by: -100}
-    ],  
+      { increase_stat: "str", by: 15 },
+      { increase: "maxhp", by: 150 },
+      { increase_stat: "int", by: -10 },
+      { increase: "maxmp", by: -100 },
+    ],
     tier: "B",
     smelt: [
-      {item: materials.wood_stick, amount: 2},
-      {item: materials.iron_ingot, amount: 4},
-      {item: materials.steel_ingot, amount: 15},
-      {item: materials.enchanted_stone, amount: 1}
-    ]
+      { item: materials.wood_stick, amount: 2 },
+      { item: materials.iron_ingot, amount: 4 },
+      { item: materials.steel_ingot, amount: 15 },
+      { item: materials.enchanted_stone, amount: 1 },
+    ],
+  },
+  dragonslayer_greataxe: {
+    name: "Dragonslayer Greataxe",
+    damage: 181,
+    type: "physical",
+    speed_bonus: 0,
+    item_type: "weapon",
+    effects: [
+      { increase: "physical_multiplier", by: 0.15 },
+      { increase_stat: "str", by: 20 },
+      { increase: "maxhp", by: 200 },
+    ],
+    tier: "A",
+    smelt: [
+      { item: materials.wood_stick, amount: 4 },
+      { item: materials.iron_ingot, amount: 6 },
+      { item: materials.steel_ingot, amount: 25 },
+      { item: materials.enchanted_stone, amount: 3 },
+    ],
   },
   broomstick: {
     name: "Broom Stick",
@@ -300,9 +340,7 @@ const weapons = {
     item_type: "weapon",
     tier: "G",
     mag_damage: 5,
-    smelt: [
-      {item: materials.wood_stick, amount: 4},
-    ]
+    smelt: [{ item: materials.wood_stick, amount: 4 }],
   },
   apprentice_staff: {
     name: "Apprentice's Staff",
@@ -313,9 +351,9 @@ const weapons = {
     tier: "F",
     mag_damage: 12,
     smelt: [
-      {item: materials.wood_stick, amount: 4},
-      {item: materials.iron_ingot, amount: 1}
-    ]
+      { item: materials.wood_stick, amount: 4 },
+      { item: materials.iron_ingot, amount: 1 },
+    ],
   },
   wizard_staff: {
     name: "Wizard's Staff",
@@ -326,9 +364,9 @@ const weapons = {
     tier: "E",
     mag_damage: 18,
     smelt: [
-      {item: materials.wood_stick, amount: 4},
-      {item: materials.iron_ingot, amount: 4}
-    ]
+      { item: materials.wood_stick, amount: 4 },
+      { item: materials.iron_ingot, amount: 4 },
+    ],
   },
   staff_of_glory: {
     name: "Staff of Glory",
@@ -339,10 +377,10 @@ const weapons = {
     tier: "D",
     mag_damage: 30,
     smelt: [
-      {item: materials.wood_stick, amount: 4},
-      {item: materials.steel_ingot, amount: 4},
-      {item: materials.enchanted_stone, amount: 1}
-    ]
+      { item: materials.wood_stick, amount: 4 },
+      { item: materials.steel_ingot, amount: 4 },
+      { item: materials.enchanted_stone, amount: 1 },
+    ],
   },
   archmage_staff: {
     name: "Archmage's Stiff Rod",
@@ -352,14 +390,12 @@ const weapons = {
     item_type: "weapon",
     tier: "B",
     mag_damage: 62,
-    effects: [
-      {increase: "maxmp", by: 50}
-    ],
+    effects: [{ increase: "maxmp", by: 50 }],
     smelt: [
-      {item: materials.wood_stick, amount: 4},
-      {item: materials.steel_ingot, amount: 4},
-      {item: materials.enchanted_stone, amount: 1}
-    ]
+      { item: materials.wood_stick, amount: 4 },
+      { item: materials.steel_ingot, amount: 4 },
+      { item: materials.enchanted_stone, amount: 1 },
+    ],
   },
   staff_of_legend: {
     name: "Staff of the Legends",
@@ -370,16 +406,16 @@ const weapons = {
     tier: "A",
     mag_damage: 95,
     effects: [
-      {increase: "maxmp", by: 200},
-      {increase_stat: "int", by: 20}
+      { increase: "maxmp", by: 200 },
+      { increase_stat: "int", by: 20 },
     ],
     smelt: [
-      {item: materials.wood_stick, amount: 4},
-      {item: materials.steel_ingot, amount: 8},
-      {item: materials.enchanted_stone, amount: 3}
-    ]
+      { item: materials.wood_stick, amount: 4 },
+      { item: materials.steel_ingot, amount: 8 },
+      { item: materials.enchanted_stone, amount: 3 },
+    ],
   },
-}
+};
 
 const armors = {
   naked: {
@@ -389,7 +425,7 @@ const armors = {
     speed_bonus: 0,
     effects: [],
     item_type: "armor",
-    tier: "DEFAULT"
+    tier: "DEFAULT",
   },
   rags: {
     name: "Rags",
@@ -399,9 +435,7 @@ const armors = {
     effects: [],
     item_type: "armor",
     tier: "G",
-    smelt: [
-      {item: materials.leather, amount: 1}
-    ]
+    smelt: [{ item: materials.leather, amount: 1 }],
   },
   leather_armor: {
     name: "Leather Armor",
@@ -411,9 +445,7 @@ const armors = {
     effects: [],
     item_type: "armor",
     tier: "F",
-    smelt: [
-      {item: materials.leather, amount: 5}
-    ]
+    smelt: [{ item: materials.leather, amount: 5 }],
   },
   chainmail: {
     name: "Chainmail",
@@ -423,23 +455,17 @@ const armors = {
     effects: [],
     item_type: "armor",
     tier: "F",
-    smelt: [
-      {item: materials.iron_ingot, amount: 3}
-    ]
+    smelt: [{ item: materials.iron_ingot, amount: 3 }],
   },
   enchanted_robes: {
     name: "Enchanted Robes",
     physical_resistance: 2,
     magical_resistance: 7,
     speed_bonus: 2,
-    effects: [
-      {increase: "maxhp", by: 25}
-    ],
+    effects: [{ increase: "maxhp", by: 25 }],
     item_type: "armor",
     tier: "E",
-    smelt: [
-      {item: materials.leather, amount: 8}
-    ]
+    smelt: [{ item: materials.leather, amount: 8 }],
   },
   plate_armor: {
     name: "Plate Armor",
@@ -449,9 +475,9 @@ const armors = {
     item_type: "armor",
     tier: "D",
     smelt: [
-      {item: materials.leather, amount: 2},
-      {item: materials.steel_ingot, amount: 3}
-    ]
+      { item: materials.leather, amount: 2 },
+      { item: materials.steel_ingot, amount: 3 },
+    ],
   },
   rogue_robes: {
     name: "Rogue's Robes",
@@ -461,25 +487,23 @@ const armors = {
     item_type: "armor",
     tier: "D",
     smelt: [
-      {item: materials.leather, amount: 8},
-      {item: materials.iron_ingot, amount: 1}
-    ]
+      { item: materials.leather, amount: 8 },
+      { item: materials.iron_ingot, amount: 1 },
+    ],
   },
   heavy_plate_armor: {
     name: "Heavy Plate Armor",
     physical_resistance: 28,
     magical_resistance: 13,
     speed_bonus: -1,
-    effects: [
-      {increase: "physical_multiplier", by: 0.05}
-    ],
+    effects: [{ increase: "physical_multiplier", by: 0.05 }],
     item_type: "armor",
     tier: "C",
     smelt: [
-      {item: materials.leather, amount: 1},
-      {item: materials.iron_ingot, amount: 2},
-      {item: materials.steel_ingot, amount: 5}
-    ]
+      { item: materials.leather, amount: 1 },
+      { item: materials.iron_ingot, amount: 2 },
+      { item: materials.steel_ingot, amount: 5 },
+    ],
   },
   legendary_leather_set: {
     name: "Legend's Leather Set",
@@ -487,16 +511,16 @@ const armors = {
     magical_resistance: 15,
     speed_bonus: 5,
     effects: [
-      {increase_stat: "agi", by: 3},
-      {increase: "dodge", by: 0.05},
-      {increase: "maxmp", by: 50}
+      { increase_stat: "agi", by: 3 },
+      { increase: "dodge", by: 0.05 },
+      { increase: "maxmp", by: 50 },
     ],
     item_type: "armor",
     tier: "C",
     smelt: [
-      {item: materials.leather, amount: 5},
-      {item: materials.enchanted_stone, amount: 1}
-    ]
+      { item: materials.leather, amount: 5 },
+      { item: materials.enchanted_stone, amount: 1 },
+    ],
   },
   wizard_robes: {
     name: "Wizard's Robes",
@@ -504,14 +528,12 @@ const armors = {
     magical_resistance: 2,
     speed_bonus: 0,
     effects: [
-      {increase: "maxmp", by: 25},
-      {increase: "magical_multiplier", by: 0.05}
+      { increase: "maxmp", by: 25 },
+      { increase: "magical_multiplier", by: 0.05 },
     ],
     item_type: "armor",
     tier: "E",
-    smelt: [
-      {item: materials.leather, amount: 4}
-    ]
+    smelt: [{ item: materials.leather, amount: 4 }],
   },
   lich_robes: {
     name: "Robes of a Lich",
@@ -519,16 +541,16 @@ const armors = {
     magical_resistance: 5,
     speed_bonus: 1,
     effects: [
-      {increase: "maxmp", by: 75},
-      {increase: "magical_multiplier", by: 0.15},
-      {increase_stat: "int", by: 5}
+      { increase: "maxmp", by: 75 },
+      { increase: "magical_multiplier", by: 0.15 },
+      { increase_stat: "int", by: 5 },
     ],
     item_type: "armor",
     tier: "C",
     smelt: [
-      {item: materials.leather, amount: 5},
-      {item: materials.enchanted_stone, amount: 1}
-    ]
+      { item: materials.leather, amount: 5 },
+      { item: materials.enchanted_stone, amount: 1 },
+    ],
   },
   kings_armor: {
     name: "Armor of the Forlorn King",
@@ -536,21 +558,21 @@ const armors = {
     magical_resistance: 30,
     speed_bonus: 5,
     effects: [
-      {increase: "maxhp", by: 250},
-      {increase_stat: "str", by: 20},
-      {increase_stat: "int", by: 20},
-      {increase: "physical_multiplier", by: 0.25}
+      { increase: "maxhp", by: 250 },
+      { increase_stat: "str", by: 20 },
+      { increase_stat: "int", by: 20 },
+      { increase: "physical_multiplier", by: 0.25 },
     ],
     item_type: "armor",
     tier: "B",
     smelt: [
-      {item: materials.leather, amount: 10},
-      {item: materials.iron_ingot, amount: 5},
-      {item: materials.steel_ingot, amount: 10},
-      {item: materials.enchanted_stone, amount: 3}
-    ]
+      { item: materials.leather, amount: 10 },
+      { item: materials.iron_ingot, amount: 5 },
+      { item: materials.steel_ingot, amount: 10 },
+      { item: materials.enchanted_stone, amount: 3 },
+    ],
   },
-}
+};
 
 const consumables = {
   dummy: {
@@ -559,7 +581,7 @@ const consumables = {
     value: -1,
     recover: false,
     item_type: "consumable",
-    tier: "N/A"
+    tier: "N/A",
   },
   inferior_healing_potion: {
     id: "inferior_healing_potion",
@@ -575,7 +597,7 @@ const consumables = {
     value: 25,
     recover: "hp",
     item_type: "consumable",
-    tier: "F"
+    tier: "F",
   },
   healing_potion: {
     id: "healing_potion",
@@ -583,7 +605,7 @@ const consumables = {
     value: 100,
     recover: "hp",
     item_type: "consumable",
-    tier: "E"
+    tier: "E",
   },
   medium_healing_potion: {
     id: "medium_healing_potion",
@@ -591,7 +613,7 @@ const consumables = {
     value: 250,
     recover: "hp",
     item_type: "consumable",
-    tier: "D"
+    tier: "D",
   },
   greater_healing_potion: {
     id: "greater_healing_potion",
@@ -599,7 +621,7 @@ const consumables = {
     value: 700,
     recover: "hp",
     item_type: "consumable",
-    tier: "C"
+    tier: "C",
   },
   vitality_recovery_concoction: {
     id: "vitality_recovery_concoction",
@@ -607,7 +629,7 @@ const consumables = {
     value: 1500,
     recover: "hp",
     item_type: "consumable",
-    tier: "A"
+    tier: "A",
   },
   inferior_mana_potion: {
     id: "inferior_mana_potion",
@@ -615,7 +637,7 @@ const consumables = {
     value: 5,
     recover: "mp",
     item_type: "consumable",
-    tier: "G"
+    tier: "G",
   },
   lesser_mana_potion: {
     id: "lesser_mana_potion",
@@ -623,7 +645,7 @@ const consumables = {
     value: 25,
     recover: "mp",
     item_type: "consumable",
-    tier: "F"
+    tier: "F",
   },
   mana_potion: {
     id: "mana_potion",
@@ -631,7 +653,7 @@ const consumables = {
     value: 100,
     recover: "mp",
     item_type: "consumable",
-    tier: "E"
+    tier: "E",
   },
   medium_mana_potion: {
     id: "medium_mana_potion",
@@ -639,7 +661,7 @@ const consumables = {
     value: 200,
     recover: "mp",
     item_type: "consumable",
-    tier: "D"
+    tier: "D",
   },
   agility_potion: {
     id: "agility_potion",
@@ -648,9 +670,7 @@ const consumables = {
     recover: "hp",
     item_type: "consumable",
     tier: "G",
-    effects: [
-      {increase_stat: "agi", by: 10, timed: 15}
-    ]
+    effects: [{ increase_stat: "agi", by: 10, timed: 15 }],
   },
   strength_potion: {
     id: "strength_potion",
@@ -659,77 +679,109 @@ const consumables = {
     recover: "hp",
     item_type: "consumable",
     tier: "G",
-    effects: [
-      {increase_stat: "str", by: 10, timed: 15}
-    ]
+    effects: [{ increase_stat: "str", by: 10, timed: 15 }],
   },
-}
+  vitality_potion: {
+    id: "vitality_potion",
+    name: "Vitality Potion",
+    value: 1,
+    recover: "hp",
+    item_type: "consumable",
+    tier: "G",
+    effects: [{ increase_stat: "vit", by: 10, timed: 15 }],
+  },
+  intelligence_potion: {
+    id: "intelligence_potion",
+    name: "Intelligence Potion",
+    value: 1,
+    recover: "hp",
+    item_type: "consumable",
+    tier: "G",
+    effects: [{ increase_stat: "int", by: 10, timed: 15 }],
+  },
+};
 
 const craftable_items = {
-  
   // CRAFTABLE WEAPONS //
 
   straight_sword: {
     to_craft: [
-      {material: "iron_ingot", amount: 1},
-      {weapon: copy(weapons.broken_sword), amount: 1}
+      { material: "iron_ingot", amount: 1 },
+      { weapon: copy(weapons.broken_sword), amount: 1 },
     ],
+    smelt: [{ item: materials.iron_ingot, amount: 1 }],
     name: "Straight Sword",
     type: "physical",
     damage: 7,
     speed_bonus: 0,
     item_type: "weapon",
-    tier: "G"
+    tier: "G",
   },
   arming_sword: {
     to_craft: [
-      {material: "iron_ingot", amount: 2},
-      {material: "wood_stick", amount: 1}
+      { material: "iron_ingot", amount: 2 },
+      { material: "wood_stick", amount: 1 },
+    ],
+    smelt: [
+      { item: materials.iron_ingot, amount: 2 },
+      { item: materials.wood_stick, amount: 1 },
     ],
     name: "Arming Sword",
     type: "physical",
     damage: 6,
     speed_bonus: 1,
     item_type: "weapon",
-    tier: "G"
+    tier: "G",
   },
   steel_blade: {
     to_craft: [
-      {material: "steel_ingot", amount: 2},
-      {material: "iron_ingot", amount: 1},
-      {weapon: copy(weapons.long_sword), amount: 1}
+      { material: "steel_ingot", amount: 2 },
+      { material: "iron_ingot", amount: 1 },
+      { weapon: copy(weapons.long_sword), amount: 1 },
+    ],
+    smelt: [
+      { item: materials.steel_ingot, amount: 2 },
+      { item: materials.iron_ingot, amount: 1 },
     ],
     name: "Steel Blade",
     type: "physical",
     damage: 18,
     speed_bonus: 1,
     item_type: "weapon",
-    tier: "E"
+    tier: "E",
   },
   doombringer_axe: {
     to_craft: [
-      {material: "steel_ingot", amount: 5},
-      {material: "iron_ingot", amount: 10},
-      {weapon: copy(weapons.battle_axe), amount: 2},
-      {material: "monster_core", amount: 3}
+      { material: "steel_ingot", amount: 5 },
+      { material: "iron_ingot", amount: 10 },
+      { weapon: copy(weapons.battle_axe), amount: 2 },
+      { material: "monster_core", amount: 3 },
+    ],
+    smelt: [
+      { item: materials.steel_ingot, amount: 5 },
+      { item: materials.iron_ingot, amount: 10 },
+      { item: materials.monster_core, amount: 3 },
     ],
     name: "Doombringer Axe",
     type: "physical",
     damage: 49,
     speed_bonus: 5,
     item_type: "weapon",
-    effects: [
-      {increase: "physical_multiplier", by: 0.08}
-    ],
-    tier: "D"
+    effects: [{ increase: "physical_multiplier", by: 0.08 }],
+    tier: "D",
   },
   zweihander: {
     to_craft: [
-      {material: "wood_stick", amount: 2},
-      {material: "steel_ingot", amount: 3},
-      {material: "iron_ingot", amount: 5},
-      {weapon: copy(weapons.enchanted_blade), amount: 1},
-      {material: "monster_core", amount: 3}
+      { material: "wood_stick", amount: 2 },
+      { material: "steel_ingot", amount: 3 },
+      { material: "iron_ingot", amount: 5 },
+      { weapon: copy(weapons.enchanted_blade), amount: 1 },
+      { material: "monster_core", amount: 3 },
+    ],
+    smelt: [
+      { item: materials.wood_stick, amount: 2 },
+      { item: materials.steel_ingot, amount: 3 },
+      { item: materials.monster_core, amount: 3 },
     ],
     name: "Zweihänder",
     type: "physical",
@@ -737,19 +789,26 @@ const craftable_items = {
     speed_bonus: 2,
     item_type: "weapon",
     effects: [
-      {increase: "physical_multiplier", by: 0.12},
-      {increase: "maxhp", by: 25}
+      { increase: "physical_multiplier", by: 0.12 },
+      { increase: "maxhp", by: 25 },
     ],
-    tier: "C"
+    tier: "C",
   },
   enchanted_greatsword: {
     to_craft: [
-      {material: "wood_stick", amount: 3},
-      {material: "steel_ingot", amount: 8},
-      {material: "iron_ingot", amount: 7},
-      {weapon: copy(weapons.greatsword_of_legend), amount: 1},
-      {material: "enchanted_stone", amount: 1},
-      {material: "monster_core", amount: 5}
+      { material: "wood_stick", amount: 3 },
+      { material: "steel_ingot", amount: 8 },
+      { material: "iron_ingot", amount: 7 },
+      { weapon: copy(weapons.greatsword_of_legend), amount: 1 },
+      { material: "enchanted_stone", amount: 1 },
+      { material: "monster_core", amount: 5 },
+    ],
+    smelt: [
+      { item: materials.wood_stick, amount: 3 },
+      { item: materials.steel_ingot, amount: 8 },
+      { item: materials.iron_ingot, amount: 7 },
+      { item: materials.enchanted_stone, amount: 1 },
+      { item: materials.monster_core, amount: 5 },
     ],
     name: "Enchanted Greatsword",
     type: "physical",
@@ -757,21 +816,28 @@ const craftable_items = {
     speed_bonus: 4,
     item_type: "weapon",
     effects: [
-      {increase: "physical_multiplier", by: 0.1},
-      {increase: "maxhp", by: 75},
-      {increase: "str", by: 3}
+      { increase: "physical_multiplier", by: 0.1 },
+      { increase: "maxhp", by: 75 },
+      { increase_stat: "str", by: 3 },
     ],
-    tier: "C"
+    tier: "C",
   },
   legendary_swordspear: {
     to_craft: [
-      {material: "wood_stick", amount: 10},
-      {material: "steel_ingot", amount: 15},
-      {material: "iron_ingot", amount: 25},
-      {weapon: copy(weapons.greatsword_of_legend), amount: 2},
-      {weapon: copy(weapons.lance_of_the_lord), amount: 1},
-      {material: "enchanted_stone", amount: 5},
-      {material: "monster_core", amount: 60}
+      { material: "wood_stick", amount: 10 },
+      { material: "steel_ingot", amount: 15 },
+      { material: "iron_ingot", amount: 25 },
+      { weapon: copy(weapons.greatsword_of_legend), amount: 2 },
+      { weapon: copy(weapons.lance_of_the_lord), amount: 1 },
+      { material: "enchanted_stone", amount: 5 },
+      { material: "monster_core", amount: 60 },
+    ],
+    smelt: [
+      { item: materials.wood_stick, amount: 10 },
+      { item: materials.steel_ingot, amount: 15 },
+      { item: materials.iron_ingot, amount: 25 },
+      { item: materials.enchanted_stone, amount: 5 },
+      { item: materials.monster_core, amount: 60 },
     ],
     name: "Legendary Swordspear",
     type: "physical",
@@ -779,18 +845,22 @@ const craftable_items = {
     speed_bonus: 7,
     item_type: "weapon",
     effects: [
-      {increase: "physical_multiplier", by: 0.1},
-      {increase: "maxhp", by: 100},
-      {increase_stat: "str", by: 25},
-      {increase_stat: "int", by: 20},
-      {increase: "maxmp", by: 50}
+      { increase: "physical_multiplier", by: 0.1 },
+      { increase: "maxhp", by: 100 },
+      { increase_stat: "str", by: 25 },
+      { increase_stat: "int", by: 20 },
+      { increase: "maxmp", by: 50 },
     ],
-    tier: "A"
+    tier: "A",
   },
   enchanted_stick: {
     to_craft: [
-      {material: "wood_stick", amount: 4},
-      {material: "leather", amount: 2}
+      { material: "wood_stick", amount: 4 },
+      { material: "leather", amount: 2 },
+    ],
+    smelt: [
+      { item: materials.wood_stick, amount: 4 },
+      { item: materials.leather, amount: 2 },
     ],
     name: "Enchanted Stick",
     magical_power: 0.9,
@@ -802,12 +872,19 @@ const craftable_items = {
   },
   staff_of_fortune: {
     to_craft: [
-      {material: "wood_stick", amount: 15},
-      {material: "leather", amount: 4},
-      {material: "steel_ingot", amount: 7},
-      {material: "enchanted_stone", amount: 13},
-      {weapon: copy(weapons.staff_of_legend), amount: 1},
-      {material: "monster_core", amount: 80}
+      { material: "wood_stick", amount: 15 },
+      { material: "leather", amount: 4 },
+      { material: "steel_ingot", amount: 7 },
+      { material: "enchanted_stone", amount: 13 },
+      { weapon: copy(weapons.staff_of_legend), amount: 1 },
+      { material: "monster_core", amount: 80 },
+    ],
+    smelt: [
+      { item: materials.wood_stick, amount: 15 },
+      { item: materials.leather, amount: 4 },
+      { item: materials.steel_ingot, amount: 7 },
+      { item: materials.enchanted_stone, amount: 4 },
+      { item: materials.monster_core, amount: 80 },
     ],
     name: "Fortunous Stave",
     magical_power: 5.5,
@@ -817,15 +894,19 @@ const craftable_items = {
     tier: "A",
     mag_damage: 148,
     effects: [
-      {increase_stat: "int", by: 20},
-      {increase: "maxmp", by: 250},
-      {increase: "magical_multiplier", by: 0.33}
-    ]
+      { increase_stat: "int", by: 20 },
+      { increase: "maxmp", by: 250 },
+      { increase: "magical_multiplier", by: 0.33 },
+    ],
   },
   thick_leather_armor: {
     to_craft: [
-      {material: "wood_stick", amount: 1},
-      {material: "leather", amount: 5}
+      { material: "wood_stick", amount: 1 },
+      { material: "leather", amount: 5 },
+    ],
+    smelt: [
+      { item: materials.wood_stick, amount: 1 },
+      { item: materials.leather, amount: 5 },
     ],
     name: "Thick Leather Armor",
     physical_resistance: 7,
@@ -837,9 +918,13 @@ const craftable_items = {
   },
   padded_plate_armor: {
     to_craft: [
-      {material: "steel_ingot", amount: 3},
-      {material: "leather", amount: 3},
-      {armor: copy(armors.plate_armor), amount: 1}
+      { material: "steel_ingot", amount: 3 },
+      { material: "leather", amount: 3 },
+      { armor: copy(armors.plate_armor), amount: 1 },
+    ],
+    smelt: [
+      { item: materials.steel_ingot, amount: 3 },
+      { item: materials.leather, amount: 3 },
     ],
     name: "Padded Plate Armor",
     physical_resistance: 21,
@@ -851,55 +936,70 @@ const craftable_items = {
   },
   armor_of_the_great_lord: {
     to_craft: [
-      {material: "iron_ingot", amount: 30},
-      {material: "steel_ingot", amount: 20},
-      {material: "leather", amount: 25},
-      {armor: copy(armors.kings_armor), amount: 1},
-      {material: "enchanted_stone", amount: 10},
-      {material: "monster_core", amount: 75}
+      { material: "iron_ingot", amount: 30 },
+      { material: "steel_ingot", amount: 20 },
+      { material: "leather", amount: 25 },
+      { armor: copy(armors.kings_armor), amount: 1 },
+      { material: "enchanted_stone", amount: 10 },
+      { material: "monster_core", amount: 75 },
+    ],
+    smelt: [
+      { item: materials.iron_ingot, amount: 30 },
+      { item: materials.steel_ingot, amount: 20 },
+      { item: materials.leather, amount: 25 },
+      { item: materials.enchanted_stone, amount: 10 },
+      { item: materials.monster_core, amount: 75 },
     ],
     name: "The Great Lord's Armour",
     physical_resistance: 38,
     magical_resistance: 35,
     speed_bonus: 10,
     effects: [
-      {increase: "maxhp", by: 500},
-      {increase: "maxmp", by: 200},
-      {increase: "physical_multiplier", by: 0.25},
-      {increase_stat: "str", by: 25},
-      {increase_stat: "int", by: 25},
-      {increase: "dodge", by: 0.05}
+      { increase: "maxhp", by: 500 },
+      { increase: "maxmp", by: 200 },
+      { increase: "physical_multiplier", by: 0.25 },
+      { increase_stat: "str", by: 25 },
+      { increase_stat: "int", by: 25 },
+      { increase: "dodge", by: 0.05 },
     ],
     item_type: "armor",
     tier: "A",
   },
   set_of_the_mythic_legend: {
     to_craft: [
-      {material: "iron_ingot", amount: 200},
-      {material: "steel_ingot", amount: 300},
-      {material: "leather", amount: 200},
-      {armor: copy(armors.kings_armor), amount: 2},
-      {weapon: copy(weapons.elven_greatsword)},
-      {material: "enchanted_stone", amount: 50},
-      {material: "monster_core", amount: 100},
-      {material: "dark_core", amount: 5}
+      { material: "iron_ingot", amount: 200 },
+      { material: "steel_ingot", amount: 300 },
+      { material: "leather", amount: 200 },
+      { armor: copy(armors.kings_armor), amount: 2 },
+      { weapon: copy(weapons.elven_greatsword) },
+      { material: "enchanted_stone", amount: 50 },
+      { material: "monster_core", amount: 100 },
+      { material: "dark_core", amount: 5 },
+    ],
+    smelt: [
+      { item: materials.iron_ingot, amount: 200 },
+      { item: materials.steel_ingot, amount: 300 },
+      { item: materials.leather, amount: 200 },
+      { item: materials.enchanted_stone, amount: 50 },
+      { item: materials.monster_core, amount: 100 },
+      { item: materials.dark_core, amount: 5 },
     ],
     name: "The Mythic Legend Set",
     physical_resistance: 50,
     magical_resistance: 45,
     speed_bonus: 20,
     effects: [
-      {increase: "maxhp", by: 1000},
-      {increase: "maxmp", by: 500},
-      {increase: "physical_multiplier", by: 0.5},
-      {increase_stat: "str", by: 50},
-      {increase_stat: "int", by: 50},
-      {increase: "dodge", by: 0.08}
+      { increase: "maxhp", by: 1000 },
+      { increase: "maxmp", by: 500 },
+      { increase: "physical_multiplier", by: 0.5 },
+      { increase_stat: "str", by: 50 },
+      { increase_stat: "int", by: 50 },
+      { increase: "dodge", by: 0.08 },
     ],
     item_type: "armor",
     tier: "S",
   },
-}
+};
 
 const tiers = {
   DEFAULT: "#777B7E",
@@ -910,5 +1010,5 @@ const tiers = {
   C: "#96c76b",
   B: "#189e3c",
   A: "#2fded8",
-  S: "#f7a500"
-}
+  S: "#f7a500",
+};

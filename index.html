@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="fi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pohjola II - 0.4a</title>
+  <title>Pohjola II - 0.5a</title>
   <link rel="stylesheet" href="styles/background.css">
   <link rel="stylesheet" href="styles/player.css">
   <link rel="stylesheet" href="styles/combat.css">
   <link rel="stylesheet" href="styles/lobby.css">
   <link rel="stylesheet" href="styles/menu.css">
 </head>
+
 <body>
   <audio id="music"></audio>
   <audio id="effect"></audio>
@@ -17,20 +19,28 @@
     <div id="gameInfoTextPopUp"></div>
     <div id="mainMenu">
       <div id="continueLastSave" class="menuButton">Continue</div>
-      <div id="newGame" class="menuButton">Start Game<div class="options" id="startarr"></div></div>
-      <div id="loadGame" class="menuButton">Load Game<div class="options" id="loadarr"></div></div>
-      <div id="settingsButton" class="menuButton">Options<div class="options" id="optarr"></div></div>
+      <div id="newGame" class="menuButton">Start Game<div class="options" id="startarr"></div>
+      </div>
+      <div id="loadGame" class="menuButton">Load Game<div class="options" id="loadarr"></div>
+      </div>
+      <div id="settingsButton" class="menuButton">Options<div class="options" id="optarr"></div>
+      </div>
       <div id="optionsMenu">
-        <div id="askItemUse"><p id="check--itemPrompt"></p>  Prompt Item Use</div>
-        <div id="soundEffects"><p id="check--soundEffects"></p>  Enable Sound Effects</div>
+        <div id="askItemUse">
+          <p id="check--itemPrompt"></p> Prompt Item Use
+        </div>
+        <div id="soundEffects">
+          <p id="check--soundEffects"></p> Enable Sound Effects
+        </div>
       </div>
       <div id="loadContainer"></div>
       <div id="characterCreation">
-        <p id="charName">CharName: </p>
-        <input id="characterName">
+        <label id="charName" for="char-name">CharName: </label>
+        <input id="characterName" name="char-name">
         <div id="backgroundForChar"></div>
-        <div id="hardcoreBut">HARDCORE</div>
         <div id="startTheGame">Create</div>
+        <h3 id="gamemode-title">Difficulty</h3>
+        <div id="gamemode"></div>
       </div>
     </div>
     <div id="combatScreen" hidden>
@@ -52,10 +62,18 @@
       </div>
       <div id="playerButtons-container">
         <div id="playerButtons">
-          <div id="atk-button"><p>ATK</p></div>
-          <div id="ski-button"><p>SKI</p></div>
-          <div id="mag-button"><p>MAG</p></div>
-          <div id="itm-button"><p>ITM</p></div>
+          <div id="atk-button">
+            <p>ATK</p>
+          </div>
+          <div id="ski-button">
+            <p>SKI</p>
+          </div>
+          <div id="mag-button">
+            <p>MAG</p>
+          </div>
+          <div id="itm-button">
+            <p>ITM</p>
+          </div>
         </div>
         <div id="playerButtons-open" class="slider--closed"></div>
       </div>
@@ -84,7 +102,7 @@
         <p id="playerName"></p>
         <img src="" alt="" id="playerSprite">
       </div>
-      <div id="battleEndScreen"> 
+      <div id="battleEndScreen">
         <p id="conclusion">INDETERMINED</p>
         <p id="battleEndText">Lorem Ipsum Dolore, en muista miten se menee tän jälkeen LMAO</p>
         <div id="battleEndButton">Continue</div>
@@ -112,7 +130,7 @@
         <img src="" alt="" id="defaultSprite">
       </div>
       <div id="skillsAndPerks">
-        
+
       </div>
       <div id="combatStats"></div>
     </div>
@@ -124,6 +142,7 @@
     </div>
   </div>
 </body>
+
 </html>
 
 <script src="scripts/menu.js"></script>
@@ -136,5 +155,10 @@
 <script src="scripts/codex.js"></script>
 <script src="scripts/dungeon.js"></script>
 <script src="scripts/perks.js"></script>
+<script src="scripts/perk_tree.js"></script>
+<script src="scripts/update.js"></script>
+<script src="scripts/combat.js"></script>
 <script src="scripts/main.js"></script>
+<script src="scripts/save.js"></script>
+<script src="scripts/player.js"></script>
 <script src="scripts/lobby.js"></script>
