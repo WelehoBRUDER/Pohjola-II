@@ -211,23 +211,27 @@ function combatStatsView() {
 
 function UpgradeStat(act, stat) {
   if (player.skillpoints > 0 && !act.shiftKey) {
+    player.hp = player.maxhp;
+    player.mp = player.maxmp;
     player.skillpoints--;
     player.stats[stat]++;
     if (stat == "vit") player.maxhp += 25;
     else if (stat == "int") player.maxmp += 5;
   } else if (player.skillpoints >= 5 && act.shiftKey) {
+    player.hp = player.maxhp;
+    player.mp = player.maxmp;
     player.skillpoints -= 5;
     player.stats[stat] += 5;
     if (stat == "vit") player.maxhp += 50;
     else if (stat == "int") player.maxmp += 25;
   } else if (player.skillpoints < 5 && act.shiftKey) {
+    player.hp = player.maxhp;
+    player.mp = player.maxmp;
     player.stats[stat] += player.skillpoints;
     if (stat == "vit") player.maxhp += 10 * player.skillpoints;
     else if (stat == "int") player.maxmp += 5 * player.skillpoints;
     player.skillpoints = 0;
   }
-  player.hp = player.maxhp;
-  player.mp = player.maxmp;
   playSound("click");
   createCharacterScreen();
   updateLeftValues();
