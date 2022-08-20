@@ -4,10 +4,12 @@ const gamemodes = {
   casual: {
     id: "casual",
     description: "Easy mode",
+    color: "rgba(17, 107, 17, 0.4)",
   },
   hardcore: {
     id: "hardcore",
     description: "Hard mode",
+    color: "rgba(217, 17, 17, 0.4)",
     prevent_manual_save: true,
     prevent_recovery_after_battle: true,
     delete_save_on_death: true,
@@ -15,12 +17,23 @@ const gamemodes = {
   eetucore: {
     id: "eetucore",
     description: "Eetucore mode",
+    color: "rgba(59, 10, 10, 0.4)",
     prevent_manual_save: true,
     prevent_recovery_after_battle: true,
     delete_save_on_death: true,
     can_only_fight_once: true,
     give_enemy_scaling_power: true,
   },
+};
+
+const game_mode_text = {
+  prevent_manual_save: "§/$R/Disables§ manually saving the game.",
+  prevent_recovery_after_battle:
+    "§/$R/Disables§ automatic recovery after battle.",
+  delete_save_on_death: "Your save is §/$R/deleted§ upon a defeat.",
+  can_only_fight_once: "Stages can only be cleared §/$R/once.§",
+  give_enemy_scaling_power:
+    "Enemies get the status §/$Y/Rage§, which grants them 0.3% §/$R/more damage every turn.§",
 };
 
 let menu = {
@@ -191,19 +204,46 @@ function startGame() {
     addHoverBox(back, texts[bg.name], 10);
     $("backgroundForChar").appendChild(back);
   }
-  $("hardcoreBut").addEventListener("click", toggleHC);
+  gamemodeChoices();
   $("startTheGame").addEventListener("click", createCharacter);
 }
 
-function toggleHC() {
-  if (menu.hardcore) {
-    menu.hardcore = false;
-    $("hardcoreBut").style.border = "";
-  } else {
-    menu.hardcore = true;
-    $("hardcoreBut").style.border = "0.25vw solid gold";
-  }
+function gamemodeChoices() {
+  const container = $("gamemode");
+  const creation = $("characterCreation");
+  container.textContent = "";
+  Object.entries(gamemodes).forEach(([key, mode]) => {
+    const choice = create("div");
+    const name = create("h3");
+    choice.style.background = mode.color;
+    name.textContent = key.toUpperCase();
+    choice.addEventListener("click", () => selectGamemode(mode));
+    if (menu.gamemode.id === key) choice.classList.add("gamemodeSelected");
+    choice.append(name);
+    Object.entries(mode).forEach(([key, bool]) => {
+      if (typeof bool !== "boolean") return;
+      const opt = textSyntax(game_mode_text[key]);
+      choice.appendChild(opt);
+    });
+    container.appendChild(choice);
+  });
+  creation.append(container);
 }
+
+function selectGamemode(mode) {
+  menu.gamemode = mode;
+  gamemodeChoices();
+}
+
+// function toggleHC() {
+//   if (menu.hardcore) {
+//     menu.hardcore = false;
+//     $("hardcoreBut").style.border = "";
+//   } else {
+//     menu.hardcore = true;
+//     $("hardcoreBut").style.border = "0.25vw solid gold";
+//   }
+// }
 
 function selectBG(bg) {
   $("backgroundForChar").textContent = "";
@@ -245,6 +285,9 @@ function createCharacter() {
   player.hp = player.maxhp;
   player.mp = player.maxmp;
   state.gamemode = menu.gamemode;
+  if (state.gamemode.give_enemy_scaling_power) {
+    enemy.statuses.push({ ...statuses.enemy_rage });
+  }
   if (menu.gamemode.delete_save_on_death) {
     let saveName = player.name;
     let sortTime = +new Date();
@@ -306,4 +349,50 @@ function createStatistics() {
     statistics.appendChild(stat);
   });
   $("mainWindowContainer").appendChild(statistics);
+}
+
+// Item hover
+function itemHoverText(item, price = -1) {
+  let hoverText = "";
+  if (item.item_type == "consumable") {
+    hoverText = `Recover: ${
+      item.value
+    } §/$Y/${item.recover.toUpperCase()}§ §:br§ Tier: §/${tiers[item.tier]}/${
+      item.tier
+    }§`;
+  } else if (item.item_type == "weapon") {
+    hoverText = `${
+      item.magical_power
+        ? "MagPower: " + "§/$Y/" + item.magical_power * 100 + "%§"
+        : "Damage: " + "§/$Y/" + item.damage + "§"
+    } §:br§ Speed: §/$B/${item.speed_bonus}§ §:br§ Tier: §/${
+      tiers[item.tier]
+    }/${item.tier}§ ${
+      item.mag_damage ? "§:br§MagDamage: " + item.mag_damage : ""
+    }`;
+  } else if (item.item_type == "armor") {
+    hoverText = `Physical Resistance: §/$Y/${
+      item.physical_resistance
+    }§ §:br§ Magical Resistance: §/$B/${
+      item.magical_resistance
+    }§ §:br§ Speed: §/$B/${item.speed_bonus}§ §:br§ Tier: §/${
+      tiers[item.tier]
+    }/${item.tier}§ `;
+  } else if (item.item_type == "material") {
+    hoverText = `${item.name}`;
+  }
+  if (price > -1) {
+    hoverText += `§:br§Price: §/$Y/${number(price)}§`;
+  }
+  if (item?.effects) {
+    for (let effect of item?.effects) {
+      if (effect.increase || effect.increase_stat) {
+        hoverText += `§:br§ Increases ${effectSyntax(
+          effect,
+          "stat"
+        )} by ${effectSyntax(effect, "value")}`;
+      }
+    }
+  }
+  return hoverText;
 }

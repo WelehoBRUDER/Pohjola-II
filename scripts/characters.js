@@ -887,7 +887,7 @@ const enemies = {
     maxhp: 60500,
     maxmp: 5000,
     stats: {
-      str: 25,
+      str: 125,
       vit: 300,
       int: 100,
       agi: 15,

@@ -35,11 +35,12 @@
       </div>
       <div id="loadContainer"></div>
       <div id="characterCreation">
-        <p id="charName">CharName: </p>
-        <input id="characterName">
+        <label id="charName" for="char-name">CharName: </label>
+        <input id="characterName" name="char-name">
         <div id="backgroundForChar"></div>
-        <div id="hardcoreBut">HARDCORE</div>
         <div id="startTheGame">Create</div>
+        <h3 id="gamemode-title">Difficulty</h3>
+        <div id="gamemode"></div>
       </div>
     </div>
     <div id="combatScreen" hidden>
@@ -154,5 +155,10 @@
 <script src="scripts/codex.js"></script>
 <script src="scripts/dungeon.js"></script>
 <script src="scripts/perks.js"></script>
+<script src="scripts/perk_tree.js"></script>
+<script src="scripts/update.js"></script>
+<script src="scripts/combat.js"></script>
 <script src="scripts/main.js"></script>
+<script src="scripts/save.js"></script>
+<script src="scripts/player.js"></script>
 <script src="scripts/lobby.js"></script>

@@ -370,4 +370,10 @@ const statuses = {
     name: "Cursed",
     id: "curse",
   },
+  enemy_rage: {
+    does_not_decay: true, // this status is never removed
+    damage_buff: 0.003,
+    name: "Rage",
+    id: "enemy_rage",
+  },
 };

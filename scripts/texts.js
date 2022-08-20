@@ -16,6 +16,7 @@ const texts = {
     "Confirm all your selected purchases and add them to your inventory. §:br§ §/orange/Can't be done if you lack the coin!§",
   clear_store: "Clear your current shopping list.",
   saves: "Save your progress and then load it later.",
+  statistics: "See various statistics about your playthrough.",
   skill:
     "Your current stat points, used for upgrading your stats (STR, VIT, AGI, INT).",
   perk: "Your current perk points, used for purchasing perks from your perk tree.",
@@ -121,6 +122,8 @@ const texts = {
   holy_smite:
     "Deals §$Math.floor(calculateDmg(player, enemy, getMove(player, 'holy_smite')))§ damage. §:br§ Cooldown: §$getCooldown(player, holy_smite)§s",
   curse: "Deals 7% damage per second.",
+  enemy_rage:
+    "Increases damage by §$(enemy.statuses[0].damage_buff*100).toFixed(1)§%. Increases by 0.3% every turn.",
 };
 
 const settings = {

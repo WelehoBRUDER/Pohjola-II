@@ -202,7 +202,7 @@
 
 #playerButtons-open {
   transition: 0.55s;
-  height: 115%;
+  height: 450%;
   background: rgb(45,45,45);
   box-shadow: inset 0px 0px 0.75vw 0.5vw rgb(30, 30, 30);
   position: relative;

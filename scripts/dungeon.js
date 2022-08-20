@@ -278,3 +278,8 @@ let dungeon = {
     },
   },
 };
+Object.entries(dungeon).forEach(([floor, { stages }]) => {
+  Object.entries(stages).map(([key, stage]) => {
+    return (stage.id = key);
+  });
+});

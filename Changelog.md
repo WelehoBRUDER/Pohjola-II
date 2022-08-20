@@ -4,9 +4,12 @@
 - Added new items
 - Added new boss
 - Added stat tracking
+- Added Eetucore mode!
 - Crafted items can now be smelted to recover materials
 - Tweaked some abilities
+- Upgrading a stat now recovers hp / mp
 - Fixed missing tooltips
+- Fixed speed not updating outside of combat
 
 # 0.4a
 

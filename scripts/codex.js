@@ -296,7 +296,6 @@ function codexLoot(enemy) {
     let found = false;
     if (loot.item == undefined) continue;
     for (let itm of player.items) {
-      console.log(loot.item);
       if (itm.name == loot.item.name) {
         drop = `| §/${loot.item?.tier ? tiers[loot.item.tier] : "white"}/${
           loot.item.name
