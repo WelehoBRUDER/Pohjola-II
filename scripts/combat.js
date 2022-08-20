@@ -223,7 +223,6 @@ function PlayerAttack() {
   player.action_points = 0;
   player_turns++;
   state.action = true;
-  enemy.statuses[0].damage_buff += 0.003;
   $("playerSpriteContainer").classList.add("player-attack");
   setTimeout(attackEnemy, 1050);
   setTimeout(reset, 2000);
@@ -241,7 +240,6 @@ function Ability(move) {
   player_turns++;
   state.action = true;
   move.onCooldown = move.cooldown;
-  enemy.statuses[0].damage_buff += 0.003;
   smallUpdate();
   if (move.heal) {
     player.hp += Math.floor(player.maxhp * move.power);
@@ -282,7 +280,6 @@ function UseItem(item) {
   player_turns++;
   game_stats.items_used++;
   state.action = true;
-  enemy.statuses[0].damage_buff += 0.003;
   if (item.effects) {
     for (let effect of item.effects) {
       if (effect.timed) {

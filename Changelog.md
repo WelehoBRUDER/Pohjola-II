@@ -7,6 +7,7 @@
 - Added Eetucore mode!
 - Crafted items can now be smelted to recover materials
 - Tweaked some abilities
+- Equipment gets autoequipped when bought (if better than current)
 - Upgrading a stat now recovers hp / mp
 - Fixed missing tooltips
 - Fixed speed not updating outside of combat

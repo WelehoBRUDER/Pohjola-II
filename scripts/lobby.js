@@ -507,6 +507,18 @@ function removeItem(e) {
   createStore();
 }
 
+const tierNumbers = {
+  DEFAULT: 0,
+  G: 1,
+  F: 2,
+  E: 3,
+  D: 4,
+  C: 5,
+  B: 6,
+  A: 7,
+  S: 8,
+};
+
 function buyItems(price) {
   playSound("click");
   if (price > player.gold) return;
@@ -514,10 +526,33 @@ function buyItems(price) {
   for (let itm of store_buying) {
     if (hasItem(itm)) hasItem(itm).amount += itm.amount;
     else player.items.push(copy(itm));
+    autoEquip(itm);
   }
   updateLeftValues();
   store_buying = [];
   createStore();
+}
+
+function autoEquip(itm) {
+  if (itm.item_type === "weapon" || itm.item_type === "armor") {
+    console.log("eh?");
+    let itm_tier = tierNumbers[itm.tier];
+    if (itm.item_type === "weapon") {
+      let eq_tier = tierNumbers[player.weapon.tier];
+      console.log(itm_tier, eq_tier);
+      if (itm_tier > eq_tier) {
+        // equip
+        equipWeapon(null, itm);
+      }
+    } else if (itm.item_type === "armor") {
+      let eq_tier = tierNumbers[player.armor.tier];
+      if (itm_tier > eq_tier) {
+        // equip
+        equipArmor(null, itm);
+      }
+    }
+    updateLeftValues();
+  }
 }
 
 function hasItem(itm) {

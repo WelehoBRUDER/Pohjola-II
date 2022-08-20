@@ -373,9 +373,9 @@ function itemHoverText(item, price = -1) {
   } else if (item.item_type == "armor") {
     hoverText = `Physical Resistance: §/$Y/${
       item.physical_resistance
-    }§ §:br§ Magical Resistance: §/$B/${
+    }%§ §:br§ Magical Resistance: §/$B/${
       item.magical_resistance
-    }§ §:br§ Speed: §/$B/${item.speed_bonus}§ §:br§ Tier: §/${
+    }%§ §:br§ Speed: §/$B/${item.speed_bonus}§ §:br§ Tier: §/${
       tiers[item.tier]
     }/${item.tier}§ `;
   } else if (item.item_type == "material") {

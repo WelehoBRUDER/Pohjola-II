@@ -177,11 +177,14 @@ function useThisItem(item) {
   updateLeftValues();
 }
 
-function equipWeapon(e) {
+function equipWeapon(e, item = null) {
   playSound("click");
   let weapon;
-  for (let wep of player.items) {
-    if (wep.name == e.target.id) weapon = wep;
+  if (item) weapon = { ...item };
+  else {
+    for (let wep of player.items) {
+      if (wep.name == e.target.id) weapon = wep;
+    }
   }
   if (weapon.amount <= 1) textBoxRemove();
   if (weapon.magical_power) {
@@ -267,12 +270,15 @@ function unequipWand(e) {
   updateLeftValues();
 }
 
-function equipArmor(e) {
+function equipArmor(e, item = null) {
   playSound("click");
   textBoxRemove();
   let armor;
-  for (let arm of player.items) {
-    if (arm.name == e.target.id) armor = arm;
+  if (item) armor = { ...item };
+  else {
+    for (let arm of player.items) {
+      if (arm.name == e.target.id) armor = arm;
+    }
   }
   if (armor.amount <= 1) textBoxRemove();
   let foundArm = false;
