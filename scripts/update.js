@@ -58,12 +58,12 @@ function Update() {
 
   // Health bar (player)
   $("playerHealthbar-number").textContent =
-    player.hp + " / " + player.maxhp + " HP";
+    player.hp + " / " + getPlayerHP() + " HP";
   $("playerHealthbar-fill").style.width =
-    (player.hp / player.maxhp) * 100 + "%";
+    (player.hp / getPlayerHP()) * 100 + "%";
   $("playerHealthbar-taken").style.width =
-    (player.hp / player.maxhp) * 100 + "%";
-  if (player.hp == 0 || player.maxhp == 0)
+    (player.hp / getPlayerHP()) * 100 + "%";
+  if (player.hp == 0 || getPlayerHP() == 0)
     $("playerHealthbar-fill").style.boxShadow =
       "0px 0px 0vw 0vw rgb(107, 18, 11)";
   else
@@ -156,7 +156,7 @@ function Update() {
   }
 
   // for effects
-  if (player.hp > player.maxhp) player.hp = player.maxhp;
+  if (player.hp > getPlayerHP()) player.hp = getPlayerHP();
   if (player.mp > player.maxmp) player.mp = player.maxmp;
 
   // Check heal overtime

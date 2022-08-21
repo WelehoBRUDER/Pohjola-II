@@ -140,7 +140,7 @@ function buyPerk(e) {
     }
     scroll.top = $("mainWindowContainer").scrollTop;
     scroll.left = $("mainWindowContainer").scrollLeft;
-    player.hp = player.maxhp;
+    player.hp = getPlayerHP();
     player.mp = player.maxmp;
     updateLeftValues();
     createPerkTree();

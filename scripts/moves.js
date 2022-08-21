@@ -302,6 +302,17 @@ const moves = {
     id: "dispelling_light",
     status: "holy_resist",
   },
+  vile_strikes: {
+    power: 0,
+    mp_cost: 15,
+    cooldown: 12,
+    name: "Vile Strikes",
+    physical: true,
+    onCooldown: 0,
+    base: 0,
+    id: "vile_strikes",
+    status: "vile_strike",
+  },
   holy_arrow: {
     power: 1.8,
     mp_cost: 30,
@@ -375,5 +386,12 @@ const statuses = {
     damage_buff: 0.003,
     name: "Rage",
     id: "enemy_rage",
+  },
+  vile_strike: {
+    lasts: 5,
+    guaranteed_hit: true,
+    guaranteed_crit: true,
+    name: "Vile Strikes",
+    id: "vile_strike",
   },
 };

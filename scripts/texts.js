@@ -22,7 +22,7 @@ const texts = {
   perk: "Your current perk points, used for purchasing perks from your perk tree.",
   str: "Your current strength stat. Strength increases weapon damage by 5% per level. §:br§ §$player.skillpoints > 0 ? 'Click to increase!' : ''§",
   vit: "Your current vitality stat. Vitality increases hit points by 25 per level. §:br§ §$player.skillpoints > 0 ? 'Click to increase!' : ''§",
-  agi: "Your current agility. Agility increases your speed in combat by roughly 0.6% per level. §:br§ §$player.skillpoints > 0 ? 'Click to increase!' : ''§",
+  agi: "Your current agility. Agility increases your speed in combat by roughly 0.6% per level and crit chance by 0.1%. §:br§ §$player.skillpoints > 0 ? 'Click to increase!' : ''§",
   int: "Your current intelligence stat. Intelligence increases magic damage by 5% and mana by 5 per level. §:br§ §$player.skillpoints > 0 ? 'Click to increase!' : ''§",
   save_button: "Create new save file or replace old one.",
   load_button: "Load selected save file.",
@@ -103,6 +103,8 @@ const texts = {
   speed_up: "This character's speed has been increased by 30%",
   holy_grace:
     "Recovers §$player.move_statuses.holy_recovery.heal_ot*100§% of max §/$R/HP§ every second for §$player.move_statuses.holy_recovery.lasts§ seconds. §:br§ §/$B/MP§ cost: §$getManacost(player, holy_grace)§ §:br§ Cooldown: §$getCooldown(player, holy_grace)§s",
+  vile_strikes:
+    "Guarantees all attacks will hit and deal critical damage for §$player.move_statuses.vile_strike.lasts§ seconds. §:br§ §/$B/MP§ cost: §$getManacost(player, vile_strikes)§ §:br§ Cooldown: §$getCooldown(player, vile_strikes)§s",
   holy_recovery:
     "This character will recover §$player.move_statuses.holy_recovery.heal_ot*100§% of max §/$R/HP§ every second.",
   blessed_weapon:
@@ -113,6 +115,7 @@ const texts = {
     "Increases magical resistance by §$player.move_statuses.holy_resist.power*100§% for §$player.move_statuses.holy_resist.lasts§s. Cooldown: §$getCooldown(player, dispelling_light)§s",
   holy_resist:
     "This character's magical resistance has been increased by §$player.move_statuses.holy_resist.power*100§%.",
+  vile_strike: "All attacks will hit and deal critical damage.",
   holy_arrow:
     "Deals §$Math.floor(calculateDmg(player, enemy, getMove(player, 'holy_arrow')))§ damage. §:br§ §/$B/MP§ cost: §$getManacost(player, holy_arrow)§",
   _menu_itemuse:

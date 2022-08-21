@@ -4,6 +4,7 @@ let player = {
   mp: 10,
   maxhp: 20,
   maxmp: 10,
+  hpMultiplier: 1,
   stats: {
     str: 1,
     vit: 1,
