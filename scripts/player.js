@@ -170,7 +170,7 @@ function useThisItem(item) {
     }
   }
   if (item.recover) player[item.recover] += item.value;
-  if (player.hp > player.maxhp) player.hp = player.maxhp;
+  if (player.hp > player.maxhp) player.hp = getPlayerHP();
   if (player.mp > player.maxmp) player.mp = player.maxmp;
   SaveGameHC();
   createInventory();
@@ -374,4 +374,9 @@ function unequipArmor() {
   player.armor = naked;
   createInventory();
   updateLeftValues();
+}
+
+function getPlayerHP() {
+  const multiplier = player.hpMultiplier ?? 1;
+  return Math.floor(player.maxhp * multiplier);
 }

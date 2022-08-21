@@ -185,14 +185,14 @@ function combatStatsView() {
     <img src="images/centaur-heart.png">
     ${
       (state.gamemode.prevent_recovery_after_battle ? player.hp + "/" : "") +
-      player.maxhp
+      getPlayerHP()
     }
     </p>
     <p id="mana">
     <img src="images/mana_icon.png">
     ${
       (state.gamemode.prevent_recovery_after_battle ? player.mp + "/" : "") +
-      player.maxmp
+      getPlayerHP()
     }
     </p>
     <p id="physres">
@@ -223,20 +223,29 @@ function UpgradeStat(act, stat) {
     player.stats[stat]++;
     if (stat == "vit") player.maxhp += 25;
     else if (stat == "int") player.maxmp += 5;
-    player.hp = player.maxhp;
+    else if (stat === "agi") {
+      player.critChance += 0.1;
+    }
+    player.hp = getPlayerHP();
     player.mp = player.maxmp;
   } else if (player.skillpoints >= 5 && act.shiftKey) {
     player.skillpoints -= 5;
     player.stats[stat] += 5;
     if (stat == "vit") player.maxhp += 50;
     else if (stat == "int") player.maxmp += 25;
-    player.hp = player.maxhp;
+    else if (stat === "agi") {
+      player.critChance += 0.5;
+    }
+    player.hp = getPlayerHP();
     player.mp = player.maxmp;
   } else if (player.skillpoints < 5 && act.shiftKey) {
     player.stats[stat] += player.skillpoints;
     if (stat == "vit") player.maxhp += 10 * player.skillpoints;
     else if (stat == "int") player.maxmp += 5 * player.skillpoints;
-    player.hp = player.maxhp;
+    else if (stat === "agi") {
+      player.critChance += 0.1 * player.skillpoints;
+    }
+    player.hp = getPlayerHP();
     player.mp = player.maxmp;
     player.skillpoints = 0;
   }
@@ -261,7 +270,7 @@ function levelUp(e) {
       player.xpCap *= 1.17;
     }
   }
-  player.hp = player.maxhp;
+  player.hp = getPlayerHP();
   player.mp = player.maxmp;
   player.xpCap = Math.ceil(player.xpCap);
   player.xp = Math.floor(player.xp);
@@ -352,7 +361,7 @@ function startFight(stage) {
   gauntlet = copy(state.stage.gauntlet);
   enemy = gauntlet[0];
   if (!state.gamemode.prevent_recovery_after_battle) {
-    player.hp = player.maxhp;
+    player.hp = getPlayerHP();
     player.mp = player.maxmp;
   }
   combatTimer = setInterval(

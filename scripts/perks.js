@@ -282,10 +282,10 @@ let warrior_tree = {
   warrior_32: {
     name: "Battlefield Looter",
     cost: 2,
-    desc: "Increases XP gain by 5% and gold gain by 20%. §:br§ Cost: 2 perk points",
+    desc: "Increases XP gain by 10% and gold gain by 40%. §:br§ Cost: 2 perk points",
     icon: "gold_small",
     right_of: "warrior_19",
-    effect: [{ increase_stat: "lck", by: 5 }],
+    effect: [{ increase_stat: "lck", by: 10 }],
   },
   warrior_33: {
     name: "Power and Grace",
@@ -903,10 +903,146 @@ let paladin_tree = {
   },
 };
 
+let waste_of_skin_tree = {
+  colors: {
+    reg: "#212422",
+    box: "#1b1c1b",
+    name: "Waste of Skin Tree",
+    id: "waste_of_skin",
+  },
+  waste_of_skin_1: {
+    first: true,
+    name: "Wretched Flesh",
+    cost: 1,
+    desc: "§/$R/Decreases§ health by -50% but §/lime/increases§ §/$Y/dodge chance§ by 25%. §:br§ Cost: 1 perk point",
+    icon: "wrapped-heart",
+    effect: [
+      { increase: "dodge", by: 0.25 },
+      { increase: "hpMultiplier", by: -0.5 },
+    ],
+  },
+  waste_of_skin_2: {
+    name: "Pathetic Display",
+    cost: 1,
+    down_of: "waste_of_skin_1",
+    desc: "§/lime/Increases§ §/$Y/crit chance§ by 5% and §/$Y/crit damage§ by 10%. §:br§ Cost: 1 perk point",
+    icon: "punch-blast",
+    effect: [
+      { increase: "critChance", by: 5 },
+      { increase: "critDamage", by: 10 },
+    ],
+  },
+  waste_of_skin_3: {
+    name: "Repulsive Tactics",
+    cost: 2,
+    down_of: "waste_of_skin_2",
+    desc: "Gain skill '§/$Y/Vile Strikes§'. Lasts 5 seconds, all attacks will hit and be critical. Costs 15 mp. §:br§ Cost: 2 perk points",
+    icon: "vile_strikes",
+    effect: [{ grant_skill: copy(moves.vile_strikes) }],
+  },
+  waste_of_skin_4: {
+    name: "Viler Strikes",
+    cost: 4,
+    down_of: "waste_of_skin_3",
+    desc: "§/lime/Increases§ Vile Strikes' duration by 2 seconds. §:br§ Cost: 4 perk points",
+    icon: "holy",
+    effect: [{ modify_status: "vile_strike", target: "lasts", by: 2 }],
+  },
+  path_waste_1: {
+    name: "PATH",
+    cost: 0,
+    right_of: "waste_of_skin_2",
+    GET_FROM: "waste_of_skin_2",
+  },
+  waste_of_skin_5: {
+    name: "Wretched Strength",
+    cost: 2,
+    right_of: "path_waste_1",
+    desc: "§/lime/Increases§ §/$Y/strength§ by 3 and §/$Y/crit chance§ by 3%. §:br§ Cost: 2 perk points",
+    icon: "strength",
+    effect: [
+      { increase_stat: "str", by: 3 },
+      { increase: "critChance", by: 3 },
+    ],
+  },
+  waste_of_skin_6: {
+    name: "Desolate Skulkery",
+    cost: 2,
+    right_of: "waste_of_skin_5",
+    desc: "§/lime/Increases§ §/$Y/agility§ by 3 and §/$Y/crit chance§ by 3%. §:br§ Cost: 2 perk points",
+    icon: "dodge_icon",
+    effect: [
+      { increase_stat: "agi", by: 3 },
+      { increase: "critChance", by: 3 },
+    ],
+  },
+  waste_of_skin_7: {
+    name: "Wasted Potential",
+    cost: 3,
+    down_of: "waste_of_skin_6",
+    desc: "§/lime/Increases§ §/$Y/crit chance§ by 6% and §/$Y/crit damage§ by 12%. §:br§ Cost: 3 perk points",
+    icon: "punch-blast",
+    effect: [
+      { increase: "critChance", by: 6 },
+      { increase: "critDamage", by: 12 },
+    ],
+  },
+  path_waste_2: {
+    name: "PATH",
+    cost: 0,
+    left_of: "waste_of_skin_2",
+    GET_FROM: "waste_of_skin_2",
+  },
+  waste_of_skin_8: {
+    name: "Fear of Death",
+    cost: 2,
+    left_of: "path_waste_2",
+    desc: "§/lime/Increases§ §/$Y/dodge chance§ by 5%. §:br§ Cost: 2 perk points",
+    icon: "skull-crack",
+    effect: [{ increase: "dodge", by: 0.05 }],
+  },
+  waste_of_skin_9: {
+    name: "Healing the Flesh",
+    cost: 2,
+    left_of: "waste_of_skin_8",
+    desc: "§/lime/Increases§ §/$R/health§ by 5%. §:br§ Cost: 2 perk points",
+    icon: "healing",
+    effect: [{ increase: "hpMultiplier", by: 0.05 }],
+  },
+  waste_of_skin_10: {
+    name: "Mending the Wounds",
+    cost: 4,
+    down_of: "waste_of_skin_9",
+    desc: "§/lime/Increases§ §/$R/health§ by 5% and §/$Y/dodge chance§ by 4%. §:br§ Cost: 4 perk points",
+    icon: "healing",
+    effect: [
+      { increase: "hpMultiplier", by: 0.05 },
+      { increase: "dodge", by: 0.04 },
+    ],
+  },
+  waste_of_skin_11: {
+    name: "Scrounger I",
+    cost: 1,
+    left_of: "waste_of_skin_9",
+    desc: "Increases XP gain by 5% and gold gain by 20%. §:br§ Cost: 1 perk point",
+    icon: "gold_small",
+    effect: [{ increase_stat: "lck", by: 5 }],
+  },
+  waste_of_skin_12: {
+    name: "Scrounger II",
+    cost: 1,
+    right_of: "waste_of_skin_6",
+    desc: "Increases XP gain by 5% and gold gain by 20%. §:br§ Cost: 1 perk point",
+    icon: "gold_small",
+    effect: [{ increase_stat: "lck", by: 5 }],
+  },
+};
+
 let trees = {
   warrior: true,
   mage: true,
   paladin: true,
+  waste_of_skin: true,
 };
 
 let selected_tree = warrior_tree;

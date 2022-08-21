@@ -107,8 +107,22 @@ function createStatuses() {
   }
 }
 
+function playerHasGuaranteedHit() {
+  for (let status of player.statuses) {
+    if (status.guaranteed_hit) return true;
+  }
+  return false;
+}
+
+function playerHasGuaranteedCrit() {
+  for (let status of player.statuses) {
+    if (status.guaranteed_crit) return true;
+  }
+  return false;
+}
+
 function hurtEnemy(move) {
-  if (enemy.dodge >= Math.random()) {
+  if (enemy.dodge >= Math.random() && !playerHasGuaranteedCrit()) {
     createParticle("DODGE", Y, $("enemySprite"));
     createEventlog(player.name, move.name);
     player.mp -= move.mp_cost;
@@ -135,7 +149,7 @@ function hurtEnemy(move) {
 }
 
 function doPlayerCrit(dmg) {
-  if (player.critChance > Math.random() * 100) {
+  if (player.critChance > Math.random() * 100 || playerHasGuaranteedCrit()) {
     dmg = Math.floor(dmg * (1 + player.critDamage / 100));
     createParticle("CRIT!", "orange", $("enemySprite"));
   }
@@ -143,7 +157,7 @@ function doPlayerCrit(dmg) {
 }
 
 function attackEnemy() {
-  if (enemy.dodge >= Math.random()) {
+  if (enemy.dodge >= Math.random() && !playerHasGuaranteedHit()) {
     createParticle("DODGE", Y, $("enemySprite"));
     createEventlog(player.name, "attack");
     return;
@@ -269,11 +283,11 @@ function Ability(move) {
   move.onCooldown = move.cooldown;
   smallUpdate();
   if (move.heal) {
-    player.hp += Math.floor(player.maxhp * move.power);
-    if (player.hp > player.maxhp) player.hp = player.maxhp;
+    player.hp += Math.floor(getPlayerHP() * move.power);
+    if (player.hp > getPlayerHP()) player.hp = getPlayerHP();
     let particleColor = "green";
     createParticle(
-      Math.floor(player.maxhp * move.power),
+      Math.floor(getPlayerHP() * move.power),
       particleColor,
       $("playerSprite")
     );

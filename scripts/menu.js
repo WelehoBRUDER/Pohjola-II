@@ -338,7 +338,7 @@ function createCharacter() {
     if (effect.increase_stat) player.stats[effect.increase_stat] += effect.by;
     else if (effect.increase) player[effect.increase] += effect.by;
   }
-  player.hp = player.maxhp;
+  player.hp = getPlayerHP();
   player.mp = player.maxmp;
   state.gamemode = menu.gamemode;
   if (state.gamemode.give_enemy_scaling_power) {
