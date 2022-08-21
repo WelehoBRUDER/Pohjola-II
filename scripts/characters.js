@@ -11,6 +11,8 @@ let player = {
     agi: 1,
     lck: 0,
   },
+  critChance: 10,
+  critDamage: 50,
   items: [addItems(consumables.inferior_healing_potion, 3)],
   moves: [],
   weapon: copy(weapons.fists),

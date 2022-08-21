@@ -53,12 +53,13 @@ let warrior_tree = {
   warrior_5: {
     name: "Offense is the Best Defense",
     cost: 2,
-    desc: "Increases str by 3 and §/red/HP§ by 10. §:br§ Cost: 2 perk points",
+    desc: "Increases str by 3, §/red/HP§ by 10 and crit chance by 2%. §:br§ Cost: 2 perk points",
     icon: "weapon_icon",
     down_of: "warrior_4",
     effect: [
       { increase: "maxhp", by: 10 },
       { increase_stat: "str", by: 3 },
+      { increase: "critChance", by: 2 },
     ],
   },
   warrior_6: {
@@ -155,10 +156,13 @@ let warrior_tree = {
   warrior_16: {
     name: "Powerful Grip",
     cost: 2,
-    desc: "Increases physical damage by 5%. §:br§ Cost: 2 perk points",
+    desc: "Increases physical damage by 5% and crit damage by 5%. §:br§ Cost: 2 perk points",
     icon: "damage_icon",
     right_of: "warrior_15",
-    effect: [{ increase: "physical_multiplier", by: 0.05 }],
+    effect: [
+      { increase: "physical_multiplier", by: 0.05 },
+      { increase: "critDamage", by: 5 },
+    ],
   },
   warrior_17: {
     name: "Armor Breaker",
@@ -228,12 +232,13 @@ let warrior_tree = {
   warrior_27: {
     name: "Agile Assault",
     cost: 1,
-    desc: "Increases agility by 2 and physical damage by 2%. §:br§ Cost: 1 perk point",
+    desc: "Increases agility by 2, physical damage by 2% and crit chance by 3%. §:br§ Cost: 1 perk point",
     icon: "weapon_icon",
     right_of: "warrior_24",
     effect: [
       { increase_stat: "agi", by: 2 },
       { increase: "physical_multiplier", by: 0.02 },
+      { increase: "critChance", by: 3 },
     ],
   },
   warrior_28: {
@@ -263,12 +268,13 @@ let warrior_tree = {
   warrior_31: {
     name: "Titan's Strength",
     cost: 4,
-    desc: "Increases strength by 10 and physical damage by 5%. §:br§ Lowers intelligence by 1. §:br§ Cost: 4 perk points",
+    desc: "Increases strength by 10, physical damage by 5% and crit damage by 5%. §:br§ Lowers intelligence by 1. §:br§ Cost: 4 perk points",
     icon: "strength",
     down_of: "warrior_19",
     effect: [
       { increase_stat: "str", by: 10 },
       { increase: "physical_multiplier", by: 0.05 },
+      { increase: "critDamage", by: 5 },
       { increase_stat: "int", by: -1 },
       { increase: "maxmp", by: -5 },
     ],
@@ -426,10 +432,13 @@ let mage_tree = {
   mage_11: {
     name: "Concentrated Anger",
     cost: 2,
-    desc: "Increases magical damage by 4%. §:br§ Cost: 2 perk points",
+    desc: "Increases magical damage by 4% and crit damage by 5%. §:br§ Cost: 2 perk points",
     icon: "damage_icon",
     right_of: "mage_10",
-    effect: [{ increase: "magical_multiplier", by: 0.04 }],
+    effect: [
+      { increase: "magical_multiplier", by: 0.04 },
+      { increase: "critDamage", by: 5 },
+    ],
   },
   mage_12: {
     name: "Strengthened Blast",
@@ -483,10 +492,13 @@ let mage_tree = {
   mage_17: {
     name: "Wisdoms of the Past",
     cost: 2,
-    desc: "Increases magical damage by 10%. §:br§ Cost: 2 perk points",
+    desc: "Increases magical damage by 10% and crit chance by 3%. §:br§ Cost: 2 perk points",
     icon: "mana_icon",
     right_of: "mage_11",
-    effect: [{ increase: "magical_multiplier", by: 0.1 }],
+    effect: [
+      { increase: "magical_multiplier", by: 0.1 },
+      { increase: "critChance", by: 3 },
+    ],
   },
   mage_18: {
     name: "Concentrated Weak Point",
@@ -519,13 +531,14 @@ let mage_tree = {
   mage_21: {
     name: "The Thinking Man",
     cost: 3,
-    desc: "Increases §/$B/MP§ by 50, intelligence by 5 and magical damage by 8%. §:br§ Cost: 3 perk points",
+    desc: "Increases §/$B/MP§ by 50, intelligence by 5, magical damage by 8% and crit damage by 5%. §:br§ Cost: 3 perk points",
     icon: "wisdom",
     down_of: "mage_20",
     effect: [
       { increase: "maxmp", by: 50 },
       { increase: "magical_multiplier", by: 0.08 },
       { increase_stat: "int", by: 5 },
+      { increase: "critDamage", by: 5 },
     ],
   },
   mage_22: {
@@ -787,13 +800,15 @@ let paladin_tree = {
   paladin_17: {
     name: "Crusader King",
     cost: 3,
-    desc: "Increase physical damage by 5%, §/$R/HP§ by 25 and magical resistance by 2% §:br§ Cost: 3 perk points",
+    desc: "Increase physical damage by 5%, §/$R/HP§ by 25, magical resistance by 2%, crit chance by 2% and crit damage by 5%. §:br§ Cost: 3 perk points",
     icon: "crusader",
     down_of: "paladin_16",
     effect: [
       { increase: "physical_multiplier", by: 0.05 },
       { increase: "maxhp", by: 25 },
       { increase: "magical_resistance", by: 2 },
+      { increase: "critChance", by: 2 },
+      { increase: "critDamage", by: 5 },
     ],
   },
   paladin_18: {

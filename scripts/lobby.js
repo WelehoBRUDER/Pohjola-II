@@ -178,11 +178,11 @@ function combatStatsView() {
     ${Math.floor(player.dodge * 100)}%
     </p>
     <p id="speed">
-    <img src="images/speed_icon.png">
+    <img src="images/speedometer.png">
     ${(100 / ((0.5 + player.speed) * 60)).toFixed(1)}s
     </p>
     <p id="health">
-    <img src="images/health_icon.png">
+    <img src="images/centaur-heart.png">
     ${
       (state.gamemode.prevent_recovery_after_battle ? player.hp + "/" : "") +
       player.maxhp
@@ -202,6 +202,14 @@ function combatStatsView() {
     <p id="magires">
     <img src="images/magical_resistance.png">
     ${Math.floor(player.magical_resistance)}%
+    </p>
+    <p id="critchance">
+    <img src="images/dice-fire.png">
+    ${Math.floor(player.critChance)}%
+    </p>
+    <p id="critdamage">
+    <img src="images/punch-blast.png">
+    ${Math.floor(player.critDamage)}%
     </p>
   `;
   for (let child of combatStats.childNodes) {
@@ -630,6 +638,10 @@ function effectSyntax(effect, req) {
           return "§/$B/MP§";
         case "dodge":
           return "§/$Y/dodge chance§";
+        case "critChance":
+          return "§/$Y/crit chance§";
+        case "critDamage":
+          return "§/$Y/crit damage§";
       }
     } else if (effect.increase_stat) {
       switch (effect.increase_stat) {
@@ -652,6 +664,11 @@ function effectSyntax(effect, req) {
       !effect.increase_stat
     ) {
       return effect.by * 100 + "%";
+    } else if (
+      effect.increase === "critChance" ||
+      effect.increase === "critDamage"
+    ) {
+      return effect.by + "%";
     } else return effect.by;
   }
 }

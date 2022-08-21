@@ -87,6 +87,7 @@ const weapons = {
       { item: materials.iron_ingot, amount: 2 },
       { item: materials.steel_ingot, amount: 1 },
     ],
+    effects: [{ increase: "critChance", by: 5 }],
   },
   poleaxe: {
     name: "Poleaxe",
@@ -153,6 +154,7 @@ const weapons = {
       { item: materials.iron_ingot, amount: 1 },
       { item: materials.steel_ingot, amount: 3 },
     ],
+    effects: [{ increase: "critChance", by: 5 }],
   },
   astral_spear: {
     name: "Astral Spear",
@@ -203,6 +205,7 @@ const weapons = {
     effects: [
       { increase_stat: "str", by: 10 },
       { increase: "maxhp", by: 100 },
+      { increase: "critChance", by: 3 },
     ],
     tier: "B",
     smelt: [
@@ -222,6 +225,7 @@ const weapons = {
       { increase_stat: "agi", by: 20 },
       { increase: "physical_multiplier", by: 0.25 },
       { increase_stat: "str", by: 10 },
+      { increase: "critChance", by: 7 },
     ],
     tier: "A",
     smelt: [
@@ -240,6 +244,7 @@ const weapons = {
     effects: [
       { increase: "physical_multiplier", by: 0.39 },
       { increase_stat: "str", by: 15 },
+      { increase: "critChance", by: 10 },
     ],
     tier: "S",
     smelt: [
@@ -266,6 +271,8 @@ const weapons = {
       { incrase_stat: "agi", by: 15 },
       { increase_stat: "str", by: 15 },
       { increase: "maxhp", by: 180 },
+      { increase: "critChance", by: 10 },
+      { increase: "critDamage", by: 25 },
     ],
     tier: "S",
     smelt: [
@@ -285,6 +292,8 @@ const weapons = {
       { incrase_stat: "agi", by: 99 },
       { increase_stat: "str", by: 99 },
       { increase: "maxhp", by: 999 },
+      { increase: "critChance", by: 90 },
+      { increase: "critDamage", by: 100 },
     ],
     tier: "S",
     smelt: [
@@ -302,6 +311,8 @@ const weapons = {
     effects: [
       { increase_stat: "str", by: 15 },
       { increase: "maxhp", by: 150 },
+      { increase: "critDamage", by: 50 },
+      { increase: "critChance", by: -5 },
       { increase_stat: "int", by: -10 },
       { increase: "maxmp", by: -100 },
     ],
@@ -323,6 +334,7 @@ const weapons = {
       { increase: "physical_multiplier", by: 0.15 },
       { increase_stat: "str", by: 20 },
       { increase: "maxhp", by: 200 },
+      { increase: "critChance", by: 15 },
     ],
     tier: "A",
     smelt: [
@@ -390,7 +402,10 @@ const weapons = {
     item_type: "weapon",
     tier: "B",
     mag_damage: 62,
-    effects: [{ increase: "maxmp", by: 50 }],
+    effects: [
+      { increase: "maxmp", by: 50 },
+      { increase: "critChance", by: 2 },
+    ],
     smelt: [
       { item: materials.wood_stick, amount: 4 },
       { item: materials.steel_ingot, amount: 4 },
@@ -408,6 +423,7 @@ const weapons = {
     effects: [
       { increase: "maxmp", by: 200 },
       { increase_stat: "int", by: 20 },
+      { increase: "critChance", by: 5 },
     ],
     smelt: [
       { item: materials.wood_stick, amount: 4 },
@@ -819,6 +835,7 @@ const craftable_items = {
       { increase: "physical_multiplier", by: 0.1 },
       { increase: "maxhp", by: 75 },
       { increase_stat: "str", by: 3 },
+      { increase: "critChance", by: 4 },
     ],
     tier: "C",
   },
@@ -850,6 +867,7 @@ const craftable_items = {
       { increase_stat: "str", by: 25 },
       { increase_stat: "int", by: 20 },
       { increase: "maxmp", by: 50 },
+      { increase: "critChance", by: 8 },
     ],
     tier: "A",
   },
@@ -897,6 +915,7 @@ const craftable_items = {
       { increase_stat: "int", by: 20 },
       { increase: "maxmp", by: 250 },
       { increase: "magical_multiplier", by: 0.33 },
+      { increase: "critChance", by: 7 },
     ],
   },
   thick_leather_armor: {
