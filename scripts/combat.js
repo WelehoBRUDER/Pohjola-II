@@ -212,7 +212,9 @@ function EnemyAttack() {
   enemy.action_points = 0;
   enemy_turns++;
   state.action = true;
-  enemy.statuses[0].damage_buff += 0.003;
+  if (state.gamemode.give_enemy_scaling_power) {
+    enemy.statuses[0].damage_buff += 0.003;
+  }
   if (enemy.hp / enemy.maxhp <= 0.4) {
     if (enemyCanHeal() && enemy.items.length > 0) {
       for (let item of enemy.items) {
