@@ -153,6 +153,8 @@ function loadGame(menu) {
     )
       item.tier = "DEFAULT";
   }
+  if (!player.critChance) player.critChance = 10;
+  if (!player.critDamage) player.critDamage = 50;
   if (!player.move_statuses) player.move_statuses = {};
   for (let move of player.moves) {
     if (move.status) {

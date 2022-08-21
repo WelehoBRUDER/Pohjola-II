@@ -40,6 +40,8 @@ const texts = {
     "Your current physical resistance. Physical damage you take is reduced by the indicated number.",
   magires_info:
     "Your current magical resistance. Magical damage is reduced by the indicated number.",
+  critchance_info: "Your current critical hit chance.",
+  critdamage_info: "Your current critical hit damage multiplier.",
   atkbutton:
     "Attack your opponent with your weapon for §$Math.floor(calculateDmg(player, enemy, 'defaultAttack'))§ damage",
   skibutton: "Open container for all of your skills.",

@@ -120,6 +120,7 @@ function hurtEnemy(move) {
   let damage = Math.floor(calculateDmg(player, enemy, move));
   if (damage < 0) damage = 0;
   damage = Math.floor(damage);
+  damage = doPlayerCrit(damage);
   enemy.hp -= damage;
   if (damage > game_stats.most_damage_dealt)
     game_stats.most_damage_dealt = damage;
@@ -131,6 +132,14 @@ function hurtEnemy(move) {
   }
   player.mp -= move.mp_cost;
   if (enemy.hp < 0) enemy.hp = 0;
+}
+
+function doPlayerCrit(dmg) {
+  if (player.critChance > Math.random() * 100) {
+    dmg = Math.floor(dmg * (1 + player.critDamage / 100));
+    createParticle("CRIT!", "orange", $("enemySprite"));
+  }
+  return dmg;
 }
 
 function attackEnemy() {
@@ -146,6 +155,7 @@ function attackEnemy() {
   damage = Math.floor(calculateDmg(player, enemy, "defaultAttack"));
   if (damage < 0) damage = 0;
   damage = Math.floor(damage);
+  damage = doPlayerCrit(damage);
   enemy.hp -= damage;
   if (damage > game_stats.most_damage_dealt)
     game_stats.most_damage_dealt = damage;
@@ -169,6 +179,11 @@ function enemyAttacks(attack) {
   damage = Math.floor(calculateDmg(enemy, player, attack));
   if (damage < 0) damage = 0;
   damage = Math.floor(damage);
+  // Do crit
+  if (0.1 > Math.random()) {
+    damage = Math.floor(damage * 1.5);
+    createParticle("CRIT!", "orange", $("playerSprite"));
+  }
   player.hp -= damage;
   if (damage > game_stats.most_damage_taken)
     game_stats.most_damage_taken = damage;
