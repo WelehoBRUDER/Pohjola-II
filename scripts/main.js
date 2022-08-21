@@ -664,7 +664,7 @@ function createParticle(text, color, start) {
   particle.classList.add("fly");
   particle.style.color = color;
   particle.textContent = text;
-  particle.style.transition = "1.2s";
+  particle.style.transition = "1.5s";
   particle.classList.add("particle");
   particle.style.left =
     (isFirefox ? start.getBoundingClientRect().left : start.x) +

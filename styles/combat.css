@@ -323,7 +323,7 @@
 
 .fly {
   animation-name: upAndDown;
-  animation-duration: calc(1.2s * var(--animation-speed));
+  animation-duration: 1.5s;
   animation-fill-mode: forwards;
 }
 
