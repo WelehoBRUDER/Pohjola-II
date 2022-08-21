@@ -192,7 +192,7 @@ function combatStatsView() {
     <img src="images/mana_icon.png">
     ${
       (state.gamemode.prevent_recovery_after_battle ? player.mp + "/" : "") +
-      getPlayerHP()
+      player.maxmp
     }
     </p>
     <p id="physres">
