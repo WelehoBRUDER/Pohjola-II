@@ -638,6 +638,10 @@ function effectSyntax(effect, req) {
           return "§/$B/MP§";
         case "dodge":
           return "§/$Y/dodge chance§";
+        case "critChance":
+          return "§/$Y/crit chance§";
+        case "critDamage":
+          return "§/$Y/crit damage§";
       }
     } else if (effect.increase_stat) {
       switch (effect.increase_stat) {
@@ -660,6 +664,11 @@ function effectSyntax(effect, req) {
       !effect.increase_stat
     ) {
       return effect.by * 100 + "%";
+    } else if (
+      effect.increase === "critChance" ||
+      effect.increase === "critDamage"
+    ) {
+      return effect.by + "%";
     } else return effect.by;
   }
 }
