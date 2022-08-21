@@ -88,6 +88,15 @@ let dungeon = {
           copy(enemies.orc_berserker),
         ],
       },
+      extra1: {
+        name: "Extra 1",
+        gauntlet: [
+          copy(enemies.skeleton_knight),
+          copy(enemies.orc_berserker),
+          copy(enemies.orc_berserker),
+          copy(enemies.skeleton_knight),
+        ],
+      },
       finalstage: {
         name: "Final Stage",
 
@@ -186,6 +195,15 @@ let dungeon = {
           copy(enemies.spectral_knight),
         ],
       },
+      extra2: {
+        name: "Extra 2",
+        gauntlet: [
+          copy(enemies.spectral_knight),
+          copy(enemies.lich),
+          copy(enemies.spectral_knight),
+          copy(enemies.grave_floater),
+        ],
+      },
       floor2end: {
         name: "Floor 2 End",
         gauntlet: [copy(enemies.wyvern)],
@@ -266,6 +284,15 @@ let dungeon = {
       stage44: {
         name: "Stage 44",
         gauntlet: [copy(enemies.excelsus)],
+      },
+      extra3: {
+        name: "Extra 3",
+        gauntlet: [
+          copy(enemies.corrupted_elf),
+          copy(enemies.dark_elf_warrior),
+          copy(enemies.elven_hero),
+          copy(enemies.wyvern_rider),
+        ],
       },
       college_ball: {
         name: "COLLEGE BALL",

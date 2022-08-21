@@ -1,3 +1,9 @@
+# 0.5b - New Class
+
+- Added new class 'Waste of Skin'
+- Added critical hits
+- Added 3 new stages, 1 to each floor
+
 # 0.5a - Eetucore
 
 - Added missing images
