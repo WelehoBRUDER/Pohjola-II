@@ -208,6 +208,25 @@ function enemyAttacks(attack) {
   if (player.hp < 0) player.hp = 0;
 }
 
+function getRandomAbility() {
+  let resortToDefault = false;
+  let available = enemy.moves.length - 1;
+  enemy.moves.map((move) => {
+    if (move.onCooldown > 0 || move.mp_cost > enemy.mp) {
+      return available--;
+    }
+  });
+  if (available <= 0) resortToDefault = true;
+  if (resortToDefault) {
+    return { ...moves.attack };
+  }
+  let move = enemy.moves[Random(enemy.moves.length)];
+  while (move.onCooldown > 0 || move.mp_cost > enemy.mp) {
+    move = enemy.moves[Random(enemy.moves.length)];
+  }
+  return move;
+}
+
 function EnemyAttack() {
   enemy.action_points = 0;
   enemy_turns++;
@@ -232,10 +251,7 @@ function EnemyAttack() {
       return;
     }
   }
-  let attack = enemy.moves[Random(enemy.moves.length)];
-  while (attack.onCooldown > 0 || attack.mp_cost > enemy.mp) {
-    attack = enemy.moves[Random(enemy.moves.length)];
-  }
+  let attack = getRandomAbility();
   if (!attack.physical) {
     $("enemySpriteContainer").classList.add("enemy-attack--magical");
     setTimeout(

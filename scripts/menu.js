@@ -3,11 +3,13 @@ document.addEventListener("DOMContentLoaded", init);
 const gamemodes = {
   casual: {
     id: "casual",
+    name: "CASUAL",
     description: "Easy mode",
     color: "rgba(17, 107, 17, 0.4)",
   },
   hardcore: {
     id: "hardcore",
+    name: "HARDCORE",
     description: "Hard mode",
     color: "rgba(217, 17, 17, 0.4)",
     prevent_manual_save: true,
@@ -16,6 +18,7 @@ const gamemodes = {
   },
   eetucore: {
     id: "eetucore",
+    name: "NIGHTMARE",
     description: "Eetucore mode",
     color: "rgba(59, 10, 10, 0.4)",
     prevent_manual_save: true,
@@ -134,7 +137,7 @@ function savesLoadMenu() {
     if (save.gamemode?.id === "hardcore")
       slot.innerHTML += "<span style='color: red'>HARDCORE!</span>";
     else if (save.gamemode?.id === "eetucore")
-      slot.innerHTML += "<span style='color: darkred'>EETUCORE!</span>";
+      slot.innerHTML += "<span style='color: darkred'>NIGHTMARE!</span>";
     slot.id = "slot" + save.id;
     if (selected_slot?.id == save?.id) slot.classList.add("saveSelected");
     slot.addEventListener("click", () =>
@@ -272,7 +275,7 @@ function gamemodeChoices() {
     const choice = create("div");
     const name = create("h3");
     choice.style.background = mode.color;
-    name.textContent = key.toUpperCase();
+    name.textContent = mode.name;
     choice.addEventListener("click", () => selectGamemode(mode));
     if (menu.gamemode.id === key) choice.classList.add("gamemodeSelected");
     choice.append(name);

@@ -19,7 +19,7 @@ function createSaving() {
     if (save.gamemode?.id === "hardcore")
       slot.innerHTML += "<span style='color: red'>HARDCORE!</span>";
     else if (save.gamemode?.id === "eetucore")
-      slot.innerHTML += "<span style='color: darkred'>EETUCORE!</span>";
+      slot.innerHTML += "<span style='color: darkred'>NIGHTMARE!</span>";
     slot.id = "slot" + save.id;
     if (selected_slot?.id == save?.id) slot.classList.add("saveSelected");
     slot.addEventListener("click", selectSlot);
