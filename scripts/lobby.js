@@ -347,6 +347,10 @@ function startFight(stage) {
     player.hp = player.maxhp;
     player.mp = player.maxmp;
   }
+  combatTimer = setInterval(
+    Update,
+    1000 / (60 * combatSpeeds[settings.combat_speed])
+  );
   state.end = false;
   state.turn = "none";
   state.action = false;
@@ -571,9 +575,9 @@ function clearItems() {
   createStore();
 }
 
-var save_slots = [];
-var selected_slot = null;
-var input = "";
+let save_slots = [];
+let selected_slot = null;
+let input = "";
 
 function save_does_not_have_sortTime() {
   for (let save of save_slots) {

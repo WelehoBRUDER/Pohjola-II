@@ -331,17 +331,17 @@
 
 .player-attack {
   animation-name: playerAttack;
-  animation-duration: 2s;
+  animation-duration: calc(2s * var(--animation-speed));
 }
 
 .player-attack--magical {
   animation-name: playerMagical;
-  animation-duration: 0.8s;
+  animation-duration: calc(0.8s * var(--animation-speed));
 }
 
 .enemy-attack--magical {
   animation-name: enemyMagical;
-  animation-duration: 0.8s;
+  animation-duration: calc(0.8s * var(--animation-speed));
 }
 
 @keyframes playerAttack {

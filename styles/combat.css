@@ -1,3 +1,7 @@
+:root {
+  --animation-speed: 1;
+}
+
 #eventWindow {
   position: relative;
   left: -0.5vw;
@@ -304,28 +308,28 @@
 
 .shake1 {
   animation-name: shake1;
-  animation-duration: 0.25s;
+  animation-duration: calc(0.25s * var(--animation-speed));
 }
 
 .shake2 {
   animation-name: shake2;
-  animation-duration: 0.35s;
+  animation-duration: calc(0.35s * var(--animation-speed));
 }
 
 .heal {
   animation-name: heal;
-  animation-duration: 1s;
+  animation-duration: calc(1s * var(--animation-speed));
 }
 
 .fly {
   animation-name: upAndDown;
-  animation-duration: 1.2s;
+  animation-duration: calc(1.2s * var(--animation-speed));
   animation-fill-mode: forwards;
 }
 
 .shoot {
   animation-name: shoot;
-  animation-duration: 0.6s;
+  animation-duration: calc(0.6s * var(--animation-speed));
   animation-fill-mode: forwards;
 }
 
@@ -338,14 +342,14 @@
 .projectile {
   position: absolute;
   z-index: 10;
-  transition: 0.6s;
+  transition: calc(0.6s * var(--animation-speed));
   width: 5vw;
   height: 5vw;
 }
 
 .enemy-attack {
   animation-name: enemyAttack;
-  animation-duration: 2s;
+  animation-duration: calc(2s * var(--animation-speed));
 }
 
 @keyframes enemyAttack {

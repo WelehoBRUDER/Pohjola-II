@@ -1,4 +1,4 @@
-var player = {
+let player = {
   name: "Hero",
   hp: 20,
   mp: 10,

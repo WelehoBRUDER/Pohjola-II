@@ -894,4 +894,4 @@ let trees = {
   paladin: true,
 };
 
-var selected_tree = warrior_tree;
+let selected_tree = warrior_tree;

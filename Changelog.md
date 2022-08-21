@@ -8,9 +8,11 @@
 - Crafted items can now be smelted to recover materials
 - Tweaked some abilities
 - Equipment gets autoequipped when bought (if better than current)
+- Game speed can now be changed in the options menu
 - Upgrading a stat now recovers hp / mp
 - Fixed missing tooltips
 - Fixed speed not updating outside of combat
+- Fixed some bugs
 
 # 0.4a
 

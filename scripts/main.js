@@ -15,7 +15,7 @@ const selectAll = (e) => {
 };
 const pxtovh = (v) => (v / clientHeight) * 100;
 const pxtovw = (v) => (v / clientWidth) * 100;
-var isFirefox = typeof InstallTrigger !== "undefined";
+let isFirefox = typeof InstallTrigger !== "undefined";
 let audio = {
   music: $("music"),
   effect: $("effect"),
@@ -134,7 +134,10 @@ let smallUpdater = setInterval(smallUpdate, 500);
 
 // These values are used for determining the edges of the screen.
 
-let combatTimer = setInterval(Update, 1000 / 60);
+let combatTimer = setInterval(
+  Update,
+  1000 / (60 * combatSpeeds[settings.combat_speed])
+);
 let textBox = $("gameInfoTextPopUp");
 
 // $ marks variables. Example: §/$R/$player.hp§
@@ -726,6 +729,7 @@ function DroppedText(drops) {
 }
 
 function battleEnd(condition) {
+  clearInterval(combatTimer);
   if (condition == "victory") {
     gauntlet.splice(gauntlet[enemy], 1);
     game_stats.enemies_killed++;
@@ -865,6 +869,10 @@ function NextInGauntlet() {
   if (state.gamemode.give_enemy_scaling_power) {
     enemy.statuses.push({ ...statuses.enemy_rage });
   }
+  combatTimer = setInterval(
+    Update,
+    1000 / (60 * combatSpeeds[settings.combat_speed])
+  );
   $("enemyName").textContent = "Lv" + enemy.level + " " + enemy.name;
   $("enemySprite").src = "images/" + enemy.name + ".png";
   EnemyNameColor();

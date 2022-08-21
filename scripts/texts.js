@@ -118,6 +118,7 @@ const texts = {
   _menu_sound: "Whether or not you want to hear sound effects while ingame.",
   Soldier: "Gain 10 HP and 2 str. Start with broken sword and leather armor.",
   Barbarian: "Gain 5 HP and 5 str.",
+  Vagabond: "Gain 3 agi and 3 str. Start with leather armor.",
   Scholar: "Gain 10 MP and 2 int. Start with broomstick and rags.",
   holy_smite:
     "Deals §$Math.floor(calculateDmg(player, enemy, getMove(player, 'holy_smite')))§ damage. §:br§ Cooldown: §$getCooldown(player, holy_smite)§s",
@@ -126,7 +127,9 @@ const texts = {
     "Increases damage by §$(enemy.statuses[0].damage_buff*100).toFixed(1)§%. Increases by 0.3% every turn.",
 };
 
-const settings = {
+let settings = {
   dont_ask_when_using_item: false,
   sound_effects: true,
+  animation_speed: "normal",
+  combat_speed: "normal",
 };

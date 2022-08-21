@@ -46,9 +46,9 @@ let menu = {
 
 function generateKey(len) {
   charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  var randomString = "";
-  for (var i = 0; i < len; i++) {
-    var randomPoz = Math.floor(Math.random() * charSet.length);
+  let randomString = "";
+  for (let i = 0; i < len; i++) {
+    let randomPoz = Math.floor(Math.random() * charSet.length);
     randomString += charSet.substring(randomPoz, randomPoz + 1);
   }
   return randomString;
@@ -58,6 +58,7 @@ function init() {
   if (JSON.parse(localStorage.getItem(`settings`))) {
     settings = JSON.parse(localStorage.getItem(`settings`));
   }
+  setAnimationSpeed(animationSpeeds[settings.animation_speed || "normal"]);
   save_slots = JSON.parse(localStorage.getItem(`save_slots`)) || [];
   save_slots = save_slots.sort((x1, x2) => x2.time - x1.time);
   findIDs();
@@ -87,6 +88,14 @@ function init() {
         { increase: "maxhp", by: 5 },
         { increase_stat: "str", by: 5 },
       ],
+    },
+    {
+      name: "Vagabond",
+      effects: [
+        { increase_stat: "agi", by: 3 },
+        { increase_stat: "str", by: 3 },
+      ],
+      armor: copy(armors.leather_armor),
     },
     {
       name: "Scholar",
@@ -150,11 +159,58 @@ function options() {
     $("optarr").style.transform = "rotateZ(90deg) scale(1)";
     menu.settings_open = true;
     $("optionsMenu").style.transform = "rotate(0deg) scale(1)";
+    createAnimationSpeedOptions();
+    createCombatSpeedOptions();
   } else {
     $("optarr").style.transform = "rotateZ(0deg) scale(0)";
     menu.settings_open = false;
     $("optionsMenu").style.transform = "rotate(90deg) scale(0)";
   }
+}
+
+function createAnimationSpeedOptions() {
+  const select = $("animation-speed");
+  select.innerHTML = "";
+  select.removeEventListener("change", updateAnimationSpeed(select.value));
+  Object.keys(animationSpeeds).forEach((key) => {
+    const option = create("option");
+    option.value = key;
+    option.textContent = key.toUpperCase();
+    select.appendChild(option);
+  });
+  select.addEventListener("change", () => {
+    updateAnimationSpeed(select.value);
+  });
+  select.value = settings.animation_speed;
+}
+
+function createCombatSpeedOptions() {
+  const select = $("combat-speed");
+  select.innerHTML = "";
+  select.removeEventListener("change", updateCombatSpeed(select.value));
+  Object.keys(combatSpeeds).forEach((key) => {
+    const option = create("option");
+    option.value = key;
+    option.textContent = key.toUpperCase();
+    select.appendChild(option);
+  });
+  select.addEventListener("change", () => {
+    updateCombatSpeed(select.value);
+  });
+  select.value = settings.animation_speed;
+}
+
+function updateAnimationSpeed(value) {
+  if (!value || value === "") return;
+  settings.animation_speed = value;
+  localStorage.setItem("settings", JSON.stringify(settings));
+  setAnimationSpeed(animationSpeeds[value]);
+}
+
+function updateCombatSpeed(value) {
+  if (!value || value === "") return;
+  settings.combat_speed = value;
+  localStorage.setItem("settings", JSON.stringify(settings));
 }
 
 function toggle(tog) {
@@ -396,3 +452,24 @@ function itemHoverText(item, price = -1) {
   }
   return hoverText;
 }
+
+const animationSpeeds = {
+  extremely_fast: 0.15,
+  very_fast: 0.4,
+  fast: 0.6,
+  quick: 0.8,
+  normal: 1,
+  slow: 1.2,
+  very_slow: 1.4,
+  extremely_slow: 2,
+};
+function setAnimationSpeed(speed) {
+  document.documentElement.style.setProperty("--animation-speed", speed);
+}
+const combatSpeeds = {
+  extremely_fast: 3,
+  very_fast: 2,
+  fast: 1.5,
+  normal: 1,
+  slow: 0.5,
+};

@@ -116,7 +116,7 @@ function DeleteGameHC() {
 function saveOver(name, time, save) {
   playSound("click");
   let sortTime = +new Date();
-  save_slots[selected_slot.id] = {
+  save_slots[save_slots.findIndex((s) => s.key === selected_slot.key)] = {
     text: `${name} || Last Saved: ${time} || Character Level: ${player.level}`,
     save: save,
     id: selected_slot.id,

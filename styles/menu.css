@@ -36,7 +36,7 @@
 
 #optionsMenu {
   transition: 0.35s;
-  width: 18vw;
+  width: 24vw;
   height: 20vw;
   background: rgb(25, 25, 25);
   position: absolute;
@@ -55,6 +55,8 @@
   font-size: 1.25vw;
   position: relative;
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
   margin: 1vw;
   text-align: left;
   max-height: 1.25vw;
@@ -68,8 +70,14 @@
   background: grey;
   vertical-align: top;
   position: relative;
-  bottom: 0.75vw;
   text-align: center;
+}
+
+#animation-speed, #combat-speed {
+  margin-right: 0.5vw;
+  font-size: 1vw;
+  background: rgb(27, 27, 27);
+  color: white;
 }
 
 #optionsMenu div:hover {

@@ -197,7 +197,7 @@ function EnemyAttack() {
           break;
         }
       }
-      setTimeout(reset, 1000);
+      setTimeout(reset, 1000 * animationSpeeds[settings.animation_speed]);
       return;
     }
   }
@@ -207,14 +207,26 @@ function EnemyAttack() {
   }
   if (!attack.physical) {
     $("enemySpriteContainer").classList.add("enemy-attack--magical");
-    setTimeout(() => createProjectile(attack.id, $("enemySprite"), false), 400);
-    setTimeout(() => enemyAttacks(attack), 1000);
-    setTimeout(resetProjectile, 950);
-    setTimeout(reset, 1400);
+    setTimeout(
+      () => createProjectile(attack.id, $("enemySprite"), false),
+      400 * animationSpeeds[settings.animation_speed]
+    );
+    setTimeout(
+      () => enemyAttacks(attack),
+      1000 * animationSpeeds[settings.animation_speed]
+    );
+    setTimeout(
+      resetProjectile,
+      950 * animationSpeeds[settings.animation_speed]
+    );
+    setTimeout(reset, 1400 * animationSpeeds[settings.animation_speed]);
   } else {
     $("enemySpriteContainer").classList.add("enemy-attack");
-    setTimeout(() => enemyAttacks(attack), 1050);
-    setTimeout(reset, 2000);
+    setTimeout(
+      () => enemyAttacks(attack),
+      1050 * animationSpeeds[settings.animation_speed]
+    );
+    setTimeout(reset, 2000 * animationSpeeds[settings.animation_speed]);
   }
 }
 
@@ -224,8 +236,8 @@ function PlayerAttack() {
   player_turns++;
   state.action = true;
   $("playerSpriteContainer").classList.add("player-attack");
-  setTimeout(attackEnemy, 1050);
-  setTimeout(reset, 2000);
+  setTimeout(attackEnemy, 1050 * animationSpeeds[settings.animation_speed]);
+  setTimeout(reset, 2000 * animationSpeeds[settings.animation_speed]);
 }
 
 function Ability(move) {
@@ -253,24 +265,36 @@ function Ability(move) {
     createEventlog(player.name, move.name);
     $("playerSprite").classList.add("heal");
     generateMagicalMoves();
-    setTimeout(reset, 1000);
+    setTimeout(reset, 1000 * animationSpeeds[settings.animation_speed]);
   } else if (move.power <= 0) {
     if (move.mp_cost) player.mp -= move.mp_cost;
     $("playerSprite").classList.add("heal");
     player.statuses.push(copy(player.move_statuses[move.status]));
     createParticle(move.name, B, $("playerSprite"));
     createEventlog(player.name, move.name);
-    setTimeout(reset, 1000);
+    setTimeout(reset, 1000 * animationSpeeds[settings.animation_speed]);
   } else if (move.physical) {
     $("playerSpriteContainer").classList.add("player-attack");
-    setTimeout(() => hurtEnemy(move), 1050);
-    setTimeout(reset, 2000);
+    setTimeout(
+      () => hurtEnemy(move),
+      1050 * animationSpeeds[settings.animation_speed]
+    );
+    setTimeout(reset, 2000 * animationSpeeds[settings.animation_speed]);
   } else {
     $("playerSpriteContainer").classList.add("player-attack--magical");
-    setTimeout(() => createProjectile(move.id, $("playerSprite"), true), 400);
-    setTimeout(() => hurtEnemy(move), 1000);
-    setTimeout(resetProjectile, 950);
-    setTimeout(reset, 1400);
+    setTimeout(
+      () => createProjectile(move.id, $("playerSprite"), true),
+      400 * animationSpeeds[settings.animation_speed]
+    );
+    setTimeout(
+      () => hurtEnemy(move),
+      1000 * animationSpeeds[settings.animation_speed]
+    );
+    setTimeout(
+      resetProjectile,
+      950 * animationSpeeds[settings.animation_speed]
+    );
+    setTimeout(reset, 1400 * animationSpeeds[settings.animation_speed]);
   }
 }
 
@@ -346,7 +370,7 @@ function UseItem(item) {
     createEventlog(player.name, item.name);
     $("playerSprite").classList.add("heal");
     generateInventoryItems();
-    setTimeout(reset, 1000);
+    setTimeout(reset, 1000 * animationSpeeds[settings.animation_speed]);
   }
   if (item.amount < 1)
     for (let i = 0; i < player.items.length; i++) {
