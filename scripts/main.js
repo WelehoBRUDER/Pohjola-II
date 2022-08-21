@@ -745,6 +745,11 @@ function battleEnd(condition) {
     xp = Math.ceil(xp * (1 + player.stats.lck / 100));
     gold = Random(enemy.gold.max, enemy.gold.min);
     gold = Math.ceil(gold * (1 + player.stats.lck / 25));
+    if (!player.enemies_slain[enemy.id]) {
+      player.enemies_slain[enemy.id] = 1;
+    } else {
+      player.enemies_slain[enemy.id]++;
+    }
     let dropped = [];
     if (enemy.drops) {
       for (let drop of enemy.drops) {

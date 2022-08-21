@@ -174,7 +174,14 @@ function createCodex() {
     let content = create("div");
     for (let con of title.content) {
       let p = create("p");
-      p.textContent = con.name;
+      const id = con.name.replace(/\s/g, "_").toLowerCase();
+      if (enemies[id]?.name) {
+        if (player.enemies_slain[id]) {
+          p.textContent = con.name;
+        } else p.textContent = "???";
+      } else {
+        p.textContent = con.name;
+      }
       p.id = con.name;
       p.onclick = function (e) {
         e.stopPropagation();
@@ -211,6 +218,10 @@ function openCodex(e) {
   for (let title of codex) {
     for (let con of title.content) {
       if (con.name == e.target.id) {
+        const id = con.name.replace(/\s/g, "_").toLowerCase();
+        if (enemies[id]?.name) {
+          if (!player.enemies_slain[id]) break;
+        }
         if (con.image) {
           let img = create("img");
           img.src = "images/" + con.image;
@@ -220,7 +231,7 @@ function openCodex(e) {
         }
         if (con.text) $("codexText").appendChild(textSyntax(con.text));
         if (con.desc) {
-          let foe = enemies[con.name.replace(/\s/g, "_").toLowerCase()];
+          let foe = enemies[id];
           let img = create("img");
           img.src = "images/" + foe.name + ".png";
           img.id = "codexImage";

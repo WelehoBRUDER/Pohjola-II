@@ -157,6 +157,7 @@ function loadGame(menu) {
   if (!player.critDamage) player.critDamage = 50;
   if (!player.hpMultiplier) player.hpMultiplier = 1;
   if (!player.move_statuses) player.move_statuses = {};
+  if (!player.enemies_slain) player.enemies_slain = {};
   for (let move of player.moves) {
     if (move.status) {
       if (!player.move_statuses[move.status])

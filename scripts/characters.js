@@ -39,6 +39,7 @@ let player = {
   stages_beaten: {},
   floors_beaten: {},
   move_statuses: {},
+  enemies_slain: {},
   temporary_effects: [],
 };
 
@@ -1004,3 +1005,7 @@ const enemies = {
     music: 2,
   },
 };
+
+Object.keys(enemies).map((e) => {
+  enemies[e].id = e;
+});
