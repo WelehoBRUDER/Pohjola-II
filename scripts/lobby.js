@@ -312,7 +312,7 @@ function createStages(floor) {
     if (floor.stages[stage].name == "Stage 0") continue;
     if (
       floor.stages[stage].name == "_God_" &&
-      !player.stages_beaten.college_ball
+      !player.stages_beaten.collegeball
     )
       continue;
     let but = create("button");
