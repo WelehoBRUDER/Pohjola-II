@@ -973,7 +973,7 @@ const enemies = {
       str: 99,
       vit: 300,
       int: 99,
-      agi: 99,
+      agi: 30,
       lck: -1,
     },
     items: [],
