@@ -387,7 +387,20 @@ let game_stats = {
   longest_battle_in_turns: 0,
   most_turns_player: 0,
   most_turns_enemy: 0,
+  play_time: 0,
 };
+
+let timePlayedNow = 0;
+
+function playTime() {
+  if (!game_stats.play_time) {
+    game_stats.play_time = 0;
+  }
+  game_stats.play_time += Math.round(
+    (performance.now() - timePlayedNow) / 1000
+  );
+  timePlayedNow = performance.now();
+}
 
 const stat_texts = {
   enemies_killed: "Enemies Killed",
@@ -397,6 +410,7 @@ const stat_texts = {
   longest_battle_in_turns: "Longest Battle in Turns",
   most_turns_player: "Most Turns You Got In a Battle",
   most_turns_enemy: "Most Turns Your Enemy Got in a Battle",
+  play_time: "Time Played",
 };
 
 function createStatistics() {
@@ -404,7 +418,14 @@ function createStatistics() {
   statistics.id = "statistics";
   Object.entries(game_stats).forEach(([key, value]) => {
     let stat = create("p");
-    stat.textContent = `${stat_texts[key]}: ${value}`;
+    if (key === "play_time") {
+      let hours = Math.floor(value / 3600);
+      let minutes = Math.floor((value - hours * 3600) / 60);
+      let seconds = value - hours * 3600 - minutes * 60;
+      stat.textContent = `${stat_texts[key]} ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
+    } else {
+      stat.textContent = `${stat_texts[key]}: ${value}`;
+    }
     statistics.appendChild(stat);
   });
   $("mainWindowContainer").appendChild(statistics);

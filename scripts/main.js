@@ -730,6 +730,7 @@ function DroppedText(drops) {
 
 function battleEnd(condition) {
   clearInterval(combatTimer);
+  playTime();
   if (condition == "victory") {
     gauntlet.splice(gauntlet[enemy], 1);
     game_stats.enemies_killed++;
@@ -863,6 +864,7 @@ function EndGauntlet(condition) {
 }
 
 function NextInGauntlet() {
+  playTime();
   $("battleEndScreen").style.transform =
     "translateX(-50%) translateY(-50%) scale(0)";
   player.action_points = 0;

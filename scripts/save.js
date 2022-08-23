@@ -61,7 +61,8 @@ function saveGame() {
     "." +
     ("0" + saveTime.getMinutes()).slice(-2);
   let key = generateKey(7);
-  if (selected_slot == null)
+  if (selected_slot == null) {
+    playTime();
     save_slots.push({
       text: `${saveName} || Last Saved: ${saveTime} || Character Level: ${player.level}`,
       save: gameSave,
@@ -71,7 +72,7 @@ function saveGame() {
       stats: game_stats,
       key: key,
     });
-  else {
+  } else {
     createPrompt(
       `Are you sure you wish to save over slot ${selected_slot.text}?`,
       () => saveOver(saveName, saveTime, gameSave)
@@ -116,6 +117,7 @@ function DeleteGameHC() {
 function saveOver(name, time, save) {
   playSound("click");
   let sortTime = +new Date();
+  playTime();
   save_slots[save_slots.findIndex((s) => s.key === selected_slot.key)] = {
     text: `${name} || Last Saved: ${time} || Character Level: ${player.level}`,
     save: save,
@@ -132,6 +134,7 @@ function saveOver(name, time, save) {
 function loadGame(menu) {
   playSound("click");
   playLobbyMusic();
+  timePlayedNow = performance.now();
   if (selected_slot == null) return;
   currentSave = selected_slot;
   if (!state.started) state.started = true;
@@ -169,6 +172,7 @@ function loadGame(menu) {
       medpot.id = "medium_healing_potion";
   }
   game_stats = selected_slot.stats;
+
   if (!game_stats) {
     game_stats = {
       enemies_killed: 0,

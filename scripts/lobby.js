@@ -103,6 +103,7 @@ function select(target) {
   playSound("click");
   SaveGameHC();
   updateLeftValues();
+  playTime();
   if (state.gamemode.prevent_manual_save && target == "Saves") return;
   $("mainWindowContainer").removeEventListener("click", removeSelect);
   for (let but of topBarButtons) {
